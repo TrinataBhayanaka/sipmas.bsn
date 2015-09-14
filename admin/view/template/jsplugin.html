@@ -1,0 +1,49 @@
+<!-- BEGIN: PAGE SCRIPTS -->
+
+  <!-- jQuery -->
+  <script src="{$basedomain}vendor/jquery/jquery-1.11.1.min.js"></script>
+  <script src="{$basedomain}vendor/jquery/jquery_ui/jquery-ui.min.js"></script>
+
+  <!-- HighCharts Plugin -->
+  <script src="{$basedomain}vendor/plugins/highcharts/highcharts.js"></script>
+
+  <!-- JvectorMap Plugin + US Map (more maps in plugin/assets folder) -->
+  <script src="{$basedomain}vendor/plugins/jvectormap/jquery.jvectormap.min.js"></script>
+  <script src="{$basedomain}vendor/plugins/jvectormap/assets/jquery-jvectormap-us-lcc-en.js"></script> 
+
+  <!-- FullCalendar Plugin + moment Dependency -->
+  <script src="{$basedomain}vendor/plugins/fullcalendar/lib/moment.min.js"></script>
+  <script src="{$basedomain}vendor/plugins/fullcalendar/fullcalendar.min.js"></script>
+
+  <!-- CanvasBG Plugin(creates mousehover effect) -->
+  <script src="{$basedomain}vendor/plugins/canvasbg/canvasbg.js"></script>
+
+  <!-- Theme Javascript -->
+  <script src="{$basedomain}assets/js/utility/utility.js"></script>
+  <script src="{$basedomain}assets/js/demo/demo.js"></script>
+  <script src="{$basedomain}assets/js/main.js"></script>
+
+  <!-- Widget Javascript -->
+  <script src="{$basedomain}assets/js/demo/widgets.js"></script>
+  <script type="text/javascript">
+  jQuery(document).ready(function() {
+
+    "use strict";
+
+    // Init Theme Core    
+    Core.init();
+
+    // Init Demo JS  
+    Demo.init();
+
+    // Init CanvasBG and pass target starting location
+    CanvasBG.init({
+      Loc: {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 3.3
+      },
+    });
+
+  });
+  </script>
+  <!-- END: PAGE SCRIPTS -->

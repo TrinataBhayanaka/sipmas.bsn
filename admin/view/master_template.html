@@ -1,0 +1,37 @@
+
+{include file="template/meta.html"}
+{if ($admin)}
+<body>
+	<script>
+		var basedomain = "{$basedomain}";
+	</script>
+	
+	
+		<div id="main">
+		{include file= "template/header.html"}
+		{include file= "template/sidebar.html"}
+			
+			<section id="content_wrapper">
+
+				{$content}
+				{include file= "template/footer.html"}
+
+			</section>	
+		</div>
+		{include file= "template/jsplugin.html"}
+{else}
+<body class="external-page sb-l-c sb-r-c">
+	<script>
+		var basedomain = "{$basedomain}";
+	</script>
+
+	<div id="main" class="animated fadeIn">
+
+		<!-- Start: Content-Wrapper -->
+	    <section id="content_wrapper">
+			{$content}
+			{include file= "template/jsplugin.html"}
+		</section>
+
+	</div>	
+{/if}			
