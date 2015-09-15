@@ -65,11 +65,13 @@
                 HOME
               </a>
             </li>
+            {if $user}
             <li class="dropdown"><!-- Log in -->
               <a href="#">
                 LAPOR PENGADUAN
               </a>
             </li>
+            {/if}
             <li class="dropdown"><!-- Open -->
               <a href="#">
                 TATA CARA
@@ -80,16 +82,18 @@
                 STATISTIK PENGADUAN
               </a>
             </li>
+            {if $user}
             <li class="dropdown"><!-- Log in -->
               <a href="#">
                 EDIT PROFILE
               </a>
             </li>
             <li class="dropdown"><!-- Log in -->
-              <a href="#">
+              <a href="{$basedomain}logout.php">
                 LOG OUT
               </a>
             </li> 
+            {/if}
           </ul>
 
         </nav>

@@ -118,7 +118,7 @@
             <!-- registrasi-->
             <div class="col-md-4 col-sm-4">
                 <!-- login form -->
-                <form action="http://theme.stepofweb.com/Smarty/v1.0.2/HTML/index.html" method="post" class="sky-form boxed">
+                <form action="{$basedomain}login/local" method="post" class="sky-form boxed">
                     <header><i class="fa fa-users"></i> Log In</header>
                     
                     <fieldset class="nomargin"> 
@@ -126,14 +126,14 @@
                         <label class="label margin-top-20">Username</label>
                         <label class="input">
                             <i class="ico-append fa fa-envelope"></i>
-                            <input type="email">
+                            <input type="text" name="username">
                             <span class="tooltip tooltip-top-right">Username anda</span>
                         </label>
                     
                         <label class="label margin-top-20">Password</label>
                         <label class="input">
                             <i class="ico-append fa fa-lock"></i>
-                            <input type="password">
+                            <input type="password" name="password">
                             <b class="tooltip tooltip-top-right">Masukkan Password</b>
                         </label>
                         <label class="checkbox margin-top-20">
@@ -145,6 +145,7 @@
 
                     <footer class="celarfix">
                         <button type="submit" class="btn btn-primary noradius pull-right"><i class="fa fa-check"></i> OK, LOG IN</button>
+                        <input type="hidden" name="token" value="1"/>
                         <div class="login-forgot-password pull-left">
                             <a href="page-password.html">Lupa password?</a>
                         </div>
