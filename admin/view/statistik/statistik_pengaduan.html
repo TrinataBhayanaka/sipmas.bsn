@@ -1,0 +1,199 @@
+<!--test-->
+<!-- Start: Topbar -->
+  <header id="topbar" class="alt">
+    <div class="topbar-left">
+      <ol class="breadcrumb">
+        <li class="crumb-active">
+          <a href="dashboard.html">Dashboard</a>
+        </li>
+        <li class="crumb-icon">
+          <a href="dashboard.html">
+            <span class="glyphicon glyphicon-home"></span>
+          </a>
+        </li>
+        <li class="crumb-link">
+          <a href="index-2.html">Home</a>
+        </li>
+        <li class="crumb-trail">Dashboard</li>
+      </ol>
+    </div>
+    <div class="topbar-right">
+      <div class="ib topbar-dropdown">
+        <label for="topbar-multiple" class="control-label pr10 fs11 text-muted">7 September 2015</label>
+      </div>
+    </div>
+  </header>
+<!-- End: Topbar -->
+
+<!-- Begin: Content -->
+<section id="content" class="animated fadeIn">
+
+
+	<div class="row center-block mt10" style="">
+		<div class="admin-form">
+			<div class="panel heading-border">
+				<div class="panel-body bg-light">
+					<div class="section-divider mb40" id="spy1">
+						<span>Search</span>
+					</div>
+				<form class="form-horizontal" role="form">
+					<div class="row">
+						<div class="col-md-8">
+							<div class="section">
+								<label class="field">
+									<input type="text" name="from" id="from" class="gui-input" placeholder="Masukkan kata kunci">
+								</label>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="section">
+								<label class="field select">
+								<select id="country" name="country">
+								  <option value="">Kategori Pencarian</option>
+								  <option value="AL">Judul laporan</option>
+								  <option value="DZ">Ruang lingkup laporan</option>
+								  <option value="AL">Satuan unit kerja terkait</option>
+								  <option value="DZ">Pejabat terkait</option>
+								  <option value="AL">Status laporan</option>
+								  <option value="DZ">Data user</option>
+								</select>
+								<i class="arrow"></i>
+								</label>
+							</div>
+						</div>
+					
+						<div class = "col-md-8">
+							<div class="form-group">
+								<div class="col-md-8">
+								  <div class="input-group date" id="daterangepicker1">
+									<span class="input-group-addon cursor">
+									  <i class="fa fa-calendar"></i>
+									</span>
+									<input type="text" class="form-control">
+								  </div>
+								</div>
+							</div>
+						</div>
+						<div class = "col-md-12">
+							<div class="col-xs-2  pull-right">
+							  <button type="button" class="btn btn-primary btn-gradient dark btn-block">Search</button>  
+							</div>
+						</div>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+						
+		<!-- statistik -->
+		 <div class="row">
+			<div class="col-md-12">
+			 <!-- Bar Chart -->
+			 <div class="admin-form">
+			  <div class="panel" id="spy1">
+				<div class="panel-heading">
+				  <span class="panel-icon">
+					<i class="fa fa-pencil"></i>
+				  </span>
+				  <span class="panel-title"> Statistik Laporan</span>
+				</div>
+				<div class="panel-body bg-light dark">
+				<form class="form-horizontal" role="form">
+					<div class="row">
+					  <div class = "col-md-6">
+							<div class="form-group">
+								<div class="col-md-12">
+								  <div class="input-group date" id="daterangepicker1">
+									<span class="input-group-addon cursor">
+									  <i class="fa fa-calendar"></i>
+									</span>
+									<input type="text" class="form-control">
+								  </div>
+								</div>
+							</div>
+						</div>
+						<div class = "col-md-6">
+							<div class="form-group">
+								<div class="col-xs-4 pull-left">
+								  <button type="button" class="btn btn-primary btn-gradient dark btn-block">View Report</button>  
+								</div>
+								<div class="col-xs-4">
+								  <button type="button" class="btn btn-primary btn-gradient dark btn-block">Export Report</button>  
+								</div>
+							</div>
+						</div>
+					
+						<div class = "col-md-6">
+						  <div class="form-group">
+							<label class="col-md-12 control-label">Statistik Laporan Pengaduan dari tanggal sampai tanggal</label>
+						  </div>
+						</div>
+						<div class="col-md-4">
+							<div class="section">
+								<label class="field select">
+								<select id="country" name="country">
+								  <option value="">Pilih Data</option>
+								  <option value="AL">laporan</option>
+								  <option value="DZ">User</option>  
+								</select>
+								<i class="arrow"></i>
+								</label>
+							</div>
+						</div>
+						
+						<div class="col-md-12">
+						<div class="chart2" style="height: 220px; width: 100%;"></div>
+						</div>
+						
+						<div class="col-md-12">
+						<form id="demoform" class="hide-list-label" action="#" method="post">
+							<div class="panel-heading">
+							  <span class="panel-title"> Custom Export Report </span>
+							</div>
+							<div class="panel-body p25">
+							  <select class="demo1" multiple="multiple" size="10" name="demo1">
+								<option value="option1">Option 1</option>
+								<option value="option2">Option 2</option>
+								<option value="option3">Option 3</option>
+								<option value="option4">Option 4</option>
+								<option value="option5">Option 5</option>
+								<option value="option6">Option 6</option>
+								<option value="option7">Option 7</option>
+								<option value="option8">Option 8</option>
+								<option value="option9">Option 9</option>
+								<option value="option10">Option 10</option>
+								<option value="option11">Option 11</option>
+								<option value="option12">Option 12</option>
+							  </select>
+							</div>
+							<div class="panel-footer text-right">
+							  <button type="submit" class="btn btn-default ph25">Preview Report</button>
+							  <button type="submit" class="btn btn-default ph25">Export Report</button>
+							  <button type="submit" class="btn btn-default ph25">Cancel</button>
+							</div>
+						</form>
+						</div>
+					</div>
+				
+				</form>
+			</div>
+		   </div>
+		  </div>
+		 </div>
+		</div>
+		
+		
+		<!-- end statistik -->
+						
+										
+	
+
+	
+			
+			
+				
+
+
+</section>
+<!-- End: Content -->

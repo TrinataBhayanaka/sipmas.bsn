@@ -22,12 +22,89 @@
   <script src="{$basedomain}assets/js/utility/utility.js"></script>
   <script src="{$basedomain}assets/js/demo/demo.js"></script>
   <script src="{$basedomain}assets/js/main.js"></script>
+  
+   <!-- BS Dual Listbox Plugin -->
+  <script src="{$basedomain}vendor/plugins/duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+  
+  <!-- Date Picker -->
+  <script src="{$basedomain}assets/admin-tools/admin-forms/js/jquery-ui-datepicker.min.js"></script>
+  <!-- DateRange Plugin -->
+  <script src="{$basedomain}vendor/plugins/daterange/daterangepicker.min.js"></script>
+  
+  <!-- Datatables CSS -->
+  <link rel="stylesheet" type="text/css" href="{$basedomain}vendor/plugins/datatables/media/css/dataTables.bootstrap.css">
+
+  <!-- Datatables Editor Addon CSS -->
+  <link rel="stylesheet" type="text/css" href="{$basedomain}vendor/plugins/datatables/extensions/Editor/css/dataTables.editor.css">
+
+  <!-- Datatables ColReorder Addon CSS -->
+  <link rel="stylesheet" type="text/css" href="{$basedomain}vendor/plugins/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css">
+
+  <!-- Datatables -->
+  <script src="{$basedomain}vendor/plugins/datatables/media/js/jquery.dataTables.js"></script>
+
+  <!-- Datatables Tabletools addon -->
+  <script src="{$basedomain}vendor/plugins/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+
+  <!-- Datatables ColReorder addon -->
+  <script src="{$basedomain}vendor/plugins/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
+
+  <!-- Datatables Bootstrap Modifications  -->
+  <script src="{$basedomain}vendor/plugins/datatables/media/js/dataTables.bootstrap.js"></script>
+  
+  <!-- Chart Plugins -->
+  <script src="{$basedomain}vendor/plugins/jqueryflot/jquery.flot.min.js"></script>
+  <script src="{$basedomain}vendor/plugins/jqueryflot/jquery.flot.resize.min.js"></script>
+  <script src="{$basedomain}vendor/plugins/jqueryflot/jquery.flot.pie.min.js"></script>
+  <script src="{$basedomain}vendor/plugins/jqueryflot/jquery.flot.tooltip.min.js"></script>
+
+<!-- Chart Javascript -->
+  <script src="{$basedomain}assets/js/demo/charts/flot.js"></script>
+
 
   <!-- Widget Javascript -->
   <script src="{$basedomain}assets/js/demo/widgets.js"></script>
   <script type="text/javascript">
   jQuery(document).ready(function() {
+  
+   /* @date picker
+    ------------------------------------------------------------------ */
+    $("#datepicker1").datepicker({
+      prevText: '<i class="fa fa-chevron-left"></i>',
+      nextText: '<i class="fa fa-chevron-right"></i>',
+      showButtonPanel: false,
+      beforeShow: function(input, inst) {
+        var newclass = 'admin-form';
+        var themeClass = $(this).parents('.admin-form').attr('class');
+        var smartpikr = inst.dpDiv.parent();
+        if (!smartpikr.hasClass(themeClass)) {
+          inst.dpDiv.wrap('<div class="' + themeClass + '"></div>');
+        }
+      }
+    });
+	
+	 // Dual List Plugin Init
+    var demo1 = $('.demo1').bootstrapDualListbox({
+      nonSelectedListLabel: 'Options',
+      selectedListLabel: 'Selected',
+      preserveSelectionOnMove: 'moved',
+      moveOnSelect: true,
+      nonSelectedFilter: 'ion ([7-9]|[1][0-2])'
+    });
+	
+	//Init chart
+	 FlotCharts.init();
+	
+	// Init DataTables
+    $('#datatable').dataTable({
+      "sDom": 't<"dt-panelfooter clearfix"ip>',
+      "oTableTools": {
+        "sSwfPath": "vendor/plugins/datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf"
+      }
+    });
 
+	 // Init DateRange plugin
+    $('#daterangepicker1').daterangepicker();
     "use strict";
 
     // Init Theme Core    
