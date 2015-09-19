@@ -1,7 +1,7 @@
 <?php
 // defined ('TATARUANG') or exit ( 'Forbidden Access' );
 
-class home extends Controller {
+class daftar_usersipmas extends Controller {
 	
 	var $models = FALSE;
 	
@@ -33,11 +33,11 @@ class home extends Controller {
 		// $quizStatistic = $this->contentHelper->quizStatistic();
 		// db($quizStatistic);
 
-		return $this->loadView('home/home');
+		return $this->loadView('daftar_user/user_sipmas');
 
 	}
 	
-
+	
 
 	
 }

@@ -20991,7 +20991,7 @@ body.external-page #canvas-wrapper {
 body.external-page #content .admin-form {
   position: relative;
   width: 100%;
-  max-width: 800px;
+  max-width: 500px;
   margin: 0 auto;
   margin-top: 8%;
 }
