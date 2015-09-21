@@ -28,12 +28,15 @@ class home extends Controller {
 	
 	public function index(){
 		
-		// uploadFile($data,$path=null,$ext){
-		
-		// $quizStatistic = $this->contentHelper->quizStatistic();
-		// db($quizStatistic);
 
 		return $this->loadView('home/home');
+
+	}
+
+	public function statistik(){
+		
+
+		return $this->loadView('home/statistik');
 
 	}
 	

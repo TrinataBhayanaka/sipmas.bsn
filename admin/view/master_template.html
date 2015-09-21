@@ -1,37 +1,41 @@
 
 {include file="template/meta.html"}
-{if ($admin)}
+
 <body>
 	<script>
 		var basedomain = "{$basedomain}";
 	</script>
 	
-	
-		<div id="main">
-		{include file= "template/header.html"}
-		{include file= "template/sidebar.html"}
+	{if ($admin)}
+	<div id="container" class="effect mainnav-lg">
+		
+
 			
-			<section id="content_wrapper">
-				{include file= "template/search.html"}
-				{$content}
-				{include file= "template/footer.html"}
+			{include file= "template/header.html"} 
 
-			</section>	
-		</div>
+			<div class="boxed">
+
+				<!--CONTENT CONTAINER-->
+				<!--===================================================-->
+				<div id="content-container">
+					
+					
+					{$content}
+
+				</div>
+			{include file= "template/sidebar.html"}
+
+			{include file= "template/top-bar.html"}
+
+			</div>
+			{include file= "template/footer.html"}
+	</div>
+	{include file= "template/search.html"}
+	{include file= "template/jsplugin.html"}
+	{else}
+		{$content}
 		{include file= "template/jsplugin.html"}
-{else}
-<body class="external-page sb-l-c sb-r-c">
-	<script>
-		var basedomain = "{$basedomain}";
-	</script>
+	{/if}		
 
-	<div id="main" class="animated fadeIn">
-
-		<!-- Start: Content-Wrapper -->
-	    <section id="content_wrapper">
-			{$content}
-			{include file= "template/jsplugin.html"}
-		</section>
-
-	</div>	
-{/if}			
+</body>
+</html>	

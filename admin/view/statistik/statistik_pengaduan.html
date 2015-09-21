@@ -1,143 +1,142 @@
-<!--test-->
-<!-- Start: Topbar -->
-  <header id="topbar" class="alt">
-    <div class="topbar-left">
-      <ol class="breadcrumb">
-        <li class="crumb-active">
-          <a href="dashboard.html">Dashboard</a>
-        </li>
-        <li class="crumb-icon">
-          <a href="dashboard.html">
-            <span class="glyphicon glyphicon-home"></span>
-          </a>
-        </li>
-        <li class="crumb-link">
-          <a href="index-2.html">Home</a>
-        </li>
-        <li class="crumb-trail">Dashboard</li>
-      </ol>
-    </div>
-    <div class="topbar-right">
-      <div class="ib topbar-dropdown">
-        <label for="topbar-multiple" class="control-label pr10 fs11 text-muted">7 September 2015</label>
-      </div>
-    </div>
-  </header>
-<!-- End: Topbar -->
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+	<h1 class="page-header text-overflow">Statistik Laporan</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
 
-<!-- Begin: Content -->
-<section id="content" class="animated fadeIn">
-
-
-				
-		<!-- statistik -->
-		 <div class="row">
-			<div class="col-md-12">
-			 <!-- Bar Chart -->
-			 <div class="admin-form">
-			  <div class="panel" id="spy1">
+<div id="page-content">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel">
 				<div class="panel-heading">
-				  <span class="panel-icon">
-					<i class="fa fa-pencil"></i>
-				  </span>
-				  <span class="panel-title"> Statistik Laporan</span>
+					<h3 class="panel-title">Statistik Laporan Pengaduan</h3>
 				</div>
-				<div class="panel-body bg-light dark">
-				<form class="form-horizontal" role="form">
+				<div class="panel-body">
 					<div class="row">
-					  <div class = "col-md-6">
-							<div class="form-group">
-								<div class="col-md-12">
-								  <div class="input-group date" id="daterangepicker1">
-									<span class="input-group-addon cursor">
-									  <i class="fa fa-calendar"></i>
-									</span>
-									<input type="text" class="form-control">
-								  </div>
+						<div class="col-md-12 mar-btm">
+							<div class="demo-dp-range">
+								<div class="input-daterange input-group" id="datepicker">
+									<input type="text" class="form-control" name="start" />
+									<span class="input-group-addon">sampai</span>
+									<input type="text" class="form-control" name="end" />
 								</div>
 							</div>
 						</div>
-						<div class = "col-md-6">
-							<div class="form-group">
-								<div class="col-xs-4 pull-left">
-								  <button type="button" class="btn btn-primary btn-gradient dark btn-block">View Report</button>  
-								</div>
-								<div class="col-xs-4">
-								  <button type="button" class="btn btn-primary btn-gradient dark btn-block">Export Report</button>  
-								</div>
-							</div>
+
+					</div>
+					<div class="col-md-6">
+							<select class="selectpicker" title="Pilih komponen laporan">
+								<option data-hidden="true"></option>
+								<option>Kelompok Pengaduan</option>
+								<option>Judul laporan</option>
+								<option>Ruang Lingkup laporan</option>
+								<option>Sub Ruang Lingkup laporan</option>
+								<option>Satuan Unit Kerja Terkait</option>
+								<option>Pejabat Terkait</option>
+								<option>Status Laporan</option>
+								<option>Tingkat Kepuasan Masyarakat</option>
+							</select>
 						</div>
-					
-						<div class = "col-md-6">
-						  <div class="form-group">
-							<label class="col-md-12 control-label">Statistik Laporan Pengaduan dari tanggal sampai tanggal</label>
-						  </div>
-						</div>
-						<div class="col-md-4">
-							<div class="section">
-								<label class="field select">
-								<select id="country" name="country">
-								  <option value="">Pilih Data</option>
-								  <option value="AL">laporan</option>
-								  <option value="DZ">User</option>  
-								</select>
-								<i class="arrow"></i>
-								</label>
-							</div>
-						</div>
-						
-						<div class="col-md-12">
-						<div class="chart2" style="height: 220px; width: 100%;"></div>
-						</div>
-						
-						<div class="col-md-12">
-						<form id="demoform" class="hide-list-label" action="#" method="post">
-							<div class="panel-heading">
-							  <span class="panel-title"> Custom Export Report </span>
-							</div>
-							<div class="panel-body p25">
-							  <select class="demo1" multiple="multiple" size="10" name="demo1">
-								<option value="option1">Option 1</option>
-								<option value="option2">Option 2</option>
-								<option value="option3">Option 3</option>
-								<option value="option4">Option 4</option>
-								<option value="option5">Option 5</option>
-								<option value="option6">Option 6</option>
-								<option value="option7">Option 7</option>
-								<option value="option8">Option 8</option>
-								<option value="option9">Option 9</option>
-								<option value="option10">Option 10</option>
-								<option value="option11">Option 11</option>
-								<option value="option12">Option 12</option>
-							  </select>
-							</div>
-							<div class="panel-footer text-right">
-							  <button type="submit" class="btn btn-default ph25">Preview Report</button>
-							  <button type="submit" class="btn btn-default ph25">Export Report</button>
-							  <button type="submit" class="btn btn-default ph25">Cancel</button>
-							</div>
-						</form>
+					<div class="row pull-right">
+						<div class="col-md-6">
+							<select class="selectpicker" title="Pilih data">
+								<option data-hidden="true"></option>
+								<option>Laporan</option>
+								<option>User</option>
+							</select>
 						</div>
 					</div>
-				
-				</form>
+
+					<div class="row text-center">
+						<div class="col-md-12">
+							<div id="demo-morris-bar" style="height:227px"></div>
+						</div>
+					</div>
+					
+
+				</div>
+				<div class="panel-footer">
+					<button class="btn btn-default">View Report</button>
+					<button class="btn btn-purple">Export Report</button>
+				</div>
 			</div>
-		   </div>
-		  </div>
-		 </div>
 		</div>
-		
-		
-		<!-- end statistik -->
-						
-										
+		<div class="col-lg-6">
+					
+			<!--Primary panel-->
+			<!--===================================================-->
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Custom Export Report</h3>
+				</div>
+				<div class="panel-body">
+					<div class="demo-dp-range mar-btm">
+						<div class="input-daterange input-group" id="datepicker">
+							<input type="text" class="form-control" name="start" />
+							<span class="input-group-addon">sampai</span>
+							<input type="text" class="form-control" name="end" />
+						</div>
+					</div>
+					<select class="demo1" multiple="multiple" size="10" name="demo1">
+	                    <option>Kelompok Pengaduan</option>
+	                    <option>Judul Laporan</option>
+	                    <option>Ruang Lingkup Laporan</option>
+	                    <option>Sub Ruang Lingkup Laporan</option>
+	                    <option>Satuan Unit Kerja Terkait</option>
+	                    <option>Pejabat Terkait</option>
+	                    <option>Status Laporan</option>
+	                    <option>Tingkat Kepuasan</option>
+	                    <option>Masyarakat</option>
+	                    <option>Tanggal Masuk Laporan</option>
+	                    <option>Tanggal Penelaahan Laporan</option>
+	                    <option>Tanggal Jatuh Tempo Laporan</option>
+	                </select>
+
+				</div>
+				<div class="panel-footer">
+					<button class="btn btn-default">View Report</button>
+					<button class="btn btn-purple">Export Report</button>
+				</div>
+			</div>
+			<!--===================================================-->
+			<!--End Primary Panel-->
 	
+		</div>
+	</div>
 
-	
-			
-			
-				
+	<div class="row demo-nifty-panel">
+		
+	</div>
+</div>
 
+<script type="text/javascript">
+	$(document).ready(function() {
+		// MORRIS BAR CHART
+		// =================================================================
+		// Require MorrisJS Chart
+		// -----------------------------------------------------------------
+		// http://morrisjs.github.io/morris.js/
+		// =================================================================
+		Morris.Bar({
+			element: 'demo-morris-bar',
+			data: [
+				{ y: '1', a: 20, b: 35, c:45, d:40 }
+			],
+			xkey: 'y',
+			ykeys: ['a', 'b', 'c', 'd'],
+			labels: ['Aktif', 'Ditindaklanjuti', 'Tidak Ditindaklanjuti', 'Non Aktif'],
+			gridEnabled: true,
+			gridLineColor: '#177bbb',
+			barColors: ['#177bbb', '#afd2f0'],
+			resize:true,
+			hideHover: 'auto'
+		});
 
-</section>
-<!-- End: Content -->
+		// Dual List Plugin Init
+	    var demo1 = $('.demo1').bootstrapDualListbox({
+	    });
+
+	});
+</script>

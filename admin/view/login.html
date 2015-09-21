@@ -1,115 +1,72 @@
-<!-- begin canvas animation bg -->
-  <div id="canvas-wrapper">
-    <canvas id="demo-canvas"></canvas>
-  </div>
+<link rel="stylesheet" href="{$basedomain}css/demo/nifty-demo.min.css" type="text/css" />
+<script src="{$basedomain}js/demo/bg-images.js"></script>
+	<div id="container" class="cls-container">
+		
+		<!-- BACKGROUND IMAGE -->
+		<!--===================================================-->
+		<div id="bg-overlay" class="bg-img img-balloon"></div>
+		
+		
+		<!-- HEADER -->
+		<!--===================================================-->
+		<div class="cls-header cls-header-lg">
+			<div class="cls-brand">
+				<a class="box-inline">
+					<!-- <img alt="Admin" src="images/logo.png" class="brand-icon"> -->
+					<span class="brand-title">SIPMAS BSN <span class="text-thin">Admin</span></span>
+				</a>
+			</div>
+		</div>
+		<!--===================================================-->
+		
+		
+		<!-- LOGIN FORM -->
+		<!--===================================================-->
+		<div class="cls-content">
+			<div class="cls-content-sm panel">
+				<div class="panel-body">
+					<!-- <img width="130px" src="{$basedomain}images/logos/logo-login.png" alt="Logo" /> -->
+					<p class="pad-btm">Sign In to your account</p>
+					<form action="{$basedomain}login/local" class="form" method="post">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-user"></i></div>
+								<input type="text" class="form-control" placeholder="Username" name="username" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
+								<input type="password" class="form-control" placeholder="Password" name="password" required>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-8 text-left checkbox">
+								<label class="form-checkbox form-icon">
+								<input type="checkbox"> Remember me
+								</label>
+							</div>
+							<div class="col-xs-4">
+								<div class="form-group text-right">
+								<input type="hidden" name="token" value="1">
+								<!-- <button class="btn btn-success text-uppercase" type="submit">Sign In</button> -->
+								</div>
+							</div>
+						</div>
+						<!-- <div class="mar-btm"><em>- or -</em></div> -->
+						<button class="btn btn-primary btn-lg btn-block" type="submit">
+							Sign In
+						</button>
+					</form>
+				</div>
+			</div>
+			<div class="pad-ver">
 
-  <!-- Begin: Content -->
-  <section id="content">
-
-    <div class="admin-form theme-info" id="login1">
-
-      <div class="row mb15 table-layout">
-
-        <div class="col-xs-6 va-m pln">
-          <a href="{$basedomain}" title="Return to Dashboard">
-            <img src="assets/img/logos/bsni.png" title="AdminDesigns Logo" class="img-responsive w100">
-          </a>
-        </div>
-
-        <div class="col-xs-6 text-right va-b pr5">
-          <div class="login-links">
-            <a href="{$basedomain}" class="active" title="Sign In">Sign In</a>
-            <span class="text-white"> | </span>
-            <a href="#" class="" title="Register">Admin</a>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="panel panel-info mt10 br-n">
-
-        <div class="panel-heading heading-border bg-white">
-          <span class="panel-title hidden">
-            <i class="fa fa-sign-in"></i>Register</span>
-          <div class="section row mn">
-            {*}<div class="col-sm-4">
-              <a href="#" class="button btn-social facebook span-left mr5 btn-block">
-                <span>
-                  <i class="fa fa-facebook"></i>
-                </span>Facebook</a>
-            </div>
-            <div class="col-sm-4">
-              <a href="#" class="button btn-social twitter span-left mr5 btn-block">
-                <span>
-                  <i class="fa fa-twitter"></i>
-                </span>Twitter</a>
-            </div>
-            <div class="col-sm-4">
-              <a href="#" class="button btn-social googleplus span-left btn-block">
-                <span>
-                  <i class="fa fa-google-plus"></i>
-                </span>Google+</a>
-            </div>{/*}
-          </div>
-        </div>
-
-        <!-- end .form-header section -->
-        <form action="{$basedomain}login/local" method="post">
-          <div class="panel-body bg-light p30">
-            <div class="row">
-              <div class="col-sm-12 pr30">
-
-                <div class="section">
-                  <label for="username" class="field-label text-muted fs18 mb10">Username</label>
-                  <label for="username" class="field prepend-icon">
-                    <input type="text" name="username" id="username" class="gui-input" placeholder="Enter username">
-                    <label for="username" class="field-icon">
-                      <i class="fa fa-user"></i>
-                    </label>
-                  </label>
-                </div>
-                <!-- end section -->
-
-                <div class="section">
-                  <label for="username" class="field-label text-muted fs18 mb10">Password</label>
-                  <label for="password" class="field prepend-icon">
-                    <input type="password" name="password" id="password" class="gui-input" placeholder="Enter password">
-                    <label for="password" class="field-icon">
-                      <i class="fa fa-lock"></i>
-                    </label>
-                  </label>
-                </div>
-                <!-- end section -->
-
-              </div>
-            </div>
-          </div>
-          <!-- end .form-body section -->
-          <div class="panel-footer clearfix p10 ph15">
-          	<input type="hidden" name="token" value="1">
-            <button type="submit" class="button btn-primary mr10 pull-right">Sign In</button>
-          </div>
-          <!-- end .form-footer section -->
-        </form>
-      </div>
-    </div>
-
-  </section>
-  <!-- End: Content -->
-
-  {literal}
-  <script type="text/javascript">
-    jQuery(document).ready(function() {
-
-      // Init CanvasBG and pass target starting location
-      CanvasBG.init({
-        Loc: {
-          x: window.innerWidth / 2,
-          y: window.innerHeight / 3.3
-        },
-      });
-      
-    });  
-  </script>
-  {/literal}
+			</div>
+		</div>
+		<!--===================================================-->
+		
+		
+	</div>
+	<!--===================================================-->
+	<!-- END OF CONTAINER -->
