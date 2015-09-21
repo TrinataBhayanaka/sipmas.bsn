@@ -10,7 +10,7 @@ $ROUTES = array(
                 'berita',
                 'quiz',
                 'profil',
-                'kursus',
+                'tatacara',
                 'search',
 		'register',
                 'recovery',
