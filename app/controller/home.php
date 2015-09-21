@@ -41,6 +41,21 @@ class home extends Controller {
     	}
     }
 
+    function forgot_password()
+    {
+    	return $this->loadView('forgot_password');
+    }
+
+    function register()
+    {
+    	return $this->loadView('register');
+    }
+
+    function register_confirmation()
+    {
+    	return $this->loadView('info');
+    }
+
 }
 
 ?>
