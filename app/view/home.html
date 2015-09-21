@@ -117,6 +117,7 @@
 
             <!-- registrasi-->
             <div class="col-md-4 col-sm-4">
+                {if !$user}
                 <!-- login form -->
                 <form action="{$basedomain}login/local" method="post" class="sky-form boxed">
                     <header><i class="fa fa-users"></i> Log In</header>
@@ -162,6 +163,40 @@
                     <button type="button" class="btn btn-info noradius"><i class="et-pencil"></i> Daftar Baru</button>
                     </a>
                 </div>
+                {else}
+                <form action="{$basedomain}" method="post" class="sky-form boxed">
+                    <header><i class="fa fa-search"></i> Tracking ID Laporan Anda</header>
+                    
+                    <fieldset class="nomargin"> 
+                        <p>Temukan status terakhir laporan anda dengan memasukkan 6 digit ID Laporan atau masukkan alamat email anda.</p>
+                        <label class="input">
+                            <i class="ico-append fa fa-envelope"></i>
+                            <input type="text" name="username">
+                            <span class="tooltip tooltip-top-right">Email atau ID laporan</span>
+                        </label>
+
+                    </fieldset>
+
+                    <footer class="celarfix">
+                        <button type="submit" class="btn btn-primary noradius pull-right"><i class="fa fa-check"></i> Lacak</button>
+                        <input type="hidden" name="token" value="1"/>
+                        <div class="login-forgot-password pull-left">
+                            
+                        </div>
+                    </footer>
+                </form>
+                
+                <div class="margin-bottom-20 text-center">
+                    Silahkan melakukan pelaporan berupa pengaduan, masukkan maupun keluhan yang terkait dengan standardisasi
+                </div>
+
+                <div class="socials margin-top10 text-center"><!-- more buttons: ui-buttons.html -->
+                    <a href="#">
+                    <button type="button" class="btn btn-info noradius"><i class="fa fa-file-text"></i> Lapor Pengaduan</button>
+                    </a>
+                </div>
+
+                {/if}
             </div>
             <!-- /registrasi -->
 

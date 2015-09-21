@@ -23,6 +23,7 @@ class home extends Controller {
 	
 	function index(){
 		
+		$this->view->assign('user',$this->user);
 		return $this->loadView('home');
     }
 
