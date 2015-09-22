@@ -37,6 +37,20 @@ class pengaturan_admin extends Controller {
 
 	}
 	
+	public function waktukriteria(){
+	
+	return $this->loadView('pengaturan/waktu_kriteria');
+	}
+	
+	public function ubahkonten(){
+	
+	return $this->loadView('pengaturan/ubah_konten');
+	}
+	
+	public function ruanglingkup(){
+	
+	return $this->loadView('pengaturan/kategori_ruang_lingkup');
+	}
 
 
 	
