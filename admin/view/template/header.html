@@ -1,52 +1,192 @@
-<!-- Start: Header -->
-  <header class="navbar navbar-fixed-top navbar-shadow">
-    <div class="navbar-branding">
-      <a class="navbar-brand" href="dashboard.html">
-        <b>SIPMAS</b>Admin
-      </a>
-      <span id="toggle_sidemenu_l" class="ad ad-lines"></span>
-    </div>
-    <ul class="nav navbar-nav navbar-left">
-      <li class="dropdown menu-merge hidden-xs">
-        <a href="http://bsn.go.id" target="_blank" role="button" aria-expanded="false"><img src="{$basedomain}assets/img/logos/bsni.jpeg" width="72px">
-        </a>
-      </li>
-      <li class="hidden-xs">
-        <a class="request-fullscreen toggle-active" href="#">
-          <span class="ad ad-screen-full fs18"></span>
-        </a>
-      </li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <!--<li class="menu-divider hidden-xs">
-        <i class="fa fa-circle"></i>
-      </li>-->
-      <li class="dropdown menu-merge">
-        <a href="#" class="dropdown-toggle fw600 p15" data-toggle="dropdown">
-        	<img src="{$basedomain}assets/img/avatars/1.png" alt="avatar" class="mw30 br64">
-        	<span class="hidden-xs pl15"> Admin </span>
-          <span class="caret caret-tp hidden-xs"></span>
-        </a>
-        <ul class="dropdown-menu list-group dropdown-persist w250" role="menu">
-          <li class="list-group-item">
-            <a href="#" class="animated animated-short fadeInUp">
-              <span class="fa fa-user"></span> Tambah Administrator
-            </a>
-          </li>
-          <li class="list-group-item">
-            <a href="#" class="animated animated-short fadeInUp">
-              <span class="fa fa-clock-o"></span> Ubah Waktu & Kriteria </a>
-          </li>
-          <li class="list-group-item">
-            <a href="#" class="animated animated-short fadeInUp">
-              <span class="fa fa-edit"></span> Ubah Konten </a>
-          </li>
-          <li class="dropdown-footer">
-            <a href="{$basedomain}logout.php" class="">
-            <span class="fa fa-power-off pr5"></span> Keluar </a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </header>
-  <!-- End: Header -->
+
+<!--NAVBAR-->
+<!--===================================================-->
+<header id="navbar">
+	<div id="navbar-container" class="boxed">
+
+		<!--Brand logo & name-->
+		<!--================================-->
+		<div class="navbar-header">
+			<a href="{$basedomain}" class="navbar-brand">
+				<img src="{$basedomain}images/logo.png" alt="Logo" class="brand-icon">
+				<div class="brand-title">
+					<span class="brand-text">SIPMAS BSN</span>
+				</div>
+			</a>
+		</div>
+		<!--================================-->
+		<!--End brand logo & name-->
+
+
+		<!--Navbar Dropdown-->
+		<!--================================-->
+		<div class="navbar-content clearfix">
+			<ul class="nav navbar-top-links pull-left">
+
+				<!--Navigation toogle button-->
+				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+				<li class="tgl-menu-btn">
+					<a class="mainnav-toggle" href="#">
+						<i class="fa fa-navicon fa-lg"></i>
+					</a>
+				</li>
+				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+				<!--End Navigation toogle button-->
+
+
+				<!--Messages Dropdown-->
+				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+				<!-- <li class="dropdown">
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle">
+						<i class="fa fa-envelope fa-lg"></i>
+						<span class="badge badge-header badge-warning">1</span>
+					</a> -->
+
+					<!--Message dropdown menu-->
+					<!-- <div class="dropdown-menu dropdown-menu-md with-arrow">
+						<div class="pad-all bord-btm">
+							<p class="text-lg text-muted text-thin mar-no">You have 1 message.</p>
+						</div>
+						<div class="nano scrollable">
+							<div class="nano-content">
+								<ul class="head-list"> -->
+							
+									<!-- Dropdown list-->
+									<!-- <li>
+										<a href="#" class="media">
+											<div class="media-left">
+												<img src="{$basedomain}images/ava/av2.png" alt="Profile Picture" class="img-circle img-sm">
+											</div>
+											<div class="media-body">
+												<div class="text-nowrap">Any message goes here</div>
+												<small class="text-muted">15 minutes ago</small>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div> -->
+
+						<!--Dropdown footer-->
+						<!-- <div class="pad-all bord-top">
+							<a href="#" class="btn-link text-dark box-block">
+								<i class="fa fa-angle-right fa-lg pull-right"></i>Show All Messages
+							</a>
+						</div>
+					</div> -->
+				</li>
+				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+				<!--End message dropdown-->
+
+
+
+
+				<!--Notification dropdown-->
+				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+				<!-- <li class="dropdown">
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle">
+						<i class="fa fa-bell fa-lg"></i>
+						<span class="badge badge-header badge-danger">1</span>
+					</a> -->
+
+					<!--Notification dropdown menu-->
+					<!-- <div class="dropdown-menu dropdown-menu-md with-arrow">
+						<div class="pad-all bord-btm">
+							<p class="text-lg text-muted text-thin mar-no">You have 1 notification.</p>
+						</div>
+						<div class="nano scrollable">
+							<div class="nano-content">
+								<ul class="head-list">
+									<li>
+										<a href="#" class="media">
+											<div class="media-left">
+												<span class="icon-wrap icon-circle bg-primary">
+													<i class="fa fa-comment fa-lg"></i>
+												</span>
+											</div>
+											<div class="media-body">
+												<div class="text-nowrap">Any notification goes here.</div>
+												<small class="text-muted">15 minutes ago</small>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div> -->
+
+						<!--Dropdown footer-->
+						<!-- <div class="pad-all bord-top">
+							<a href="#" class="btn-link text-dark box-block">
+								<i class="fa fa-angle-right fa-lg pull-right"></i>Show All Notifications
+							</a>
+						</div>
+					</div>
+				</li> -->
+				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+				<!--End notifications dropdown-->
+
+
+
+				
+
+			</ul>
+			<ul class="nav navbar-top-links pull-right">
+
+				<!--User dropdown-->
+				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+				<li id="dropdown-user" class="dropdown">
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+						<span class="pull-right">
+							<img class="img-circle img-user media-object" src="{$basedomain}images/ava/av1.png" alt="Profile Picture">
+						</span>
+						<div class="username hidden-xs">{$admin.username}</div>
+					</a>
+
+
+					<div class="dropdown-menu dropdown-menu-md dropdown-menu-right with-arrow panel-default">
+
+						<!-- User dropdown menu -->
+						<ul class="head-list">
+							<li>
+								<a href="#">
+									<i class="fa fa-user fa-fw fa-lg"></i> Tambah Administrator
+								</a>
+							</li>
+							<!-- <li>
+								<a href="#">
+									<span class="badge badge-danger pull-right">9</span>
+									<i class="fa fa-envelope fa-fw fa-lg"></i> Messages
+								</a>
+							</li> -->
+							<li>
+								<a href="#">
+									<i class="fa fa-gear fa-fw fa-lg"></i> Pengaturan
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fa fa-lock fa-fw fa-lg"></i> Lock screen
+								</a>
+							</li>
+						</ul>
+
+						<!-- Dropdown footer -->
+						<div class="pad-all text-right">
+							<a href="{$basedomain}logout.php" class="btn btn-primary">
+								<i class="fa fa-sign-out fa-fw"></i> Logout
+							</a>
+						</div>
+					</div>
+				</li>
+				<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+				<!--End user dropdown-->
+
+			</ul>
+		</div>
+		<!--================================-->
+		<!--End Navbar Dropdown-->
+
+	</div>
+</header>
+<!--===================================================-->
+<!--END NAVBAR-->

@@ -1,0 +1,117 @@
+<section class="page-header">
+	<div class="container">
+
+		<h1>Tatacara Pengaduan</h1>
+
+	</div>
+</section>
+
+
+<section>
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-md-8">
+				<div class="heading-title heading-border-bottom heading-color text-center">
+					<h3>Tatacara Pengaduan Masyarakat di Lingkungan BSN</h3>
+				</div>
+				<p>Terimakasih telah menggunakan dan/atau mengunjungi Sistem Informasi Pengaduan Masyarakat (SIPMAS) Online BSN. Sistem ini merupakan layanan yang diberikan Badan Standardisasi Nasional (BSN) dalam membangun komunikasi dengan masyarakat, khususnya terkait dengan keluhan, pengaduan, kritik dan/atau saran kepada BSN demi mewujudkan pelayanan BSN yang lebih baik.</p>
+
+				<p>Dengan SIPMAS Online BSN, diharapkan dapat memberikan manfaat sebagai berikut :</p>
+				<div class="col-md-8">
+					<ul class="list-unstyled list-icons">
+						<li><i class="fa fa-check text-success"></i> Masyarakat dapat berperan aktif untuk ikut serta mewujudkan penyelenggaraan negara yang bersih dan bebas dari Korupsi, Kolusi dan Nepotisme (KKN) di lingkungan BSN</li>
+						<li><i class="fa fa-check text-success"></i> BSN dapat meningkatkan pelayanan nya sesuai dengan harapan masyarakat dan dapat melakukan tindakan nyata dalam rangka menindaklanjuti pengawasan masyarakat</li>
+					</ul>
+				</div>
+				<div class="col-md-8">
+					<a href="#"><i class="fa fa-inbox fa-lg"></i> Download SOP Pengaduan Masyarakat.pdf</a>
+				</div>
+			</div>
+			<div class="col-md-4">
+				{if !$user}
+                <!-- login form -->
+                <form action="{$basedomain}login/local" method="post" class="sky-form boxed">
+                    <header><i class="fa fa-users"></i> Log In</header>
+                    
+                    <fieldset class="nomargin"> 
+                    
+                        <label class="label margin-top-20">Username</label>
+                        <label class="input">
+                            <i class="ico-append fa fa-envelope"></i>
+                            <input type="text" name="username">
+                            <span class="tooltip tooltip-top-right">Username anda</span>
+                        </label>
+                    
+                        <label class="label margin-top-20">Password</label>
+                        <label class="input">
+                            <i class="ico-append fa fa-lock"></i>
+                            <input type="password" name="password">
+                            <b class="tooltip tooltip-top-right">Masukkan Password</b>
+                        </label>
+                        <label class="checkbox margin-top-20">
+                            <input type="checkbox" name="checkbox-inline">
+                            <i></i> Ingat saya
+                            </label>
+
+                    </fieldset>
+
+                    <footer class="celarfix">
+                        <button type="submit" class="btn btn-primary noradius pull-right"><i class="fa fa-check"></i> OK, LOG IN</button>
+                        <input type="hidden" name="token" value="1"/>
+                        <div class="login-forgot-password pull-left">
+                            <a href="{$basedomain}home/forgot_password">Lupa password?</a>
+                        </div>
+                    </footer>
+                </form>
+                <!-- /login form -->
+
+                <div class="margin-bottom-20 text-center">
+                    &ndash; <b>ATAU</b> &ndash;
+                </div>
+
+                <div class="socials margin-top10 text-center"><!-- more buttons: ui-buttons.html -->
+                    <a href="{$basedomain}home/register">
+                    <button type="button" class="btn btn-info noradius"><i class="et-pencil"></i> Daftar Baru</button>
+                    </a>
+                </div>
+                {else}
+                <form action="{$basedomain}" method="post" class="sky-form boxed">
+                    <header><i class="fa fa-search"></i> Tracking ID Laporan Anda</header>
+                    
+                    <fieldset class="nomargin"> 
+                        <p>Temukan status terakhir laporan anda dengan memasukkan 6 digit ID Laporan atau masukkan alamat email anda.</p>
+                        <label class="input">
+                            <i class="ico-append fa fa-envelope"></i>
+                            <input type="text" name="username">
+                            <span class="tooltip tooltip-top-right">Email atau ID laporan</span>
+                        </label>
+
+                    </fieldset>
+
+                    <footer class="celarfix">
+                        <button type="submit" class="btn btn-primary noradius pull-right"><i class="fa fa-check"></i> Lacak</button>
+                        <input type="hidden" name="token" value="1"/>
+                        <div class="login-forgot-password pull-left">
+                            
+                        </div>
+                    </footer>
+                </form>
+                
+                <div class="margin-bottom-20 text-center">
+                    Silahkan melakukan pelaporan berupa pengaduan, masukkan maupun keluhan yang terkait dengan standardisasi
+                </div>
+
+                <div class="socials margin-top10 text-center"><!-- more buttons: ui-buttons.html -->
+                    <a href="#">
+                    <button type="button" class="btn btn-info noradius"><i class="fa fa-file-text"></i> Lapor Pengaduan</button>
+                    </a>
+                </div>
+
+                {/if}
+			</div>
+		</div>
+		
+	</div>
+</section>
+
