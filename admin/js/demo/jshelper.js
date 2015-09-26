@@ -70,6 +70,66 @@ function isNumber(evt) {
 		$(".demo-modal-radio").niftyCheck();
 	});
 	
+	
+	// BOOTBOX - CUSTOM HTML FORM
+	// =================================================================
+	// Require Bootbox
+	// http://bootboxjs.com/
+	// =================================================================
+
+	$('#demo-bootbox-custom-form').on('click', function(){
+		bootbox.dialog({
+			title: "Tambah Kategori Sub Ruang Lingkup",
+			message:'<div class="row"> ' + '<div class="col-md-12"> ' +
+					'<form class="form-horizontal"> ' + '<div class="form-group"> ' +
+					'<label class="col-md-5 control-label">Pilih Kategori Ruang Lingkup</label> ' +
+					'<div class="col-md-7"> <select class="selectpicker"> ' +
+					'<option>Penyalahgunaan Wewenang</option>' +
+					'<option>Pengawasan</option>' +
+					'<option>Regulasi</option>' + '</select>'+
+					'</div> </div>' + '<div class="form-group"> ' +
+					'<label class="col-md-5 control-label" for="name">Nama Kategori Sub Ruang Lingkup</label> ' +
+					'<div class="col-md-6"> ' +
+					'<input id="name" name="name" type="text" placeholder="Nama Kategori Sub Ruang Lingkup" class="form-control input-md"> ' +
+					'</div> ' +
+					'</div> ' + '</form> </div> </div><script></script>',
+			buttons: {
+					success: {
+						label: "Save",
+						className: "btn-success",
+						callback: function() {
+							$.niftyNoty({
+								type: 'success',
+								icon : 'fa fa-check',
+								message : 'You successfully save ',
+								container : 'floating',
+								timer : 3000
+							});
+						}
+					},
+
+					danger: {
+						label: "Cancel",
+						className: "btn-danger",
+						callback: function() {
+							$.niftyNoty({
+								type: 'danger',
+								icon : 'fa fa-times',
+								message : 'Change a few things up and try submitting again.',
+								container : 'floating',
+								timer : 3000
+							});
+						}
+					},
+
+				}
+		});
+		
+		$(".demo-modal-radio").niftyCheck();
+	});
+	
+
+	
 	//edit ajax glosarium
 	$('.glosarium-edit').on('click', function(){
 		var idCatatan = $(this).attr("value");
