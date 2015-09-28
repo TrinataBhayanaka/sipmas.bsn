@@ -1,107 +1,51 @@
-<!--test-->
-<!-- Start: Topbar -->
-  <header id="topbar" class="alt">
-    <div class="topbar-left">
-      <ol class="breadcrumb">
-        <li class="crumb-active">
-          <a href="dashboard.html">Dashboard</a>
-        </li>
-        <li class="crumb-icon">
-          <a href="dashboard.html">
-            <span class="glyphicon glyphicon-home"></span>
-          </a>
-        </li>
-        <li class="crumb-link">
-          <a href="index-2.html">Home</a>
-        </li>
-        <li class="crumb-trail">Dashboard</li>
-      </ol>
-    </div>
-    <div class="topbar-right">
-      <div class="ib topbar-dropdown">
-        <label for="topbar-multiple" class="control-label pr10 fs11 text-muted">7 September 2015</label>
-      </div>
-    </div>
-  </header>
-<!-- End: Topbar -->
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+	<h1 class="page-header text-overflow">Daftar User SIPMAS</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
 
-<!-- Begin: Content -->
-<section id="content" class="animated fadeIn">
-
-
-	<div class="row">
-
-		<div class="col-md-12">
-            <div class="panel">
-                
-                <div class="tab-content br-n pn">
-                    <div id="tab18_1" class="tab-pane active">
-                      <div class="row">
-                        <div class="col-md-12">
-							<table class="table table-striped table-hover datatable" cellspacing="0" width="100%">
-								<thead>
-								  <tr>
-									<th>No</th>
-									<th>Nama User</th>
-									<th>Email</th>
-									<th>Tanggal Registrasi</th>
-									<th>No. HP</th>
-									<th>Jumlah Pengaduan</th>
-									<th>Reset Password</th>
-								  </tr>
-								</thead>
-								<tbody>
-								  <tr>
-									<td>Tiger Nixon</td>
-									<td>System Architect</td>
-									<td>Edinburgh</td>
-									<td>61</td>
-									<td>2011/04/25</td>
-									<td>$320,800</td>
-									<td>
-										<div class="btn-group">
-						                  <button type="button" class="btn btn-primary">
-						                    <i class="fa fa-lock"></i>&nbsp;Reset
-						                  </button>
-						                </div>
-									</td>
-								  </tr>
-								</tbody>
-							</table>
-						</div>
-                    </div>
-                </div>
-                    <div id="tab18_2" class="tab-pane">
-                      <div class="row">
-                        <div class="col-md-12">
-                         <!-- Bar Chart -->
-						  <div class="panel" id="spy1">
-							<div class="panel-heading">
-							  <span class="panel-icon">
-								<i class="fa fa-pencil"></i>
-							  </span>
-							  <span class="panel-title"> Statistik Laporan Pengaduan 2015</span>
-							</div>
-							<div class="panel-body bg-light dark">
-							  <div class="chart2" style="height: 220px; width: 100%;"></div>
-							</div>
-						  </div>
-						</div>
-                      
-                      </div>
-                    </div>
-                  </div>
-               
-            </div> <!-- end panel-->
-        </div> 
-
-</div> <!-- end row -->
-			
-			
-				
-
-
-</section>
-<!-- End: Content --><!--test-->
-
-<!-- End: Content -->
+<div id="page-content">
+	<div class="panel">
+		<div class="panel-heading">
+			<h3 class="panel-title">Daftar User</h3>
+		</div>
+		<div class="panel-body">
+			<table id="demo-dt-basic" class="table table-striped table-bordered" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Nama user</th>
+						<th class="min-tablet">Email</th>
+						<th class="min-tablet">Tanggal Registrasi</th>
+						<th class="min-desktop">No. HP</th>
+						<th class="min-desktop">Jumlah Pengaduan</th>
+						<th class="min-desktop">Reset Password</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Tiger Nixon</td>
+						<td>System Architect</td>
+						<td>Edinburgh</td>
+						<td>61</td>
+						<td>08977777777</td>
+						<td>5</td>
+						<td><button class="btn btn-primary btn-labeled fa fa-lock">Reset</button></td>
+					</tr>
+					<tr>
+						<td>Garrett Winters</td>
+						<td>Accountant</td>
+						<td>Tokyo</td>
+						<td>63</td>
+						<td>089888888</td>
+						<td>12</td>
+						<td><button class="btn btn-primary btn-labeled fa fa-lock">Reset</button></td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
