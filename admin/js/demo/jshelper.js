@@ -83,7 +83,7 @@ function isNumber(evt) {
 			message:'<div class="row"> ' + '<div class="col-md-12"> ' +
 					'<form class="form-horizontal"> ' + '<div class="form-group"> ' +
 					'<label class="col-md-5 control-label">Pilih Kategori Ruang Lingkup</label> ' +
-					'<div class="col-md-7"> <select class="selectpicker"> ' +
+					'<div class="col-md-7"> <select class="selectpicker" id="selectkategori"> ' +
 					'<option>Penyalahgunaan Wewenang</option>' +
 					'<option>Pengawasan</option>' +
 					'<option>Regulasi</option>' + '</select>'+
@@ -126,6 +126,7 @@ function isNumber(evt) {
 		});
 		
 		$(".demo-modal-radio").niftyCheck();
+		$("#selectkategori").selectpicker('refresh');	
 	});
 	
 
