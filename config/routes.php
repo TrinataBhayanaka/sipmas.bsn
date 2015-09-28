@@ -8,19 +8,13 @@
 $ROUTES = array(
 		'home',
                 'berita',
-                'quiz',
                 'profil',
                 'tatacara',
-                'search',
+                'pengaduan',
 		'register',
                 'recovery',
-                'kontak',
-                'gallery',
-                'kepakaran',
-                'paket',
                 'login',
-                'user',
-                'tutorial'
+                'user'
         );
 ?>
 

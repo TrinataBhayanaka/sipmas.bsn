@@ -60,35 +60,35 @@
             </li>
           -->
           <ul id="topMain" class="nav nav-pills nav-main">
-            <li class="dropdown active"><!-- Open -->
+            <li class="active"><!-- Open -->
               <a href="{$basedomain}">
                 HOME
               </a>
             </li>
             {if $user}
-            <li class="dropdown"><!-- Log in -->
-              <a href="#">
+            <li class=""><!-- Log in -->
+              <a href="{$basedomain}pengaduan">
                 LAPOR PENGADUAN
               </a>
             </li>
             {/if}
-            <li class="dropdown"><!-- Open -->
+            <li class=""><!-- Open -->
               <a href="{$basedomain}tatacara">
                 TATA CARA
               </a>
             </li>
-            <li class="dropdown"><!-- Open -->
+            <li class=""><!-- Open -->
               <a href="#">
                 STATISTIK PENGADUAN
               </a>
             </li>
             {if $user}
-            <li class="dropdown"><!-- Log in -->
+            <li class=""><!-- Log in -->
               <a href="#">
                 EDIT PROFILE
               </a>
             </li>
-            <li class="dropdown"><!-- Log in -->
+            <li class=""><!-- Log in -->
               <a href="{$basedomain}logout.php">
                 LOG OUT
               </a>
