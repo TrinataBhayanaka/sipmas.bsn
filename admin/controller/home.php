@@ -40,7 +40,12 @@ class home extends Controller {
 
 	}
 	
+	public function search(){
+		
 
+		return $this->loadView('home/search');
+
+	}
 
 	
 }

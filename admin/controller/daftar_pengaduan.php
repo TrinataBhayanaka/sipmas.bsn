@@ -37,6 +37,17 @@ class daftar_pengaduan extends Controller {
 
 	}
 	
+	public function detail(){
+		
+		// uploadFile($data,$path=null,$ext){
+		
+		// $quizStatistic = $this->contentHelper->quizStatistic();
+		// db($quizStatistic);
+
+		return $this->loadView('pengaduan/detail');
+
+	}
+	
 	
 	
 
