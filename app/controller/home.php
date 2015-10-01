@@ -49,12 +49,17 @@ class home extends Controller {
 
     function register()
     {
-    	return $this->loadView('register');
+    	return $this->loadView('akun/register');
     }
 
     function register_confirmation()
     {
     	return $this->loadView('info');
+    }
+
+    function search()
+    {
+        return $this->loadView('search');
     }
 
 }

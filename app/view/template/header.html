@@ -60,31 +60,31 @@
             </li>
           -->
           <ul id="topMain" class="nav nav-pills nav-main">
-            <li class="active"><!-- Open -->
+            <li class="{if $page.page eq 'home' && $page.function eq 'index'}active{/if}"><!-- Open -->
               <a href="{$basedomain}">
                 HOME
               </a>
             </li>
             {if $user}
-            <li class=""><!-- Log in -->
+            <li class="{if $page.page eq 'pengaduan' && $page.function eq 'index'}active{/if}"><!-- Log in -->
               <a href="{$basedomain}pengaduan">
                 LAPOR PENGADUAN
               </a>
             </li>
             {/if}
-            <li class=""><!-- Open -->
+            <li class="{if $page.page eq 'tatacara' && $page.function eq 'index'}active{/if}"><!-- Open -->
               <a href="{$basedomain}tatacara">
                 TATA CARA
               </a>
             </li>
-            <li class=""><!-- Open -->
-              <a href="#">
+            <li class="{if $page.page eq 'statistik' && $page.function eq 'index'}active{/if}"><!-- Open -->
+              <a href="{$basedomain}statistik">
                 STATISTIK PENGADUAN
               </a>
             </li>
             {if $user}
-            <li class=""><!-- Log in -->
-              <a href="#">
+            <li class="{if $page.page eq 'profile' && $page.function eq 'index'}active{/if}"><!-- Log in -->
+              <a href="{$basedomain}profil">
                 EDIT PROFILE
               </a>
             </li>
