@@ -18,7 +18,7 @@
 		<div class="row">
 
 			<div class="col-md-8 col-sm-8">
-				<form class="nomargin sky-form boxed" action="#" method="post">
+				<form class="nomargin sky-form boxed" action="#" method="post" id="myForm">
 					<header>
 						<i class="fa fa-file-text"></i> Lapor Pengaduan
 						</header>
@@ -32,32 +32,32 @@
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-calendar"></i>
-							<input type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false" placeholder="Tanggal melakukan laporan">
+							<input type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false" placeholder="Tanggal melakukan laporan" required>
 							<b class="tooltip tooltip-bottom-right">Tanggal Laporan</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-file"></i>
-							<input type="text" placeholder="Judul Laporan">
+							<input type="text" placeholder="Judul Laporan" required>
 							<b class="tooltip tooltip-bottom-right">Judul pengaduan yang ingin anda laporkan</b>
 						</label>
 
 						<div class="fancy-form margin-bottom-20"><!-- textarea -->
-							<textarea class="summernote form-control" data-height="200" data-lang="en-US"></textarea>
+							<textarea class="summernote form-control" data-height="200" data-lang="en-US" required></textarea>
 						</div><!-- /textarea -->
 						<hr>
 						<div class="fancy-form margin-bottom-10">
-							<label class="checkbox nomargin"><input class="checked-agree" type="checkbox" name="checkbox" id="perorangan" onclick="return disenab(this)"><i></i>Pengaduan Terkait dengan Masalah Perorangan</label>
+							<label class="checkbox nomargin"><input class="checked-agree" type="checkbox" name="perorangan" id="perorangan" onclick="return personal()"><i></i>Pengaduan Terkait dengan Masalah Perorangan</label>
 						</div>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Nama / NIP Terlapor" id="namaTerlapor">
+							<input type="text" placeholder="Nama / NIP Terlapor" disabled class="personal">
 							<b class="tooltip tooltip-bottom-right">Nama pihak yang terkait dengan laporan anda</b>
 						</label>
 
 						<div class="fancy-form margin-bottom-10"><!-- textarea -->
-							<textarea rows="5" class="form-control word-count" data-maxlength="200" data-info="textarea-words-info" placeholder="Alamat"></textarea>
+							<textarea rows="5" class="form-control word-count personal" data-maxlength="200" data-info="textarea-words-info" placeholder="Alamat" disabled></textarea>
 							<i class="fa fa-map-marker"><!-- icon --></i>
 							<span class="fancy-hint size-11 text-muted">
 								<strong>Hint:</strong> 200 words allowed!
@@ -69,19 +69,19 @@
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Jabatan">
+							<input type="text" placeholder="Jabatan" class="personal" disabled>
 							<b class="tooltip tooltip-bottom-right">Jabatan pihak yang terkait dengan laporan anda</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Unit Kerja">
+							<input type="text" placeholder="Unit Kerja" class="personal" disabled>
 							<b class="tooltip tooltip-bottom-right">Unit kerja pihak yang terkait dengan laporan anda</b>
 						</label>
 
 						<label class="input margin-bottom-30">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Lokasi Kasus/Kejadian">
+							<input type="text" placeholder="Lokasi Kasus/Kejadian" class="personal" disabled>
 							<b class="tooltip tooltip-bottom-right">Lokasi terjadinya kasus/kejadian</b>
 						</label>
 						<hr>
@@ -98,13 +98,13 @@
 						</div>
 						
 						<div class="margin-top-30">
-							<label class="checkbox nomargin"><input class="checked-agree" type="checkbox" name="checkbox"><i></i>Dengan ini saya selaku pelapor membenarkan informasi yang saya kirimkan valid tanpa tekanan dari pihak manapun dan saya bertanggung jawab atas informasi yang saya kirimkan ini.</label>
+							<label class="checkbox nomargin"><input class="checked-agree" type="checkbox" name="termagree" onclick="return submitForm()"><i></i>Dengan ini saya selaku pelapor membenarkan informasi yang saya kirimkan valid tanpa tekanan dari pihak manapun dan saya bertanggung jawab atas informasi yang saya kirimkan ini.</label>
 						</div>
 					</fieldset>
 
 					<div class="row margin-bottom-20">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Lapor</button>
+							<button type="submit" class="btn btn-primary" id="buttonsubmit" disabled><i class="fa fa-check"></i> Lapor</button>
 						</div>
 					</div>
 
@@ -140,7 +140,7 @@
                     <fieldset class="nomargin"> 
                     	<div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link">Bagaimana penjelasan untuk SNI Pembalut Wanita ?</a>
+								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
 								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
 								<small>ID Laporan : 5623333</small>
 								<small>Status Laporan : Aktif</small>
@@ -149,7 +149,7 @@
 
 						<div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link">Bagaimana penjelasan untuk SNI Pembalut Wanita ?</a>
+								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
 								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
 								<small>ID Laporan : 5623333</small>
 								<small>Status Laporan : Aktif</small>
@@ -158,7 +158,7 @@
 
 						<div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link">Bagaimana penjelasan untuk SNI Pembalut Wanita ?</a>
+								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
 								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
 								<small>ID Laporan : 5623333</small>
 								<small>Status Laporan : Aktif</small>
@@ -167,7 +167,7 @@
 
 						<div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link">Bagaimana penjelasan untuk SNI Pembalut Wanita ?</a>
+								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
 								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
 								<small>ID Laporan : 5623333</small>
 								<small>Status Laporan : Aktif</small>
@@ -185,8 +185,31 @@
 
 {literal}
 <script type="text/javascript">
-	$('#perorangan').click(function (){
-		$()
-	})
+	function submitForm()
+	{
+		var atLeastOneIsChecked = $('input[name="termagree"]:checked').length > 0;
+		
+		if(atLeastOneIsChecked){
+			$("#buttonsubmit").removeAttr('disabled');
+			
+		} else {
+			$("#buttonsubmit").attr('disabled','disabled');
+			
+		}
+	}
+
+	function personal()
+	{
+		var atLeastOneIsChecked = $('input[name="perorangan"]:checked').length > 0;
+		
+		if(atLeastOneIsChecked){
+			$(".personal").removeAttr('disabled');
+			
+		} else {
+			$(".personal").val('');
+			$(".personal").attr('disabled','disabled');
+			
+		}
+	}
 </script>
 {/literal}

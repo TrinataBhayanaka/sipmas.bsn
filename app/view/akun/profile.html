@@ -1,0 +1,193 @@
+<section class="page-header">
+	<div class="container">
+
+		<h1>Profile User</h1>
+		<span class="font-lato size-18 weight-300 hidden-xs">Edit data user</span>
+
+		<!-- breadcrumbs -->
+		<ol class="breadcrumb">
+			<li><a href="{$basedomain}">Home</a></li>
+			<li class="active">Edit Profile</li>
+		</ol><!-- /breadcrumbs -->
+
+	</div>
+</section>
+
+<section>
+	<div class="container">
+		<div class="row">
+
+            <div class="col-md-8 col-sm-8">
+               <form class="nomargin sky-form boxed" action="#" method="post">
+					<header>
+						<i class="fa fa-user"></i> Perbaikan Data User
+						</header>
+
+					<fieldset class="nomargin">	
+						<label class="input margin-bottom-10">
+							<i class="ico-append fa fa-user"></i>
+							<input type="text" placeholder="Nama lengkap" required>
+							<b class="tooltip tooltip-bottom-right">Nama sesuai dengan KTP</b>
+						</label>
+
+						<label class="input margin-bottom-10">
+							<i class="ico-append fa fa-credit-card"></i>
+							<input type="text" placeholder="No. KTP" required>
+							<b class="tooltip tooltip-bottom-right">Nomor induk KTP</b>
+						</label>
+
+						<label class="input margin-bottom-10">
+							<i class="ico-append fa fa-envelope"></i>
+							<input type="text" placeholder="Alamat Email" required>
+							<b class="tooltip tooltip-bottom-right">Harus email aktif</b>
+						</label>
+
+						<label class="input margin-bottom-10">
+							<i class="ico-append fa fa-phone"></i>
+							<input type="text" placeholder="No. HP" required>
+							<b class="tooltip tooltip-bottom-right">Nomor yang dapat dihubungi</b>
+						</label>
+
+						<div class="fancy-form margin-bottom-10"><!-- textarea -->
+							<textarea rows="5" class="form-control word-count" data-maxlength="200" data-info="textarea-words-info" placeholder="Alamat" required></textarea>
+							<i class="fa fa-map-marker"><!-- icon --></i>
+							<span class="fancy-hint size-11 text-muted">
+								<strong>Hint:</strong> 200 words allowed!
+								<span class="pull-right">
+									<span id="textarea-words-info">0/200</span> Words
+								</span>
+							</span>
+						</div><!-- /textarea -->
+
+						<label class="select margin-bottom-10">
+							<select required>
+								<option value="0" selected disabled>Pilih Jenis Pekerjaan</option>
+								<option value="1">Pelajar</option>
+								<option value="2">Karyawan Swasta</option>
+								<option value="3">Pegawai Negeri</option>
+							</select>
+							<i></i>
+						</label>
+						
+						<div class="margin-bottom-10 margin-top-30">
+							<label class="checkbox nomargin"><input class="checked-agree" type="checkbox" name="checkbox" onclick="return newPassword()"><i></i> Ganti Password</label>
+						</div>
+
+						<label class="input margin-bottom-10">
+							<i class="ico-append fa fa-lock"></i>
+							<input type="password" placeholder="Old Password" id="oldPass" disabled>
+							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+						</label>
+					
+						<label class="input margin-bottom-10">
+							<i class="ico-append fa fa-lock"></i>
+							<input type="password" placeholder="New Password" id="newPass" disabled>
+							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
+						</label>
+
+						<div class="margin-top-10">
+							<div class="g-recaptcha" data-sitekey="6Le_OA0TAAAAACLAF3nvgBJYFbJACQXwhMt1wr0s"></div>
+							{*}secret key | Tolong hapus klo sudah : 6Le_OA0TAAAAAEjdg4YdX12AIdesAu_vr3g8Xsco{/*}
+						</div>
+						
+					</fieldset>
+
+					<div class="row margin-bottom-20">
+						<div class="col-md-12">
+							<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Ok, Simpan</button>
+						</div>
+					</div>
+
+				</form>
+               
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <form action="{$basedomain}" method="post" class="sky-form boxed">
+                    <header><i class="fa fa-search"></i> Tracking ID Laporan Anda</header>
+                    
+                    <fieldset class="nomargin"> 
+                        <p>Temukan status terakhir laporan anda dengan memasukkan 6 digit ID Laporan atau masukkan alamat email anda.</p>
+                        <label class="input">
+                            <i class="ico-append fa fa-envelope"></i>
+                            <input type="text" name="username">
+                            <span class="tooltip tooltip-top-right">Email atau ID laporan</span>
+                        </label>
+
+                    </fieldset>
+
+                    <footer class="celarfix">
+                        <button type="submit" class="btn btn-primary noradius pull-right"><i class="fa fa-check"></i> Lacak</button>
+                        <input type="hidden" name="token" value="1"/>
+                        <div class="login-forgot-password pull-left">
+                            
+                        </div>
+                    </footer>
+                </form>
+
+                <form action="{$basedomain}" method="post" class="sky-form boxed">
+                    <header><i class="fa fa-tags"></i> Daftar Pengaduan Anda</header>
+                    
+                    <fieldset class="nomargin"> 
+                        <div class="row tab-post">
+                            <div class="col-md-12 col-sm-9 col-xs-9">
+                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
+                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
+                                <small>ID Laporan : 5623333</small>
+                                <small>Status Laporan : Aktif</small>
+                            </div>
+                        </div>
+
+                        <div class="row tab-post">
+                            <div class="col-md-12 col-sm-9 col-xs-9">
+                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
+                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
+                                <small>ID Laporan : 5623333</small>
+                                <small>Status Laporan : Aktif</small>
+                            </div>
+                        </div>
+
+                        <div class="row tab-post">
+                            <div class="col-md-12 col-sm-9 col-xs-9">
+                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
+                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
+                                <small>ID Laporan : 5623333</small>
+                                <small>Status Laporan : Aktif</small>
+                            </div>
+                        </div>
+
+                        <div class="row tab-post">
+                            <div class="col-md-12 col-sm-9 col-xs-9">
+                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
+                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
+                                <small>ID Laporan : 5623333</small>
+                                <small>Status Laporan : Aktif</small>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+            </div>
+
+        </div>
+	</div>
+</section>
+
+{literal}
+<script type="text/javascript">
+	function newPassword()
+	{
+		var atLeastOneIsChecked = $('input[name="checkbox"]:checked').length > 0;
+		
+		if(atLeastOneIsChecked){
+			$("#oldPass").removeAttr('disabled');
+			$("#newPass").removeAttr('disabled');
+		} else {
+			$("#oldPass,#newPass").val('');
+			$("#oldPass,#newPass").attr('disabled','disabled');
+			
+		}
+	}
+</script>
+{/literal}
