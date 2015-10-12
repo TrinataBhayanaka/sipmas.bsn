@@ -49,365 +49,209 @@
 			</div>
 			
 			<div class="col-md-9">
-				<!-- MAIL INBOX -->
-				<!--===================================================-->
 				<div class="panel panel-default panel-left">
-					<div id="demo-email-list" class="panel-body">
-						<div class="row">
-							<div class="col-sm-7">
 				
-								<!-- Mail toolbar -->
-								<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-				
-								<!--Split button dropdowns-->
-								<div class="btn-group">
-									<div id="demo-checked-all-mail" class="btn btn-default">
-										<label class="form-checkbox form-normal form-primary">
-											<input class="form-input" type="checkbox" name="mail-list">
-										</label>
-									</div>
-									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle dropdown-toggle-icon"><i class="dropdown-caret fa fa-caret-down"></i></button>
-									<ul class="dropdown-menu">
-										<li><a href="javascript:void(0)" id="demo-select-all-list">All</a></li>
-										<li><a href="javascript:void(0)" id="demo-select-none-list">None</a></li>
-										<li><a href="javascript:void(0)" id="demo-select-toggle-list">Toggle</a></li>
-										<li class="divider"></li>
-										<li><a href="javascript:void(0)" id="demo-select-read-list">Read</a></li>
-										<li><a href="javascript:void(0)" id="demo-select-unread-list">Unread</a></li>
-										<li><a href="javascript:void(0)" id="demo-select-starred-list">Starred</a></li>
-									</ul>
-								</div>
-				
-								<!--Refresh button-->
-								<button id="demo-mail-ref-btn" data-toggle="panel-overlay" data-target="#demo-email-list" class="btn btn-default" type="button">
-									<i class="fa fa-refresh"></i>
-								</button>
-				
-								<!--Dropdown button (More Action)-->
-								<div class="btn-group">
-									<button data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
-										More <i class="dropdown-caret fa fa-caret-down"></i>
-									</button>
-									<ul class="dropdown-menu">
-										<li><a href="#">Mark as read</a></li>
-										<li><a href="#">Mark as unread</a></li>
-										<li class="divider"></li>
-										<li><a href="#">Star</a></li>
-										<li><a href="#">Clear Star</a></li>
-									</ul>
+					<div class="panel">
+						<h3 class="panel-title"><strong>Riwayat Disposisi Laporan</strong></h3>
+					</div>
+					
+					<div class="panel-body">
+						<table id="demo-dt-basic" class="table table-striped table-bordered" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>No</th>
+									<th>ID laporan</th>
+									<th>Nama user</th>
+									<th class="min-tablet">Judul Laporan</th>
+									<th class="min-tablet">Tanggal Laporan</th>
+									<th class="min-desktop">Tanggal Disposisi Laporan</th>
+									<th class="min-desktop">Disposisi</th>
+									<th class="min-desktop">Sisa Waktu</th>
+									<th class="min-desktop">Detail Balasan</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>Tiger Nixon</td>
+									<td>System Architect</td>
+									<td>Edinburgh</td>
+									<td>15 Agustus 2015</td>
+									<td>15 Agustus 2015</td>
+									<td>PSPS</td>
+									<td>3 hari</td>
+									<td><button id="demo-bootbox-bounce" class="btn btn-info btn-labeled fa fa-eye btn-primary">View</button></td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>Garrett Winters</td>
+									<td>Accountant</td>
+									<td>Tokyo</td>
+									<td>15 Agustus 2015</td>
+									<td>15 Agustus 2015</td>
+									<td>Pusdikm</td>
+									<td>3 hari</td>
+									<td><button id="demo-bootbox-bounce" class="btn btn-info btn-labeled fa fa-eye btn-primary">View</button></td>
+								</tr>
+								<tr>
+									<td>3</td>
+									<td>Ashton Cox</td>
+									<td>Junior Technical Author</td>
+									<td>San Francisco</td>
+									<td>15 Agustus 2015</td>
+									<td>15 Agustus 2015</td>
+									<td>Pusido</td>
+									<td>$86,000</td>
+									<td><button id="demo-bootbox-bounce" class="btn btn-info btn-labeled fa fa-eye btn-primary">View</button></td>
+								</tr>
+								<tr>
+									<td>4</td>
+									<td>Cedric Kelly</td>
+									<td>Senior Javascript Developer</td>
+									<td>Edinburgh</td>
+									<td>15 Agustus 2015</td>
+									<td>15 Agustus 2015</td>
+									<td>PSPS</td>
+									<td>$433,060</td>
+									<td><button id="demo-bootbox-bounce" class="btn btn-info btn-labeled fa fa-eye btn-primary">View</button></td>
+								</tr>
+								<tr>
+									<td>5</td>
+									<td>Airi Satou</td>
+									<td>Accountant</td>
+									<td>Tokyo</td>
+									<td>15 Agustus 2015</td>
+									<td>15 Agustus 2015</td>
+									<td>PSPS</td>
+									<td>$162,700</td>
+									<td><button id="demo-bootbox-bounce" class="btn btn-info btn-labeled fa fa-eye btn-primary">View</button></td>
+								</tr>
+								<tr>
+									<td>6</td>
+									<td>Brielle Williamson</td>
+									<td>Integration Specialist</td>
+									<td>New York</td>
+									<td>15 Agustus 2015</td>
+									<td>15 Agustus 2015</td>
+									<td>PSPS</td>
+									<td>$372,000</td>
+									<td><button id="demo-bootbox-bounce" class="btn btn-info btn-labeled fa fa-eye btn-primary">View</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="panel">
+						<h3 class="panel-title"><strong>Kirim Disposisi</strong></h3>
+					</div>
+					
+					<form class="panel-body form-horizontal form-padding">
+						<div class="form-group">
+							<label for="demo-msk-ssn" class="col-md-2 control-label">No. Surat</label>
+							<div class="col-md-10">
+								<input type="text" id="demo-msk-ssn" class="form-control" placeholder="999-99-9999">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="demo-text-input">Disposisi ke:</label>
+							<div class="col-md-10">
+								<select class="selectpicker" data-width="100%">
+									<option>Pilih satuan unit kerja terkait</option>
+									<option>Friend</option>
+									<option>Partner</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-2 control-label">Tembusan Disposisi</label>
+							<div class="col-md-10">
+								<input type="text" id="demo-readonly-input" class="form-control" placeholder="Ketik jabatan pihak yang akan disertakan">
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-2 control-label">Subjek Disposisi</label>
+							<div class="col-md-10">
+								<input type="text" id="demo-readonly-input" class="form-control" placeholder=" " >
+							</div>
+						</div>
+						
+						<div class="form-group pad-ver">
+							<label class="col-md-2 control-label">Sifat</label>
+							<div class="col-md-10">
+								<div class="radio">
+		
+									<!-- Inline radio buttons -->
+									<label class="form-radio form-normal active"><input type="radio" checked="" name="def-w-label">SEGERA</label>
+									<label class="form-radio form-normal"><input type="radio" name="def-w-label">PENTING</label>
+									<label class="form-radio form-normal"><input type="radio" name="def-w-label">BIASA</label>
+		
 								</div>
 							</div>
-							<hr class="hr-sm visible-xs">
-							<div class="col-sm-5 clearfix">
-								<div class="pull-right">
-				
-									<!--Pager buttons-->
-									<span class="text-muted">
-										<strong>1-50</strong>
-										of
-										<strong>160</strong>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="demo-text-input">Tindakan</label>
+							<div class="col-md-10">
+								<select class="selectpicker" data-width="100%">
+									<option>Pilih satuan unit kerja terkait</option>
+									<option>Friend</option>
+									<option>Partner</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="demo-text-input">Data Pendukung</label>
+							<div class="col-md-10">
+								<div class="mail-attach-btn"><a href="#" class="btn btn-purple btn-sm btn-labeled fa fa-upload">Upload</a></div>
+	
+								<!--File information-->
+								<div class="mail-attach-file">
+									<span class="mail-attach-label">
+										<span class="label label-info text-uppercase">FILE</span>
 									</span>
-									<div class="btn-group btn-group">
-										<button class="btn btn-default" type="button">
-											<span class="fa fa-chevron-left"></span>
-										</button>
-										<button class="btn btn-default" type="button">
-											<span class="fa fa-chevron-right"></span>
-										</button>
+									<div class="media-body">
+										<div class="text-bold"><a href="#">aaaa.xlsx</a></div>
+										<small class="text-muted">(15 KB)</small>
 									</div>
 								</div>
+			
 							</div>
 						</div>
-						<hr class="hr-sm">
-				
-						<!--Mail list group-->
-						<ul id="demo-mail-list" class="mail-list">
-				
-							<!--Mail list item-->
-							<li class="mail-list-unread mail-attach">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
+						
+									
+						<!-- COMPOSE EMAIL -->
+						<!--===================================================-->
+						<div class="panel panel-default panel-left">
+							<div class="panel-body">
+							
+							
+			
+			
+								<!--Wysiwyg editor : Summernote placeholder-->
+								<div id="demo-mail-compose"></div>
+			
+								<div class="pad-ver">
+
+									<button id="mail-send-btn" type="button" class="btn btn-primary btn-labeled">
+										<span class="btn-label"><i class="fa fa-send"></i></span> Kirim
+									</button>
+									<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save Draft</button>
+									<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
+
 								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Michael Robert</a></div>
-								<div class="mail-time">05:55 PM</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject">
-									<a href="mailbox-message.html">This is an example if there is a really really long text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </a>
-								</div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-starred">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Shopping Mall</a></div>
-								<div class="mail-time">10:45 AM</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject">
-									<a href="mailbox-message.html">Tracking Your Order - Shoes Store Online</a>
-								</div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-list-unread mail-starred mail-attach">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Dropbox</a></div>
-								<div class="mail-time">07:18 AM</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject">
-									<a href="mailbox-message.html">Reset your account password</a>
-								</div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-list-unread">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Server Host</a></div>
-								<div class="mail-time">01:51 PM</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject">
-									<a href="mailbox-message.html">
-										<span class="label label-danger">
-										Bussines
-										</span>
-										Regarding to your website issues.
-									</a>
-								</div>
-							</li>
-				
-							<!--Mail list item-->
-							<li>
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Lisa D. Smith</a></div>
-								<div class="mail-time">Yesterday</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject">
-									<a href="mailbox-message.html">Hi John! How are you?</a>
-								</div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-starred">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Johny Juan</a></div>
-								<div class="mail-time">Yesterday</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject">
-									<a href="mailbox-message.html">
-										<span class="label label-info">
-										Partner
-										</span>
-										Repair Status Unregistered User
-									</a>
-								</div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-attach">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Bobby Marz</a></div>
-								<div class="mail-time">Oct 10</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject"><a href="mailbox-message.html">Bugs in your system.</a></div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-list-unread mail-starred">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Lucy Moon</a></div>
-								<div class="mail-time">Oct 10</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject"><a href="mailbox-message.html">We need to meet up soon</a></div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-list-unread">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Michael Robert</a></div>
-								<div class="mail-time">Oct 10</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject"><a href="mailbox-message.html">This is an example if there is a really really long text. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </a></div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-starred mail-attach">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Shopping Mall</a></div>
-								<div class="mail-time">Oct 9</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject"><a href="mailbox-message.html">Tracking Your Order - Shoes Store Online</a></div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-list-unread mail-starred">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Dropbox</a></div>
-								<div class="mail-time">Oct 8</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject"><a href="mailbox-message.html">Reset your account password</a></div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-list-unread">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Server Host</a></div>
-								<div class="mail-time">Oct 7</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject">
-									<a href="mailbox-message.html">
-										<span class="label label-danger">
-											Bussines
-										</span>
-										Regarding to your website issues.
-									</a>
-								</div>
-							</li>
-				
-							<!--Mail list item-->
-							<li class="mail-starred">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Lisa D. Smith</a></div>
-								<div class="mail-time">Oct 5</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject"><a href="mailbox-message.html">Hi John! How are you?</a></div>
-							</li>
-				
-				
-							<!--Mail list item-->
-							<li class="mail-starred">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Johny Juan</a></div>
-								<div class="mail-time">Oct 5</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject">
-									<a href="mailbox-message.html">
-										<span class="label label-info">
-											Partner
-										</span>
-										Repair Status Unregistered User
-									</a>
-								</div>
-							</li>
-				
-				
-							<!--Mail list item-->
-							<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-							<li class="mail-attach">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Bobby Marz</a></div>
-								<div class="mail-time">Oct 3</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject"><a href="mailbox-message.html">Bugs in your system.</a></div>
-							</li>
-				
-				
-							<!--Mail list item-->
-							<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-							<li class="mail-list-unread mail-starred">
-								<div class="mail-control">
-									<label class="demo-cb-mail form-checkbox form-normal form-primary">
-										<input type="checkbox">
-									</label>
-								</div>
-								<div class="mail-star"><a href="#"></a></div>
-								<div class="mail-from"><a href="#">Lucy Moon</a></div>
-								<div class="mail-time">Oct 1</div>
-								<div class="mail-attach-icon"></div>
-								<div class="mail-subject"><a href="mailbox-message.html">We need to meet up soon</a></div>
-							</li>
-						</ul>
-					</div>
-				
-				
-					<!--Mail footer-->
-					<div class="panel-footer clearfix">
-						<div class="pull-right">
-							<span class="text-muted"><strong>1-50</strong> of <strong>160</strong></span>
-							<div class="btn-group btn-group">
-								<button type="button" class="btn btn-dark">
-									<span class="fa fa-chevron-left"></span>
-								</button>
-								<button type="button" class="btn btn-dark">
-									<span class="fa fa-chevron-right"></span>
-								</button>
 							</div>
 						</div>
-					</div>
+						<!--===================================================-->
+						<!-- END COMPOSE EMAIL -->
+					
+		
+					</form>
+	
 				</div>
-				<!--===================================================-->
-				<!-- END OF MAIL INBOX -->
 			
 			</div>
 	
@@ -417,4 +261,50 @@
 	<!--===================================================-->
 	<!--End page content-->
 				
+{literal}
+<script>
+// BOOTBOX - BOUNCE IN/OUT ANIMATION
+	// =================================================================
+	// Require Bootbox
+	// http://bootboxjs.com/
+	//
+	// Animate.css
+	// http://daneden.github.io/animate.css/
+	// =================================================================
+	$('#demo-bootbox-bounce').on('click', function(){
+		bootbox.confirm({
+			message : "<p>Hari & Tanggal : Rabu, 12 Agustus 2015 <br> <br> Kepada Yth :Kepala Pusat Informasi dan Dokumentasi Standardisasi BSN<br>Perihal:Penyelesaian masalah pengiriman dokumen SNI <br> sifat : SEGERA <br> Tindakan : Untuk Ditindaklanjuti <br> Catatan : <br> Mohon untuk menindaklanjuti permasalahan ini sebelum akhir bulan. <br><br> Terima kasih</p>",
+			
+			callback : function(result) {
+				//Callback function here
+			},
+			animateIn: 'bounceIn',
+			animateOut : 'bounceOut'
+		});
+	});
+	
+	$(document).on('ready', function() {
+		if ($('#demo-mail-compose').length) {
+			// SUMMERNOTE
+			// =================================================================
+			// Require Summernote
+			// http://hackerwins.github.io/summernote/
+			// =================================================================
+			$('#demo-mail-compose').summernote({
+				height:200
+			});
 		
+		
+			// Attachment button.
+			// =================================================================
+			$('.btn-file :file').on('fileselect', function(event, numFiles, label, fileSize) {
+				$('#demo-attach-file').html('<strong class="box-block text-capitalize"><i class="fa fa-paperclip fa-fw"></i> '+label+'</strong><small class="text-muted">'+fileSize+'</small>');
+			});
+			
+			return;
+		}
+	});
+	
+	$('#demo-msk-ssn').mask('999-99-9999');
+</script>
+{/literal}		
