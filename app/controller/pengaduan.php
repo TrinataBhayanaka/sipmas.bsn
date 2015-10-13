@@ -26,6 +26,11 @@ class pengaduan extends Controller {
         $this->view->assign('user',$this->user);
 		return $this->loadView('pengaduan/pengaduan');
     }
+
+    function detail()
+    {
+    	return $this->loadView('pengaduan/detail');
+    }
 }
 
 ?>
