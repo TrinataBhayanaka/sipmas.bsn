@@ -48,8 +48,35 @@ class daftar_pengaduan extends Controller {
 
 	}
 	
+	public function tindak_lanjut(){
 	
+		return $this->loadView('pengaduan/tindak_lanjut');
 	
+	}
+	
+	public function penelaahan(){
+	
+		return $this->loadView('pengaduan/penelaahan');
+	
+	}
+	
+	public function penelusuran(){
+	
+		return $this->loadView('pengaduan/penelusuran');
+	
+	}
+	
+	public function balas(){
+	
+		return $this->loadView('pengaduan/balas');
+	
+	}
+	
+	public function disposisi(){
+	
+		return $this->loadView('pengaduan/disposisi');
+	
+	}
 
 
 	
