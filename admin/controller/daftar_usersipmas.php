@@ -37,7 +37,16 @@ class daftar_usersipmas extends Controller {
 
 	}
 	
-	
+	public function detail(){
+		
+		// uploadFile($data,$path=null,$ext){
+		
+		// $quizStatistic = $this->contentHelper->quizStatistic();
+		// db($quizStatistic);
+
+		return $this->loadView('daftar_user/detail');
+
+	}
 
 	
 }

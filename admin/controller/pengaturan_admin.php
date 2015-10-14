@@ -52,7 +52,10 @@ class pengaturan_admin extends Controller {
 	return $this->loadView('pengaturan/kategori_ruang_lingkup');
 	}
 
-
+	public function edit(){
+	
+	return $this->loadView('pengaturan/edit_admin');
+	}
 	
 }
 
