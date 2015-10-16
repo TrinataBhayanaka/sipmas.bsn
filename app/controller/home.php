@@ -22,7 +22,6 @@ class home extends Controller {
 	}
 	
 	function index(){
-		
 		return $this->loadView('home');
     }
 
