@@ -67,9 +67,8 @@ class loginHelper extends Database {
 		// $sql = "SELECT * FROM social_member where username = '{$data['username']}' AND password = '{$password}' LIMIT 1";
 		$sql = array(
                 'table'=>"users",
-                'field'=>"*",
-                'condition'=>"username = '{$username}' AND n_status = 1",
-                'limit'=>1,
+                'field'=>"TOP 1 *",
+                'condition'=>"username = '{$username}' AND n_status = 1"
                 );
 
         $res = $this->lazyQuery($sql,$debug);

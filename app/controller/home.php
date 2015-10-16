@@ -22,6 +22,8 @@ class home extends Controller {
 	}
 	
 	function index(){
+		
+		$this->view->assign('user',$this->user);
 		return $this->loadView('home');
     }
 
@@ -38,6 +40,26 @@ class home extends Controller {
     		redirect($basedomain);
     		logFile('can not logout user');exit;
     	}
+    }
+
+    function forgot_password()
+    {
+    	return $this->loadView('forgot_password');
+    }
+
+    function register()
+    {
+    	return $this->loadView('akun/register');
+    }
+
+    function register_confirmation()
+    {
+    	return $this->loadView('info');
+    }
+
+    function search()
+    {
+        return $this->loadView('search');
     }
 
 }

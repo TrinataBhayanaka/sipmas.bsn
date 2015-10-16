@@ -1,0 +1,109 @@
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+	<h1 class="page-header text-overflow">Ubah Kategori Ruang Lingkup</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+
+<!-- Begin: Content -->
+<div id="page-content">
+
+	<div class="row">
+		<div class="col-lg-12">
+            <!--Default Tabs (Left Aligned)-->
+			<!--===================================================-->
+			<div class="tab-base">
+	
+				<!--Nav Tabs-->
+				<ul class="nav nav-tabs">
+					<li>
+						<a href="{$basedomain}pengaturan_admin">Tambah Administrator</a>
+					</li>
+					<li>
+						<a href="{$basedomain}pengaturan_admin/waktukriteria">Ubah Waktu & Kriteria</a>
+					</li>
+					<li>
+						<a href="{$basedomain}pengaturan_admin/ubahkonten">Ubah Konten</a>
+					</li>
+					<li class="active">
+						<a href="{$basedomain}pengaturan_admin/ruanglingkup">Ubah Kategori Ruang Lingkup</a>
+					</li>
+				</ul>
+	
+				<!--Tabs Content-->
+				<div class="tab-content">
+					<div id="demo-lft-tab-1" class="tab-pane fade active in">
+						
+							<button id="demo-bootbox-prompt" class="btn btn-primary btn-labeled fa fa-plus" style="margin-bottom:20px">Kategori Ruang Lingkup</button>
+							<button id="demo-bootbox-custom-form" class="btn btn-primary btn-labeled fa fa-plus" style="margin-bottom:20px">Kategori Sub Ruang Lingkup</button>
+							<button class="btn btn-danger btn-labeled fa fa-trash" style="margin-bottom:20px">Delete</button>
+						
+						<table id="demo-dt-basic" class="table table-striped table-bordered" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>Kategori Ruang Lingkup</th>
+									<th>Kategori Sub Ruang Lingkup</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><label class="form-checkbox form-normal form-primary active"><input type="checkbox">Kategori 1</label></td>
+									<td><label class="form-checkbox form-normal form-primary active"><input type="checkbox">Sub 1</label></td>
+									
+								</tr>
+								<tr>
+									<td></td>
+									<td><label class="form-checkbox form-normal form-primary active"><input type="checkbox">Sub 2</label></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td><label class="form-checkbox form-normal form-primary active"><input type="checkbox">Sub 3</label></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!--===================================================-->
+			<!--End Default Tabs (Left Aligned)-->
+		</div>
+	</div> <!-- end row -->
+
+</div>
+<!-- End: Content -->
+
+{literal}
+<script>
+	// BOOTBOX - PROMPT MODAL
+	// =================================================================
+	// Require Bootbox
+	// http://bootboxjs.com/
+	// =================================================================
+	$('#demo-bootbox-prompt').on('click', function(){
+		bootbox.prompt("Nama Kategori Ruang Lingkup", function(result) {
+			if (result) {
+				$.niftyNoty({
+					type: 'success',
+					icon : 'fa fa-check',
+					message : 'Hi ' + result,
+					container : 'floating',
+					timer : 3000
+				});
+			}else{
+				$.niftyNoty({
+					type: 'danger',
+					icon : 'fa fa-minus',
+					message : 'User declined dialog.',
+					container : 'floating',
+					timer : 3000
+				});
+			};
+		});
+	});
+
+</script>
+{/literal}

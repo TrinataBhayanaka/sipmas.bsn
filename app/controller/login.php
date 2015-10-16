@@ -32,22 +32,16 @@ class login extends Controller {
 
     function local()
     {
-        // pr($_POST);
+        // db($_POST);
         global $basedomain;
         if (isset($_POST['token'])){
 
             $validateData = $this->loginHelper->local($_POST);
-            
+           
             if ($validateData){
                 // set session
                 $setSession = $this->loadSession->set_session($validateData);
-                
-                if ($_POST['is_applykursus']){
-                    $id = $_POST['is_applykursus'];
-                    redirect($basedomain."quiz/startQuiz/?id={$id}");
-                }else{
                     redirect($basedomain.'home');
-                }
                 exit;
             }else{
                 echo "<script>alert('Username atau Password anda salah');</script>";

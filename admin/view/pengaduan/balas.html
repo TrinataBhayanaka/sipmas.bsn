@@ -1,0 +1,236 @@
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+	<h1 class="page-header text-overflow">Detail Laporan Pengaduan</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+	<!--Page content-->
+	<!--===================================================-->
+	<div id="page-content">
+	
+		<div class="row">
+			<div class="col-md-3">
+				
+				<div class="list-group bg-trans">
+					<h4 class="text-thin">Laporan Pengaduan</h4>
+						<a href="{$basedomain}daftar_pengaduan/detail" class="list-group-item list-item-sm">
+						<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
+						Isi Laporan Pengaduan
+						</a>
+				</div>
+					<hr>
+					<div class="list-group bg-trans">
+						<h4 class="text-thin">Penanganan Laporan Pengaduan</h4>
+					
+						<!-- Menu list item -->
+						<a href="{$basedomain}daftar_pengaduan/tindak_lanjut" class="list-group-item list-item-sm">
+							<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
+							Tindak Lanjut Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/penelusuran" class="list-group-item list-item-sm">
+							<span class="badge badge-info badge-icon badge-fw pull-left"></span>
+							Penelusuran Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/penelaahan" class="list-group-item list-item-sm">
+							<span class="badge badge-pink badge-icon badge-fw pull-left"></span>
+							Penelaahan Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/balas" class="list-group-item list-item-sm" style="background-color:rgba(125,211,188,0.5);">
+							<span class="badge badge-success badge-icon badge-fw pull-left"></span>
+							Balas Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/disposisi" class="list-group-item list-item-sm">
+							<span class="badge badge-danger badge-icon badge-fw pull-left"></span>
+							Disposisi Laporan
+						</a>
+					</div>
+			</div>
+			
+			<div class="col-md-9">
+				<div class="panel panel-default panel-left">
+				
+					<div class="panel">
+						<h3 class="panel-title"><strong>Balas Laporan</strong></h3>
+					</div>
+					
+					<div class="panel-body">
+						<table id="demo-foo-row-toggler" class="table toggle-circle">
+							<thead>
+								<tr>
+									<th data-toggle="true" width="10%">No</th>
+									<th>ID laporan</th>
+									<th>Nama user</th>
+									<th>Judul Laporan</th>
+									<th>Tanggal Laporan</th>
+									<th>Tanggal Balas Laporan</th>
+									<th>Sisa Waktu Penyelesaian</th>
+									<th data-hide="all">Detail</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>101</td>
+									<td>Lala</td>
+									<td>Pengiriman Dokumen SNI yang terlalu lama</td>
+									<td>15 Agustus 2015</td>
+									<td>17 Agustus 2015</td>
+									<td>3 hari</td>
+									<td><p><br>
+										Kepada. <br>
+										Yth. Ariana <br>
+										<br>
+										Terima kasih sudah menyampaikan permasalahan ini ke BSN, 
+										kami akan segera menindaklanjuti, dimohon kesediaanya untuk menunggu. <br>
+										Terima kasih
+									</p></td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>101</td>
+									<td>Lala</td>
+									<td>Pengiriman Dokumen SNI yang terlalu lama</td>
+									<td>15 Agustus 2015</td>
+									<td>17 Agustus 2015</td>
+									<td>3 hari</td>
+									<td><p><br>
+										Kepada. <br>
+										Yth. Ariana <br>
+										<br>
+										Terima kasih sudah menyampaikan permasalahan ini ke BSN, 
+										kami akan segera menindaklanjuti, dimohon kesediaanya untuk menunggu. <br>
+										Terima kasih
+									</p></td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>101</td>
+									<td>Lala</td>
+									<td>Pengiriman Dokumen SNI yang terlalu lama</td>
+									<td>15 Agustus 2015</td>
+									<td>17 Agustus 2015</td>
+									<td>3 hari</td>
+									<td><p><br>
+										Kepada. <br>
+										Yth. Ariana <br>
+										<br>
+										Terima kasih sudah menyampaikan permasalahan ini ke BSN, 
+										kami akan segera menindaklanjuti, dimohon kesediaanya untuk menunggu. <br>
+										Terima kasih
+									</p></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+					
+					<hr>
+					
+					<!--Tabs Content-->
+							<form class="form-horizontal">
+								<div class="form-group">
+								<div class="row">
+								<div class="col-md-6">
+									<label class="col-sm-5 control-label">Pilih Status Laporan</label>
+										<div class="col-sm-7">
+											<select class="selectpicker">
+												<option>Dalam proses</option>
+												<option>Selesai</option>
+											</select>
+										</div>
+								</div>
+								<div class="col-md-6">
+									<label class="col-sm-4 control-label">Pilih</label>
+										<div class="col-sm-8">
+											<select class="selectpicker">
+												<option>Publish</option>
+												<option>Non-Publish</option>
+											</select>
+										</div>
+								</div>
+								</div>
+								</div>
+									
+						
+									<!-- COMPOSE EMAIL -->
+									<!--===================================================-->
+									<div class="panel panel-default panel-left">
+										<div class="panel-body">
+										
+										<!--Attact file button-->
+												<div class="media">
+													<div class="media-left">
+														<span class="btn btn-default btn-file">
+															Attachment <input type="file">
+														</span>
+													</div>
+													<div id="demo-attach-file" class="media-body"></div>
+												</div>
+						
+						
+											<!--Wysiwyg editor : Summernote placeholder-->
+											<div id="demo-mail-compose"></div>
+						
+											<div class="pad-ver">
+
+												<button id="mail-send-btn" type="button" class="btn btn-primary btn-labeled">
+													<span class="btn-label"><i class="fa fa-send"></i></span> Kirim
+												</button>
+			
+											</div>
+										</div>
+									</div>
+									<!--===================================================-->
+									<!-- END COMPOSE EMAIL -->
+					
+
+							</form>		
+	
+				</div>
+			
+			</div>
+	
+		</div> <!-- end row -->
+		
+	</div>
+	<!--===================================================-->
+	<!--End page content-->
+				
+{literal}
+<script>
+	
+	$(window).on('load', function() {
+		// Row Toggler
+		// -----------------------------------------------------------------
+		$('#demo-foo-row-toggler').footable();
+	});
+
+	
+	$(document).on('ready', function() {
+		if ($('#demo-mail-compose').length) {
+			// SUMMERNOTE
+			// =================================================================
+			// Require Summernote
+			// http://hackerwins.github.io/summernote/
+			// =================================================================
+			$('#demo-mail-compose').summernote({
+				height:200
+			});
+		
+		
+			// Attachment button.
+			// =================================================================
+			$('.btn-file :file').on('fileselect', function(event, numFiles, label, fileSize) {
+				$('#demo-attach-file').html('<strong class="box-block text-capitalize"><i class="fa fa-paperclip fa-fw"></i> '+label+'</strong><small class="text-muted">'+fileSize+'</small>');
+			});
+			
+			return;
+		}
+		
+		
+	});
+</script>
+{/literal}
+		

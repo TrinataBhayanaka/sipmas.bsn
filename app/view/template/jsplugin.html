@@ -11,9 +11,17 @@
 
 <!-- JAVASCRIPT FILES -->
 <script type="text/javascript">var plugin_path = '{$basedomain}assets/plugins/';</script>
-<script type="text/javascript" src="{$basedomain}assets/plugins/jquery/jquery-2.1.4.min.js"></script>
 
 <script type="text/javascript" src="{$basedomain}assets/js/scripts.js"></script>
 
+{if $page.page eq 'home' && $page.function eq 'index'}
 <!-- PARTICLE EFFECT -->
 <script type="text/javascript" src="{$basedomain}assets/plugins/effects/canvas.particles.js"></script>
+
+<!-- 
+	GMAPS.JS 
+	http://hpneo.github.io/gmaps/
+-->
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+<script type="text/javascript" src="{$basedomain}assets/plugins/gmaps.js"></script>
+{/if}

@@ -1,0 +1,234 @@
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+	<h1 class="page-header text-overflow">Detail Laporan Pengaduan</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+	<!--Page content-->
+	<!--===================================================-->
+	<div id="page-content">
+	
+		<div class="row">
+			<div class="col-md-3">
+				
+				<div class="list-group bg-trans">
+					<h4 class="text-thin">Laporan Pengaduan</h4>
+						<a href="{$basedomain}daftar_pengaduan/detail" class="list-group-item list-item-sm">
+						<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
+						Isi Laporan Pengaduan
+						</a>
+				</div>
+					<hr>
+					<div class="list-group bg-trans">
+						<h4 class="text-thin">Penanganan Laporan Pengaduan</h4>
+					
+						<!-- Menu list item -->
+						<a href="{$basedomain}daftar_pengaduan/tindak_lanjut" class="list-group-item list-item-sm">
+							<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
+							Tindak Lanjut Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/penelusuran" class="list-group-item list-item-sm">
+							<span class="badge badge-info badge-icon badge-fw pull-left"></span>
+							Penelusuran Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/penelaahan" class="list-group-item list-item-sm" style="background-color:rgba(125,211,188,0.5);">
+							<span class="badge badge-pink badge-icon badge-fw pull-left"></span>
+							Penelaahan Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/balas" class="list-group-item list-item-sm">
+							<span class="badge badge-success badge-icon badge-fw pull-left"></span>
+							Balas Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/disposisi" class="list-group-item list-item-sm">
+							<span class="badge badge-danger badge-icon badge-fw pull-left"></span>
+							Disposisi Laporan
+						</a>
+					</div>
+			</div>
+			
+			<div class="col-md-9">
+				
+				<div class="panel panel-default panel-left">
+					
+						<div class="panel">
+							<h3 class="panel-title"><strong>Penelaahan Laporan</strong></h3>
+						</div>
+			
+			
+						<!-- BASIC FORM ELEMENTS -->
+						<!--===================================================-->
+						<form class="panel-body form-horizontal form-padding">
+						
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="demo-readonly-input">Tanggal Pengaduan</label>
+								<div class="col-md-9">
+									<input type="text" id="demo-readonly-input" class="form-control" placeholder="Rabu, 19 Agustus 2015" readonly>
+								</div>
+							</div>
+			
+							<div class="form-group">
+								<label class="col-md-3 control-label">Tanggal Terima</label>
+								<div class="col-md-9">
+								
+								<div id="demo-dp-component">
+									<div class="input-group date">
+										<input type="text" class="form-control">
+										<span class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></span>
+									</div>
+									
+								</div>
+								</div>
+							</div>
+			
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="demo-text-input">Kelompok Pengaduan</label>
+								<div class="col-md-9">
+									<select class="selectpicker" data-width="100%">
+										<option>Ditindaklanjuti</option>
+										<option>Friend</option>
+										<option>Partner</option>
+									</select>
+								</div>
+							</div>
+		
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="demo-email-input">Ruang Lingkup Laporan</label>
+								<div class="col-md-9">
+									<select class="selectpicker" data-width="100%">
+										<option>Pelayanan Publik</option>
+										<option>Friend</option>
+										<option>Partner</option>
+									</select>
+								</div>
+							</div>
+			
+							<!--Password-->
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="demo-password-input"></label>
+									<div class="col-md-9">
+									<select class="selectpicker" data-width="100%">
+										<option>Pemesanan SNI</option>
+										<option>Friend</option>
+										<option>Partner</option>
+									</select>
+								</div>
+							</div>
+			
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="demo-text-input">Satuan Unit Kerja Terkait</label>
+								<div class="col-md-9">
+									<select class="selectpicker" data-width="100%">
+										<option>Pusat Informasi dan Dokumentasi</option>
+										<option>Friend</option>
+										<option>Partner</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="demo-text-input">Pejabat Terkait</label>
+								<div class="col-md-9">
+									<select class="selectpicker" data-width="100%">
+										<option>Pejabat Eselon I</option>
+										<option>Friend</option>
+										<option>Partner</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="demo-readonly-input">Substansi Pengaduan</label>
+								<div class="col-md-9">
+									<input type="text" id="demo-readonly-input" class="form-control" placeholder="Pengiriman dokumen yang terlalu lama" readonly>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="demo-textarea-input">Kesimpulan</label>
+								<div class="col-md-9">
+									<textarea id="demo-textarea-input" rows="5" class="form-control" placeholder=" "></textarea>
+								</div>
+							</div>
+			
+							<div class="form-group">
+								<label class="col-md-3 control-label" for="demo-textarea-input">Rekomendasi</label>
+								<div class="col-md-9">
+									<textarea id="demo-textarea-input" rows="5" class="form-control" placeholder=" "></textarea>
+								</div>
+							</div>
+							
+							<!-- Attach Files-->
+							<!--===================================================-->
+							<div class="pad-ver">
+							<div class="col-md-3">
+								<h4><i class="fa fa-paperclip fa-fw"></i> Lampiran <span>(2)</span></h4>
+							</div>
+							<div class="col-md-9">
+								<ul class="mail-attach-list list-ov">
+									<li class=" clearfix">
+	
+										<!--Download button-->
+										<div class="mail-attach-btn"><a href="#" class="btn btn-purple btn-sm">Download</a></div>
+	
+										<!--File information-->
+										<div class="mail-attach-file">
+											<span class="mail-attach-label">
+												<span class="label label-info text-uppercase">Images</span>
+											</span>
+											<div class="media-body">
+												<div class="text-bold"><a href="#">IMG_007.jpg</a></div>
+												<small class="text-muted">(15 KB)</small>
+											</div>
+										</div>
+									</li>
+									<li class="clearfix">
+	
+										<!--Download button-->
+										<div class="mail-attach-btn"><a href="#" class="btn btn-purple btn-sm">Download</a></div>
+	
+										<!--File information-->
+										<div class="mail-attach-file">
+											<span class="mail-attach-label">
+												<span class="label label-warning  text-uppercase">Video</span>
+											</span>
+											<div class="media-body">
+												<div class="text-bold"><a href="#">VID_007.mp4</a></div>
+												<small class="text-muted">(178 MB)</small>
+											</div>
+										</div>
+									</li>
+									<button id="mail-send-btn" type="button" class="btn btn-primary btn-labeled">
+										<span class="btn-label"><i class="fa fa-check"></i></span> Submit
+									</button>
+			
+									<!--Save draft button-->
+									<button id="mail-save-btn" type="button" class="btn btn-danger btn-labeled">
+										<span class="btn-label"><i class="fa fa-times"></i></span> Cancel
+									</button>
+								</ul>
+							</div>
+							</div>
+
+							<!--===================================================-->
+							<!-- End Attach Files-->
+						</form>
+						<!--===================================================-->
+						<!-- END BASIC FORM ELEMENTS -->
+				
+						
+				</div>
+				
+				
+					
+			
+			</div>
+	
+		</div> <!-- end row -->
+		
+	</div>
+	<!--===================================================-->
+	<!--End page content-->
+				
+		

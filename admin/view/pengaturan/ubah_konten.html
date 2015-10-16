@@ -1,0 +1,127 @@
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+	<h1 class="page-header text-overflow">Ubah Konten</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+
+<!-- Begin: Content -->
+<div id="page-content">
+
+	<div class="row">
+		<div class="col-lg-12">
+            <!--Default Tabs (Left Aligned)-->
+			<!--===================================================-->
+			<div class="tab-base">
+	
+				<ul class="nav nav-tabs">
+					<li>
+						<a href="{$basedomain}pengaturan_admin">Tambah Administrator</a>
+					</li>
+					<li>
+						<a href="{$basedomain}pengaturan_admin/waktukriteria">Ubah Waktu & Kriteria</a>
+					</li>
+					<li class="active">
+						<a href="{$basedomain}pengaturan_admin/ubahkonten">Ubah Konten</a>
+					</li>
+					<li>
+						<a href="{$basedomain}pengaturan_admin/ruanglingkup">Ubah Kategori Ruang Lingkup</a>
+					</li>
+				</ul>
+	
+		
+				<!--Tabs Content-->
+				<div class="tab-content">
+					<div id="demo-lft-tab-1" class="tab-pane fade active in">
+						<form class="form-horizontal">
+							<div class="form-group">
+											<label class="col-sm-3 control-label col-md-offset-6">Publish ke:</label>
+											<div class="col-sm-3">
+												<select class="selectpicker">
+													<option>Pilih Halaman Konten</option>
+													<option>Home</option>
+													<option>Tata Cara Pengaduan</option>
+												</select>
+											</div>
+							</div>
+								
+					
+								<!-- COMPOSE EMAIL -->
+								<!--===================================================-->
+								<div class="panel panel-default panel-left">
+									<div class="panel-body">
+									
+									<!--Attact file button-->
+											<div class="media">
+												<div class="media-left">
+													<span class="btn btn-default btn-file">
+														Attachment <input type="file">
+													</span>
+												</div>
+												<div id="demo-attach-file" class="media-body"></div>
+											</div>
+					
+					
+										<!--Wysiwyg editor : Summernote placeholder-->
+										<div id="demo-mail-compose"></div>
+					
+										<div class="pad-ver">
+
+											<button id="mail-send-btn" type="button" class="btn btn-primary btn-labeled">
+												<span class="btn-label"><i class="fa fa-check"></i></span> Submit
+											</button>
+											
+											<button id="mail-save-btn" type="button" class="btn btn-danger btn-labeled">
+												<span class="btn-label"><i class="fa fa-times"></i></span> Cancel
+											</button>
+											
+										</div>
+									</div>
+								</div>
+								<!--===================================================-->
+								<!-- END COMPOSE EMAIL -->
+				
+
+						</form>		
+					</div>
+					<!--===================================================-->
+					<!--END CONTENT CONTAINER-->
+					</div>	
+				
+			</div>
+			<!--===================================================-->
+			<!--End Default Tabs (Left Aligned)-->
+		</div>
+	</div> <!-- end row -->
+
+</div>
+<!-- End: Content -->
+
+
+{literal}
+<script>
+	$(document).on('ready', function() {
+		if ($('#demo-mail-compose').length) {
+			// SUMMERNOTE
+			// =================================================================
+			// Require Summernote
+			// http://hackerwins.github.io/summernote/
+			// =================================================================
+			$('#demo-mail-compose').summernote({
+				height:500
+			});
+		
+		
+			// Attachment button.
+			// =================================================================
+			$('.btn-file :file').on('fileselect', function(event, numFiles, label, fileSize) {
+				$('#demo-attach-file').html('<strong class="box-block text-capitalize"><i class="fa fa-paperclip fa-fw"></i> '+label+'</strong><small class="text-muted">'+fileSize+'</small>');
+			});
+			
+			return;
+		}
+	});
+</script>
+{/literal}

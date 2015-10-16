@@ -1,0 +1,48 @@
+<!-- SETTINGS - DEMO PURPOSE ONLY -->
+<!--===================================================-->
+<div id="demo-set" class="demo-set">
+	<div class="demo-set-body bg-dark">
+		<div id="demo-set-alert"></div>
+		<form action="{$basedomain}home/search" method="post">
+			<div class="demo-set-content clearfix">
+				<h4 class="text-lg mar-btm text-center">Pencarian Data</h4>
+				<hr class="hr-sm">
+				<div class="col-xs-8 col-md-8">
+					<div id="demo-anim" class="mar-btm">
+						<div class="form-group">
+							<input type="email" placeholder="Masukkan kata kunci" id="demo-inline-inputmail" class="form-control">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="demo-ease">
+						<option value="effect" selected>Judul Laporan</option>
+						<option value="easeInQuart">Ruang Lingkup Laporan</option>
+						<option value="easeOutQuart">Satuan Unit Kerja Terkait</option>
+						<option value="easeInBack">Pejabat Terkait</option>
+						<option value="easeOutBack">Status Laporan</option>
+						<option value="easeInOutBack">Data user</option>
+					</select>
+				</div>
+				<div class="col-xs-6 col-md-8">
+					<div class="demo-dp-range">
+						<div class="input-daterange input-group" id="datepicker">
+							<input type="text" class="form-control" name="start" />
+							<span class="input-group-addon" style="color:white">to</span>
+							<input type="text" class="form-control" name="end" />
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="pad-all text-left">
+				<hr class="hr-sm">
+				<p class="demo-set-save-text">* Pencarian akan membutuhkan waktu</p>
+				<button type="submit" class="btn btn-primary btn-labeled fa fa-search mar-btm">Search Data</button>
+			</div>
+		</form>
+	</div>
+	<button id="demo-set-btn" class="btn btn-sm"><i class="fa fa-search fa-2x"></i></button>
+</div>
+<!--===================================================-->
+<!-- END SETTINGS -->

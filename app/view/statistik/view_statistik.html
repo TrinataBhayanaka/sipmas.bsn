@@ -1,0 +1,162 @@
+<section class="page-header">
+    <div class="container">
+
+        <h1>Statistik Pengaduan</h1>
+        
+
+        <!-- breadcrumbs -->
+        <ol class="breadcrumb">
+            <li><a href="{$basedomain}">Home</a></li>
+            <li class="active">Statistik Pengaduan</li>
+        </ol><!-- /breadcrumbs -->
+
+    </div>
+</section>
+
+<section>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-8 col-sm-8">
+                <form class="sky-form boxed">
+                    <header><i class="fa fa-pie-chart"></i> Statistik Laporan Pengaduan per Tahun 2015</header>
+                    
+                    <fieldset class="nomargin"> 
+                       <div id="demo-morris-donut" class="margin-top-20 margin-bottom-20" style="height:250px"></div>
+                    </fieldset>
+
+                </form>
+
+                <form class="sky-form boxed">
+                    <header><i class="fa fa-bar-chart"></i> Statistik Hasil Survey Kepuasan Masyarakat Tahun 2015</header>
+                    
+                    <fieldset class="nomargin"> 
+                        <div id="demo-morris-bar" style="height:227px"></div>
+                    </fieldset>
+
+                </form>
+               
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <form action="{$basedomain}" method="post" class="sky-form boxed">
+                    <header><i class="fa fa-search"></i> Tracking ID Laporan Anda</header>
+                    
+                    <fieldset class="nomargin"> 
+                        <p>Temukan status terakhir laporan anda dengan memasukkan 6 digit ID Laporan atau masukkan alamat email anda.</p>
+                        <label class="input">
+                            <i class="ico-append fa fa-envelope"></i>
+                            <input type="text" name="username">
+                            <span class="tooltip tooltip-top-right">Email atau ID laporan</span>
+                        </label>
+
+                    </fieldset>
+
+                    <footer class="celarfix">
+                        <button type="submit" class="btn btn-primary noradius pull-right"><i class="fa fa-check"></i> Lacak</button>
+                        <input type="hidden" name="token" value="1"/>
+                        <div class="login-forgot-password pull-left">
+                            
+                        </div>
+                    </footer>
+                </form>
+
+                <form action="{$basedomain}" method="post" class="sky-form boxed">
+                    <header><i class="fa fa-tags"></i> Daftar Pengaduan Anda</header>
+                    
+                    <fieldset class="nomargin"> 
+                        <div class="row tab-post">
+                            <div class="col-md-12 col-sm-9 col-xs-9">
+                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
+                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
+                                <small>ID Laporan : 5623333</small>
+                                <small>Status Laporan : Aktif</small>
+                            </div>
+                        </div>
+
+                        <div class="row tab-post">
+                            <div class="col-md-12 col-sm-9 col-xs-9">
+                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
+                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
+                                <small>ID Laporan : 5623333</small>
+                                <small>Status Laporan : Aktif</small>
+                            </div>
+                        </div>
+
+                        <div class="row tab-post">
+                            <div class="col-md-12 col-sm-9 col-xs-9">
+                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
+                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
+                                <small>ID Laporan : 5623333</small>
+                                <small>Status Laporan : Aktif</small>
+                            </div>
+                        </div>
+
+                        <div class="row tab-post">
+                            <div class="col-md-12 col-sm-9 col-xs-9">
+                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
+                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
+                                <small>ID Laporan : 5623333</small>
+                                <small>Status Laporan : Aktif</small>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{literal}
+<script type="text/javascript">
+    $(document).ready(function() {
+        // MORRIS DONUT CHART
+        // =================================================================
+        // Require MorrisJS Chart
+        // -----------------------------------------------------------------
+        // http://morrisjs.github.io/morris.js/
+        // =================================================================
+        Morris.Donut({
+            element: 'demo-morris-donut',
+            data: [
+                {label: "Dalam Proses", value: 35},
+                {label: "Selesai", value: 65}
+            ],
+            colors: [
+                '#a6c600',
+                '#177bbb'
+            ],
+            resize:true
+        });
+
+        // MORRIS BAR CHART
+        // =================================================================
+        // Require MorrisJS Chart
+        // -----------------------------------------------------------------
+        // http://morrisjs.github.io/morris.js/
+        // =================================================================
+        Morris.Bar({
+            element: 'demo-morris-bar',
+            data: [
+                { y: '2015', a: 20, b: 35, c:45, d:40 }
+            ],
+            xkey: 'y',
+            ykeys: ['a', 'b', 'c', 'd'],
+            labels: ['Aktif', 'Ditindaklanjuti', 'Tidak Ditindaklanjuti', 'Non Aktif'],
+            gridEnabled: true,
+            gridLineColor: 'transparent',
+            barColors: ['#177bbb', '#afd2f0'],
+            resize:true,
+            hideHover: 'auto'
+        });
+
+        // Dual List Plugin Init
+        var demo1 = $('.demo1').bootstrapDualListbox({
+        });
+    });
+
+</script>
+{/literal}

@@ -1,0 +1,195 @@
+<!--Page Title-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<div id="page-title">
+	<h1 class="page-header text-overflow">Ubah Waktu dan Kriteria</h1>
+</div>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End page title-->
+
+
+<!-- Begin: Content -->
+<div id="page-content">
+
+	<div class="row">
+		<div class="col-lg-12">
+            <!--Default Tabs (Left Aligned)-->
+			<!--===================================================-->
+			<div class="tab-base">
+	
+				<ul class="nav nav-tabs">
+					<li>
+						<a href="{$basedomain}pengaturan_admin">Tambah Administrator</a>
+					</li>
+					<li class="active">
+						<a href="{$basedomain}pengaturan_admin/waktukriteria">Ubah Waktu & Kriteria</a>
+					</li>
+					<li>
+						<a href="{$basedomain}pengaturan_admin/ubahkonten">Ubah Konten</a>
+					</li>
+					<li>
+						<a href="{$basedomain}pengaturan_admin/ruanglingkup">Ubah Kategori Ruang Lingkup</a>
+					</li>
+				</ul>
+				
+				<!-- tab aacordion -->
+				
+					<div id="demo-accordion" class="panel-group accordion">
+									<div class="panel">
+					
+										<!-- Accordion title -->
+										<div class="panel-heading">
+											<h4 class="panel-title">
+											<a data-parent="#demo-accordion" data-toggle="collapse" href="#demo-acc-panel-1"><i class="fa"></i>Standar Kriteria Waktu</a>
+											</h4>
+										</div>
+					
+										<!-- Accordion content -->
+										<div id="demo-acc-panel-1" class="panel-collapse collapse">
+											<div class="panel-body">
+											<form id="demo-bvd-notempty" action="forms-validation.html" class="form-horizontal">
+												<fieldset>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Baik</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Normal</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Buruk</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+												</fieldset>
+												
+											</form>
+											</div>
+												<div class="tab-footer clearfix">
+													<div class="col-lg-7 col-lg-offset-3">
+														<button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Kriteria Waktu</button>
+														<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save</button>
+														<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
+													</div>
+												</div>										
+										</div>
+										
+									
+					
+										<!-- Accordion title -->
+										<div class="panel-heading">
+											<h4 class="panel-title">
+											<a data-parent="#demo-accordion" data-toggle="collapse" href="#demo-acc-panel-2"><i class="fa"></i> Pengaturan Waktu Penyelesaian Pengaduan User</a>
+											</h4>
+										</div>
+					
+										<!-- Accordion content -->
+										<div id="demo-acc-panel-2" class="panel-collapse collapse">
+											<div class="panel-body">
+											<form id="demo-bvd-notempty" action="forms-validation.html" class="form-horizontal">
+												<fieldset>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Pencatatan</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Penelaahan</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Tindak Lanjut</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Pengarsipan</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+												</fieldset>
+												
+											</form>
+											</div>
+												<div class="tab-footer clearfix">
+													<div class="col-lg-7 col-lg-offset-3">
+														<button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button>
+														<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save</button>
+														<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
+													</div>
+												</div>										
+										</div>
+								
+					
+										<!-- Accordion title -->
+										<div class="panel-heading">
+											<h4 class="panel-title">
+											<a data-parent="#demo-accordion" data-toggle="collapse" href="#demo-acc-panel-3"><i class="fa"></i> Pengaturan Waktu Penyelesaian Pengaduan Administrator</a>
+											</h4>
+										</div>
+					
+										<!-- Accordion content -->
+										<div id="demo-acc-panel-3" class="panel-collapse collapse in">
+											<div class="panel-body">
+											<form id="demo-bvd-notempty" action="forms-validation.html" class="form-horizontal">
+												<fieldset>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Pencatatan</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Penelaahan</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Tindak Lanjut</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+													<div class="form-group">
+														<label class="col-lg-3 control-label">Pengarsipan</label>
+															<div class="col-lg-7">
+																<input type="number" class="form-control" name="integer" placeholder="Hari">
+															</div>
+													</div>
+												</fieldset>
+												
+											</form>
+											</div>
+												<div class="tab-footer clearfix">
+													<div class="col-lg-7 col-lg-offset-3" style="margin-bottom:20px">
+														<button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button>
+														<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save</button>
+														<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
+													</div>
+												</div>			
+											</div>
+										</div>
+						</div>
+				
+				<!-- end tab accordion -->
+			
+			</div>
+			<!--===================================================-->
+			<!--End Default Tabs (Left Aligned)-->
+		</div>
+	</div> <!-- end row -->
+
+</div>
+
+<!-- End: Content -->
