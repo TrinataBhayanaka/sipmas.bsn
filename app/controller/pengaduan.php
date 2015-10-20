@@ -72,7 +72,7 @@ class pengaduan extends Controller {
 
 		    	}
 
-		    	echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."'</script>";
+		    	echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."pengaduan'</script>";
 		    	exit;
 
 	    	}
