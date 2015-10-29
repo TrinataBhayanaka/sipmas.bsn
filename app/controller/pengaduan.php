@@ -81,6 +81,7 @@ class pengaduan extends Controller {
 		    	unset($_POST['g-recaptcha-response']);
 		    	unset($_POST['termagree']);
 		    	if($_POST['perorangan'] == 'on') $_POST['perorangan'] = 1; 
+		    	$_POST['fase'] = 1;
 
 		    	$this->model->insert_laporan($_POST);
 
