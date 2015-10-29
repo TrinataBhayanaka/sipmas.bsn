@@ -59,6 +59,13 @@ class home extends Controller {
 
     function search()
     {
+        // pr($_POST);
+        // exit;
+        $data['pencarian']=$this->contentHelper->tracking($_POST['tracking']);
+        // pr($data);
+
+        $this->view->assign('data',$data['pencarian']);
+        // exit;
         return $this->loadView('search');
     }
 

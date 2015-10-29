@@ -223,6 +223,12 @@ class home extends Controller {
 	public function search(){
 		
 
+        $data['pencarian']=$this->contentHelper->tracking($_POST['tracking']);
+        pr($_POST);
+
+        $this->view->assign('data',$data['pencarian']);
+        pr($data);
+        exit;
 		return $this->loadView('home/search');
 
 	}

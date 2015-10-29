@@ -18,7 +18,7 @@
 		<div class="row">
 
 			<div class="col-md-8 col-sm-8">
-				<form class="nomargin sky-form boxed" action="#" method="post" id="myForm">
+				<form class="nomargin sky-form boxed" action="{$basedomain}pengaduan/ins_laporan" method="post" id="myForm" enctype="multipart/form-data">
 					<header>
 						<i class="fa fa-file-text"></i> Lapor Pengaduan
 						</header>
@@ -32,18 +32,18 @@
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-calendar"></i>
-							<input type="text" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false" placeholder="Tanggal melakukan laporan" required>
+							<input type="text" name="tanggal" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false" placeholder="Tanggal melakukan laporan" required>
 							<b class="tooltip tooltip-bottom-right">Tanggal Laporan</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-file"></i>
-							<input type="text" placeholder="Judul Laporan" required>
+							<input type="text" name="judul" placeholder="Judul Laporan" required>
 							<b class="tooltip tooltip-bottom-right">Judul pengaduan yang ingin anda laporkan</b>
 						</label>
 
 						<div class="fancy-form margin-bottom-20"><!-- textarea -->
-							<textarea class="summernote form-control" data-height="200" data-lang="en-US" required></textarea>
+							<textarea class="summernote form-control" name="isi" data-height="200" data-lang="en-US"></textarea>
 						</div><!-- /textarea -->
 						<hr>
 						<div class="fancy-form margin-bottom-10">
@@ -52,12 +52,12 @@
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Nama / NIP Terlapor" disabled class="personal">
+							<input type="text" name="nama" placeholder="Nama / NIP Terlapor" disabled class="personal">
 							<b class="tooltip tooltip-bottom-right">Nama pihak yang terkait dengan laporan anda</b>
 						</label>
 
 						<div class="fancy-form margin-bottom-10"><!-- textarea -->
-							<textarea rows="5" class="form-control word-count personal" data-maxlength="200" data-info="textarea-words-info" placeholder="Alamat" disabled></textarea>
+							<textarea rows="5" name="alamat" class="form-control word-count personal" data-maxlength="200" data-info="textarea-words-info" placeholder="Alamat" disabled></textarea>
 							<i class="fa fa-map-marker"><!-- icon --></i>
 							<span class="fancy-hint size-11 text-muted">
 								<strong>Hint:</strong> 200 words allowed!
@@ -69,24 +69,24 @@
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Jabatan" class="personal" disabled>
+							<input type="text" placeholder="Jabatan" name="jabatan" class="personal" disabled>
 							<b class="tooltip tooltip-bottom-right">Jabatan pihak yang terkait dengan laporan anda</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Unit Kerja" class="personal" disabled>
+							<input type="text" placeholder="Unit Kerja" name="satker" class="personal" disabled>
 							<b class="tooltip tooltip-bottom-right">Unit kerja pihak yang terkait dengan laporan anda</b>
 						</label>
 
 						<label class="input margin-bottom-30">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Lokasi Kasus/Kejadian" class="personal" disabled>
+							<input type="text" name="lokasi" placeholder="Lokasi Kasus/Kejadian" class="personal" disabled>
 							<b class="tooltip tooltip-bottom-right">Lokasi terjadinya kasus/kejadian</b>
 						</label>
 						<hr>
 						<label class="select margin-bottom-10">
-							<input class="custom-file-upload" type="file" id="file" name="contact[attachment]" id="contact:attachment" data-btn-text="Upload data pendukung" />
+							<input class="custom-file-upload" name="myfile" type="file" id="file" name="contact[attachment]" id="contact:attachment" data-btn-text="Upload data pendukung" />
 							<small class="text-muted block">Max file size: 1Mb (gif/jpg/png/doc/docx/xls/xlsx/pdf/3gp/mp4)</small>
 
 						</label>
@@ -137,42 +137,21 @@
                 <form action="{$basedomain}" method="post" class="sky-form boxed">
                     <header><i class="fa fa-tags"></i> Daftar Pengaduan Anda</header>
                     
-                    <fieldset class="nomargin"> 
+                    <fieldset class="nomargin">
+                    	
+                    	{foreach $dataPengaduan as $val}
                     	<div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="{$basedomain}pengaduan/detail" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
-								<small>ID Laporan : 5623333</small>
-								<small>Status Laporan : Aktif</small>
+								<a href="{$basedomain}pengaduan/detail" class="tab-post-link"><strong>{$val.judul}</strong></a>
+								<small>{$val.tanggalformat}</small>
+								<small>ID Laporan : {$val.idPengaduan}</small>
+								<small>Status Laporan : {if $val.n_status eq '1'}Aktif{else}Selesai{/if}</small>
 							</div>
 						</div>
+						{/foreach}
 
-						<div class="row tab-post">
-	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
-								<small>ID Laporan : 5623333</small>
-								<small>Status Laporan : Aktif</small>
-							</div>
-						</div>
 
-						<div class="row tab-post">
-	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
-								<small>ID Laporan : 5623333</small>
-								<small>Status Laporan : Aktif</small>
-							</div>
-						</div>
-
-						<div class="row tab-post">
-	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
-								<small>ID Laporan : 5623333</small>
-								<small>Status Laporan : Aktif</small>
-							</div>
-						</div>
+						
 
                     </fieldset>
 
