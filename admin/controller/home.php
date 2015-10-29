@@ -20,19 +20,199 @@ class home extends Controller {
 	public function loadmodule()
 	{
 		
-		$this->contentHelper = $this->loadModel('contentHelper');
-		$this->marticle = $this->loadModel('marticle');
-		$this->mquiz = $this->loadModel('mquiz');
-		$this->mcourse = $this->loadModel('mcourse');
+		// $this->contentHelper = $this->loadModel('contentHelper');
+		// $this->marticle = $this->loadModel('marticle');
+		// $this->mquiz = $this->loadModel('mquiz');
+		// $this->mcourse = $this->loadModel('mcourse');
+		$this->mhome = $this->loadModel('mhome');
 	}
 	
 	public function index(){
+		$select_list_inbox_pengaduan = $this->mhome->select_data_inbox_pengaduan();
+		//get data object in array
+		foreach ($select_list_inbox_pengaduan as $k => $val) {
+			$i = 0;
+			foreach($val['tanggal'] as $date){
+				if ($i==0) $select_list_inbox_pengaduan[$k]['datetime'] = $date;
+				$i++;
+			}
+		}
+		// pr($select_list_inbox_pengaduan);
+		// exit;
+		$this->view->assign('data',$select_list_inbox_pengaduan);
 		
-
 		return $this->loadView('home/home');
 
 	}
+	public function StatusInfo(){
+		$kotak_masuk= $this->mhome->select_data_km();
+		// pr($kotak_masuk);
+		$sudah_terbaca= $this->mhome->select_data_st();
+		// pr($sudah_terbaca);
+		$belum_terbaca= $this->mhome->select_data_bt();
+		// pr($belum_terbaca);
+		
+		$newformat = array('km'=>$kotak_masuk,'st'=>$sudah_terbaca,'bt'=>$belum_terbaca);
+		print json_encode($newformat);
+		// print json_encode($register_user);
+		exit;
+	}
+	
+	public function chart(){
+		$years = date('Y');
+		$month = date('m');
+		$date  = date('d');
+		$month_rev = $years.'-'.$month.'-'.$date;
+		setlocale (LC_ALL, 'IND');
+		$newformatdate= strftime( "%B", strtotime($month_rev));
+		
+		// $newformatdate= $month;
+		
+		$aktif= $this->mhome->select_data_a($years,$month);
+		// pr($kotak_masuk);
+		$ditinjak_lanjuti= $this->mhome->select_data_dl($years,$month);
+		// pr($sudah_terbaca);
+		$tidak_ditinjak_lanjuti= $this->mhome->select_data_tdl($years,$month);
+		// pr($belum_terbaca);
+		$non_aktif= $this->mhome->select_data_na($years,$month);
+		
+		$newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);
+		print json_encode($newformat);
+		// print json_encode($register_user);
+		exit;
+	}
+	
+	public function chart_condtn(){
+		
+		$month = $_POST['monthid'];
+		$years = $_POST['yearid'];
+		$date  = date('d');
+		
+		$month_rev = $years.'-'.$month.'-'.$date;
+		setlocale (LC_ALL, 'IND');
+		$newformatdate= strftime( "%B", strtotime($month_rev));
+		
+		$aktif= $this->mhome->select_data_a($years,$month);
+		// pr($kotak_masuk);
+		$ditinjak_lanjuti= $this->mhome->select_data_dl($years,$month);
+		// pr($sudah_terbaca);
+		$tidak_ditinjak_lanjuti= $this->mhome->select_data_tdl($years,$month);
+		// pr($belum_terbaca);
+		$non_aktif= $this->mhome->select_data_na($years,$month);
+		
+		$newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);
+		// $newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif);
+		print json_encode($newformat);
+		// print json_encode($register_user);
+		exit;
+	}
 
+	public function viewvisitor(){
+		
+		//register user
+		$register_user= $this->mhome->select_data_register_user();
+		$this->view->assign('register_user',$register_user);
+		
+		//visitor
+		$visitor_user= $this->mhome->select_data_visitor_user();
+		$this->view->assign('visitor_user',$visitor_user);
+		
+		return $this->loadView('home/visitor');
+	}
+	
+	public function chart_donut_visitor(){
+		
+		$register_user= $this->mhome->select_data_register_user();
+		$visitor_user= $this->mhome->select_data_visitor_user();
+		
+		$newformat = array('register'=>$register_user,'visitor'=>$visitor_user);
+		print json_encode($newformat);
+		// print json_encode($register_user);
+		exit;
+	}
+	
+	public function chart_donut_visitor_condtn(){
+		$monthid = $_POST['monthid'];
+		$yearid = $_POST['yearid'];
+		
+		$register_user= $this->mhome->select_data_register_user_condt($monthid,$yearid);
+		// pr($register_user);
+		$visitor_user= $this->mhome->select_data_visitor_user_condt($monthid,$yearid);
+		// pr($visitor_user);
+		$newformat = array('register'=>$register_user,'visitor'=>$visitor_user);
+		print json_encode($newformat);
+		// print json_encode($register_user);
+		exit;
+	}
+	
+	function cetak()
+    {
+		global $basedomain;
+		// pr($_POST);
+		// exit;
+			//register user
+			$monthid = $_POST['month'];
+			$yearid = $_POST['year'];
+			
+			// $statistic_month = $this->mcourse->getTest($month,$year);
+			// $statistic = $statistic_month['total'];
+			
+			$register_user= $this->mhome->select_data_register_user_condt($monthid,$yearid);
+			$user_register = $register_user['total'];
+			
+			//visitor
+			$visitor_user= $this->mhome->select_data_visitor_user_condt($monthid,$yearid);
+			$user_visitor = $visitor_user['total'];
+			
+		if($_POST['type'] == 1){
+			// exit;
+			$this->reportHelper =$this->loadModel('reportHelper');
+			$html = "<div style=\"width: ; text-align: center;\">
+						<h4>List User : </h4>
+						 <table style=\"text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">
+							<thead>
+								<tr class=\"\" >
+									<td>registered users</td>
+									<td>users who just browse the web <br>without login</td>
+								</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td align=\"center\">$user_register</td>
+										<td align=\"center\">$user_visitor</td>	
+									</tr>
+								</tbody>
+							</table>
+						</div>";
+
+			$generate = $this->reportHelper->loadMpdf($html, 'visitor');
+		}else{
+			$waktu=date("d-m-y_h:i:s");
+			$filename ="visitor_$waktu.xls";
+			header('Content-type: application/ms-excel');
+			header('Content-Disposition: attachment; filename='.$filename);
+			$html = "<div style=\"width: ; text-align: center;\">
+						<h4>List User : </h4>
+						 <table style=\"text-align: center; border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100%;\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\">
+							<thead>
+								<tr class=\"center\" >
+									<td align=\"center\">registered users</td>
+									<td align=\"center\">users who just browse the web <br>without login</td>
+								</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td align=\"center\">$user_register</td>
+										<td align=\"center\">$user_visitor</td>	
+									</tr>
+								</tbody>
+							</table>
+						</div>";
+			echo $html;
+			exit;
+		}
+	}
+	
 	public function statistik(){
 		
 

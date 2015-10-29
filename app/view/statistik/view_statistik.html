@@ -1,3 +1,6 @@
+<script>
+$('.selectpicker').selectpicker();
+</script>
 <section class="page-header">
     <div class="container">
 
@@ -19,8 +22,31 @@
 
             <div class="col-md-8 col-sm-8">
                 <form class="sky-form boxed">
-                    <header><i class="fa fa-pie-chart"></i> Statistik Laporan Pengaduan per Tahun 2015</header>
-                    
+                    <header><i class="fa fa-pie-chart"></i> Statistik Laporan Pengaduan<label id="monthref"></label></header>
+					<div class="row" style="margin-bottom:40px">
+						<div class="col-sm-12">
+						         <select id="monthid" class="selectpicker" data-live-search="true" name="month" >
+				                    <option value=''>Choose one of the month</option>
+				                    <option value='1'>Januari</option>
+				                    <option value='2'>Februari</option>
+				                    <option value='3'>Maret</option>
+				                    <option value='4'>April</option>
+				                    <option value='5'>Mei</option>
+				                    <option value='6'>Juni</option>
+				                    <option value='7'>Juli</option>
+				                    <option value='8'>Agustus</option>
+				                    <option value='9'>September</option>
+				                    <option value='10'>Oktober</option>
+				                    <option value='11'>November</option>
+				                    <option value='12'>December</option>
+				                </select>
+				                <select id="yearid" class="selectpicker" data-live-search="true" name="year" >
+				                    <option value=''>Choose one of the year</option>
+				                    <option value='{date(Y) - 1}'>{date(Y) - 1}</option>
+				                    <option value='{date(Y)}'>{date(Y)}</option>
+				                </select>
+						</div>
+					</div>
                     <fieldset class="nomargin"> 
                        <div id="demo-morris-donut" class="margin-top-20 margin-bottom-20" style="height:250px"></div>
                     </fieldset>
@@ -28,8 +54,31 @@
                 </form>
 
                 <form class="sky-form boxed">
-                    <header><i class="fa fa-bar-chart"></i> Statistik Hasil Survey Kepuasan Masyarakat Tahun 2015</header>
-                    
+                    <header><i class="fa fa-bar-chart"></i> Statistik Hasil Survey Kepuasan Masyarakat <label id="monthref_v2"></label></header>
+                    <div class="row" style="margin-bottom:40px">
+						<div class="col-sm-12">
+						         <select id="monthid_v2" class="selectpicker" data-live-search="true" name="month" >
+				                    <option value=''>Choose one of the month</option>
+				                    <option value='1'>Januari</option>
+				                    <option value='2'>Februari</option>
+				                    <option value='3'>Maret</option>
+				                    <option value='4'>April</option>
+				                    <option value='5'>Mei</option>
+				                    <option value='6'>Juni</option>
+				                    <option value='7'>Juli</option>
+				                    <option value='8'>Agustus</option>
+				                    <option value='9'>September</option>
+				                    <option value='10'>Oktober</option>
+				                    <option value='11'>November</option>
+				                    <option value='12'>December</option>
+				                </select>
+				                <select id="yearid_v2" class="selectpicker" data-live-search="true" name="year" >
+				                    <option value=''>Choose one of the year</option>
+				                    <option value='{date(Y) - 1}'>{date(Y) - 1}</option>
+				                    <option value='{date(Y)}'>{date(Y)}</option>
+				                </select>
+						</div>
+					</div>
                     <fieldset class="nomargin"> 
                         <div id="demo-morris-bar" style="height:227px"></div>
                     </fieldset>
@@ -118,8 +167,7 @@
         // Require MorrisJS Chart
         // -----------------------------------------------------------------
         // http://morrisjs.github.io/morris.js/
-        // =================================================================
-        Morris.Donut({
+		    /*Morris.Donut({
             element: 'demo-morris-donut',
             data: [
                 {label: "Dalam Proses", value: 35},
@@ -130,7 +178,78 @@
                 '#177bbb'
             ],
             resize:true
-        });
+        });*/
+        // =================================================================
+		
+		window.Morris.Donut.prototype.setData = function(data, redraw) {
+			if (redraw == null) {
+				redraw = true;
+			}
+			this.data = data;
+			this.values = (function() {
+			var _i, _len, _ref, _results;
+			_ref = this.data;
+			_results = [];
+			for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+				row = _ref[_i];
+				_results.push(parseFloat(row.value));
+			}
+			return _results;
+			}).call(this);
+			this.dirty = true;
+			if (redraw) {
+				return this.redraw();
+			}
+		}
+
+		var donut ="";
+		$.post(basedomain+"statistik/chart",function(statistik_pengaduan){
+			var temp_a = statistik_pengaduan.proses.total;
+			var temp_b = statistik_pengaduan.selesai.total;
+			$('#monthref').text(statistik_pengaduan.month);
+			//$('#yearsref').text(statistik_pengaduan.years);
+			var month =statistik_pengaduan.month;
+			var space = "  ";
+			var years =statistik_pengaduan.years;
+			var mix = month.concat(space,years); 
+			$('#monthref').text(mix);
+			
+			donut = Morris.Donut({
+			element: 'demo-morris-donut',
+			data: [
+				//{label: "Registered", value: register_user[0].total},
+				{label: "Dalam Proses", value: temp_a},
+				{label: "Selesai", value: temp_b}
+			],
+			colors: [
+				 '#a6c600',
+                '#177bbb'
+			],
+			resize:true
+		});
+		},"JSON");
+		
+		$('#monthid,#yearid').on('change', function(){
+		var monthid = $('#monthid').val();
+		var yearid = $('#yearid').val();
+		if(monthid != '' && yearid != ''){
+				$.post(basedomain+"statistik/chart_condtn", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
+					//$('#monthref').text(statistik_pengaduan.month);
+					//$('#yearsref').text(statistik_pengaduan.years);
+					var month =statistik_pengaduan.month;
+					var space = "  ";
+					var years =statistik_pengaduan.years;
+					var mix = month.concat(space,years); 
+					$('#monthref').text(mix);	
+						donut.setData([
+					{label: "Dalam Proses", value: statistik_pengaduan.proses.total},
+					{label: "Selesai", value: statistik_pengaduan.selesai.total}
+				  ]);	
+			},"JSON");
+
+		}		
+	});	
+    
 
         // MORRIS BAR CHART
         // =================================================================
@@ -138,7 +257,7 @@
         // -----------------------------------------------------------------
         // http://morrisjs.github.io/morris.js/
         // =================================================================
-        Morris.Bar({
+        /*Morris.Bar({
             element: 'demo-morris-bar',
             data: [
                 { y: '2015', a: 20, b: 35, c:45, d:40 }
@@ -151,11 +270,71 @@
             barColors: ['#177bbb', '#afd2f0'],
             resize:true,
             hideHover: 'auto'
-        });
+        });*/
+		
+		var bar ="";
+		
+		$.post(basedomain+"statistik/chart_bar",function(statistik_pengaduan_v2){
+			var temp_a_v2 = statistik_pengaduan_v2.a.total;
+			var temp_b_v2 = statistik_pengaduan_v2.dl.total;
+			var temp_c_v2 = statistik_pengaduan_v2.tdl.total;
+			var temp_d_v2 = statistik_pengaduan_v2.na.total;
+			var temp_years = statistik_pengaduan_v2.years;
+			//$('#monthref').text(statistik_pengaduan_v2.month);
+			//$('#yearsref').text(statistik_pengaduan_v2.years);
+			var month_v2 =statistik_pengaduan_v2.month;
+			var space_v2 = "  ";
+			var years_v2 =statistik_pengaduan_v2.years;
+			var mix_v2 = month_v2.concat(space_v2,years_v2); 
+			$('#monthref_v2').text(mix_v2);
+			
+			bar = Morris.Bar({
+				element: 'demo-morris-bar',
+				data: [
+					{ y: temp_years, a: temp_a_v2, b: temp_b_v2, c:temp_c_v2, d:temp_d_v2 }
+				],
+				xkey: 'y',
+				ykeys: ['a', 'b', 'c', 'd'],
+				labels: ['Sangat Puas', 'Puas', 'Tidak Puas', 'Sangat Tidak Puas'],
+				gridEnabled: true,
+				gridLineColor: '#177bbb',
+				barColors: ['#177bbb', '#afd2f0'],
+				resize:true,
+				hideHover: 'auto'
+			});
+		},"JSON");
+	
+	
+	$('#monthid_v2,#yearid_v2').on('change', function(){
+		//var bar ="";
+		var monthid_v2 = $('#monthid_v2').val();
+		var yearid_v2 = $('#yearid_v2').val();
+		if(monthid_v2 != '' && yearid_v2 != ''){
+				$.post(basedomain+"statistik/chart_bar_condtn", {monthid_v2:monthid_v2, yearid_v2:yearid_v2},function(statistik_pengaduan_v2){
+					var temp_a_v2 = statistik_pengaduan_v2.a.total;
+					var temp_b_v2 = statistik_pengaduan_v2.dl.total;
+					var temp_c_v2 = statistik_pengaduan_v2.tdl.total;
+					var temp_d_v2 = statistik_pengaduan_v2.na.total;
+					var temp_years = statistik_pengaduan_v2.years;
+					//$('#monthref').text(statistik_pengaduan_v2.month);
+					//$('#yearsref').text(statistik_pengaduan_v2.years);
+					var month_v2 =statistik_pengaduan_v2.month;
+					var space_v2 = "  ";
+					var years_v2 =statistik_pengaduan_v2.years;
+					var mix_v2 = month_v2.concat(space_v2,years_v2); 
+					$('#monthref_v2').text(mix_v2);
+					
+					bar.setData([{ "y": temp_years, "a": temp_a_v2, "b": temp_b_v2, "c": temp_c_v2, "d": temp_d_v2} ]);
+					
+			},"JSON");
+		}		
+	});	
 
         // Dual List Plugin Init
-        var demo1 = $('.demo1').bootstrapDualListbox({
-        });
+        //var demo1 = $('.demo1').bootstrapDualListbox({
+        //});
+		
+		
     });
 
 </script>

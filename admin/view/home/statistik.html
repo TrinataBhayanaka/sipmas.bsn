@@ -1,3 +1,6 @@
+<script>
+$('.selectpicker').selectpicker();
+</script>
 <!--Page Title-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div id="page-title">
@@ -26,7 +29,31 @@
 				<!--Tabs Content-->
 				<div class="tab-content">
 					<div id="demo-lft-tab-1" class="tab-pane fade active in">
-						<h4 class="text-thin">Statistik Laporan Pengaduan 7 September 2015</h4>
+						<h4 class="text-thin"><label>Statistik Laporan Pengaduan</label> <label id="monthref"></label>&nbsp;<label id="yearsref"></label></h4>
+						<div class="row" style="margin-bottom:30px">
+						<div class="col-sm-12">
+						         <select id="monthid" class="selectpicker" data-live-search="true" name="month" >
+				                    <option value=''>Choose one of the month</option>
+				                    <option value='1'>Januari</option>
+				                    <option value='2'>Februari</option>
+				                    <option value='3'>Maret</option>
+				                    <option value='4'>April</option>
+				                    <option value='5'>Mei</option>
+				                    <option value='6'>Juni</option>
+				                    <option value='7'>Juli</option>
+				                    <option value='8'>Agustus</option>
+				                    <option value='9'>September</option>
+				                    <option value='10'>Oktober</option>
+				                    <option value='11'>November</option>
+				                    <option value='12'>December</option>
+				                </select>
+				                <select id="yearid" class="selectpicker" data-live-search="true" name="year" >
+				                    <option value=''>Choose one of the year</option>
+				                    <option value='{date(Y) - 1}'>{date(Y) - 1}</option>
+				                    <option value='{date(Y)}'>{date(Y)}</option>
+				                </select>
+						</div>
+					</div>
 						<div id="demo-morris-bar" style="height:212px"></div>
 					</div>
 				</div>
@@ -36,7 +63,7 @@
 		</div>
 	</div>
 </div>
-
+{literal}
 <script type="text/javascript">
 	$(document).ready(function() {
 		// MORRIS BAR CHART
@@ -45,19 +72,60 @@
 		// -----------------------------------------------------------------
 		// http://morrisjs.github.io/morris.js/
 		// =================================================================
-		Morris.Bar({
-			element: 'demo-morris-bar',
-			data: [
-				{ y: '1', a: 20, b: 35, c:45, d:40 }
-			],
-			xkey: 'y',
-			ykeys: ['a', 'b', 'c', 'd'],
-			labels: ['Aktif', 'Ditindaklanjuti', 'Tidak Ditindaklanjuti', 'Non Aktif'],
-			gridEnabled: true,
-			gridLineColor: '#177bbb',
-			barColors: ['#177bbb', '#afd2f0'],
-			resize:true,
-			hideHover: 'auto'
-		});
-	});
+		/*catatan dinamic y (tahun)
+		 a: (), b: 35, c:45, d:40
+		 - (a) 1 (aktif)
+		 - (b)2 (ditinjak lanjuti)
+		 - (c)3 (tidak ditinjak lanjuti)
+		 - (d)4 (non aktif)
+		*/
+		var bar ="";
+		
+		$.post(basedomain+"home/chart",function(statistik_pengaduan){
+			var temp_a = statistik_pengaduan.a.total;
+			var temp_b = statistik_pengaduan.dl.total;
+			var temp_c = statistik_pengaduan.tdl.total;
+			var temp_d = statistik_pengaduan.na.total;
+			var temp_years = statistik_pengaduan.years;
+			$('#monthref').text(statistik_pengaduan.month);
+			$('#yearsref').text(statistik_pengaduan.years);
+			bar = Morris.Bar({
+				element: 'demo-morris-bar',
+				data: [
+					{ y: temp_years, a: temp_a, b: temp_b, c:temp_c, d:temp_d }
+				],
+				xkey: 'y',
+				ykeys: ['a', 'b', 'c', 'd'],
+				labels: ['Aktif', 'Ditindaklanjuti', 'Tidak Ditindaklanjuti', 'Selesai'],
+				gridEnabled: true,
+				gridLineColor: '#177bbb',
+				barColors: ['#177bbb', '#afd2f0'],
+				resize:true,
+				hideHover: 'auto'
+			});
+		},"JSON");
+	
+	
+	$('#monthid,#yearid').on('change', function(){
+		//var bar ="";
+		var monthid = $('#monthid').val();
+		var yearid = $('#yearid').val();
+		if(monthid != '' && yearid != ''){
+				$.post(basedomain+"home/chart_condtn", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
+					var temp_a = statistik_pengaduan.a.total;
+					var temp_b = statistik_pengaduan.dl.total;
+					var temp_c = statistik_pengaduan.tdl.total;
+					var temp_d = statistik_pengaduan.na.total;
+					var temp_years = statistik_pengaduan.years;
+					$('#monthref').text(statistik_pengaduan.month);
+					$('#yearsref').text(statistik_pengaduan.years);
+					
+					bar.setData([{ "y": temp_years, "a": temp_a, "b": temp_b, "c": temp_c, "d": temp_d} ]);
+					
+			},"JSON");
+		}		
+	});	
+});	
+	
 </script>
+{/literal}
