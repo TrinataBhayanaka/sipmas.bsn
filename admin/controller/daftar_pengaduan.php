@@ -21,9 +21,7 @@ class daftar_pengaduan extends Controller {
 	{
 		
 		$this->contentHelper = $this->loadModel('contentHelper');
-		$this->marticle = $this->loadModel('marticle');
-		$this->mquiz = $this->loadModel('mquiz');
-		$this->mcourse = $this->loadModel('mcourse');
+		$this->model = $this->loadModel('mpengaduan');
 	}
 	
 	public function index(){

@@ -24,6 +24,9 @@ class pengaduan extends Controller {
 	
 	function index(){
 		
+		$data = $this->model->getPengaduan($this->user['idUser']);
+		
+		$this->view->assign('dataPengaduan',$data);
         $this->view->assign('user',$this->user);
 		return $this->loadView('pengaduan/pengaduan');
     }
