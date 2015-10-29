@@ -27,9 +27,9 @@
 				<div class="tab-content">
 					<div id="demo-lft-tab-1" class="tab-pane fade active in">
 						<h4 class="text-thin">
-						<span class="badge badge-purple">27</span> Kotak Masuk 
-						<span class="badge badge-success" style="margin-left:20px">20</span> Sudah Rerbaca
-						<span class="badge badge-warning" style="margin-left:20px">7</span> Belum Terbaca
+						<span class="badge badge-purple"><label id="KM"></label></span> Kotak Masuk 
+						<span class="badge badge-success" style="margin-left:20px"><label id="ST"></label></span> Sudah Terbaca
+						<span class="badge badge-warning" style="margin-left:20px"><label id="BT"></label></span> Belum Terbaca
 						</h4>
 						<table id="demo-dt-basic" class="table table-striped table-bordered" cellspacing="0" width="100%">
 								<thead>
@@ -41,42 +41,15 @@
 									</tr>
 								</thead>
 								<tbody>
+									{foreach $data as $value}
 									<tr>
-										<td>Tiger Nixon</td>
-										<td>System Architect</td>
-										<td>Edinburgh</td>
-										<td>61</td>
+										<td>{$value.idLaporan}</td>
+										<td>{$value.nama}</td>
+										<td>{$value.idLaporan}</td>
+										{setlocale (LC_TIME, 'id_ID')}
+										<td>{strftime($value.datetime|date_format:'%d/%m/%Y')}</td>
 									</tr>
-									<tr>
-										<td>Garrett Winters</td>
-										<td>Accountant</td>
-										<td>Tokyo</td>
-										<td>63</td>
-									</tr>
-									<tr>
-										<td>Ashton Cox</td>
-										<td>Junior Technical Author</td>
-										<td>San Francisco</td>
-										<td>66</td>
-									</tr>
-									<tr>
-										<td>Cedric Kelly</td>
-										<td>Senior Javascript Developer</td>
-										<td>Edinburgh</td>
-										<td>22</td>
-									</tr>
-									<tr>
-										<td>Airi Satou</td>
-										<td>Accountant</td>
-										<td>Tokyo</td>
-										<td>33</td>
-									</tr>
-									<tr>
-										<td>Brielle Williamson</td>
-										<td>Integration Specialist</td>
-										<td>New York</td>
-										<td>61</td>
-									</tr>
+									{/foreach}
 								</tbody>
 							</table>
 					</div>
@@ -87,3 +60,16 @@
 		</div>
 	</div>
 </div>
+
+{literal}
+<script type="text/javascript">
+
+$(document).ready(function() {
+		$.post(basedomain+"home/StatusInfo",function(Info){
+		$('#KM').text(Info.km.total);
+		$('#ST').text(Info.st.total);
+		$('#BT').text(Info.bt.total);
+		},"JSON");
+})	
+</script>	
+{/literal}

@@ -3,6 +3,24 @@ class contentHelper extends Database {
 	
 	var $prefix = "lelang";
 
+	function tracking($postTracking){
+
+        if($type==''){
+        	$query = "SELECT * FROM bsn_pengaduan WHERE idPengaduan LIKE '%{$postTracking}%'";
+    	}
+        $result = $this->fetch($query,1);
+        if(empty($result)){
+           $query = "SELECT P.* FROM bsn_pengaduan as P join users as Usr on P.idUser=Usr.idUser WHERE Usr.email='{$postTracking}'";
+
+           $result = $this->fetch($query,1); 
+
+           return $result;
+        }
+        // pr($result);
+        // exit;
+        return $result;
+
+    }
 	function getData()
 	{
 		$sql = "SELECT * FROM code_activity";

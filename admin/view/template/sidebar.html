@@ -39,6 +39,13 @@
 							</a>
 			
 						</li>
+						<li class="{if $page.page eq 'home' && $page.function eq 'viewvisitor'}active-link{/if}">
+							<a href="{$basedomain}home/viewvisitor">
+								<i class="fa fa-eye"></i>
+								<span class="menu-title">Statistik Laporan Pengunjung</span>
+							</a>
+			
+						</li>
 						<!--Category name-->
 						<li class="list-header">Pengaduan</li>
 			
@@ -53,6 +60,14 @@
 								<i class="fa fa-eye"></i>
 								<span class="menu-title">
 									Statistik Laporan
+								</span>
+							</a>
+						</li>
+						<li class="{if $page.page eq 'statistik_laporan'}active-link{/if}">
+							<a href="{$basedomain}cobacoba">
+								<i class="fa fa-eye"></i>
+								<span class="menu-title">
+									COba Coba
 								</span>
 							</a>
 						</li>
