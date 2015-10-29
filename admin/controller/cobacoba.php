@@ -1,7 +1,7 @@
 <?php
 // defined ('TATARUANG') or exit ( 'Forbidden Access' );
 
-class home extends Controller {
+class cobacoba extends Controller {
 	
 	var $models = FALSE;
 	
@@ -28,30 +28,18 @@ class home extends Controller {
 	
 	public function index(){
 		
-
-		return $this->loadView('home/home');
-
-	}
-
-	public function statistik(){
+		// uploadFile($data,$path=null,$ext){
 		
+		// $quizStatistic = $this->contentHelper->quizStatistic();
+		// db($quizStatistic);
 
-		return $this->loadView('home/statistik');
+		return $this->loadView('statistik/cobacoba');
 
 	}
 	
-	public function search(){
-		
+	
+	
 
-        $data['pencarian']=$this->contentHelper->tracking($_POST['tracking']);
-        pr($_POST);
-
-        $this->view->assign('data',$data['pencarian']);
-        pr($data);
-        exit;
-		return $this->loadView('home/search');
-
-	}
 
 	
 }
