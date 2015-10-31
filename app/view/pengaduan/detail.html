@@ -152,7 +152,25 @@
 							<div class="tab-pane fade" id="penelusuran">
 								<div class="timeline"><!-- .timeline-inverse = right position [left on RTL] -->
 
-										{if $data.fase eq '1'}
+										{if 2 lte $data.fase}
+										<!-- ITEM -->
+										<div class="timeline-item timeline-item-bordered" style="min-height:80px">
+											<!-- timeline entry -->
+											<div class="timeline-entry rounded" style="line-height:normal"><!-- .rounded = entry -->
+												<i class="fa fa-check fa-lg"></i>
+												<div class="timeline-vline"><!-- vertical line --></div>
+											</div>
+											<!-- /timeline entry -->
+
+											<small>{$penelaahan.tanggalstd}</small>
+											<h4 style="margin:0 0 0 0">Laporan Anda sedang memasuki proses penelaahan pengaduan yang dilakukan oleh inspektorat BSN</h4>
+										
+
+										</div>
+										<!-- /ITEM -->
+										{/if}
+
+										{if 1 lte $data.fase}
 										<!-- ITEM -->
 										<div class="timeline-item timeline-item-bordered" style="min-height:80px">
 											<!-- timeline entry -->
@@ -164,11 +182,11 @@
 
 											<small>{$data.tanggalformat}</small>
 											<h4 style="margin:0 0 0 0">Laporan Anda sudah masuk ke dalam database sistem</h4>
-										{/if}
+										
 
 										</div>
 										<!-- /ITEM -->
-								
+										{/if}
 								</div>
 							</div>
 							{if $data.fase eq '5'}

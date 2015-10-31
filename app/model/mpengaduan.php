@@ -53,5 +53,13 @@ class mpengaduan extends Database {
 
         return $res;
     }
+
+    function getPenelaahan($id)
+    {
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_penelaahan WHERE idPengaduan = '{$id}'";
+        $res = $this->fetch($sql,0);
+        
+        return $res;
+    }
 }
 ?>

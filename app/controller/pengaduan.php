@@ -38,6 +38,7 @@ class pengaduan extends Controller {
     	$data = $this->model->getPengaduan($this->user['idUser'],$idPengaduan);
     	$dataPengaduan = $this->model->getPengaduan($this->user['idUser']);
     	$file = $this->model->getFile($idPengaduan);
+    	$penelaahan = $this->model->getPenelaahan($idPengaduan);
 
     	$data[0]['isi'] = html_entity_decode($data[0]['isi']);
 
@@ -52,6 +53,7 @@ class pengaduan extends Controller {
     		$data[0]['n_status'] = 'Selesai';
     	}
 
+    	$this->view->assign('penelaahan',$penelaahan);
     	$this->view->assign('file',$file);
     	$this->view->assign('dataPengaduan',$dataPengaduan);
     	$this->view->assign('data',$data[0]);
