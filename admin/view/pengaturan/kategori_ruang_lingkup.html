@@ -36,33 +36,33 @@
 				<div class="tab-content">
 					<div id="demo-lft-tab-1" class="tab-pane fade active in">
 						
-							<button id="demo-bootbox-prompt" class="btn btn-primary btn-labeled fa fa-plus" style="margin-bottom:20px">Kategori Ruang Lingkup</button>
-							<button id="demo-bootbox-custom-form" class="btn btn-primary btn-labeled fa fa-plus" style="margin-bottom:20px">Kategori Sub Ruang Lingkup</button>
-							<button class="btn btn-danger btn-labeled fa fa-trash" style="margin-bottom:20px">Delete</button>
+							<button id="add-kategori" class="btn btn-primary btn-labeled fa fa-plus" style="margin-bottom:20px">Kategori Ruang Lingkup</button>
+							<!--<button id="add-sub-kategori" class="btn btn-primary btn-labeled fa fa-plus" style="margin-bottom:20px">Kategori Sub Ruang Lingkup</button>-->
+							
+							<!--<button class="btn btn-danger btn-labeled fa fa-trash" style="margin-bottom:20px">Delete</button>-->
 						
 						<table id="demo-dt-basic" class="table table-striped table-bordered" cellspacing="0" width="100%">
 							<thead>
-								<tr>
-									<th>Kategori Ruang Lingkup</th>
-									<th>Kategori Sub Ruang Lingkup</th>
+								<tr> 
+									<th >Kategori Ruang Lingkup</th>
+									<th>Detail Sub Kategori Ruang Lingkup</th>
+									<th >Aksi</th>
 									
 								</tr>
 							</thead>
 							<tbody>
+							{foreach $data as $value}
 								<tr>
-									<td><label class="form-checkbox form-normal form-primary active"><input type="checkbox">Kategori 1</label></td>
-									<td><label class="form-checkbox form-normal form-primary active"><input type="checkbox">Sub 1</label></td>
-									
+									<td >{$value.ruang_lingkup}</td>
+									<td  align="center">
+										<a href="{$basedomain}pengaturan_admin/ruanglingkup_sub/?id={$value.idKategori}"><button class="btn btn-mint btn-labeled fa fa-book">View Kategori Sub</button></a>
+									</td>
+									<td align="center">
+										<button class="kategori-edit btn btn-warning btn-labeled fa fa-pencil" value="{$value.idKategori}" href="#">Edit</button>
+										<button class="delete-kategori btn btn-danger btn-labeled fa fa-times" value="{$value.idKategori}" href="#">Hapus</button>
+									</td>
 								</tr>
-								<tr>
-									<td></td>
-									<td><label class="form-checkbox form-normal form-primary active"><input type="checkbox">Sub 2</label></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><label class="form-checkbox form-normal form-primary active"><input type="checkbox">Sub 3</label></td>
-								</tr>
-								
+							{/foreach}	
 							</tbody>
 						</table>
 					</div>
@@ -75,35 +75,3 @@
 
 </div>
 <!-- End: Content -->
-
-{literal}
-<script>
-	// BOOTBOX - PROMPT MODAL
-	// =================================================================
-	// Require Bootbox
-	// http://bootboxjs.com/
-	// =================================================================
-	$('#demo-bootbox-prompt').on('click', function(){
-		bootbox.prompt("Nama Kategori Ruang Lingkup", function(result) {
-			if (result) {
-				$.niftyNoty({
-					type: 'success',
-					icon : 'fa fa-check',
-					message : 'Hi ' + result,
-					container : 'floating',
-					timer : 3000
-				});
-			}else{
-				$.niftyNoty({
-					type: 'danger',
-					icon : 'fa fa-minus',
-					message : 'User declined dialog.',
-					container : 'floating',
-					timer : 3000
-				});
-			};
-		});
-	});
-
-</script>
-{/literal}
