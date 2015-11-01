@@ -1,7 +1,7 @@
 <!--Page Title-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div id="page-title">
-	<h1 class="page-header text-overflow">Detail Laporan Pengaduan</h1>
+	<h1 class="page-header text-overflow">Penelaahan Laporan</h1>
 </div>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--End page title-->
@@ -15,8 +15,8 @@
 				
 				<div class="list-group bg-trans">
 					<h4 class="text-thin">Laporan Pengaduan</h4>
-						<a href="{$basedomain}daftar_pengaduan/detail" class="list-group-item list-item-sm">
-						<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/detail/?id={$id}" class="list-group-item list-item-sm">
+						<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 						Isi Laporan Pengaduan
 						</a>
 				</div>
@@ -25,24 +25,24 @@
 						<h4 class="text-thin">Penanganan Laporan Pengaduan</h4>
 					
 						<!-- Menu list item -->
-						<a href="{$basedomain}daftar_pengaduan/tindak_lanjut" class="list-group-item list-item-sm">
-							<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/tindak_lanjut/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Tindak Lanjut Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/penelusuran" class="list-group-item list-item-sm">
-							<span class="badge badge-info badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/penelusuran/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Penelusuran Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/penelaahan" class="list-group-item list-item-sm" style="background-color:rgba(125,211,188,0.5);">
-							<span class="badge badge-pink badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/penelaahan/?id={$id}" class="list-group-item list-item-sm" style="background-color:rgba(125,211,188,0.5);">
+							<span class="badge badge-success badge-icon badge-fw pull-left"></span>
 							Penelaahan Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/balas" class="list-group-item list-item-sm">
-							<span class="badge badge-success badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/balas/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Balas Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/disposisi" class="list-group-item list-item-sm">
-							<span class="badge badge-danger badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/disposisi/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Disposisi Laporan
 						</a>
 					</div>
@@ -50,21 +50,28 @@
 			
 			<div class="col-md-9">
 				
-				<div class="panel panel-default panel-left">
+				<div class="panel panel-success panel-left">
 					
-						<div class="panel">
-							<h3 class="panel-title"><strong>Penelaahan Laporan</strong></h3>
+						<div class="panel-heading">
+							{if !empty($penelaahan)}
+							<div class="panel-control">
+								<button id="mail-save-btn" type="button" class="demo-panel-ref-btn btn">
+									<span class="btn-label"><i class="fa fa-download"></i></span> Download
+								</button>
+							</div>
+							{/if}
+							<h3 class="panel-title"><strong>{$dataPengaduan.judul}</strong></h3>
 						</div>
 			
 			
 						<!-- BASIC FORM ELEMENTS -->
 						<!--===================================================-->
-						<form class="panel-body form-horizontal form-padding">
+						<form class="panel-body form-horizontal form-padding" action="{$basedomain}daftar_pengaduan/ins_penelaahan" method="post">
 						
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="demo-readonly-input">Tanggal Pengaduan</label>
 								<div class="col-md-9">
-									<input type="text" id="demo-readonly-input" class="form-control" placeholder="Rabu, 19 Agustus 2015" readonly>
+									<input type="text" id="demo-readonly-input" class="form-control" placeholder="{$dataPengaduan.tanggalformat}" readonly>
 								</div>
 							</div>
 			
@@ -74,7 +81,7 @@
 								
 								<div id="demo-dp-component">
 									<div class="input-group date">
-										<input type="text" class="form-control">
+										<input type="text" name="tanggal" class="form-control" {if !empty($penelaahan)}value="{$penelaahan.tanggalformat}"{/if}>
 										<span class="input-group-addon"><i class="fa fa-calendar fa-lg"></i></span>
 									</div>
 									
@@ -85,10 +92,12 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="demo-text-input">Kelompok Pengaduan</label>
 								<div class="col-md-9">
-									<select class="selectpicker" data-width="100%">
-										<option>Ditindaklanjuti</option>
-										<option>Friend</option>
-										<option>Partner</option>
+									<select class="selectpicker" name="kelompok_pengaduan" data-width="100%" title="Pilih kelompok pengaduan">
+										<option data-hidden="true"></option>
+										<option value="1" {if $penelaahan.kelompok_pengaduan eq '1'}selected{/if}>Berkadar Pengawasan</option>
+										<option value="2" {if $penelaahan.kelompok_pengaduan eq '2'}selected{/if}>Tidak Berkadar Pengawasan</option>
+										<option value="3" {if $penelaahan.kelompok_pengaduan eq '3'}selected{/if}>Tidak Logis</option>
+										<option value="4" {if $penelaahan.kelompok_pengaduan eq '4'}selected{/if}>Bukan Kewenangan BSN</option>
 									</select>
 								</div>
 							</div>
@@ -96,22 +105,24 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="demo-email-input">Ruang Lingkup Laporan</label>
 								<div class="col-md-9">
-									<select class="selectpicker" data-width="100%">
-										<option>Pelayanan Publik</option>
-										<option>Friend</option>
-										<option>Partner</option>
+									<select class="selectpicker" name="kategori" id="rLingkup" data-width="100%" title="Pilih ruang lingkup" onchange="return subkategori()">
+										<option data-hidden="true"></option>
+										{foreach $rLingkup as $val}
+										<option value="{$val.idKategori}" {if $val.idKategori eq $penelaahan.kategori}selected{/if}>{$val.ruang_lingkup}</option>
+										{/foreach}
 									</select>
 								</div>
 							</div>
 			
-							<!--Password-->
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="demo-password-input"></label>
 									<div class="col-md-9">
-									<select class="selectpicker" data-width="100%">
-										<option>Pemesanan SNI</option>
-										<option>Friend</option>
-										<option>Partner</option>
+									<select class="selectpicker" name="sub_kategori" id="subrLingkup" data-width="100%">
+										{if !empty($penelaahan)}
+										{foreach $subLingkup as $val}
+										<option value="{$val.idKategori}" {if $val.idKategori eq $penelaahan.sub_kategori}selected{/if}>{$val.ruang_lingkup}</option>
+										{/foreach}
+										{/if}
 									</select>
 								</div>
 							</div>
@@ -119,10 +130,11 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="demo-text-input">Satuan Unit Kerja Terkait</label>
 								<div class="col-md-9">
-									<select class="selectpicker" data-width="100%">
-										<option>Pusat Informasi dan Dokumentasi</option>
-										<option>Friend</option>
-										<option>Partner</option>
+									<select class="selectpicker" name="satker" data-width="100%" title="Pilih Satker">
+										<option data-hidden="true"></option>
+										{foreach $satker as $val}
+										<option value="{$val.idSatker}" {if $penelaahan.satker eq $val.idSatker}selected{/if}>{$val.nama_satker}</option>
+										{/foreach}
 									</select>
 								</div>
 							</div>
@@ -130,10 +142,11 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="demo-text-input">Pejabat Terkait</label>
 								<div class="col-md-9">
-									<select class="selectpicker" data-width="100%">
-										<option>Pejabat Eselon I</option>
-										<option>Friend</option>
-										<option>Partner</option>
+									<select class="selectpicker" name="pejabat" data-width="100%">
+										<option value="1">Pejabat Eselon I</option>
+										<option value="2">Pejabat Eselon II</option>
+										<option value="3">Pejabat Eselon III</option>
+										<option value="4">Pejabat Eselon IV</option>
 									</select>
 								</div>
 							</div>
@@ -141,21 +154,21 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="demo-readonly-input">Substansi Pengaduan</label>
 								<div class="col-md-9">
-									<input type="text" id="demo-readonly-input" class="form-control" placeholder="Pengiriman dokumen yang terlalu lama" readonly>
+									<input type="text" id="demo-readonly-input" class="form-control" placeholder="{$dataPengaduan.judul}" readonly>
 								</div>
 							</div>
 							
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="demo-textarea-input">Kesimpulan</label>
 								<div class="col-md-9">
-									<textarea id="demo-textarea-input" rows="5" class="form-control" placeholder=" "></textarea>
+									<textarea id="demo-textarea-input" name="kesimpulan" rows="5" class="form-control" placeholder=" ">{$penelaahan.kesimpulan}</textarea>
 								</div>
 							</div>
 			
 							<div class="form-group">
 								<label class="col-md-3 control-label" for="demo-textarea-input">Rekomendasi</label>
 								<div class="col-md-9">
-									<textarea id="demo-textarea-input" rows="5" class="form-control" placeholder=" "></textarea>
+									<textarea id="demo-textarea-input" name="rekomendasi" rows="5" class="form-control" placeholder=" ">{$penelaahan.rekomendasi}</textarea>
 								</div>
 							</div>
 							
@@ -163,50 +176,42 @@
 							<!--===================================================-->
 							<div class="pad-ver">
 							<div class="col-md-3">
-								<h4><i class="fa fa-paperclip fa-fw"></i> Lampiran <span>(2)</span></h4>
+								<h4><i class="fa fa-paperclip fa-fw"></i> Lampiran </h4>
 							</div>
 							<div class="col-md-9">
 								<ul class="mail-attach-list list-ov">
+
+									{foreach $file as $val}
 									<li class=" clearfix">
 	
 										<!--Download button-->
-										<div class="mail-attach-btn"><a href="#" class="btn btn-purple btn-sm">Download</a></div>
+										<div class="mail-attach-btn"><a href="{$app_domain}public_assets/{$val.nama}" class="btn btn-purple btn-sm">Download</a></div>
 	
 										<!--File information-->
 										<div class="mail-attach-file">
 											<span class="mail-attach-label">
-												<span class="label label-info text-uppercase">Images</span>
+												<span class="label label-info text-uppercase">File</span>
 											</span>
 											<div class="media-body">
-												<div class="text-bold"><a href="#">IMG_007.jpg</a></div>
-												<small class="text-muted">(15 KB)</small>
+												<div class="text-bold">{$val.nama}</div>
+												{*}<small class="text-muted">(15 KB)</small>{/*}
 											</div>
 										</div>
 									</li>
-									<li class="clearfix">
-	
-										<!--Download button-->
-										<div class="mail-attach-btn"><a href="#" class="btn btn-purple btn-sm">Download</a></div>
-	
-										<!--File information-->
-										<div class="mail-attach-file">
-											<span class="mail-attach-label">
-												<span class="label label-warning  text-uppercase">Video</span>
-											</span>
-											<div class="media-body">
-												<div class="text-bold"><a href="#">VID_007.mp4</a></div>
-												<small class="text-muted">(178 MB)</small>
-											</div>
-										</div>
-									</li>
-									<button id="mail-send-btn" type="button" class="btn btn-primary btn-labeled">
+									{/foreach}
+									
+									<!-- HIDDEN -->
+									<input type="hidden" name="idPengaduan" value="{$id}" >
+									<input type="hidden" name="n_status" value="1" >
+
+									<button id="mail-send-btn" type="submit" class="btn btn-primary btn-labeled">
 										<span class="btn-label"><i class="fa fa-check"></i></span> Submit
 									</button>
-			
+									
 									<!--Save draft button-->
-									<button id="mail-save-btn" type="button" class="btn btn-danger btn-labeled">
+									{*}<button id="mail-save-btn" type="button" class="btn btn-danger btn-labeled">
 										<span class="btn-label"><i class="fa fa-times"></i></span> Cancel
-									</button>
+									</button>{/*}
 								</ul>
 							</div>
 							</div>
@@ -230,5 +235,32 @@
 	</div>
 	<!--===================================================-->
 	<!--End page content-->
+	{literal}
+	<script type="text/javascript">
+	function subkategori()
+	{
+		var rLingkup = $('#rLingkup').val();
+		var template = "";
+		$.post(basedomain+'daftar_pengaduan/ajaxsubkategori', {rLingkup:rLingkup}, function(data){
+
+			$('#subrLingkup')
+			    .find('option')
+			    .remove()
+			    .end()
+			;
+
+			if (data){
+				for(i=0;i<data.length;i++){
+					template+='<option value="'+data[i].idKategori+'">'+data[i].ruang_lingkup+'</option>';
+				}
+
+				$("#subrLingkup").html(template);
+				$("#subrLingkup").selectpicker('refresh');	
+			}
+			
+		},"JSON")
+	}
+	</script>
+	{/literal}
 				
 		

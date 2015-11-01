@@ -19,66 +19,25 @@
 						<th>Nama user</th>
 						<th class="min-tablet">Judul Laporan</th>
 						<th class="min-tablet">Tanggal Laporan</th>
-						<th class="min-desktop">Status</th>
 						<th class="min-desktop">Sisa Waktu</th>
-						<th class="min-desktop">Detail</th>
+						<th class="min-desktop">Status</th>
 					</tr>
 				</thead>
 				<tbody>
+					{foreach $dataPengaduan as $val}
 					<tr>
-						<td>Tiger Nixon</td>
-						<td>System Architect</td>
-						<td>Edinburgh</td>
-						<td>61</td>
-						<td><button class="btn btn-success btn-labeled fa fa-check">Aktif</button></td>
-						<td>$320,800</td>
-						<td><a href="{$basedomain}daftar_pengaduan/detail"><button class="btn btn-info btn-labeled fa fa-eye">View Detail</button></a></td>
+						<td><a href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.idPengaduan}</a></td>
+						<td><a href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.nameUser}</a></td>
+						<td><a href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.judul}</a></td>
+						<td><a href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.tanggalformat}</a></td>
+						<td>-</td>
+						<td>{if $n_status eq '1'}<span class="label label-primary">Aktif</span>
+						{elseif $n_status eq '2'}<span class="label label-warning">Ditindak Lanjuti</span>
+						{elseif $n_status eq '3'}<span class="label label-danger">Tidak Ditindak Lanjuti</span>
+						{else}<span class="label label-success">Selesai</span>{/if}
+						</td>
 					</tr>
-					<tr>
-						<td>Garrett Winters</td>
-						<td>Accountant</td>
-						<td>Tokyo</td>
-						<td>63</td>
-						<td><button class="btn btn-success btn-labeled fa fa-check">Aktif</button></td>
-						<td>$170,750</td>
-						<td><a href="{$basedomain}daftar_pengaduan/detail"><button class="btn btn-info btn-labeled fa fa-eye">View Detail</button></a></td>
-					</tr>
-					<tr>
-						<td>Ashton Cox</td>
-						<td>Junior Technical Author</td>
-						<td>San Francisco</td>
-						<td>66</td>
-						<td><button class="btn btn-danger btn-labeled fa fa-ban">Non Aktif</button></td>
-						<td>$86,000</td>
-						<td><a href="{$basedomain}daftar_pengaduan/detail"><button class="btn btn-info btn-labeled fa fa-eye">View Detail</button></a></td>
-					</tr>
-					<tr>
-						<td>Cedric Kelly</td>
-						<td>Senior Javascript Developer</td>
-						<td>Edinburgh</td>
-						<td>22</td>
-						<td><button class="btn btn-danger btn-labeled fa fa-ban">Non Aktif</button></td>
-						<td>$433,060</td>
-						<td><a href="{$basedomain}daftar_pengaduan/detail"><button class="btn btn-info btn-labeled fa fa-eye">View Detail</button></a></td>
-					</tr>
-					<tr>
-						<td>Airi Satou</td>
-						<td>Accountant</td>
-						<td>Tokyo</td>
-						<td>33</td>
-						<td><button class="btn btn-success btn-labeled fa fa-check">Aktif</button></td>
-						<td>$162,700</td>
-						<td><a href="{$basedomain}daftar_pengaduan/detail"><button class="btn btn-info btn-labeled fa fa-eye">View Detail</button></a></td>
-					</tr>
-					<tr>
-						<td>Brielle Williamson</td>
-						<td>Integration Specialist</td>
-						<td>New York</td>
-						<td>61</td>
-						<td><button class="btn btn-danger btn-labeled fa fa-ban">Non Aktif</button></td>
-						<td>$372,000</td>
-						<td><a href="{$basedomain}daftar_pengaduan/detail"><button class="btn btn-info btn-labeled fa fa-eye">View Detail</button></a></td>
-					</tr>
+					{/foreach}
 				</tbody>
 			</table>
 		</div>
