@@ -33,6 +33,32 @@ class pengaduan extends Controller {
 
     function detail()
     {
+    	$idPengaduan = $_GET['id'];
+
+    	$data = $this->model->getPengaduan($this->user['idUser'],$idPengaduan);
+    	$dataPengaduan = $this->model->getPengaduan($this->user['idUser']);
+    	$file = $this->model->getFile($idPengaduan);
+    	$penelaahan = $this->model->getPenelaahan($idPengaduan);
+
+    	$data[0]['isi'] = html_entity_decode($data[0]['isi']);
+
+    	if($data[0]['n_status'] == 1)
+    	{
+    		$data[0]['n_status'] = 'Aktif';
+    	} elseif ($data[0]['n_status'] == 2) {
+    		$data[0]['n_status'] = 'Ditindak Lanjuti';
+    	} elseif ($data[0]['n_status'] == 3) {
+    		$data[0]['n_status'] = 'Tidak Ditindak Lanjuti';
+    	} elseif ($data[0]['n_status'] == 4) {
+    		$data[0]['n_status'] = 'Selesai';
+    	}
+
+    	$this->view->assign('penelaahan',$penelaahan);
+    	$this->view->assign('file',$file);
+    	$this->view->assign('dataPengaduan',$dataPengaduan);
+    	$this->view->assign('data',$data[0]);
+    	$this->view->assign('user',$this->user);
+
     	return $this->loadView('pengaduan/detail');
     }
 
@@ -57,6 +83,7 @@ class pengaduan extends Controller {
 		    	unset($_POST['g-recaptcha-response']);
 		    	unset($_POST['termagree']);
 		    	if($_POST['perorangan'] == 'on') $_POST['perorangan'] = 1; 
+		    	$_POST['fase'] = 1;
 
 		    	$this->model->insert_laporan($_POST);
 

@@ -20,38 +20,26 @@
 			<div class="col-md-8 col-sm-8">
 				<form class="nomargin sky-form boxed" action="#" method="post" id="myForm">
 					<header>
-						<i class="fa fa-file-text"></i> Isi Laporan
+						<i class="fa fa-file-text"></i> {$data.judul}
 						</header>
 
 					<fieldset class="nomargin">	
-						<p>
-						Yth. PT Angkasa Pura,<br>
-						Yth. Garuda Indonesia,<br>
-						Yth. Kementerian perhubungan<br>
-						<br>
-						Saya ditagih pajak bandara di Bandara Soekarno Hatta Jakarta dan Bandara Supadio Pontianak,
-						padahal tiket yang saya beli (Garuda Indonesia) sudah termasuk pajak.
-						</p>
-						<p>
-						Tagihan pajak bandara Soekarno - Hatta Jakarta = saya lupa presisinya, antara Rp. 30.000 - 
-						Rp. 40.000,-<br>
-						Flight GA500 Jakarta-Pontianak pkl. 05.20. Saya melakukan check in sekitar pukul 04.30 WIB di konter check in Garuda Indonesia.
-						</p>
+						{$data.isi}
 						<div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link"><strong>Lampiran Data Pendukung :</strong></a>
-								<a href="#" class="tab-post-link"><small>xxx.docx</small></a>
-								<a href="#" class="tab-post-link"><small>xxx.docx</small></a>
-								<a href="#" class="tab-post-link"><small>xxx.docx</small></a>
+								<a href="#" class="tab-post-link"><strong>Lampiran Data Pendukung :</strong></a><br>
+								{foreach $file as $val}
+								<a href="{$basedomain}public_assets/{$val.nama}" class="tab-post-link">{$val.nama}</a>
+								{/foreach}
 							</div>
 						</div>
 					</fieldset>
 
-					<div class="row margin-bottom-20">
+					{*}<div class="row margin-bottom-20">
 						<div class="col-md-12">
 							<button type="submit" class="btn btn-primary" id="buttonsubmit"><i class="fa fa-download"></i> Download semua attachment</button>
 						</div>
-					</div>
+					</div>{/*}
 
 				</form>
 
@@ -60,7 +48,7 @@
 						<ul class="nav nav-tabs nav-top-border">
 							<li class="active"><a href="#tindaklanjut" data-toggle="tab">Tindak Lanjut Laporan</a></li>
 							<li><a href="#penelusuran" data-toggle="tab">Penelusuran Laporan</a></li>
-							<li><a href="#survey" data-toggle="tab">Survey Kepuasan Masyarakat</a></li>
+							{if $data.fase eq '5'}<li><a href="#survey" data-toggle="tab">Survey Kepuasan Masyarakat</a></li>{/if}
 							
 						</ul>
 
@@ -164,22 +152,7 @@
 							<div class="tab-pane fade" id="penelusuran">
 								<div class="timeline"><!-- .timeline-inverse = right position [left on RTL] -->
 
-										<!-- ITEM -->
-										<div class="timeline-item timeline-item-bordered" style="min-height:80px">
-											<!-- timeline entry -->
-											<div class="timeline-entry rounded" style="line-height:normal"><!-- .rounded = entry -->
-												<i class="fa fa-circle-o fa-lg"></i>
-												<div class="timeline-vline"><!-- vertical line --></div>
-											</div>
-											<!-- /timeline entry -->
-
-											<small>Kamis, 09 Juli 2015 14:25 WIB</small>
-											<h4 class="uppercase" style="margin:0 0 0 0">Laporan Anda sudah selesai</h4>
-											
-
-										</div>
-										<!-- /ITEM -->
-
+										{if 2 lte $data.fase}
 										<!-- ITEM -->
 										<div class="timeline-item timeline-item-bordered" style="min-height:80px">
 											<!-- timeline entry -->
@@ -189,13 +162,15 @@
 											</div>
 											<!-- /timeline entry -->
 
-											<small>Kamis, 09 Juli 2015 14:25 WIB</small>
-											<h4 class="uppercase" style="margin:0 0 0 0">Laporan Anda sedang memasuki proses penyelesaian</h4>
-											<p>Waktu yang dibutuhkan : 14 hari kerja</p>
+											<small>{$penelaahan.tanggalstd}</small>
+											<h4 style="margin:0 0 0 0">Laporan Anda sedang memasuki proses penelaahan pengaduan yang dilakukan oleh inspektorat BSN</h4>
+										
 
 										</div>
 										<!-- /ITEM -->
+										{/if}
 
+										{if 1 lte $data.fase}
 										<!-- ITEM -->
 										<div class="timeline-item timeline-item-bordered" style="min-height:80px">
 											<!-- timeline entry -->
@@ -205,15 +180,16 @@
 											</div>
 											<!-- /timeline entry -->
 
-											<small>Kamis, 09 Juli 2015 14:25 WIB</small>
-											<h4 class="uppercase" style="margin:0 0 0 0">Laporan Anda sedang memasuki proses penelaahan pengaduan yang dilakukan oleh Inspektorat BSN</h4>
-											<p>Waktu yang dibutuhkan : 14 hari kerja</p>
+											<small>{$data.tanggalformat}</small>
+											<h4 style="margin:0 0 0 0">Laporan Anda sudah masuk ke dalam database sistem</h4>
+										
 
 										</div>
 										<!-- /ITEM -->
-								
+										{/if}
 								</div>
 							</div>
+							{if $data.fase eq '5'}
 							<div class="tab-pane fade" id="survey">
 								<h4 class="upercase">Survey Kepuasan Masyarakat</h4>
 								<p>Apakah Anda sudah puas dengan jawaban yang diberikan pihak BSN terhadap pengaduan yang anda laporkan? Mohon berikan tanggapan anda melaluifitur di bawah ini.</p>
@@ -242,6 +218,7 @@
 									</div>
 								</div>
 							</div>
+							{/if}
 							
 						</div>
 					
@@ -257,13 +234,11 @@
                     <fieldset class="nomargin"> 
                        <div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<small>ID Laporan : 5623333</small>
-								<small>Nama Panggilan : Nila</small>
-								<small>Nama Lengkap : Nila Yantrisiana P</small>
-								<small>Ruang Lingkup Laporan : Kepegawaian - Kepangkatan</small>
-								<small>Satuan Unit Kerja Terkait : Pusat Informasi dan Dokumentasi</small>
-								<small>Pejabat Terkait : -</small>
-								<small>Status Laporan : Ditindaklanjuti berkadar pengawasan</small>
+								<small>ID Laporan : {$data.idPengaduan}</small>
+								<small>username : {$user.username}</small>
+								<small>Nama Lengkap : {$user.name}</small>
+								<small>Ruang Lingkup Laporan : {$user.ruangLingkup}</small>
+								<small>Status Laporan : {$data.n_status}</small>
 							</div>
 						</div>
 
@@ -271,23 +246,25 @@
 
                 </form>
 
+                {if $data.perorangan eq '1'}
                 <form action="{$basedomain}" method="post" class="sky-form boxed">
                     <header><i class="fa fa-user"></i> Informasi Terlapor</header>
                     
                     <fieldset class="nomargin"> 
                        <div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<small>Nama Terlapor : Billy</small>
-								<small>Alamat : Pasanggrahan Jakarta Selatan</small>
-								<small>Jabatan : Kepala Sub Bidang IT</small>
-								<small>Unit Kerja : PUSIDO</small>
-								<small>Lokasi Kasus : Gedung BPPT 1 Jakarta</small>
+								<small>Nama Terlapor : {$data.nama}</small>
+								<small>Alamat : {$data.alamat}</small>
+								<small>Jabatan : {$data.jabatan}</small>
+								<small>Unit Kerja : {$data.satker}</small>
+								<small>Lokasi Kasus : {$data.lokasi}</small>
 							</div>
 						</div>
 
                     </fieldset>
 
                 </form>
+                {/if}
 
                 <form action="{$basedomain}" method="post" class="sky-form boxed">
                     <header><i class="fa fa-search"></i> Tracking ID Laporan Anda</header>
@@ -315,41 +292,16 @@
                     <header><i class="fa fa-tags"></i> Daftar Pengaduan Anda</header>
                     
                     <fieldset class="nomargin"> 
+                    	{foreach $dataPengaduan as $val}
                     	<div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="{$basedomain}pengaduan/detail" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
-								<small>ID Laporan : 5623333</small>
-								<small>Status Laporan : Aktif</small>
+								<a href="{$basedomain}pengaduan/detail/?id={$val.idPengaduan}" class="tab-post-link"><strong>{$val.judul}</strong></a>
+								<small>{$val.tanggalformat}</small>
+								<small>ID Laporan : {$val.idPengaduan}</small>
+								<small>Status Laporan : {if $val.n_status eq '1'}Aktif{else}Selesai{/if}</small>
 							</div>
 						</div>
-
-						<div class="row tab-post">
-	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
-								<small>ID Laporan : 5623333</small>
-								<small>Status Laporan : Aktif</small>
-							</div>
-						</div>
-
-						<div class="row tab-post">
-	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
-								<small>ID Laporan : 5623333</small>
-								<small>Status Laporan : Aktif</small>
-							</div>
-						</div>
-
-						<div class="row tab-post">
-	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-								<small>Rabu, 08 Juli 2015 14:25 WIB</small>
-								<small>ID Laporan : 5623333</small>
-								<small>Status Laporan : Aktif</small>
-							</div>
-						</div>
+						{/foreach}
 
                     </fieldset>
 

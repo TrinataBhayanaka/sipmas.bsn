@@ -35,12 +35,29 @@ class mpengaduan extends Database {
         return false;
     }
 
-    function getPengaduan($id=false)
+    function getPengaduan($id=false,$idPengaduan=false)
     {
 
-        $sql = "SELECT *, CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_pengaduan WHERE idUser = '{$id}'";
+        if($idPengaduan) $cond = " AND idPengaduan = '{$idPengaduan}'"; else $cond = "";
+        $sql = "SELECT *, CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_pengaduan WHERE idUser = '{$id}' {$cond}";
         
         $res = $this->fetch($sql,1);
+        
+        return $res;
+    }
+
+    function getFile($id)
+    {
+        $sql = "SELECT * FROM bsn_file WHERE idPengaduan = '{$id}'";
+        $res = $this->fetch($sql,1);
+
+        return $res;
+    }
+
+    function getPenelaahan($id)
+    {
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_penelaahan WHERE idPengaduan = '{$id}'";
+        $res = $this->fetch($sql,0);
         
         return $res;
     }
