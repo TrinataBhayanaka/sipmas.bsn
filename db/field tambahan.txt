@@ -1,0 +1,18 @@
+keterangan tambahan tabel
+
+tabel field bsn_pengaduan
+-iman
+  -status(tinyint)
+
+-juned
+  -idUser(int)
+  -ruangLingkup(int)
+
+-bayu 
+  -fase(tinyint)
+
+tabel field user
+-bayu
+  -satker(int)
+
+
