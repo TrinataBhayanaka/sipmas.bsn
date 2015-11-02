@@ -1,7 +1,7 @@
 <!--Page Title-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div id="page-title">
-	<h1 class="page-header text-overflow">Detail Laporan Pengaduan</h1>
+	<h1 class="page-header text-overflow">Penelusuran Laporan</h1>
 </div>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--End page title-->
@@ -52,10 +52,24 @@
 				
 				<div class="panel panel-success panel-left">
 					<div class="panel-heading">
-						<h3 class="panel-title"><strong>Timeline Laporan</strong></h3>
+						<h3 class="panel-title"><strong>{$dataPengaduan.judul}</strong></h3>
 					</div>
 					<div class="panel-body">
 						<div class="timeline">
+						{if 3 lte $dataPengaduan.fase}					
+						
+							<div class="timeline-entry">
+								<div class="timeline-stat">
+									<div class="timeline-icon bg-success"><i class="fa fa-check fa-lg"></i>
+									</div>
+								</div>
+								<div class="timeline-label">
+									<p class="mar-no pad-btm">{$tglBalas.tanggalformat}</p>
+									<p><strong>Inspektorat sedang melakukan proses tindak lanjut</strong></p>
+								</div>
+							</div>
+						{/if}
+
 						{if 2 lte $dataPengaduan.fase}					
 						
 							<div class="timeline-entry">

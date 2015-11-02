@@ -152,6 +152,24 @@
 							<div class="tab-pane fade" id="penelusuran">
 								<div class="timeline"><!-- .timeline-inverse = right position [left on RTL] -->
 
+										{if 3 lte $data.fase}
+										<!-- ITEM -->
+										<div class="timeline-item timeline-item-bordered" style="min-height:80px">
+											<!-- timeline entry -->
+											<div class="timeline-entry rounded" style="line-height:normal"><!-- .rounded = entry -->
+												<i class="fa fa-check fa-lg"></i>
+												<div class="timeline-vline"><!-- vertical line --></div>
+											</div>
+											<!-- /timeline entry -->
+
+											<small>{$tglBalas.tanggalformat}</small>
+											<h4 style="margin:0 0 0 0">Laporan Anda sedang memasuki proses penyelesaian</h4>
+										
+
+										</div>
+										<!-- /ITEM -->
+										{/if}
+
 										{if 2 lte $data.fase}
 										<!-- ITEM -->
 										<div class="timeline-item timeline-item-bordered" style="min-height:80px">

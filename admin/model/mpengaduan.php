@@ -88,5 +88,73 @@ class mpengaduan extends Database {
         return true;
     }
 
+    function insert_balas($data)
+    {
+        $res = $this->insert($data,'bsn_comment');
+        if ($res) return $res;
+        return false;
+    }
+
+    function insert_file($data)
+    {
+        $res = $this->insert($data,'bsn_file');
+        if ($res) return $res;
+        return false;
+    }
+
+    function getLatestId($table)
+    {
+        $sql = "SELECT IDENT_CURRENT('{$table}') AS id";
+        $res = $this->fetch($sql,0);
+
+        return $res;
+    }
+
+    function getBalas($id)
+    {
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}'";
+        $res = $this->fetch($sql,1);
+
+        foreach($res as $key => $val)
+        {
+            $sql = "SELECT name,email,hp FROM users WHERE idUser = '{$val['idUser']}'";
+            $user = $this->fetch($sql,0);
+
+            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['nameUser'] = $user['name'];
+            $res[$key]['emailUser'] = $user['email'];
+            $res[$key]['hpUser'] = $user['hp'];
+        }
+
+        return $res;
+    }
+
+    function getTglBalas($id)
+    {
+        $sql = "SELECT TOP (1) CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_comment WHERE idPengaduan = '{$id}' ORDER BY tanggal ASC";
+        $res = $this->fetch($sql,0);
+        
+        return $res;
+    }
+
+    function getComment($id)
+    {
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}'";
+        $res = $this->fetch($sql,1);
+
+        foreach($res as $key => $val)
+        {
+            $sql = "SELECT name,email,type FROM users WHERE idUser = '{$val['idUser']}'";
+            $user = $this->fetch($sql,0);
+
+            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['nameUser'] = $user['name'];
+            $res[$key]['emailUser'] = $user['email'];
+            $res[$key]['typeUser'] = $user['type'];
+        }
+
+        return $res;
+    }
+
 }
 ?>
