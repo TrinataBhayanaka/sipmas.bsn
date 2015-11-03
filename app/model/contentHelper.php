@@ -29,6 +29,13 @@ class contentHelper extends Database {
         return $result;
 
     }
+    function getContent($type=1,$category=1){
+        $query = "SELECT * FROM bsn_content WHERE type='{$type}' AND category='{$category}' AND n_status='1'";
+        // pr($query);
+        $result = $this->fetch($query,1);
+
+        return $result;
+    }
 
     function getArticle($id=false, $data=array(), $debug=false)
     {

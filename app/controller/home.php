@@ -22,8 +22,10 @@ class home extends Controller {
 	}
 	
 	function index(){
-		
-		$this->view->assign('user',$this->user);
+		$data=$this->contentHelper->getContent();
+        // pr($data);
+        $this->view->assign('user',$this->user);
+		$this->view->assign('data',$data[0]);
 		return $this->loadView('home');
     }
 

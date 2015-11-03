@@ -21,6 +21,23 @@ class contentHelper extends Database {
         return $result;
 
     }
+
+    function getContent($type=1,$category=1){
+        $query = "SELECT * FROM bsn_content WHERE type='{$type}' AND category='{$category}' AND n_status='1'";
+        // pr($query);
+        $result = $this->fetch($query,1);
+
+        return $result;
+    }
+    function updContent($id){
+		$query = "UPDATE bsn_content
+						SET 
+							description = '{$_POST['content']}'
+						WHERE
+							id = '{$id}'";
+		// echo $query;					
+		$result = $this->query($query);					
+	}	
 	function getData()
 	{
 		$sql = "SELECT * FROM code_activity";

@@ -20,6 +20,7 @@ class pengaturan_admin extends Controller {
 	public function loadmodule()
 	{
 		$this->mkategori = $this->loadModel('mkategori');
+        $this->contentHelper = $this->loadModel('contentHelper');
 	}
 	
 	public function index(){
@@ -40,9 +41,37 @@ class pengaturan_admin extends Controller {
 	
 	public function ubahkonten(){
 	
-	return $this->loadView('pengaturan/ubah_konten');
+		if($_POST['id']){
+			// pr($_POST);
+			$dataupd=$this->contentHelper->updContent($_POST['id']);
+			 // exit;
+		}
+		$data=$this->contentHelper->getContent(2,1);
+// pr($data);
+        $this->view->assign('data',$data[0]);
+
+		return $this->loadView('pengaturan/ubah_konten');
+
 	}
+
+	public function selectubahkonten(){
 	
+		if($_POST['id']){
+			// pr($_POST);
+			$dataupd=$this->contentHelper->updContent($_POST['id']);
+			 // exit;
+		}
+		$data=$this->contentHelper->getContent($_POST['type'],1);
+// pr($data);
+        if ($data){
+            print json_encode(array('status'=>true, 'data'=>$data[0]['description']));
+        }else{
+            print json_encode(array('status'=>false));
+        }
+        
+        exit;
+
+	}
 	public function ruanglingkup(){
 	
 		$select = $this->mkategori->select_data();
