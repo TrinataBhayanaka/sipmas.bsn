@@ -23,6 +23,9 @@ class tatacara extends Controller {
 	
 	function index(){
 		
+		$data=$this->contentHelper->getContent(2,1);
+// pr($data);
+        $this->view->assign('data',$data[0]);
         $this->view->assign('user',$this->user);
 		return $this->loadView('tatacara');
     }
