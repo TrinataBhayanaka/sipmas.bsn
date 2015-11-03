@@ -892,4 +892,16 @@ function array2flat($data=array(), $acceptVar=array())
 
 	return false;
 }
+
+function openFile($filePath)
+{
+
+	if(file_exists($filePath)) {
+		$handle = fopen($filePath, "r");
+		$fileContents = fread($handle, filesize($filePath));
+		fclose($handle);
+		return $fileContents;
+	}
+	return false;
+}
 ?>

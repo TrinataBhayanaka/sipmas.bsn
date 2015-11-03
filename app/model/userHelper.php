@@ -4,6 +4,7 @@ class userHelper extends Database {
     function __construct()
     {   
         global $CONFIG;
+        parent::__construct();
         $loadSession = new Session();
         $getUserData = $loadSession->get_session();
         $this->user = $getUserData[0];

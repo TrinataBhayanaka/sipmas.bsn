@@ -7,6 +7,7 @@ class helper_model extends Database {
     var $prefix = "";
 	function __construct()
 	{
+        parent::__construct();
 		$session = new Session;
 		$getSessi = $session->get_session();
 		$this->user = $getSessi[0];
@@ -16,7 +17,7 @@ class helper_model extends Database {
     {
         $filter = "";
         $sql = array(
-                'table'=>"users",
+                'table'=>"{$this->prefix}_users",
                 'field'=>"COUNT(1) AS total",
                 'condition' => "n_status IN ({$n_status}) AND is_online = 1 {$filter}"
                 );

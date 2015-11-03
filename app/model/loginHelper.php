@@ -4,6 +4,8 @@ class loginHelper extends Database {
 	var $salt;
     function __construct()
     {
+
+        parent::__construct();
         global $basedomain;
         $this->loadmodule();
         $this->salt = '12345678PnD';
@@ -66,7 +68,7 @@ class loginHelper extends Database {
 
 		// $sql = "SELECT * FROM social_member where username = '{$data['username']}' AND password = '{$password}' LIMIT 1";
 		$sql = array(
-                'table'=>"users",
+                'table'=>"{$this->prefix}_users",
                 'field'=>"TOP 1 *",
                 'condition'=>"username = '{$username}' AND n_status = 1"
                 );
@@ -80,7 +82,7 @@ class loginHelper extends Database {
 
                 $login_count = intval($res[0]['login_count']) + 1;
                 $sql = array(
-                        'table'=>"users",
+                        'table'=>"{$this->prefix}_users",
                         'field'=>"login_count = {$login_count}, is_online = 1",
                         'condition'=>"idUser = '{$res[0]['idUser']}'",
                         );
