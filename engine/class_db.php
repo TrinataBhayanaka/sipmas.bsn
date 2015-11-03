@@ -678,7 +678,7 @@ class Database
 			} 
 		}
 		
-		if ($dbConfig[0]['server']=='mssql'){
+		if ($dbConfig[0]['server']=='mssql' OR $dbConfig[0]['server']=='sqlsrv'){
 			$sql = "SELECT TABLE_NAME FROM {$dbConfig[0]['name']}.information_schema.tables";
 			$res = $this->fetch($sql,1);
 			if ($res){
@@ -699,7 +699,7 @@ class Database
 			$sql = "DESC {$table}";
 		}
 
-		if ($dbConfig[0]['server']=='mssql'){
+		if ($dbConfig[0]['server']=='mssql' OR $dbConfig[0]['server']=='sqlsrv'){
 			$sql = "SELECT * FROM {$dbConfig[0]['name']}.INFORMATION_SCHEMA.COLUMNS WHERE table_name = '{$table}'";
 		
 		}
@@ -751,7 +751,7 @@ class Database
 		global $dbConfig;
 
 		$mysql = 1;
-		if ($dbConfig[0]['server']=='mssql'){
+		if ($dbConfig[0]['server']=='mssql' OR $dbConfig[0]['server']=='sqlsrv'){
 			$mysql = 0;
 		}
 
@@ -825,7 +825,7 @@ class Database
 			}
 		}
 
-		if ($dbConfig[0]['server']=='mssql'){
+		if ($dbConfig[0]['server']=='mssql' OR $dbConfig[0]['server']=='sqlsrv'){
 			$unserial = unserialize($serialize);
 			$dataArr = array();
 			
