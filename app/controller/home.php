@@ -60,12 +60,12 @@ class home extends Controller {
             if ($pass === $pass1){
                 $_POST['password'] = $salt . $pass . $salt;
                 $_POST['salt'] = $salt;
-                $signup = $this->contentHelper->saveData($_POST,"_users",1);
-                // if ($signup){
-                //     redirect($basedomain . 'home/register_confirmation');
-                // }else{
-                //     redirect($basedomain . 'home/register');
-                // }
+                $signup = $this->contentHelper->saveData($_POST,"_users");
+                if ($signup){
+                    redirect($basedomain . 'home/register_confirmation');
+                }else{
+                    redirect($basedomain . 'home/register');
+                }
             }    
             
         }

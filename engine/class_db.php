@@ -748,6 +748,12 @@ class Database
 
 		// $method = $param['method'];
 		// $action = $param['action'];
+		global $dbConfig;
+
+		$mysql = 1;
+		if ($dbConfig[0]['server']=='mssql'){
+			$mysql = 0;
+		}
 
 		$filepath = CACHE . 'table/';
 		
@@ -762,9 +768,13 @@ class Database
 				if ($data){
 					foreach ($data as $key => $value) {
 						if (in_array($key, $tablestructure['fields'])){
-							$fields[] = "`{$key}`";
+							
+							if ($mysql) $fields[] = "`{$key}`";
+							else $fields[] = "{$key}";
 							$values[] = "'{$value}'";
-							$field_values[] = "`{$key}` = '{$value}'";
+							
+							if ($mysql) $field_values[] = "{$key} = '{$value}'";
+							else $field_values[] = "`{$key}` = '{$value}'";
 						}
 					}
 
