@@ -21,6 +21,9 @@ class Database
 	public function __construct() {
 		
 		/* nothing here */
+		global $dbConfig;
+		$this->prefix = $dbConfig[0]['prefix'];
+		$this->preftable = $dbConfig[0]['preftable'];
 	}
 	
 	function setAppKey()
@@ -34,6 +37,11 @@ class Database
 		return $keyconfig;
 	}
 	
+	function initialitation()
+	{
+		$this->cacheTable();
+	}
+
 	function setDbConfig()
 	{
 		global $dbConfig;
@@ -99,7 +107,7 @@ class Database
 						$connect = @mssql_connect(trim($dbConfig[$dbuse]['host']), $dbConfig[$dbuse]['user'], $dbConfig[$dbuse]['pass']) or die ($this->db_error('Connection error'));
 					
 					}else{
-						$connect = @mssql_connect(trim($dbConfig[$dbuse]['host']), $dbConfig[$dbuse]['user'], $dbConfig[$dbuse]['pass']) or die ($this->db_error('Connection error'));
+						$connect = mssql_connect(trim($dbConfig[$dbuse]['host']), $dbConfig[$dbuse]['user'], $dbConfig[$dbuse]['pass']) or die ($this->db_error('Connection error'));
 						
 					}
 					
@@ -649,6 +657,181 @@ class Database
 				pr('Method no defined');
 				exit;
 				break;
+		}
+
+		
+		return false;
+	}
+
+	function getTableList()
+	{
+		global $dbConfig;
+
+		if ($dbConfig[0]['server']=='mysql'){
+			$sql = "SHOW TABLES FROM {$dbConfig[0]['name']}";
+			$res = $this->fetch($sql,1);
+			if ($res){
+				foreach ($res as $key => $value) {
+					$listTable[] = $value['Tables_in_' . $dbConfig[0]['name']];
+				}
+				return $listTable;	
+			} 
+		}
+		
+		if ($dbConfig[0]['server']=='mssql'){
+			$sql = "SELECT TABLE_NAME FROM {$dbConfig[0]['name']}.information_schema.tables";
+			$res = $this->fetch($sql,1);
+			if ($res){
+				foreach ($res as $key => $value) {
+					$listTable[] = $value['TABLE_NAME'];
+				}
+				return $listTable;	
+			} 
+		}
+		return false;
+	}
+
+	function getTableStructure($table)
+	{
+		global $dbConfig;
+
+		if ($dbConfig[0]['server']=='mysql'){
+			$sql = "DESC {$table}";
+		}
+
+		if ($dbConfig[0]['server']=='mssql'){
+			$sql = "SELECT * FROM {$dbConfig[0]['name']}.INFORMATION_SCHEMA.COLUMNS WHERE table_name = '{$table}'";
+		
+		}
+
+		$res = $this->fetch($sql,1);
+		if ($res){
+			foreach ($res as $key => $value) {
+				$data['Field'][] = $value['COLUMN_NAME'];
+			}
+	
+			return $data;	
+		} 	
+		return false;
+	}
+
+	function cacheTable()
+	{
+		$pathcache = CACHE . 'table/';
+
+		if (!file_exists($pathcache)) {
+			mkdir($pathcache);
+		}
+
+		$getTableList = $this->getTableList();
+		// pr($getTableList);
+		if ($getTableList){
+
+			foreach ($getTableList as $key => $value) {
+				if (!file_exists($pathcache . $value)){
+
+					$sturcture = $this->getTableStructure($value);
+					logFile('create table cache '. $value);
+					$handle = fopen($pathcache.$value, "a");
+					
+					fwrite($handle, serialize($sturcture) ."\n");
+					fclose($handle);
+					
+				}
+			}
+		}
+		
+	}
+
+	function save($method = "insert", $table=false, $data=false, $condition=false, $debug=false)
+	{
+
+		// $method = $param['method'];
+		// $action = $param['action'];
+		global $dbConfig;
+
+		$mysql = 1;
+		if ($dbConfig[0]['server']=='mssql'){
+			$mysql = 0;
+		}
+
+		$filepath = CACHE . 'table/';
+		
+		if ($table){
+			if (is_array($table)){
+
+			}else{
+				$openFile = openFile($filepath . $table);
+
+				$tablestructure = $this->unserialTable($openFile);
+				
+				if ($data){
+					foreach ($data as $key => $value) {
+						if (in_array($key, $tablestructure['fields'])){
+							
+							if ($mysql) $fields[] = "`{$key}`";
+							else $fields[] = "{$key}";
+							$values[] = "'{$value}'";
+							
+							if ($mysql) $field_values[] = "{$key} = '{$value}'";
+							else $field_values[] = "`{$key}` = '{$value}'";
+						}
+					}
+
+					$impFields = implode(',', $fields);
+					$impValues = implode(',', $values);
+					$impfield_values = implode(',', $field_values);
+
+					if ($method == 'insert') {
+						$sql = array(
+				                    'table' =>"{$table}",
+				                    'field' => "{$impFields}",
+				                    'value' => "{$impValues}",
+				                );
+						$runmethod = 1;
+					} else if ($method == 'update') {
+						$sql = array(
+				                    'table' =>"{$table}",
+				                    'field' => "{$impfield_values}",
+				                    'condition' => "{$condition}",
+				                );
+						$runmethod = 2;
+					}
+					
+			        $result = $this->lazyQuery($sql,$debug,$runmethod);
+			        if ($result) return true;
+			        return false;
+				}
+			}
+		}
+	}
+
+	function unserialTable($serialize=false, $rawdata=false)
+	{
+
+		global $dbConfig;
+
+		if ($dbConfig[0]['server']=='mysql'){
+
+			$unserial = unserialize($serialize);
+			$dataArr = array();
+			if ($unserial){
+				foreach ($unserial as $key => $value) {
+					$dataArr['fields'][] = $value['Field'];
+				}
+
+				if ($rawdata) $dataArr['raw'] = $unserial;
+				return $dataArr;
+			}
+		}
+
+		if ($dbConfig[0]['server']=='mssql'){
+			$unserial = unserialize($serialize);
+			$dataArr = array();
+			
+			$dataArr['fields'] = $unserial['Field'];	
+			return $dataArr;
+			
 		}
 
 		

@@ -5,6 +5,7 @@ class contentHelper extends Database {
 	var $salt = "";
 	function __construct()
 	{
+        parent::__construct();
 		// $this->db = new Database;
 		$this->salt = "ovancop1234";
 		$this->token = str_shuffle('cmsaj23y4ywdni237yeisa');
@@ -190,6 +191,26 @@ class contentHelper extends Database {
         //memanggil semua data. Jika hanya memanggil 1 data ->fetch($query,0,0)
         $result = $this->fetch($query,1,0);
         return $result;
+    }
+
+    function saveData($data=array(), $table="_survey", $debug=0)
+    {
+
+        
+        $id = $data['id'];
+
+        if ($id){
+
+            $run = $this->save("update", "{$this->prefix}{$table}", $data, "id = {$id}", $debug);
+
+        }else{
+            $data['createDate'] = date('Y-m-d H:i;s');
+            $run = $this->save("insert", "{$this->prefix}{$table}", $data, false, $debug);
+    
+        }
+
+        if ($run) return true;
+        return false;
     }
 }
 ?>

@@ -50,7 +50,28 @@ class home extends Controller {
     }
 
     function register()
-    {
+    {   
+        
+        global $basedomain;
+        $salt = md5('register');
+
+        if ($_POST['submit']){
+
+            $pass = _p('pass');
+            $pass1 = _p('retypePass');
+            if ($pass === $pass1){
+                $_POST['password'] = $salt . $pass . $salt;
+                $_POST['salt'] = $salt;
+                $signup = $this->contentHelper->saveData($_POST,"_users");
+                if ($signup){
+                    redirect($basedomain . 'home/register_confirmation');
+                }else{
+                    redirect($basedomain . 'home/register');
+                }
+            }    
+            
+        }
+        
     	return $this->loadView('akun/register');
     }
 
