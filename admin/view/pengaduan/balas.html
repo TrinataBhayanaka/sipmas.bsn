@@ -1,7 +1,7 @@
 <!--Page Title-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div id="page-title">
-	<h1 class="page-header text-overflow">Detail Laporan Pengaduan</h1>
+	<h1 class="page-header text-overflow">Balas Laporan</h1>
 </div>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--End page title-->
@@ -15,8 +15,8 @@
 				
 				<div class="list-group bg-trans">
 					<h4 class="text-thin">Laporan Pengaduan</h4>
-						<a href="{$basedomain}daftar_pengaduan/detail" class="list-group-item list-item-sm">
-						<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/detail/?id={$id}" class="list-group-item list-item-sm">
+						<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 						Isi Laporan Pengaduan
 						</a>
 				</div>
@@ -25,35 +25,35 @@
 						<h4 class="text-thin">Penanganan Laporan Pengaduan</h4>
 					
 						<!-- Menu list item -->
-						<a href="{$basedomain}daftar_pengaduan/tindak_lanjut" class="list-group-item list-item-sm">
-							<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/tindak_lanjut/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Tindak Lanjut Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/penelusuran" class="list-group-item list-item-sm">
-							<span class="badge badge-info badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/penelusuran/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Penelusuran Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/penelaahan" class="list-group-item list-item-sm">
-							<span class="badge badge-pink badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/penelaahan/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Penelaahan Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/balas" class="list-group-item list-item-sm" style="background-color:rgba(125,211,188,0.5);">
+						<a href="{$basedomain}daftar_pengaduan/balas/?id={$id}" class="list-group-item list-item-sm" style="background-color:rgba(125,211,188,0.5);">
 							<span class="badge badge-success badge-icon badge-fw pull-left"></span>
 							Balas Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/disposisi" class="list-group-item list-item-sm">
-							<span class="badge badge-danger badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/disposisi/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Disposisi Laporan
 						</a>
 					</div>
 			</div>
 			
 			<div class="col-md-9">
-				<div class="panel panel-default panel-left">
+				<div class="panel panel-success panel-left">
 				
-					<div class="panel">
-						<h3 class="panel-title"><strong>Balas Laporan</strong></h3>
-					</div>
+					<div class="panel-heading">
+							<h3 class="panel-title"><strong>{$dataPengaduan.judul}</strong></h3>
+						</div>
 					
 					<div class="panel-body">
 						<table id="demo-foo-row-toggler" class="table toggle-circle">
@@ -70,57 +70,18 @@
 								</tr>
 							</thead>
 							<tbody>
+								{foreach $dataBalas as $key => $val}
 								<tr>
-									<td>1</td>
-									<td>101</td>
-									<td>Lala</td>
-									<td>Pengiriman Dokumen SNI yang terlalu lama</td>
-									<td>15 Agustus 2015</td>
-									<td>17 Agustus 2015</td>
+									<td>{$key+1}</td>
+									<td>{$dataPengaduan.idPengaduan}</td>
+									<td>{$val.nameUser}</td>
+									<td>{$dataPengaduan.judul}</td>
+									<td>{$dataPengaduan.tanggalformat}</td>
+									<td>{$val.tanggalstd}</td>
 									<td>3 hari</td>
-									<td><p><br>
-										Kepada. <br>
-										Yth. Ariana <br>
-										<br>
-										Terima kasih sudah menyampaikan permasalahan ini ke BSN, 
-										kami akan segera menindaklanjuti, dimohon kesediaanya untuk menunggu. <br>
-										Terima kasih
-									</p></td>
+									<td>{$val.isi}</td>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>101</td>
-									<td>Lala</td>
-									<td>Pengiriman Dokumen SNI yang terlalu lama</td>
-									<td>15 Agustus 2015</td>
-									<td>17 Agustus 2015</td>
-									<td>3 hari</td>
-									<td><p><br>
-										Kepada. <br>
-										Yth. Ariana <br>
-										<br>
-										Terima kasih sudah menyampaikan permasalahan ini ke BSN, 
-										kami akan segera menindaklanjuti, dimohon kesediaanya untuk menunggu. <br>
-										Terima kasih
-									</p></td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>101</td>
-									<td>Lala</td>
-									<td>Pengiriman Dokumen SNI yang terlalu lama</td>
-									<td>15 Agustus 2015</td>
-									<td>17 Agustus 2015</td>
-									<td>3 hari</td>
-									<td><p><br>
-										Kepada. <br>
-										Yth. Ariana <br>
-										<br>
-										Terima kasih sudah menyampaikan permasalahan ini ke BSN, 
-										kami akan segera menindaklanjuti, dimohon kesediaanya untuk menunggu. <br>
-										Terima kasih
-									</p></td>
-								</tr>
+								{/foreach}
 								
 							</tbody>
 						</table>
@@ -129,8 +90,8 @@
 					<hr>
 					
 					<!--Tabs Content-->
-							<form class="form-horizontal">
-								<div class="form-group">
+							<form class="form-horizontal" action="{$basedomain}daftar_pengaduan/ins_balas" method="post" enctype="multipart/form-data">
+								{*}<div class="form-group">
 								<div class="row">
 								<div class="col-md-6">
 									<label class="col-sm-5 control-label">Pilih Status Laporan</label>
@@ -141,9 +102,9 @@
 											</select>
 										</div>
 								</div>
-								<div class="col-md-6">
-									<label class="col-sm-4 control-label">Pilih</label>
-										<div class="col-sm-8">
+								<div class="col-md-12">
+									<label class="col-sm-8 control-label">Pilih</label>
+										<div class="col-sm-4">
 											<select class="selectpicker">
 												<option>Publish</option>
 												<option>Non-Publish</option>
@@ -151,7 +112,7 @@
 										</div>
 								</div>
 								</div>
-								</div>
+								</div>{/*}
 									
 						
 									<!-- COMPOSE EMAIL -->
@@ -160,22 +121,26 @@
 										<div class="panel-body">
 										
 										<!--Attact file button-->
-												<div class="media">
-													<div class="media-left">
-														<span class="btn btn-default btn-file">
-															Attachment <input type="file">
-														</span>
-													</div>
-													<div id="demo-attach-file" class="media-body"></div>
-												</div>
+										<div class="media pad-btm">
+											<div class="media-left">
+												<span class="btn btn-default btn-file">
+													Attachment <input type="file" name="myfile">
+												</span>
+											</div>
+											<div id="demo-attach-file" class="media-body"></div>
+										</div>
 						
 						
 											<!--Wysiwyg editor : Summernote placeholder-->
-											<div id="demo-mail-compose"></div>
-						
+											<textarea id="demo-mail-compose" name="isi"></textarea>
+											
+											<!-- HIDDDEN -->
+											<input type="hidden" name="idPengaduan" value="{$dataPengaduan.idPengaduan}">
+											<input type="hidden" name="n_status" value="1">
+
 											<div class="pad-ver">
 
-												<button id="mail-send-btn" type="button" class="btn btn-primary btn-labeled">
+												<button id="mail-send-btn" type="submit" class="btn btn-primary btn-labeled">
 													<span class="btn-label"><i class="fa fa-send"></i></span> Kirim
 												</button>
 			
@@ -219,11 +184,13 @@
 				height:200
 			});
 		
-		
 			// Attachment button.
 			// =================================================================
+			var size = new Array();
 			$('.btn-file :file').on('fileselect', function(event, numFiles, label, fileSize) {
-				$('#demo-attach-file').html('<strong class="box-block text-capitalize"><i class="fa fa-paperclip fa-fw"></i> '+label+'</strong><small class="text-muted">'+fileSize+'</small>');
+				size.push(fileSize);
+				$('#demo-attach-file').html('<strong class="box-block text-capitalize"><i class="fa fa-paperclip fa-fw"></i> '+label+'</strong><small class="text-muted">'+size[0]+'</small>');
+
 			});
 			
 			return;

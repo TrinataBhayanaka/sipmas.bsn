@@ -1,0 +1,19 @@
+Inbox Pengaduan(bsn_pengaduan)
+1.keterangan n_status 
+- 0 (Kotak Masuk)
+- 1 (Sudah Terbaca)
+- 2 (Belum Terbaca)
+
+Statistik Pengaduan(bsn_pengaduan)
+1.keterangan status 
+- 1 (aktif)
+- 2 (ditinjak lanjuti)
+- 3 (tidak ditinjak lanjuti)
+- 4 (selesai)
+
+survey kepuasan masyarakat(bsn_survey)
+1.keterangan n_status
+- 1 (Sangat Puas) 
+- 2 (Puas)
+- 3 (Tidak Puas)
+- 4 (Sangat Tidak Puas) 

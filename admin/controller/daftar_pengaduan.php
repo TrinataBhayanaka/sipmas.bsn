@@ -52,7 +52,12 @@ class daftar_pengaduan extends Controller {
 	public function tindak_lanjut(){
 		$idPengaduan = $_GET['id'];
 
+		$data = $this->model->getComment($idPengaduan);
+		$file = $this->model->getFile($idPengaduan);
+
+		$this->view->assign('file',$file);
 		$this->view->assign('id',$idPengaduan);
+		$this->view->assign('dataComment',$data);
 
 		return $this->loadView('pengaduan/tindak_lanjut');
 	
@@ -88,8 +93,10 @@ class daftar_pengaduan extends Controller {
 
 		$data = $this->model->getPengaduan($idPengaduan);
 		$penelaahan = $this->model->getPenelaahan($idPengaduan);
+		$tglBalas = $this->model->getTglBalas($idPengaduan);
 		
 		$this->view->assign('penelaahan',$penelaahan);
+		$this->view->assign('tglBalas',$tglBalas);
 		$this->view->assign('dataPengaduan',$data[0]);
 		$this->view->assign('id',$idPengaduan);
 		return $this->loadView('pengaduan/penelusuran');
@@ -99,6 +106,11 @@ class daftar_pengaduan extends Controller {
 	public function balas(){
 		$idPengaduan = $_GET['id'];
 
+		$data = $this->model->getPengaduan($idPengaduan);
+		$dataBalas = $this->model->getBalas($idPengaduan);
+
+		$this->view->assign('dataBalas',$dataBalas);
+		$this->view->assign('dataPengaduan',$data[0]);
 		$this->view->assign('id',$idPengaduan);
 
 		return $this->loadView('pengaduan/balas');
@@ -134,6 +146,37 @@ class daftar_pengaduan extends Controller {
 		$this->model->upd_fase($_POST['idPengaduan'],2);
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/penelaahan/?id={$_POST['idPengaduan']}'</script>";
+		exit;
+	}
+
+	public function ins_balas()
+	{
+		global $basedomain;
+
+		$_POST['idUser'] = $this->admin['idUser'];
+		$_POST['isi'] = htmlentities($_POST['isi']);
+		$_POST['tanggal'] = date("Y-m-d");
+		// db($_FILES);
+		$this->model->insert_balas($_POST);
+
+		$this->model->upd_fase($_POST['idPengaduan'],3);
+		    		
+		if(isset($_FILES['myfile'])){
+    		$upload = uploadFile('myfile');
+    		//insert ke file
+    		$idComment = $this->model->getLatestId('bsn_comment');
+
+    		$files['nama'] = $upload['full_name'];
+    		$files['path'] = $upload['full_path'];
+    		$files['type'] = 1;
+    		$files['idPengaduan'] = $idComment['id'];
+    		$files['n_status'] = 1;
+
+    		$this->model->insert_file($files);
+
+    	}
+
+		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/balas/?id={$_POST['idPengaduan']}'</script>";
 		exit;
 	}
 	
