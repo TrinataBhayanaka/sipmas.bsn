@@ -773,8 +773,8 @@ class Database
 							else $fields[] = "{$key}";
 							$values[] = "'{$value}'";
 							
-							if ($mysql) $field_values[] = "{$key} = '{$value}'";
-							else $field_values[] = "`{$key}` = '{$value}'";
+							if ($mysql) $field_values[] = "`{$key}` = '{$value}'";
+							else $field_values[] = "{$key} = '{$value}'";
 						}
 					}
 
@@ -836,6 +836,40 @@ class Database
 
 		
 		return false;
+	}
+
+	function fetchSingleTable($table=false, $condition=array(), $order=false, $debug=false)
+	{
+
+		global $dbConfig;
+
+		$imp = 1;
+		if ($order) $filter = "ORDER BY {$order}";
+
+		if ($condition){
+			foreach ($condition as $key => $value) {
+				if ($value){
+					if ($dbConfig[0]['server']=='mysql'){
+						$field[] = "`{$key}` = '{$value}'";
+					}else{
+						$field[] = "{$key} = '{$value}'";
+					}
+					
+				}
+				
+			}
+			$imp = implode(' AND ', $field);
+		}
+
+		$sql = array(
+                'table'=>"{$table}",
+                'field'=>"*",
+                'condition' => "{$imp} {$filter}"
+                );
+
+        $res = $this->lazyQuery($sql,$debug);
+        if ($res) return $res;
+        return false;
 	}
 }
 
