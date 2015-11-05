@@ -13,6 +13,7 @@ class helper_model extends Database {
 		$this->user = $getSessi[0];
 
 	}
+    
     function getOnlineUser($n_status=1, $debug=0)
     {
         $filter = "";
