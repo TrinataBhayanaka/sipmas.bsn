@@ -1,4 +1,3 @@
-<!--Page Title-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div id="page-title">
 	<h1 class="page-header text-overflow">Ubah Waktu dan Kriteria</h1>
@@ -33,154 +32,160 @@
 				
 				<!-- tab aacordion -->
 				
-					<div id="demo-accordion" class="panel-group accordion">
-									<div class="panel">
+		<div id="demo-accordion" class="panel-group accordion">
+			<div class="panel">
+
+				<!-- Accordion title -->
+				<div class="panel-heading" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
+					<h4 class="panel-title">
+					<a data-parent="#demo-accordion" data-toggle="collapse" href="#demo-acc-panel-1"><i class="fa"></i>Standar Kriteria Waktu</a>
+					</h4>
+				</div>
+
+				<!-- Accordion content -->
+				<div id="demo-acc-panel-1" class="panel-collapse collapse {$ws}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
+					<div class="panel-body">
+					<form id="demo-bvd-notempty" action="{$basedomain}pengaturan_admin/updWaKri/?data=sw&open=ws" method="post"class="form-horizontal">
+						<input type="hidden" name="id" value="{if $dataSW}{$dataSW.id}{/if}">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Baik</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="baik" value="{if $dataSW}{$dataSW.baik}{/if}" placeholder="Hari">
+									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Normal</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="normal" value="{if $dataSW}{$dataSW.normal}{/if}" placeholder="Hari">
+									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Buruk</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="buruk" value="{if $dataSW}{$dataSW.buruk}{/if}" placeholder="Hari">
+									</div>
+							</div>
+						</fieldset>
+						
 					
-										<!-- Accordion title -->
-										<div class="panel-heading" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
-											<h4 class="panel-title">
-											<a data-parent="#demo-accordion" data-toggle="collapse" href="#demo-acc-panel-1"><i class="fa"></i>Standar Kriteria Waktu</a>
-											</h4>
-										</div>
+					</div>
+						<div class="tab-footer clearfix">
+							<div class="col-lg-7 col-lg-offset-3">
+								<!-- <button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Kriteria Waktu</button> -->
+								<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save Kriteria Waktu</button>
+								<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
+							</div>
+						</div>	
+						</form>									
+				</div>
+				
+			
+
+				<!-- Accordion title -->
+				<div class="panel-heading" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
+					<h4 class="panel-title">
+					<a data-parent="#demo-accordion" data-toggle="collapse" href="#demo-acc-panel-2"><i class="fa"></i> Pengaturan Waktu Penyelesaian Pengaduan User</a>
+					</h4>
+				</div>
+
+				<!-- Accordion content -->
+				<div id="demo-acc-panel-2" class="panel-collapse collapse {$wp1}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
+					<div class="panel-body">
+					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/updWaKri/?data=wp&open=wp1" method="post"class="form-horizontal">
+						<input type="hidden" name="id" value="{if $dataWP1}{$dataWP1.id}{/if}">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Pencatatan</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="pencatatan" value="{if $dataWP1}{$dataWP1.pencatatan}{/if}" placeholder="Hari">
+									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Penelaahan</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="penelaahan" value="{if $dataWP1}{$dataWP1.penelaahan}{/if}" placeholder="Hari">
+									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Tindak Lanjut</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="tindakLanjut" value="{if $dataWP1}{$dataWP1.tindakLanjut}{/if}" placeholder="Hari">
+									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Pengarsipan</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="pengarsipan" value="{if $dataWP1}{$dataWP1.pengarsipan}{/if}" placeholder="Hari">
+									</div>
+							</div>
+						</fieldset>
+						
 					
-										<!-- Accordion content -->
-										<div id="demo-acc-panel-1" class="panel-collapse collapse in" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
-											<div class="panel-body">
-											<form id="demo-bvd-notempty" action="forms-validation.html" class="form-horizontal">
-												<fieldset>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Baik</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Normal</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Buruk</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-												</fieldset>
-												
-											</form>
-											</div>
-												<div class="tab-footer clearfix">
-													<div class="col-lg-7 col-lg-offset-3">
-														<button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Kriteria Waktu</button>
-														<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save</button>
-														<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
-													</div>
-												</div>										
-										</div>
-										
-									
+					</div>
+						<div class="tab-footer clearfix">
+							<div class="col-lg-7 col-lg-offset-3">
+								<!-- <button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button> -->
+								<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save Proses & Waktu Penyelesaian Pengaduan</button>
+								<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
+							</div>
+						</div>	
+						</form>									
+				</div>
+		
+
+				<!-- Accordion title -->
+				<div class="panel-heading" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
+					<h4 class="panel-title">
+					<a data-parent="#demo-accordion" data-toggle="collapse" href="#demo-acc-panel-3"><i class="fa"></i> Pengaturan Waktu Penyelesaian Pengaduan Administrator</a>
+					</h4>
+				</div>
+
+				<!-- Accordion content -->
+				<div id="demo-acc-panel-3" class="panel-collapse  collapse {$wp2}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
+					<div class="panel-body">
+					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/updWaKri/?data=wp&open=wp2" method="post" class="form-horizontal">
+						<input type="hidden" name="id" value="{if $dataWP2}{$dataWP2.id}{/if}">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Pencatatan</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="pencatatan" value="{if $dataWP2}{$dataWP2.pencatatan}{/if}" placeholder="Hari">
+									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Penelaahan</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="penelaahan" value="{if $dataWP2}{$dataWP2.penelaahan}{/if}" placeholder="Hari">
+									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Tindak Lanjut</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="tindakLanjut" value="{if $dataWP2}{$dataWP2.tindakLanjut}{/if}" placeholder="Hari">
+									</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Pengarsipan</label>
+									<div class="col-lg-7">
+										<input type="number" class="form-control" name="pengarsipan" value="{if $dataWP2}{$dataWP2.pengarsipan}{/if}" placeholder="Hari">
+									</div>
+							</div>
+						</fieldset>
+						
 					
-										<!-- Accordion title -->
-										<div class="panel-heading" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
-											<h4 class="panel-title">
-											<a data-parent="#demo-accordion" data-toggle="collapse" href="#demo-acc-panel-2"><i class="fa"></i> Pengaturan Waktu Penyelesaian Pengaduan User</a>
-											</h4>
-										</div>
-					
-										<!-- Accordion content -->
-										<div id="demo-acc-panel-2" class="panel-collapse collapse" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
-											<div class="panel-body">
-											<form id="demo-bvd-notempty" action="forms-validation.html" class="form-horizontal">
-												<fieldset>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Pencatatan</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Penelaahan</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Tindak Lanjut</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Pengarsipan</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-												</fieldset>
-												
-											</form>
-											</div>
-												<div class="tab-footer clearfix">
-													<div class="col-lg-7 col-lg-offset-3">
-														<button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button>
-														<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save</button>
-														<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
-													</div>
-												</div>										
-										</div>
-								
-					
-										<!-- Accordion title -->
-										<div class="panel-heading" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
-											<h4 class="panel-title">
-											<a data-parent="#demo-accordion" data-toggle="collapse" href="#demo-acc-panel-3"><i class="fa"></i> Pengaturan Waktu Penyelesaian Pengaduan Administrator</a>
-											</h4>
-										</div>
-					
-										<!-- Accordion content -->
-										<div id="demo-acc-panel-3" class="panel-collapse  collapse" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
-											<div class="panel-body">
-											<form id="demo-bvd-notempty" action="forms-validation.html" class="form-horizontal">
-												<fieldset>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Pencatatan</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Penelaahan</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Tindak Lanjut</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 control-label">Pengarsipan</label>
-															<div class="col-lg-7">
-																<input type="number" class="form-control" name="integer" placeholder="Hari">
-															</div>
-													</div>
-												</fieldset>
-												
-											</form>
-											</div>
-												<div class="tab-footer clearfix">
-													<div class="col-lg-7 col-lg-offset-3" style="margin-bottom:20px">
-														<button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button>
-														<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save</button>
-														<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
-													</div>
-												</div>			
-											</div>
-										</div>
-						</div>
+					</div>
+						<div class="tab-footer clearfix">
+							<div class="col-lg-7 col-lg-offset-3" style="margin-bottom:20px">
+								<!-- <button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button> -->
+								<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save Proses & Waktu Penyelesaian Pengaduan</button>
+								<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
+							</div>
+						</div>	
+						</form>		
+					</div>
+				</div>
+			</div>
 				
 				<!-- end tab accordion -->
 			
@@ -192,4 +197,4 @@
 
 </div>
 
-<!-- End: Content -->
+<!-- End: Content 
