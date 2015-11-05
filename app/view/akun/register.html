@@ -18,7 +18,7 @@
 		<div class="row">
 
 			<div class="col-md-6 col-sm-6 col-md-offset-3">
-				<form class="nomargin sky-form boxed" action="#" method="post">
+				<form class="nomargin sky-form boxed" action="{$basedomain}home/register" method="post">
 					<header>
 						<i class="fa fa-users"></i> Register
 						</header>
@@ -26,30 +26,30 @@
 					<fieldset class="nomargin">	
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Nama lengkap" required>
+							<input type="text" placeholder="Nama lengkap" name="name" required>
 							<b class="tooltip tooltip-bottom-right">Nama sesuai dengan KTP</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-credit-card"></i>
-							<input type="text" placeholder="No. KTP" required>
+							<input type="text" placeholder="No. KTP" required name="ktp">
 							<b class="tooltip tooltip-bottom-right">Nomor induk KTP</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-envelope"></i>
-							<input type="text" placeholder="Alamat Email" required>
+							<input type="text" placeholder="Alamat Email" required name="email">
 							<b class="tooltip tooltip-bottom-right">Harus email aktif</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-phone"></i>
-							<input type="text" placeholder="No. HP" required>
+							<input type="text" placeholder="No. HP" required name="hp">
 							<b class="tooltip tooltip-bottom-right">Nomor yang dapat dihubungi</b>
 						</label>
 
 						<div class="fancy-form margin-bottom-10"><!-- textarea -->
-							<textarea rows="5" class="form-control word-count" data-maxlength="200" data-info="textarea-words-info" placeholder="Alamat" required></textarea>
+							<textarea rows="5" class="form-control word-count" data-maxlength="200" data-info="textarea-words-info" placeholder="Alamat" required name="alamat"></textarea>
 							<i class="fa fa-map-marker"><!-- icon --></i>
 							<span class="fancy-hint size-11 text-muted">
 								<strong>Hint:</strong> 200 words allowed!
@@ -60,7 +60,7 @@
 						</div><!-- /textarea -->
 
 						<label class="select margin-bottom-10">
-							<select required>
+							<select required name="pekerjaan">
 								<option value="0" selected disabled>Pilih Jenis Pekerjaan</option>
 								<option value="1">Pelajar</option>
 								<option value="2">Karyawan Swasta</option>
@@ -71,13 +71,13 @@
 					
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-lock"></i>
-							<input type="password" placeholder="Password" required>
+							<input type="password" placeholder="Password" required name="pass">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-lock"></i>
-							<input type="password" placeholder="Confirm password" required>
+							<input type="password" placeholder="Confirm password" required name="retypePass">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 
@@ -87,14 +87,14 @@
 						</div>
 						
 						<div class="margin-top-30">
-							<label class="checkbox nomargin"><input class="checked-agree" type="checkbox" name="termagree" onclick="return submitForm()"><i></i>I agree to the <a href="#" data-toggle="modal" data-target="#termsModal">Terms of Service</a></label>
+							{*}<label class="checkbox nomargin"><input class="checked-agree" type="checkbox" name="termagree" onclick="return submitForm()"><i></i>I agree to the <a href="#" data-toggle="modal" data-target="#termsModal">Terms of Service</a></label>{/*}
 							<label class="checkbox nomargin"><input type="checkbox" name="checkbox"><i></i>I want to receive notifications</label>
 						</div>
 					</fieldset>
 
 					<div class="row margin-bottom-20">
 						<div class="col-md-12">
-							<button type="submit" class="btn btn-primary" id="buttonsubmit" disabled><i class="fa fa-check"></i> REGISTER</button>
+							<button type="submit" class="btn btn-primary" id="buttonsubmit" name="submit" value="1"><i class="fa fa-check"></i> REGISTER</button>
 						</div>
 					</div>
 

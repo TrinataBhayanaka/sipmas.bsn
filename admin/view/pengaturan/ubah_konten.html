@@ -35,14 +35,15 @@
 				<!--Tabs Content-->
 				<div class="tab-content">
 					<div id="demo-lft-tab-1" class="tab-pane fade active in">
-						<form class="form-horizontal">
-							<div class="form-group">
+						<form class="form-horizontal" method="post" action="{$basedomain}pengaturan_admin/ubahkonten" id="dataAjax">
+
+<input type="hidden" name="id" value="{$data.id}"/>							<div class="form-group">
 											<label class="col-sm-3 control-label col-md-offset-6">Publish ke:</label>
 											<div class="col-sm-3">
-												<select class="selectpicker">
-													<option>Pilih Halaman Konten</option>
-													<option>Home</option>
-													<option>Tata Cara Pengaduan</option>
+												<select class="selectpicker" >
+													<!-- <option>Pilih Halaman Konten</option>-->
+													<option value="1">Home</option> 
+													<option value="2">Tata Cara Pengaduan</option>
 												</select>
 											</div>
 							</div>
@@ -54,22 +55,25 @@
 									<div class="panel-body">
 									
 									<!--Attact file button-->
-											<div class="media">
+											<!--<div class="media">
 												<div class="media-left">
 													<span class="btn btn-default btn-file">
 														Attachment <input type="file">
 													</span>
 												</div>
 												<div id="demo-attach-file" class="media-body"></div>
-											</div>
+											</div>-->
 					
 					
 										<!--Wysiwyg editor : Summernote placeholder-->
-										<div id="demo-mail-compose"></div>
-					
+										<textarea name="content"  id="demo-mail-compose">
+											
+										</textarea>
+											<div class="datacontent">
+											</div>
 										<div class="pad-ver">
 
-											<button id="mail-send-btn" type="button" class="btn btn-primary btn-labeled">
+											<button id="mail-send-btn" type="submit" class="btn btn-primary btn-labeled">
 												<span class="btn-label"><i class="fa fa-check"></i></span> Submit
 											</button>
 											
@@ -103,6 +107,19 @@
 {literal}
 <script>
 	$(document).on('ready', function() {
+		$('.ajax-spinner-bars').css("display","block"); 
+                        $.post(basedomain+"pengaturan_admin/selectubahkonten", {actionfunction: 'showData',type:'2'}, function(data){
+                            // console.log(data);
+                            if (data.status==true) {
+                               // console.log(data.data);
+                                    $('.note-editable').html(data.data); 
+
+                                   
+                                    $('.ajax-spinner-bars').css("display","none");
+                            }else{
+                                 $('.ajax-spinner-bars').css("display","none"); 
+                            }
+                        }, "JSON")
 		if ($('#demo-mail-compose').length) {
 			// SUMMERNOTE
 			// =================================================================
@@ -122,6 +139,29 @@
 			
 			return;
 		}
+
 	});
+	   $('#dataAjax').on('change','.selectpicker',function(){
+
+                   var parameter =$('.selectpicker').val();
+                   alert(parameter);
+                   // var valueparameter =$('#valueparameter').val();
+
+                     $.post(basedomain+"pengaturan_admin/selectubahkonten", {actionfunction: 'showData',type:parameter}, function(data){
+                            // console.log(data);
+                            if (data.status==true) {
+                               // console.log(data.data);
+                                    $('.note-editable').html(data.data); 
+
+                                   
+                                    $('.ajax-spinner-bars').css("display","none");
+                            }else{
+                                 $('.ajax-spinner-bars').css("display","none"); 
+                            }
+                        }, "JSON")
+
+                return false;
+                });
 </script>
+
 {/literal}

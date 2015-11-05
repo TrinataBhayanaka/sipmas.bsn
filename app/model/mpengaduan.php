@@ -5,6 +5,7 @@ class mpengaduan extends Database {
 	var $salt = "";
 	function __construct()
 	{
+        parent::__construct();
 		// $this->db = new Database;
 		$this->salt = "ovancop1234";
 		$this->token = str_shuffle('cmsaj23y4ywdni237yeisa');

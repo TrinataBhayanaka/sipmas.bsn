@@ -10,7 +10,7 @@ class reportHelper extends Database {
 	{
 
         error_reporting(E_ALL ^ E_NOTICE);
-
+        parent::__construct();
 		$loadSession = new Session();
         $getUserData = $loadSession->get_session();
         $this->user = $getUserData[0];
