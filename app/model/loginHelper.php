@@ -70,7 +70,7 @@ class loginHelper extends Database {
 		$sql = array(
                 'table'=>"{$this->prefix}_users",
                 'field'=>"TOP 1 *",
-                'condition'=>"username = '{$username}' AND n_status = 1"
+                'condition'=>"( username = '{$username}' OR email = '{$username}') AND n_status = 1"
                 );
 
         $res = $this->lazyQuery($sql,$debug);

@@ -858,11 +858,16 @@ class Database
 						$field[] = "`{$key}` = '{$value}'";
 					}else{
 
-						if (in_array($key, $dataIn)){
-							$field[] = "{$key} IN ({$value})";
+						if (count($dataIn)>0){
+							if (in_array($key, $dataIn)){
+								$field[] = "{$key} IN ({$value})";
+							}else{
+								$field[] = "{$key} = '{$value}'";
+							}	
 						}else{
 							$field[] = "{$key} = '{$value}'";
 						}
+						
 						
 					}
 					
