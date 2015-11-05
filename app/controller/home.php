@@ -73,7 +73,7 @@ class home extends Controller {
                     $this->view->assign('text',"Your request for reset password have been successfull. You can use this reset password below for temporary use only."); 
 
                     $html = $this->loadView('emailTemplate');
-                    // $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
+                    $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
                     logFile($send);
                     if ($send){
                         $token = "?req=0";
@@ -132,7 +132,7 @@ class home extends Controller {
                         $this->view->assign('link',$link); 
 
                         $html = $this->loadView('emailTemplate');
-                        // $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
+                        $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
                         logFile($send);
                         if ($send) redirect($basedomain . 'home/register_confirmation/?status=1');
                     }
