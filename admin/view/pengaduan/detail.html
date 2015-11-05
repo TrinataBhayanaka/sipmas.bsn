@@ -25,6 +25,18 @@
 						<h4 class="text-thin">Penanganan Laporan Pengaduan</h4>
 					
 						<!-- Menu list item -->
+						<a href="{$basedomain}daftar_pengaduan/penelaahan/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
+							Penelaahan Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/disposisi/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
+							Distribusi Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/balas/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
+							Balas Laporan
+						</a>
 						<a href="{$basedomain}daftar_pengaduan/tindak_lanjut/?id={$id}" class="list-group-item list-item-sm">
 							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Tindak Lanjut Laporan
@@ -32,18 +44,6 @@
 						<a href="{$basedomain}daftar_pengaduan/penelusuran/?id={$id}" class="list-group-item list-item-sm">
 							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Penelusuran Laporan
-						</a>
-						<a href="{$basedomain}daftar_pengaduan/penelaahan/?id={$id}" class="list-group-item list-item-sm">
-							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
-							Penelaahan Laporan
-						</a>
-						<a href="{$basedomain}daftar_pengaduan/balas/?id={$id}" class="list-group-item list-item-sm">
-							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
-							Balas Laporan
-						</a>
-						<a href="{$basedomain}daftar_pengaduan/disposisi/?id={$id}" class="list-group-item list-item-sm">
-							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
-							Disposisi Laporan
 						</a>
 					</div>
 			</div>
@@ -58,7 +58,7 @@
 					<div id="demo-email-list" class="panel-body">
 							
 							<p class="text-danger">Sisa waktu penyelesaian 4 hari</p>
-							<p> ID Laporan : {$dataPengaduan.idPengaduan} </p>
+							<p> ID Laporan : {$dataPengaduan.idLaporan} </p>
 							<p>	Tanggal Laporan : {$dataPengaduan.tanggalformat} </p>
 							<p>	Nama Pelapor  : {$dataPengaduan.nameUser} </p>
 							<p>	Email Laporan : {$dataPengaduan.emailUser} </p>

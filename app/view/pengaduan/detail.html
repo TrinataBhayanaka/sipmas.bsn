@@ -252,7 +252,7 @@
                     <fieldset class="nomargin"> 
                        <div class="row tab-post">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<small>ID Laporan : {$data.idPengaduan}</small>
+								<small>ID Laporan : {$data.idLaporan}</small>
 								<small>username : {$user.username}</small>
 								<small>Nama Lengkap : {$user.name}</small>
 								<small>Ruang Lingkup Laporan : {$user.ruangLingkup}</small>
@@ -315,7 +315,7 @@
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
 								<a href="{$basedomain}pengaduan/detail/?id={$val.idPengaduan}" class="tab-post-link"><strong>{$val.judul}</strong></a>
 								<small>{$val.tanggalformat}</small>
-								<small>ID Laporan : {$val.idPengaduan}</small>
+								<small>ID Laporan : {$val.idLaporan}</small>
 								<small>Status Laporan : {if $val.n_status eq '1'}Aktif{else}Selesai{/if}</small>
 							</div>
 						</div>
