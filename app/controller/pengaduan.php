@@ -14,6 +14,7 @@ class pengaduan extends Controller {
 		$this->view->assign('basedomain',$basedomain);
 		$getUserLogin = $this->isUserOnline();
 		$this->user = $getUserLogin[0];
+        
     }
 	
 	function loadmodule()

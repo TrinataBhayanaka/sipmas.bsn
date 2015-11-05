@@ -32,49 +32,57 @@
 				</ul>
 	
 			<div class="panel panel-default">
-				<form class="panel-body form-horizontal form-padding">
+				<form class="panel-body form-horizontal form-padding" action="{$basedomain}pengaturan_admin/edit" method="post">
 						
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="demo-readonly-input">Nama Administrator</label>
 						<div class="col-md-9">
-							<input type="text" class="form-control" placeholder=" ">
+							<input type="text" class="form-control" placeholder=" " name="name" value="{$user.name}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="demo-readonly-input">Alamat Email</label>
 						<div class="col-md-9">
-							<input type="text" class="form-control" placeholder=" ">
+							<input type="text" class="form-control" placeholder=" " name="email" value="{$user.email}">
 						</div>
 					</div>
 	
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="demo-readonly-input">Username</label>
 						<div class="col-md-9">
-							<input type="text" class="form-control" placeholder=" ">
+							<input type="text" class="form-control" placeholder=" " name="username" value="{$user.username}">
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="demo-readonly-input">Password Login</label>
 						<div class="col-md-9">
-							<input type="text"  class="form-control" placeholder="Password harus diisi dengan 6-8 digit alphanumeric ">
+							<div class="passwordAdmin">
+							{if $user}
+							<label>***** (Klik 2x untuk edit)</label>
+							{else}
+							<input type="text"  class="form-control " placeholder="Password harus diisi dengan 6-8 digit alphanumeric " name="pass" >
+							{/if}
+							</div>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="demo-email-input">Hak Akses</label>
 						<div class="col-md-9">
-							<select class="selectpicker" data-width="100%">
+							<select class="selectpicker" data-width="100%" name="type">
 								<option>Pilih Hak Akses</option>
-								<option>Super Administrator</option>
-								<option>Administrator</option>
+								<option value="3" {if $user.type == 3}selected{/if}>Super Administrator</option>
+								<option value="1" {if $user.type == 1}selected{/if}>Administrator</option>
 							</select>
 						</div>
 					</div>
 					<div class="col-lg-7 col-lg-offset-3">
-						<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save</button>
-						<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>
+						<input type="hidden" name="token" value="1">
+						<input type="hidden" name="id" value="{$user.idUser}">
+						<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o" value="1">Save</button>
+						<button type="button" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>
 					</div>
 				</form>
 			</div>	

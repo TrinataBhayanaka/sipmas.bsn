@@ -39,6 +39,7 @@ class Database
 	
 	function initialitation()
 	{
+
 		$this->cacheTable();
 	}
 
@@ -667,6 +668,7 @@ class Database
 	{
 		global $dbConfig;
 
+		
 		if ($dbConfig[0]['server']=='mysql'){
 			$sql = "SHOW TABLES FROM {$dbConfig[0]['name']}";
 			$res = $this->fetch($sql,1);
@@ -724,13 +726,14 @@ class Database
 		}
 
 		$getTableList = $this->getTableList();
-		// pr($getTableList);
+		
 		if ($getTableList){
 
 			foreach ($getTableList as $key => $value) {
 				if (!file_exists($pathcache . $value)){
 
 					$sturcture = $this->getTableStructure($value);
+
 					logFile('create table cache '. $value);
 					$handle = fopen($pathcache.$value, "a");
 					
@@ -756,7 +759,6 @@ class Database
 		}
 
 		$filepath = CACHE . 'table/';
-		
 		if ($table){
 			if (is_array($table)){
 
@@ -764,7 +766,6 @@ class Database
 				$openFile = openFile($filepath . $table);
 
 				$tablestructure = $this->unserialTable($openFile);
-				
 				if ($data){
 					foreach ($data as $key => $value) {
 						if (in_array($key, $tablestructure['fields'])){
@@ -838,7 +839,7 @@ class Database
 		return false;
 	}
 
-	function fetchSingleTable($table=false, $condition=array(), $order=false, $debug=false)
+	function fetchSingleTable($table=false, $condition=array(), $order=false, $additional=array(), $debug=false)
 	{
 
 		global $dbConfig;
@@ -846,13 +847,23 @@ class Database
 		$imp = 1;
 		if ($order) $filter = "ORDER BY {$order}";
 
+		$dataIn = array();
+		if ($additional){
+			$dataIn = $additional['in'];
+		}
 		if ($condition){
 			foreach ($condition as $key => $value) {
 				if ($value){
 					if ($dbConfig[0]['server']=='mysql'){
 						$field[] = "`{$key}` = '{$value}'";
 					}else{
-						$field[] = "{$key} = '{$value}'";
+
+						if (in_array($key, $dataIn)){
+							$field[] = "{$key} IN ({$value})";
+						}else{
+							$field[] = "{$key} = '{$value}'";
+						}
+						
 					}
 					
 				}

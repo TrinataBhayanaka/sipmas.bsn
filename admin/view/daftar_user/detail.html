@@ -20,19 +20,19 @@
 							<!--===================================================-->
 							<div class="tab-pane fade active in" id="demo-search-tab-1">
 								<div class="panel-heading">
-									<h3><strong>Ariana Grande</strong></h3>
+									<h3><strong>{$user.0.name}</strong></h3>
 								</div>
-									<p> Waktu Registrasi: Rabu, 08 Juli 2015 14:25 WIB </p>
-									<p>	Nama Panggilan : Ariana </p>
-									<p>	Email Pelapor : ariana@hotmail.com </p>
-									<p>	No. HP : 08991111111 </p>
-									<p>	Alamat : Jl. M.H. Thamrin No. 88 Kebon Sirih </p>
-									<p>	Jenis Kelamin : Perempuan </p>
-									<p>	Pendidikan : Strata 1 </p>
-									<p>	Pekerjaan : Non BSN - Wiraswasta </p>
-									<p>	Jumlah Pengaduan : 3 Laporan </p>
-									<p>	Current Password : <i class="fa fa-circle"></i> <i class="fa fa-circle"></i> <i class="fa fa-circle"></i> <i class="fa fa-circle"></i> <i class="fa fa-circle"></i> <br>
-									<p>	Reset Password : <button class="btn btn-xs btn-primary btn-labeled fa fa-lock">Reset Password</button> <br>
+									<p> Waktu Registrasi: {$user.register_date} </p>
+									<p>	Nama Panggilan : {$user.name} </p>
+									<p>	Email Pelapor : {$user.email} </p>
+									<p>	No. HP : {$user.hp} </p>
+									<p>	Alamat : {$user.alamat} </p>
+									{*}<p>	Jenis Kelamin : {$user.0.name} </p>
+									<p>	Pendidikan : {$user.0.name} </p>{/*}
+									<p>	Pekerjaan : {$user.pekerjaan} </p>
+									<p>	Jumlah Pengaduan : {$user.jumlah_pengaduan} Laporan </p>
+									{*}<p>	Current Password : <i class="fa fa-circle"></i> <i class="fa fa-circle"></i> <i class="fa fa-circle"></i> <i class="fa fa-circle"></i> <i class="fa fa-circle"></i> <br>
+									<p>	Reset Password : <button class="btn btn-xs btn-primary btn-labeled fa fa-lock">Reset Password</button> <br>{/*}
 									</p>
 								<hr class="hr-wide">
 	
@@ -51,11 +51,13 @@
 									<div class="nano" style="height:380px">
 										<div class="nano-content pad-all">
 											<ul class="list-unstyled media-block">
+												{if $user.pengaduan}
+												{foreach $user.pengaduan as $val}
 												<li class="mar-btm">
 													<div class="row">
 														<div class="col-md-7">
-														<p><strong>1. Pengiriman Dokumen SNI terlalu lama</strong><br>
-														Rabu, 08 Juli 2015 15:00 WIB
+														<p><strong>{$val.judul}</strong><br>
+														{$val.tanggal}
 														</p>
 														</div>
 														<div class="col-md-2 col-md-offset-3">
@@ -63,6 +65,9 @@
 														</div>
 													</div>
 												</li>
+												{/foreach}
+												{/if}
+												{*}
 												<li class="mar-btm">
 														<div class="row">
 															<div class="col-md-7">
@@ -147,6 +152,7 @@
 															</div>
 														</div>
 												</li>
+												{/*}
 											</ul>
 										</div>
 									</div>
