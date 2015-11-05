@@ -41,14 +41,15 @@ class pengaturan_admin extends Controller {
 	
 	public function ubahkonten(){
 	
-		if($_POST['id']){
 			// pr($_POST);
+		if($_POST['id']){
+			// pr($_POST);exit;
 			$dataupd=$this->contentHelper->updContent($_POST['id']);
 			 // exit;
 		}
-		$data=$this->contentHelper->getContent(2,1);
-// pr($data);
-        $this->view->assign('data',$data[0]);
+// 		$data=$this->contentHelper->getContent(2,1);
+// // pr($data);
+//         $this->view->assign('data',$data[0]);
 
 		return $this->loadView('pengaturan/ubah_konten');
 
@@ -56,15 +57,15 @@ class pengaturan_admin extends Controller {
 
 	public function selectubahkonten(){
 	
-		if($_POST['id']){
-			// pr($_POST);
-			$dataupd=$this->contentHelper->updContent($_POST['id']);
+		// if($_POST['id']){
+		// 	// pr($_POST);
+		// 	$dataupd=$this->contentHelper->updContent($_POST['id']);
 			 // exit;
-		}
+		// }
 		$data=$this->contentHelper->getContent($_POST['type'],1);
 // pr($data);
         if ($data){
-            print json_encode(array('status'=>true, 'data'=>$data[0]['description']));
+            print json_encode(array('status'=>true,'idhidden'=>$data[0]['id'], 'data'=>$data[0]['description'],'judul'=>$data[0]['title']));
         }else{
             print json_encode(array('status'=>false));
         }

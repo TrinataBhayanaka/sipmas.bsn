@@ -193,14 +193,18 @@ class home extends Controller {
 
     function search()
     {
-        // pr($_POST);
-        // exit;
-        $data['pencarian']=$this->contentHelper->tracking($_POST['tracking']);
-        // pr($data);
+        global $basedomain;
+        // pr($this->user);
+        if($this->user){
+            $data['pencarian']=$this->contentHelper->tracking($_POST['tracking'],$this->user['idUser']);
+            // pr($data);
 
-        $this->view->assign('data',$data['pencarian']);
-        // exit;
-        return $this->loadView('search');
+            $this->view->assign('data',$data['pencarian']);
+            // exit;
+            return $this->loadView('search');
+        }else{
+            redirect($basedomain.'home');
+        }
     }
 
 }
