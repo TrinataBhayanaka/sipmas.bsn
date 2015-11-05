@@ -83,7 +83,7 @@ class mpengaduan extends Database {
 
         foreach($res as $key => $val)
         {
-            $sql = "SELECT name,email,type FROM users WHERE idUser = '{$val['idUser']}'";
+            $sql = "SELECT name,email,type FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
             $res[$key]['isi'] = html_entity_decode($val['isi']);

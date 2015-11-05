@@ -22,7 +22,7 @@ class mpengaduan extends Database {
 
         foreach($res as $key => $val)
         {
-            $sql = "SELECT name,email,hp FROM users WHERE idUser = '{$val['idUser']}'";
+            $sql = "SELECT name,email,hp FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
             $res[$key]['nameUser'] = $user['name'];
@@ -65,6 +65,14 @@ class mpengaduan extends Database {
         return $res;   
     }
 
+    function getAdmUsr()
+    {
+        $sql = "SELECT * FROM bsn_users WHERE type='1'";
+        $res = $this->fetch($sql,1);
+
+        return $res;   
+    }
+
     function insert_penelaahan($data)
     {
         $res = $this->insert($data,'bsn_penelaahan');
@@ -82,7 +90,7 @@ class mpengaduan extends Database {
 
     function upd_fase($id,$fase=false)
     {
-        $sql = "UPDATE bsn_pengaduan SET fase = '{$fase}'";
+        $sql = "UPDATE bsn_pengaduan SET fase = '{$fase}' WHERE idPengaduan = '{$id}'";
         $res = $this->query($sql);
 
         return true;
@@ -117,7 +125,7 @@ class mpengaduan extends Database {
 
         foreach($res as $key => $val)
         {
-            $sql = "SELECT name,email,hp FROM users WHERE idUser = '{$val['idUser']}'";
+            $sql = "SELECT name,email,hp FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
             $res[$key]['isi'] = html_entity_decode($val['isi']);
@@ -144,13 +152,44 @@ class mpengaduan extends Database {
 
         foreach($res as $key => $val)
         {
-            $sql = "SELECT name,email,type FROM users WHERE idUser = '{$val['idUser']}'";
+            $sql = "SELECT name,email,type FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
             $res[$key]['isi'] = html_entity_decode($val['isi']);
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['typeUser'] = $user['type'];
+        }
+
+        return $res;
+    }
+
+    function insert_disposisi($data)
+    {
+        $res = $this->insert($data,'bsn_disposisi');
+
+        $sql = "UPDATE bsn_pengaduan SET disposisi = '{$data['tujuan']}' WHERE idPengaduan = '{$data['idPengaduan']}'";
+        $res = $this->query($sql);
+        if ($res) return $res;
+        return false;
+    }
+
+    function getDisposisi($id)
+    {
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_disposisi WHERE idPengaduan = '{$id}'";
+        $res = $this->fetch($sql,1);
+
+        foreach($res as $key => $val)
+        {
+            $sql = "SELECT name FROM bsn_users WHERE idUser = '{$val['idUser']}'";
+            $user = $this->fetch($sql,0);
+
+            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['nameUser'] = $user['name'];
+            
+            $sql = "SELECT nama_satker FROM bsn_satker WHERE idSatker = '{$val['tujuan']}'";
+            $satker = $this->fetch($sql,0);
+            $res[$key]['nameSatker'] = $satker['nama_satker'];
         }
 
         return $res;

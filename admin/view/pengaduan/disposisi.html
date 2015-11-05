@@ -1,7 +1,7 @@
 <!--Page Title-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div id="page-title">
-	<h1 class="page-header text-overflow">Detail Laporan Pengaduan</h1>
+	<h1 class="page-header text-overflow">Distribusi Laporan</h1>
 </div>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--End page title-->
@@ -15,8 +15,8 @@
 				
 				<div class="list-group bg-trans">
 					<h4 class="text-thin">Laporan Pengaduan</h4>
-						<a href="{$basedomain}daftar_pengaduan/detail" class="list-group-item list-item-sm">
-						<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/detail/?id={$id}" class="list-group-item list-item-sm">
+						<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 						Isi Laporan Pengaduan
 						</a>
 				</div>
@@ -25,37 +25,45 @@
 						<h4 class="text-thin">Penanganan Laporan Pengaduan</h4>
 					
 						<!-- Menu list item -->
-						<a href="{$basedomain}daftar_pengaduan/tindak_lanjut" class="list-group-item list-item-sm">
-							<span class="badge badge-purple badge-icon badge-fw pull-left"></span>
-							Tindak Lanjut Laporan
-						</a>
-						<a href="{$basedomain}daftar_pengaduan/penelusuran" class="list-group-item list-item-sm">
-							<span class="badge badge-info badge-icon badge-fw pull-left"></span>
-							Penelusuran Laporan
-						</a>
-						<a href="{$basedomain}daftar_pengaduan/penelaahan" class="list-group-item list-item-sm">
-							<span class="badge badge-pink badge-icon badge-fw pull-left"></span>
+						<a href="{$basedomain}daftar_pengaduan/penelaahan/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Penelaahan Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/balas" class="list-group-item list-item-sm">
+						<a href="{$basedomain}daftar_pengaduan/disposisi/?id={$id}" class="list-group-item list-item-sm" style="background-color:rgba(125,211,188,0.5);">
 							<span class="badge badge-success badge-icon badge-fw pull-left"></span>
+							Distribusi Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/balas/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
 							Balas Laporan
 						</a>
-						<a href="{$basedomain}daftar_pengaduan/disposisi" class="list-group-item list-item-sm" style="background-color:rgba(125,211,188,0.5);">
-							<span class="badge badge-danger badge-icon badge-fw pull-left"></span>
-							Disposisi Laporan
+						<a href="{$basedomain}daftar_pengaduan/tindak_lanjut/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
+							Tindak Lanjut Laporan
+						</a>
+						<a href="{$basedomain}daftar_pengaduan/penelusuran/?id={$id}" class="list-group-item list-item-sm">
+							<span class="badge badge-dark badge-icon badge-fw pull-left"></span>
+							Penelusuran Laporan
 						</a>
 					</div>
 			</div>
 			
 			<div class="col-md-9">
-				<div class="panel panel-default panel-left">
-				
-					<div class="panel">
-						<h3 class="panel-title"><strong>Riwayat Disposisi Laporan</strong></h3>
+				<div class="panel panel-success panel-left">
+					
+					<div class="panel-heading">
+						<h3 class="panel-title"><strong>{$dataPengaduan.judul}</strong></h3>
 					</div>
+					<!-- <div class="panel">
+						<h3 class="panel-title"><strong>Riwayat Disposisi Laporan</strong></h3>
+					</div> -->
 					
 					<div class="panel-body">
+
+						<div class="panel">
+						<h4 class="panel-title"><strong>Riwayat Disposisi Laporan</strong></h4>
+					</div>
+
 						<table id="demo-foo-row-toggler" class="table toggle-circle">
 							<thead>
 								<tr>
@@ -64,89 +72,51 @@
 									<th>Nama user</th>
 									<th>Judul Laporan</th>
 									<th>Tanggal Laporan</th>
-									<th>Tanggal Disposisi Laporan</th>
-									<th>Disposisi</th>
-									<th>Sisa Waktu Penyelesaian</th>
+									<th>Tanggal Distribusi</th>
+									<th data-hide="all">Disposisi</th>
+									<th>Sisa Waktu</th>
 									<th data-hide="all">Detail</th>
 								</tr>
 							</thead>
 							<tbody>
+								{foreach $disposisi as $key => $val}
 								<tr>
-									<td>1</td>
-									<td>101</td>
-									<td>Lala</td>
-									<td>Pengiriman Dokumen SNI yang terlalu lama</td>
-									<td>15 Agustus 2015</td>
-									<td>17 Agustus 2015</td>
-									<td>PSPS</td>
+									<td>{$key+1}</td>
+									<td>{$dataPengaduan.idLaporan}</td>
+									<td>{$val.nameUser}</td>
+									<td>{$dataPengaduan.judul}</td>
+									<td>{$dataPengaduan.tanggalformat}</td>
+									<td>{$val.tanggalstd}</td>
+									<td>{$val.nameSatker}</td>
 									<td>3 hari</td>
-									<td><p><br>Hari & Tanggal : Rabu, 12 Agustus 2015 <br> <br> 
-									Kepada Yth :Kepala Pusat Informasi dan Dokumentasi Standardisasi BSN<br>
-									Perihal:Penyelesaian masalah pengiriman dokumen SNI <br> sifat : SEGERA <br> 
-									Tindakan : Untuk Ditindaklanjuti <br> Catatan : <br> 
-									Mohon untuk menindaklanjuti permasalahan ini sebelum akhir bulan. <br><br> 
-									Terima kasih
-									</p></td>
+									<td>{$val.isi}</td>
 								</tr>
-								<tr>
-									<td>1</td>
-									<td>101</td>
-									<td>Lala</td>
-									<td>Pengiriman Dokumen SNI yang terlalu lama</td>
-									<td>15 Agustus 2015</td>
-									<td>17 Agustus 2015</td>
-									<td>PSPS</td>
-									<td>3 hari</td>
-									<td><p><br>Hari & Tanggal : Rabu, 12 Agustus 2015 <br> <br> 
-									Kepada Yth :Kepala Pusat Informasi dan Dokumentasi Standardisasi BSN<br>
-									Perihal:Penyelesaian masalah pengiriman dokumen SNI <br> sifat : SEGERA <br> 
-									Tindakan : Untuk Ditindaklanjuti <br> Catatan : <br> 
-									Mohon untuk menindaklanjuti permasalahan ini sebelum akhir bulan. <br><br> 
-									Terima kasih
-									</p></td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td>101</td>
-									<td>Lala</td>
-									<td>Pengiriman Dokumen SNI yang terlalu lama</td>
-									<td>15 Agustus 2015</td>
-									<td>17 Agustus 2015</td>
-									<td>PSPS</td>
-									<td>3 hari</td>
-									<td><p><br>Hari & Tanggal : Rabu, 12 Agustus 2015 <br> <br> 
-									Kepada Yth :Kepala Pusat Informasi dan Dokumentasi Standardisasi BSN<br>
-									Perihal:Penyelesaian masalah pengiriman dokumen SNI <br> sifat : SEGERA <br> 
-									Tindakan : Untuk Ditindaklanjuti <br> Catatan : <br> 
-									Mohon untuk menindaklanjuti permasalahan ini sebelum akhir bulan. <br><br> 
-									Terima kasih
-									</p></td>
-								</tr>
-								
+								{/foreach}
 							</tbody>
 						</table>
 					</div>
 					
 					
-					<div class="panel">
-						<h3 class="panel-title"><strong>Kirim Disposisi</strong></h3>
+					<div class="panel-heading">
+						<h4 class="panel-title"><strong>Kirim Disposisi</strong></h4>
 					</div>
 					
-					<form class="panel-body form-horizontal form-padding">
+					<form class="panel-body form-horizontal form-padding" action="{$basedomain}daftar_pengaduan/ins_disposisi" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="demo-msk-ssn" class="col-md-2 control-label">No. Surat</label>
 							<div class="col-md-10">
-								<input type="text" id="demo-msk-ssn" class="form-control" placeholder="999-99-9999">
+								<input type="text" name="noSurat" class="form-control">
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label class="col-md-2 control-label" for="demo-text-input">Disposisi ke:</label>
+							<label class="col-md-2 control-label" for="demo-text-input">Disposisi ke</label>
 							<div class="col-md-10">
-								<select class="selectpicker" data-width="100%">
-									<option>Pilih satuan unit kerja terkait</option>
-									<option>Friend</option>
-									<option>Partner</option>
+								<select class="selectpicker" name="tujuan" data-width="100%" title="Pilih Satker">
+									<option data-hidden="true"></option>
+									{foreach $satker as $val}
+									<option value="{$val.idSatker}" {if $penelaahan.satker eq $val.idSatker}selected{/if}>{$val.nama_satker}</option>
+									{/foreach}
 								</select>
 							</div>
 						</div>
@@ -154,56 +124,33 @@
 						<div class="form-group">
 							<label class="col-md-2 control-label">Tembusan Disposisi</label>
 							<div class="col-md-10">
-								<input type="text" id="demo-readonly-input" class="form-control" placeholder="Ketik jabatan pihak yang akan disertakan">
+								<select class="selectpicker" name="tembusan" data-width="100%" title="Pilih Satker">
+									<option data-hidden="true"></option>
+									{foreach $satker as $val}
+									<option value="{$val.idSatker}" {if $penelaahan.satker eq $val.idSatker}selected{/if}>{$val.nama_satker}</option>
+									{/foreach}
+								</select>
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<label class="col-md-2 control-label">Subjek Disposisi</label>
 							<div class="col-md-10">
-								<input type="text" id="demo-readonly-input" class="form-control" placeholder=" " >
-							</div>
-						</div>
-						
-						<div class="form-group pad-ver">
-							<label class="col-md-2 control-label">Sifat</label>
-							<div class="col-md-10">
-								<div class="radio">
-		
-									<!-- Inline radio buttons -->
-									<label class="form-radio form-normal active"><input type="radio" checked="" name="def-w-label">SEGERA</label>
-									<label class="form-radio form-normal"><input type="radio" name="def-w-label">PENTING</label>
-									<label class="form-radio form-normal"><input type="radio" name="def-w-label">BIASA</label>
-		
-								</div>
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="col-md-2 control-label" for="demo-text-input">Tindakan</label>
-							<div class="col-md-10">
-								<select class="selectpicker" data-width="100%">
-									<option>Pilih satuan unit kerja terkait</option>
-									<option>Friend</option>
-									<option>Partner</option>
-								</select>
+								<input type="text" name="subjek" class="form-control" >
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<label class="col-md-2 control-label" for="demo-text-input">Data Pendukung</label>
 							<div class="col-md-10">
-								<div class="mail-attach-btn"><a href="#" class="btn btn-purple btn-sm btn-labeled fa fa-upload">Upload</a></div>
-	
-								<!--File information-->
-								<div class="mail-attach-file">
-									<span class="mail-attach-label">
-										<span class="label label-info text-uppercase">FILE</span>
-									</span>
-									<div class="media-body">
-										<div class="text-bold"><a href="#">aaaa.xlsx</a></div>
-										<small class="text-muted">(15 KB)</small>
+								<!--Attact file button-->
+								<div class="media pad-btm">
+									<div class="media-left">
+										<span class="btn btn-purple btn-file btn-labeled fa fa-upload">
+											Upload <input type="file" name="myfile">
+										</span>
 									</div>
+									<div id="demo-attach-file" class="media-body"></div>
 								</div>
 			
 							</div>
@@ -219,15 +166,18 @@
 			
 			
 								<!--Wysiwyg editor : Summernote placeholder-->
-								<div id="demo-mail-compose"></div>
+								<textarea id="demo-mail-compose" name="isi"></textarea>
+
+								<!-- HIDDEN -->
+								<input type="hidden" name="idPengaduan" value="{$id}">
 			
 								<div class="pad-ver">
 
-									<button id="mail-send-btn" type="button" class="btn btn-primary btn-labeled">
+									<button id="mail-send-btn" type="submit" class="btn btn-primary btn-labeled">
 										<span class="btn-label"><i class="fa fa-send"></i></span> Kirim
 									</button>
-									<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save Draft</button>
-									<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
+									{*}<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save Draft</button>
+									<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>{/*}	
 
 								</div>
 							</div>
@@ -289,8 +239,11 @@
 		
 			// Attachment button.
 			// =================================================================
+			var size = new Array();
 			$('.btn-file :file').on('fileselect', function(event, numFiles, label, fileSize) {
-				$('#demo-attach-file').html('<strong class="box-block text-capitalize"><i class="fa fa-paperclip fa-fw"></i> '+label+'</strong><small class="text-muted">'+fileSize+'</small>');
+				size.push(fileSize);
+				$('#demo-attach-file').html('<strong class="box-block text-capitalize"><i class="fa fa-paperclip fa-fw"></i> '+label+'</strong><small class="text-muted">'+size[0]+'</small>');
+
 			});
 			
 			return;

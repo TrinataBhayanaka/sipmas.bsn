@@ -56,7 +56,8 @@
 					</div>
 					<div class="panel-body">
 						<div class="timeline">
-						{if 3 lte $dataPengaduan.fase}					
+
+						{if 5 lte $dataPengaduan.fase}					
 						
 							<div class="timeline-entry">
 								<div class="timeline-stat">
@@ -66,6 +67,20 @@
 								<div class="timeline-label">
 									<p class="mar-no pad-btm">{$tglBalas.tanggalformat}</p>
 									<p><strong>Inspektorat sedang melakukan proses tindak lanjut</strong></p>
+								</div>
+							</div>
+						{/if}
+
+						{if 4 eq $dataPengaduan.fase}					
+						
+							<div class="timeline-entry">
+								<div class="timeline-stat">
+									<div class="timeline-icon bg-success"><i class="fa fa-check fa-lg"></i>
+									</div>
+								</div>
+								<div class="timeline-label">
+									<p class="mar-no pad-btm">{$disposisi[0].tanggalstd}</p>
+									<p><strong>Inspektorat sedang melakukan penyaluran pengaduan ke pihak terkait</strong></p>
 								</div>
 							</div>
 						{/if}
