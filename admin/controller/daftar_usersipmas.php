@@ -14,24 +14,34 @@ class daftar_usersipmas extends Controller {
 		$this->view = $this->setSmarty();
 		$sessionAdmin = new Session;
 		$this->admin = $sessionAdmin->get_session();
-		// $this->validatePage();
 		$this->view->assign('app_domain',$app_domain);
 	}
+
 	public function loadmodule()
 	{
 		
 		$this->contentHelper = $this->loadModel('contentHelper');
-		$this->marticle = $this->loadModel('marticle');
-		$this->mquiz = $this->loadModel('mquiz');
-		$this->mcourse = $this->loadModel('mcourse');
+		$this->userHelper = $this->loadModel('userHelper');
 	}
 	
 	public function index(){
 		
-		// uploadFile($data,$path=null,$ext){
+		$dataUser['table'] = "bsn_users";
+		$dataUser['condition'] = array('type'=>2);
+		$getUser = $this->userHelper->fetchData($dataUser);
 		
-		// $quizStatistic = $this->contentHelper->quizStatistic();
-		// db($quizStatistic);
+		if ($getUser){
+
+			foreach ($getUser as $key => $value) {
+				$dataAdu['table'] = "bsn_pengaduan";
+				$dataAdu['condition'] = array('n_status'=>1, 'idUser'=>$value['idUser']);
+				$getPengaduan = $this->userHelper->fetchData($dataAdu);
+				$getUser[$key]['jumlah_pengaduan'] = count($getPengaduan);
+				// $getUser[$key]['pengaduan'] = $getPengaduan;
+			}
+			
+			$this->view->assign('user', $getUser);
+		}
 
 		return $this->loadView('daftar_user/user_sipmas');
 
@@ -39,10 +49,23 @@ class daftar_usersipmas extends Controller {
 	
 	public function detail(){
 		
-		// uploadFile($data,$path=null,$ext){
+		$id = _g('id');
+		$dataUser['table'] = "bsn_users";
+		$dataUser['condition'] = array('type'=>2, 'idUser'=>$id);
+		$getUser = $this->userHelper->fetchData($dataUser);
 		
-		// $quizStatistic = $this->contentHelper->quizStatistic();
-		// db($quizStatistic);
+		if ($getUser){
+
+			foreach ($getUser as $key => $value) {
+				$dataAdu['table'] = "bsn_pengaduan";
+				$dataAdu['condition'] = array('n_status'=>1, 'idUser'=>$value['idUser']);
+				$getPengaduan = $this->userHelper->fetchData($dataAdu);
+				$getUser[$key]['jumlah_pengaduan'] = count($getPengaduan);
+				$getUser[$key]['pengaduan'] = $getPengaduan;
+			}
+			// pr($getUser);
+			$this->view->assign('user', $getUser[0]);
+		}
 
 		return $this->loadView('daftar_user/detail');
 

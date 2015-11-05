@@ -27,7 +27,7 @@ class Controller extends Application{
 	function index()
 	{
 		
-		global $CONFIG, $LOCALE, $basedomain, $rootpath, $title, $DATA, $app_domain, $CODEKIR;
+		global $CONFIG, $LOCALE, $basedomain, $rootpath, $title, $DATA, $app_domain, $CODEKIR, $ROUTES_IGNORE;
 		$filePath = APP_CONTROLLER.$this->page.$this->php_ext;
 		
 		$this->view = $CODEKIR['smarty'];
@@ -73,15 +73,21 @@ class Controller extends Application{
 			if ($this->configkey == 'default'){
 				if ($DATA[$this->configkey]['page']=='register'){
 
-					
 					if ($this->isUserOnline()){
 						// redirect($CONFIG[$this->configkey]['default_view']);
 						redirect($basedomain);
 						exit;
 					}
 
+				}
+
+				$ignoreController = $ROUTES_IGNORE;
+				if (!in_array($DATA[$this->configkey]['page'], $ignoreController)){
 					
-					
+					if (!$this->isUserOnline()){
+						redirect($basedomain);
+						exit;
+					}					
 				}
 			}
 			

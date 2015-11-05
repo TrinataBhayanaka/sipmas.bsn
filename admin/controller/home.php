@@ -30,12 +30,20 @@ class home extends Controller {
 	public function index(){
 		$select_list_inbox_pengaduan = $this->mhome->select_data_inbox_pengaduan();
 		//get data object in array
+		// pr($select_list_inbox_pengaduan);
 		foreach ($select_list_inbox_pengaduan as $k => $val) {
 			$i = 0;
-			foreach($val['tanggal'] as $date){
-				if ($i==0) $select_list_inbox_pengaduan[$k]['datetime'] = $date;
-				$i++;
+
+			if (is_array($val['tanggal'])){
+				foreach($val['tanggal'] as $date){
+					if ($i==0) $select_list_inbox_pengaduan[$k]['datetime'] = $date;
+					$i++;
+				}
+
+			}else{
+				$select_list_inbox_pengaduan[$k]['datetime'] = $val['tanggal'];
 			}
+			
 		}
 		// pr($select_list_inbox_pengaduan);
 		// exit;

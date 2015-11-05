@@ -16,19 +16,25 @@ class pengaturan_admin extends Controller {
 		$this->admin = $sessionAdmin->get_session();
 		// $this->validatePage();
 		$this->view->assign('app_domain',$app_domain);
+		$this->token = str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890');
 	}
 	public function loadmodule()
 	{
-		$this->mkategori = $this->loadModel('mkategori');
+		$this->userHelper = $this->loadModel('userHelper');
         $this->contentHelper = $this->loadModel('contentHelper');
 	}
 	
 	public function index(){
 		
-		// uploadFile($data,$path=null,$ext){
+		$dataUser['table'] = "bsn_users";
+		$dataUser['condition'] = array('type'=>1, 'n_status'=>'0,1,2');
+		$dataUser['in'] = array('n_status');
+		$getUser = $this->userHelper->fetchData($dataUser);
 		
-		// $quizStatistic = $this->contentHelper->quizStatistic();
-		// db($quizStatistic);
+		if ($getUser){
+
+			$this->view->assign('user', $getUser);
+		}
 
 		return $this->loadView('pengaturan/pengaturan_admin');
 
@@ -90,10 +96,56 @@ class pengaturan_admin extends Controller {
 	}
 
 	public function edit(){
-	
-	return $this->loadView('pengaturan/edit_admin');
+		
+		global $basedomain;
+
+		$id = _g('id');
+		if ($_POST['token']){
+
+			if ($_POST['pass']) $_POST['password'] = $this->token . $_POST['pass'] . $this->token;
+			$_POST['register_date'] = date('Y-m-d');
+			$_POST['login_count'] = 0;
+			$_POST['n_status'] = 1;
+			$_POST['id'] = $_POST['idUser'];
+
+			$getUser = $this->userHelper->saveData($_POST,"_users");
+			
+			if ($getUser){
+				redirect($basedomain . 'pengaturan_admin');
+			}else{
+				redirect($basedomain . 'pengaturan_admin/edit');
+			}
+		}
+
+		if ($id){
+
+			$dataUser['table'] = "bsn_users";
+			$dataUser['condition'] = array('type'=>'1,3', 'n_status'=>'1', 'idUser'=>$id);
+			$dataUser['in'] = array('type');
+			$getUser = $this->userHelper->fetchData($dataUser);
+			// pr($getUser);
+			if ($getUser){
+
+				$this->view->assign('user', $getUser[0]);
+			}
+			
+		}
+		return $this->loadView('pengaturan/edit_admin');
 	}
 	
+	function updateData()
+	{
+		global $basedomain;
+
+		$id = _g('id');
+		$dataUser['id'] = $id;
+		$dataUser['n_status'] = -1;
+		$getUser = $this->userHelper->saveData($dataUser);
+		
+		redirect($basedomain . 'pengaturan_admin');
+		
+	}
+
 	public function ajax_insert_kategori(){
 		
 		global $basedomain;

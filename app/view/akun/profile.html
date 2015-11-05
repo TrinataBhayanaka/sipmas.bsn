@@ -18,7 +18,7 @@
 		<div class="row">
 
             <div class="col-md-8 col-sm-8">
-               <form class="nomargin sky-form boxed" action="#" method="post">
+               <form class="nomargin sky-form boxed" action="{$basedomain}profil" method="post">
 					<header>
 						<i class="fa fa-user"></i> Perbaikan Data User
 						</header>
@@ -26,45 +26,45 @@
 					<fieldset class="nomargin">	
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-user"></i>
-							<input type="text" placeholder="Nama lengkap" required>
+							<input type="text" placeholder="Nama lengkap" required name="name" value="{$user.name}">
 							<b class="tooltip tooltip-bottom-right">Nama sesuai dengan KTP</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-credit-card"></i>
-							<input type="text" placeholder="No. KTP" required>
+							<input type="text" placeholder="No. KTP" required name="ktp" value="{$user.ktp}">
 							<b class="tooltip tooltip-bottom-right">Nomor induk KTP</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-envelope"></i>
-							<input type="text" placeholder="Alamat Email" required>
+							<input type="text" placeholder="Alamat Email" required name="email" value="{$user.email}">
 							<b class="tooltip tooltip-bottom-right">Harus email aktif</b>
 						</label>
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-phone"></i>
-							<input type="text" placeholder="No. HP" required>
+							<input type="text" placeholder="No. HP" required name="hp" value="{$user.hp}">
 							<b class="tooltip tooltip-bottom-right">Nomor yang dapat dihubungi</b>
 						</label>
 
 						<div class="fancy-form margin-bottom-10"><!-- textarea -->
-							<textarea rows="5" class="form-control word-count" data-maxlength="200" data-info="textarea-words-info" placeholder="Alamat" required></textarea>
+							<textarea rows="5" class="form-control word-count" data-maxlength="200" data-info="textarea-words-info" placeholder="Alamat" required name="alamat">{$user.alamat}</textarea>
 							<i class="fa fa-map-marker"><!-- icon --></i>
 							<span class="fancy-hint size-11 text-muted">
-								<strong>Hint:</strong> 200 words allowed!
+								{*}<strong>Hint:</strong> 200 words allowed!
 								<span class="pull-right">
 									<span id="textarea-words-info">0/200</span> Words
-								</span>
+								</span>{/*}
 							</span>
 						</div><!-- /textarea -->
 
 						<label class="select margin-bottom-10">
 							<select required>
 								<option value="0" selected disabled>Pilih Jenis Pekerjaan</option>
-								<option value="1">Pelajar</option>
-								<option value="2">Karyawan Swasta</option>
-								<option value="3">Pegawai Negeri</option>
+								<option value="1" {if $user.pekerjaan == 1}selected{/if}>Pelajar</option>
+								<option value="2" {if $user.pekerjaan == 2}selected{/if}>Karyawan Swasta</option>
+								<option value="3" {if $user.pekerjaan == 3}selected{/if}>Pegawai Negeri</option>
 							</select>
 							<i></i>
 						</label>
@@ -75,13 +75,13 @@
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-lock"></i>
-							<input type="password" placeholder="Old Password" id="oldPass" disabled>
+							<input type="password" placeholder="Old Password" id="oldPass" disabled name="pass">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 					
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-lock"></i>
-							<input type="password" placeholder="New Password" id="newPass" disabled>
+							<input type="password" placeholder="New Password" id="newPass" disabled name="pass1">
 							<b class="tooltip tooltip-bottom-right">Only latin characters and numbers</b>
 						</label>
 
@@ -94,6 +94,8 @@
 
 					<div class="row margin-bottom-20">
 						<div class="col-md-12">
+							<input type="hidden" name="token" value="1">
+							<input type="hidden" name="id" value="{$user.idUser}">
 							<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Ok, Simpan</button>
 						</div>
 					</div>
