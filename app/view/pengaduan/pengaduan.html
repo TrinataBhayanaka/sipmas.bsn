@@ -87,7 +87,7 @@
 						<hr>
 						<label class="select margin-bottom-10">
 							<input class="custom-file-upload" name="myfile" type="file" id="file" name="contact[attachment]" id="contact:attachment" data-btn-text="Upload data pendukung" />
-							<small class="text-muted block">Max file size: 1Mb (gif/jpg/png/doc/docx/xls/xlsx/pdf/3gp/mp4)</small>
+							<small class="text-muted block">Max file size: 5Mb (gif/jpg/png/doc/docx/xls/xlsx/pdf/3gp/mp4)</small>
 
 						</label>
 					
@@ -144,7 +144,7 @@
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
 								<a href="{$basedomain}pengaduan/detail/?id={$val.idPengaduan}" class="tab-post-link"><strong>{$val.judul}</strong></a>
 								<small>{$val.tanggalformat}</small>
-								<small>ID Laporan : {$val.idPengaduan}</small>
+								<small>ID Laporan : {$val.idLaporan}</small>
 								<small>Status Laporan : {if $val.n_status eq '1'}Aktif{else}Selesai{/if}</small>
 							</div>
 						</div>

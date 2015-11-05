@@ -16,7 +16,12 @@ class mpengaduan extends Database {
     {   
 
         $res = $this->insert($data,'bsn_pengaduan');
-        if ($res) return $res;
+        $latestId = $this->getLatestId();
+        // db($latestId);
+        $year = date("Y");
+        $sql = "UPDATE bsn_pengaduan SET idLaporan = '{$latestId['id']}{$year}' WHERE idPengaduan = '{$latestId['id']}'";
+        $res = $this->query($sql);
+        if ($res) return $latestId;
         return false;
     }
 

@@ -87,17 +87,17 @@ class pengaduan extends Controller {
 		    	if($_POST['perorangan'] == 'on') $_POST['perorangan'] = 1; 
 		    	$_POST['fase'] = 1;
 
-		    	$this->model->insert_laporan($_POST);
+		    	$latestId = $this->model->insert_laporan($_POST);
 
 		    	if(isset($_FILES['myfile'])){
 		    		$upload = uploadFile('myfile');
 		    		//insert ke file
-		    		$idPengaduan = $this->model->getLatestId();
+		    		// $idPengaduan = $this->model->getLatestId();
 		    		
 		    		$files['nama'] = $upload['full_name'];
 		    		$files['path'] = $upload['full_path'];
 		    		$files['type'] = 1;
-		    		$files['idPengaduan'] = $idPengaduan['id'];
+		    		$files['idPengaduan'] = $latestId['id'];
 		    		$files['n_status'] = 1;
 
 		    		$this->model->insert_file($files);
