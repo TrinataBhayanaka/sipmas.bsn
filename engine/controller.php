@@ -39,7 +39,7 @@ class Controller extends Application{
 		
 		if ($this->configkey=='default')$this->view->assign('user',$this->isUserOnline());
 		if ($this->configkey=='default')$this->view->assign('userOnline',$this->UserOnline());
-		if ($this->configkey=='visitor')$this->view->assign('userOnline',$this->visitor());
+		if ($this->configkey=='default')$this->view->assign('visitor',$this->visitor());
 		if ($this->configkey=='admin')$this->view->assign('admin',$this->isAdminOnline());
 		if ($this->configkey=='dashboard')$this->view->assign('dashboard',$this->isAdminOnline());
 		if ($this->configkey=='services')$this->view->assign('services',$this->isAdminOnline());
