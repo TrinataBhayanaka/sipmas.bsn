@@ -21,21 +21,26 @@
 						<th class="min-tablet">Tanggal Registrasi</th>
 						<th class="min-desktop">No. HP</th>
 						<th class="min-desktop">Jumlah Pengaduan</th>
-						<th class="min-desktop">Reset Password</th>
+						{*}<th class="min-desktop">Reset Password</th>{/*}
 						<th class="min-desktop">Detail</th>
 					</tr>
 				</thead>
 				<tbody>
+					{if $user}
+					{foreach $user as $key => $val}
 					<tr>
-						<td>Tiger Nixon</td>
-						<td>System Architect</td>
-						<td>Edinburgh</td>
-						<td>61</td>
-						<td>08977777777</td>
-						<td>5</td>
-						<td><button class="btn btn-primary btn-labeled fa fa-lock">Reset</button></td>
-						<td><a href="{$basedomain}daftar_usersipmas/detail"><button class="btn btn-info btn-labeled fa fa-eye">View Detail</button></a></td>
+						<td>{$key+1}</td>
+						<td>{$val.name}</td>
+						<td>{$val.email}</td>
+						<td>{$val.register_date}</td>
+						<td>{$val.hp}</td>
+						<td>{$val.jumlah_pengaduan}</td>
+						{*}<td><button class="btn btn-primary btn-labeled fa fa-lock">Reset</button></td>{/*}
+						<td><a href="{$basedomain}daftar_usersipmas/detail/?id={$val.idUser}"><button class="btn btn-info btn-labeled fa fa-eye">View Detail</button></a></td>
 					</tr>
+					{/foreach}
+					{/if}
+					{*}
 					<tr>
 						<td>Garrett Winters</td>
 						<td>Accountant</td>
@@ -46,7 +51,7 @@
 						<td><button class="btn btn-primary btn-labeled fa fa-lock">Reset</button></td>
 						<td><a href="{$basedomain}daftar_usersipmas/detail"><button class="btn btn-info btn-labeled fa fa-eye">View Detail</button></a></td>
 					</tr>
-					
+					{/*}
 				</tbody>
 			</table>
 		</div>
