@@ -27,8 +27,8 @@ class pengaturan_admin extends Controller {
 	public function index(){
 		
 		$dataUser['table'] = "bsn_users";
-		$dataUser['condition'] = array('type'=>1, 'n_status'=>'0,1,2');
-		$dataUser['in'] = array('n_status');
+		$dataUser['condition'] = array('type'=>'1,3', 'n_status'=>'0,1,2');
+		$dataUser['in'] = array('n_status','type');
 		$getUser = $this->userHelper->fetchData($dataUser);
 		
 		if ($getUser){
@@ -177,12 +177,31 @@ class pengaturan_admin extends Controller {
 		$id = _g('id');
 		if ($_POST['token']){
 
-			if ($_POST['pass']) $_POST['password'] = $this->token . $_POST['pass'] . $this->token;
+			// check if exist
+			$check['table'] = "bsn_users";
+			$check['condition'] = array('type'=>'1,3', 'username'=>$_POST['username'], 'email'=>$_POST['email']);
+			$check['in'] = array('type');
+			$checkUser = $this->userHelper->fetchData($check);
+			if ($checkUser){
+				echo "<script>alert('User sudah ada'); window.location.href='{$basedomain}pengaturan_admin';</script>";
+				exit;
+			}
+			if ($_POST['id']){
+				$dataUser['table'] = "bsn_users";
+				$dataUser['condition'] = array('type'=>'1,3', 'id'=>$id);
+				$dataUser['in'] = array('type');
+				$getUser = $this->userHelper->fetchData($dataUser);
+				$salt = $getUser[0]['salt'];
+			}else{
+				$salt = $this->token;
+				$_POST['salt'] = $salt;
+			}
+			
+			if ($_POST['pass']!='') $_POST['password'] = sha1($_POST['pass'] . $salt);
 			$_POST['register_date'] = date('Y-m-d');
 			$_POST['login_count'] = 0;
 			$_POST['n_status'] = 1;
-			$_POST['id'] = $_POST['idUser'];
-
+			
 			$getUser = $this->userHelper->saveData($_POST,"_users");
 			
 			if ($getUser){
@@ -190,6 +209,7 @@ class pengaturan_admin extends Controller {
 			}else{
 				redirect($basedomain . 'pengaturan_admin/edit');
 			}
+			
 		}
 
 		if ($id){

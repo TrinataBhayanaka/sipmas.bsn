@@ -20,11 +20,13 @@ class home extends Controller {
 	function loadmodule()
 	{
         $this->contentHelper = $this->loadModel('contentHelper');
+        $this->userHelper = $this->loadModel('userHelper');
 	}
 	
 	function index(){
-		$data=$this->contentHelper->getContent();
-        // pr($data);
+		
+        $this->log('surf','Landing page');
+        $data=$this->contentHelper->getContent();
         $this->view->assign('user',$this->user);
 		$this->view->assign('data',$data[0]);
 		return $this->loadView('home');

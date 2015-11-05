@@ -20,7 +20,7 @@ class userHelper extends Database {
 
 
         $sql = array(
-                'table'=>"user",
+                'table'=>"bsn_users",
                 'field'=>"is_online = 0",
                 'condition'=>"idUser = '{$this->user['idUser']}'",
                 );
