@@ -36,6 +36,7 @@ class Controller extends Application{
         $this->view->assign('rootpath',$rootpath);
 		$this->view->assign('page',$DATA[$this->configkey]);
 		
+		$this->view->assign('visitor',$this->visitor());
 		
 		if ($this->configkey=='default')$this->view->assign('user',$this->isUserOnline());
 		if ($this->configkey=='default')$this->view->assign('userOnline',$this->UserOnline());
@@ -345,8 +346,22 @@ class Controller extends Application{
 		
 	}
 
-	function UserOnline(){
+	function visitor(){
 
+		$this->loadModel('helper_model');
+
+		$getHelper = new helper_model;
+		
+		// $online = $getHelper->getOnlineUser();
+		$online = $getHelper->getVisitor();
+		// pr($online);
+		$onlineUser=$online[0]['total'];
+
+		return $onlineUser;
+	}
+	
+	function UserOnline()
+	{
 		$this->loadModel('helper_model');
 
 		$getHelper = new helper_model;
@@ -357,8 +372,6 @@ class Controller extends Application{
 
 		return $onlineUser;
 	}
-	
-	
 }
 
 ?>

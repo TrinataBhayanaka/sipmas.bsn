@@ -27,6 +27,20 @@ class helper_model extends Database {
         return false;
     }
     
+    function getVisitor($n_status=1, $debug=0)
+    {
+        $filter = "";
+        $sql = array(
+                'table'=>"ck_activity_log",
+                'field'=>"COUNT(1) AS total",
+                'condition' => "n_status IN ({$n_status}) {$filter} GROUP BY source"
+                );
+
+        $res = $this->lazyQuery($sql,$debug);
+        if ($res) return $res;
+        return false;
+    }
+
     function getNews($id=false, $categoryid=1, $type=1, $start=0, $limit=5)
     {
         
@@ -151,21 +165,41 @@ class helper_model extends Database {
         // $sql = "SELECT id FROM code_activity WHERE activityValue = '{$action}' LIMIT 1 ";
         // $res = $this->fetch($sql,0,1);
         // if ($res){
+        global $dbConfig;
 
-            $date = date('Y-m-d H:i:s'); 
-            $source = $_SERVER['REMOTE_ADDR'];
-            $comment = htmlentities($comment, ENT_QUOTES);
-            if ($this->user['id']) $userid = $this->user['id'];
-            else $userid = 0;
-            $ins = "INSERT INTO tbl_activity_log (userID, activity, description, source, datetimes)
-                    VALUES ({$userid}, '{$action}', '{$comment}', '{$source}', '{$date}')";
-            $result = $this->query($ins);
-            // db();
-            if ($result) return true;
-            return false;
-        // }
+        $date = date('Y-m-d H:i:s'); 
+        $source = $_SERVER['REMOTE_ADDR'];
+        $comment = htmlentities($comment, ENT_QUOTES);
+        if ($this->user['idUser']) $userid = $this->user['idUser'];
+        else $userid = 0;
 
-        // return false;
+        $sql = "SELECT activity_id FROM ck_activity WHERE activity_value = '{$action}'";
+        $res = $this->fetch($sql);
+        
+        if ($res) $activity_id = $res['activity_id'];
+        else $activity_id = 1;
+
+        $ins = "INSERT INTO ck_activity_log (idUser, activity_id, activity_desc, source, tanggal, n_status)
+                    VALUES ({$userid}, '{$activity_id}', '{$comment}', '{$source}', '{$date}', 1)";
+        
+        // pr($ins);exit;
+        $result = $this->query($ins);
+        if ($result) return true;
+        return false;
+        
+    }
+
+    function fetchData($data=array(),$debug=false)
+    {
+
+        $table = $data['table'];
+        $condition = $data['condition'];
+        $oderby = $data['oderby'];
+        $additional = $data;
+
+        $fetch = $this->fetchSingleTable($table, $condition, $oderby, $additional, $debug);
+        if ($fetch) return $fetch;
+        return false;
     }
 }
 ?>
