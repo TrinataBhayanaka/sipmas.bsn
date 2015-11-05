@@ -41,20 +41,97 @@ class pengaturan_admin extends Controller {
 	}
 	
 	public function waktukriteria(){
-	
-	return $this->loadView('pengaturan/waktu_kriteria');
+
+		$ws="";
+		$wp1="";
+		$wp2="";
+		if($_GET['open']){
+			if($_GET['open']=="ws"){
+				$ws="in";
+			}elseif($_GET['open']=="wp1"){
+				$wp1="in";
+			}elseif($_GET['open']=="wp2"){
+				$wp2="in";
+			}else{
+				$ws="in";
+			}
+			
+		}else{
+			$ws="in";
+		}
+
+		$arraySW['table'] = "bsn_standar_waktu";
+		$arraySW['condition'] = array('n_status'=>1);
+
+		$arrayWP1['table'] = "bsn_waktu_pengaduan";
+		$arrayWP1['condition'] = array('type'=>1, 'n_status'=>1);
+
+		$arrayWP2['table'] = "bsn_waktu_pengaduan";
+		$arrayWP2['condition'] = array('type'=>2, 'n_status'=>1);
+
+		$dataSW = $this->contentHelper->fetchData($arraySW);
+		$dataWP1 = $this->contentHelper->fetchData($arrayWP1);
+		$dataWP2 = $this->contentHelper->fetchData($arrayWP2);
+		
+		// pr($dataSW);
+		// pr($dataWP1);
+		// pr($dataWP2);
+		$this->view->assign('ws', $ws);
+		$this->view->assign('wp1', $wp1);
+		$this->view->assign('wp2', $wp2);
+
+		$this->view->assign('dataSW', $dataSW[0]);
+		$this->view->assign('dataWP1', $dataWP1[0]);
+		$this->view->assign('dataWP2', $dataWP2[0]);
+
+		return $this->loadView('pengaturan/waktu_kriteria');
 	}
-	
+	public function updWaKri(){
+		global $basedomain;
+		// pr($_POST);
+		if($_GET['open']){
+			if($_GET['open']=="ws"){
+				$open="ws";
+			}elseif($_GET['open']=="wp1"){
+				$open="wp1";
+			}elseif($_GET['open']=="wp2"){
+				$open="wp2";
+			}else{
+				$open="ws";
+			}
+			
+		}else{
+			$open="ws";
+		}
+		if($_POST['id']){
+			if($_GET['data']){
+				if($_GET['data']=="sw"){
+
+					$table="_standar_waktu";
+
+				}elseif($_GET['data']=="wp"){
+
+					$table="_waktu_pengaduan";
+
+				}else{
+					redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
+				}
+
+				$data = $this->contentHelper->saveData($_POST,$table);
+				// exit;
+			}
+			redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
+		}else{
+			redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
+		}
+	}
 	public function ubahkonten(){
 	
-		if($_POST['id']){
 			// pr($_POST);
-			$dataupd=$this->contentHelper->updContent($_POST['id']);
-			 // exit;
+		if($_POST['id']){
+
+			$data = $this->contentHelper->saveData($_POST,"_content");
 		}
-		$data=$this->contentHelper->getContent(2,1);
-// pr($data);
-        $this->view->assign('data',$data[0]);
 
 		return $this->loadView('pengaturan/ubah_konten');
 
@@ -62,15 +139,14 @@ class pengaturan_admin extends Controller {
 
 	public function selectubahkonten(){
 	
-		if($_POST['id']){
-			// pr($_POST);
-			$dataupd=$this->contentHelper->updContent($_POST['id']);
-			 // exit;
-		}
-		$data=$this->contentHelper->getContent($_POST['type'],1);
-// pr($data);
+		
+		$dataContent['table'] = "bsn_content";
+		$dataContent['condition'] = array('type'=>$_POST['type'], 'category'=>1,'n_status'=>1);
+
+		$data = $this->contentHelper->fetchData($dataContent);
+
         if ($data){
-            print json_encode(array('status'=>true, 'data'=>$data[0]['description']));
+            print json_encode(array('status'=>true,'idhidden'=>$data[0]['id'], 'data'=>$data[0]['description'],'judul'=>$data[0]['title']));
         }else{
             print json_encode(array('status'=>false));
         }

@@ -37,8 +37,8 @@
 					<div id="demo-lft-tab-1" class="tab-pane fade active in">
 						<form class="form-horizontal" method="post" action="{$basedomain}pengaturan_admin/ubahkonten" id="dataAjax">
 
-<input type="hidden" name="id" value="{$data.id}"/>							<div class="form-group">
-											<label class="col-sm-3 control-label col-md-offset-6">Publish ke:</label>
+<input type="hidden" name="id" id="idhidden"/>							<div class="form-group" >
+											<label class="col-sm-3 control-label col-md-offset-6">Pilih Konten:</label>
 											<div class="col-sm-3">
 												<select class="selectpicker" >
 													<!-- <option>Pilih Halaman Konten</option>-->
@@ -54,23 +54,28 @@
 								<div class="panel panel-default panel-left">
 									<div class="panel-body">
 									
-									<!--Attact file button-->
-											<!--<div class="media">
+								
+										<!--Wysiwyg editor : Summernote placeholder-->
+										<div class="form-group">
+											<label class="col-lg-2 control-label">Judul Konten</label>
+												<div class="col-lg-7">
+													<input type="text" class="form-control" name="title" id="judul" placeholder="Judul Content">
+												</div>
+										</div>
+										<textarea name="description"  id="demo-mail-compose">
+											
+										</textarea>
+											<!--Attact file button-->
+											<!-- <div class="media">
 												<div class="media-left">
 													<span class="btn btn-default btn-file">
-														Attachment <input type="file">
+														Tambahkan File <input type="file" name="filename">
 													</span>
 												</div>
 												<div id="demo-attach-file" class="media-body"></div>
-											</div>-->
+											</div> -->
 					
 					
-										<!--Wysiwyg editor : Summernote placeholder-->
-										<textarea name="content"  id="demo-mail-compose">
-											
-										</textarea>
-											<div class="datacontent">
-											</div>
 										<div class="pad-ver">
 
 											<button id="mail-send-btn" type="submit" class="btn btn-primary btn-labeled">
@@ -108,11 +113,13 @@
 <script>
 	$(document).on('ready', function() {
 		$('.ajax-spinner-bars').css("display","block"); 
-                        $.post(basedomain+"pengaturan_admin/selectubahkonten", {actionfunction: 'showData',type:'2'}, function(data){
+                        $.post(basedomain+"pengaturan_admin/selectubahkonten", {actionfunction: 'showData',type:'1'}, function(data){
                             // console.log(data);
                             if (data.status==true) {
                                // console.log(data.data);
                                     $('.note-editable').html(data.data); 
+                                    $('#judul').val(data.judul); 
+                                    $('#idhidden').val(data.idhidden); 
 
                                    
                                     $('.ajax-spinner-bars').css("display","none");
@@ -144,7 +151,7 @@
 	   $('#dataAjax').on('change','.selectpicker',function(){
 
                    var parameter =$('.selectpicker').val();
-                   alert(parameter);
+                   // alert(parameter);
                    // var valueparameter =$('#valueparameter').val();
 
                      $.post(basedomain+"pengaturan_admin/selectubahkonten", {actionfunction: 'showData',type:parameter}, function(data){
@@ -153,6 +160,8 @@
                                // console.log(data.data);
                                     $('.note-editable').html(data.data); 
 
+                                    $('#judul').val(data.judul); 
+                                    $('#idhidden').val(data.idhidden); 
                                    
                                     $('.ajax-spinner-bars').css("display","none");
                             }else{

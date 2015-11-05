@@ -88,14 +88,19 @@ $('.selectpicker').selectpicker();
             </div>
 
             <div class="col-md-4 col-sm-4">
+            	{if $user}
                 <form action="{$basedomain}home/search" method="post" class="sky-form boxed">
+                {else}
+
+                <form action="{$basedomain}home" onsubmit="alert('Anda Harus Login Dahulu..')" method="post" class="sky-form boxed">
+                {/if}
                     <header><i class="fa fa-search"></i> Tracking ID Laporan Anda</header>
                     
                     <fieldset class="nomargin"> 
                         <p>Temukan status terakhir laporan anda dengan memasukkan 6 digit ID Laporan atau masukkan alamat email anda.</p>
                         <label class="input">
                             <i class="ico-append fa fa-envelope"></i>
-                            <input type="text" name="tracking">
+                            <input type="text" name="tracking" required>
                             <span class="tooltip tooltip-top-right">Email atau ID laporan</span>
                         </label>
 

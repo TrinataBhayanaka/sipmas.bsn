@@ -170,6 +170,40 @@ class contentHelper extends Database {
         if ($res) return $res;
         return false;
 	}
+	function saveData($data=array(), $table="_users", $debug=false)
+    {
+
+        if ($table == "_users"){
+
+            if ($data['id']) $id = " idUser = {$data['id']}";  
+            else $id = "";
+        } 
+        else $id = " id = {$data['id']}";
+        if ($id){
+
+            $run = $this->save("update", "{$this->prefix}{$table}", $data, $id, $debug);
+
+        }else{
+            $data['createDate'] = date('Y-m-d H:i;s');
+            $run = $this->save("insert", "{$this->prefix}{$table}", $data, false, $debug);
+    
+        }
+
+        if ($run) return true;
+        return false;
+    }
+      function fetchData($data=array(),$debug=false)
+    {
+
+        $table = $data['table'];
+        $condition = $data['condition'];
+        $oderby = $data['oderby'];
+        $additional = $data;
+
+        $fetch = $this->fetchSingleTable($table, $condition, $oderby, $additional, $debug);
+        if ($fetch) return $fetch;
+        return false;
+    }
 
 	
 
