@@ -4,7 +4,7 @@ class loginHelper extends Database {
 	var $session;
 	function __construct()
 	{
-
+		parent::__construct();
 		$this->session = new Session;
 	}
 
