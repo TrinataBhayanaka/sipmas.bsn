@@ -50,13 +50,13 @@ class daftar_pengaduan extends Controller {
 	}
 	
 	public function tindak_lanjut(){
-		// $idPengaduan = $_GET['id'];
+		$idPengaduan = $_GET['id'];
 
 		// $data = $this->model->getComment($idPengaduan);
 		// $file = $this->model->getFile($idPengaduan);
 
 		// $this->view->assign('file',$file);
-		// $this->view->assign('id',$idPengaduan);
+		$this->view->assign('id',$idPengaduan);
 		// $this->view->assign('dataComment',$data);
 
 		return $this->loadView('pengaduan/tindak_lanjut');
