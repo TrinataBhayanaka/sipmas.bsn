@@ -20,11 +20,13 @@ class home extends Controller {
 	function loadmodule()
 	{
         $this->contentHelper = $this->loadModel('contentHelper');
+        $this->userHelper = $this->loadModel('userHelper');
 	}
 	
 	function index(){
-		$data=$this->contentHelper->getContent();
-        // pr($data);
+		
+        $this->log('surf','Landing page');
+        $data=$this->contentHelper->getContent();
         $this->view->assign('user',$this->user);
 		$this->view->assign('data',$data[0]);
 		return $this->loadView('home');
@@ -71,7 +73,7 @@ class home extends Controller {
                     $this->view->assign('text',"Your request for reset password have been successfull. You can use this reset password below for temporary use only."); 
 
                     $html = $this->loadView('emailTemplate');
-                    // $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
+                    $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
                     logFile($send);
                     if ($send){
                         $token = "?req=0";
@@ -130,7 +132,7 @@ class home extends Controller {
                         $this->view->assign('link',$link); 
 
                         $html = $this->loadView('emailTemplate');
-                        // $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
+                        $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
                         logFile($send);
                         if ($send) redirect($basedomain . 'home/register_confirmation/?status=1');
                     }
@@ -193,14 +195,18 @@ class home extends Controller {
 
     function search()
     {
-        // pr($_POST);
-        // exit;
-        $data['pencarian']=$this->contentHelper->tracking($_POST['tracking']);
-        // pr($data);
+        global $basedomain;
+        // pr($this->user);
+        if($this->user){
+            $data['pencarian']=$this->contentHelper->tracking($_POST['tracking'],$this->user['idUser']);
+            // pr($data);
 
-        $this->view->assign('data',$data['pencarian']);
-        // exit;
-        return $this->loadView('search');
+            $this->view->assign('data',$data['pencarian']);
+            // exit;
+            return $this->loadView('search');
+        }else{
+            redirect($basedomain.'home');
+        }
     }
 
 }

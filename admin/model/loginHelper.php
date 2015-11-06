@@ -4,7 +4,7 @@ class loginHelper extends Database {
 	var $session;
 	function __construct()
 	{
-		parent::__construct();
+
 		$this->session = new Session;
 	}
 
@@ -16,10 +16,12 @@ class loginHelper extends Database {
 		
 		// pr($data);		
 		
-		$sql = "SELECT TOP 1 * FROM {$this->prefix}_users WHERE username = '{$username}'";
+
+		$sql = "SELECT TOP 1 * FROM {$this->prefix}_users WHERE (username = '{$username}' OR email = '{$username}') AND type IN (1,3)";
+
 		// pr($sql);exit;
 		$res = $this->fetch($sql,0,0);
-		// pr($res);exit;
+		// pr($res);
 		if ($res){
 			$salt = sha1($password.$res['salt']);
 			// pr($salt);exit;

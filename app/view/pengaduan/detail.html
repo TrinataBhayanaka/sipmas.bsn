@@ -284,14 +284,14 @@
                 </form>
                 {/if}
 
-                <form action="{$basedomain}" method="post" class="sky-form boxed">
+                <form action="{$basedomain}home/search" method="post" class="sky-form boxed">
                     <header><i class="fa fa-search"></i> Tracking ID Laporan Anda</header>
                     
                     <fieldset class="nomargin"> 
                         <p>Temukan status terakhir laporan anda dengan memasukkan 6 digit ID Laporan atau masukkan alamat email anda.</p>
                         <label class="input">
                             <i class="ico-append fa fa-envelope"></i>
-                            <input type="text" name="username">
+                            <input type="text" name="tracking" required>
                             <span class="tooltip tooltip-top-right">Email atau ID laporan</span>
                         </label>
 

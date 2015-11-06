@@ -37,8 +37,7 @@ class userHelper extends Database {
 
             if ($data['id']) $id = " idUser = {$data['id']}";  
             else $id = "";
-        } 
-        else $id = " id = {$data['id']}";
+        }else $id = " id = {$data['id']}";
         if ($id){
 
             $run = $this->save("update", "{$this->prefix}{$table}", $data, $id, $debug);

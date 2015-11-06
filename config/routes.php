@@ -16,5 +16,14 @@ $ROUTES = array(
                 'login',
                 'user'
         );
+
+$ROUTES_IGNORE = array(
+                'home',
+                'statistik',
+                'tatacara',
+                'register',
+                'recovery',
+                'login',
+        );
 ?>
 

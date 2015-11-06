@@ -44,26 +44,22 @@
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="demo-readonly-input">Alamat Email</label>
 						<div class="col-md-9">
-							<input type="text" class="form-control" placeholder=" " name="email" value="{$user.email}">
+							<input type="text" class="form-control" placeholder=" " name="email" value="{$user.email}" {if $user} disabled{/if}>
 						</div>
 					</div>
 	
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="demo-readonly-input">Username</label>
 						<div class="col-md-9">
-							<input type="text" class="form-control" placeholder=" " name="username" value="{$user.username}">
+							<input type="text" class="form-control" placeholder=" " name="username" value="{$user.username}" {if $user} disabled{/if}>
 						</div>
 					</div>
 					
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="demo-readonly-input">Password Login</label>
 						<div class="col-md-9">
-							<div class="passwordAdmin">
-							{if $user}
-							<label>***** (Klik 2x untuk edit)</label>
-							{else}
+							<div class="passwordAdmin1">
 							<input type="text"  class="form-control " placeholder="Password harus diisi dengan 6-8 digit alphanumeric " name="pass" >
-							{/if}
 							</div>
 						</div>
 					</div>

@@ -24,6 +24,7 @@ class statistik extends Controller {
 	
 	function index(){
 		
+		
 		$this->view->assign('user',$this->user);
 		return $this->loadView('statistik/view_statistik');
 		

@@ -27,7 +27,7 @@ class Controller extends Application{
 	function index()
 	{
 		
-		global $CONFIG, $LOCALE, $basedomain, $rootpath, $title, $DATA, $app_domain, $CODEKIR;
+		global $CONFIG, $LOCALE, $basedomain, $rootpath, $title, $DATA, $app_domain, $CODEKIR, $ROUTES_IGNORE;
 		$filePath = APP_CONTROLLER.$this->page.$this->php_ext;
 		
 		$this->view = $CODEKIR['smarty'];
@@ -39,6 +39,7 @@ class Controller extends Application{
 		
 		if ($this->configkey=='default')$this->view->assign('user',$this->isUserOnline());
 		if ($this->configkey=='default')$this->view->assign('userOnline',$this->UserOnline());
+		if ($this->configkey=='default')$this->view->assign('visitor',$this->visitor());
 		if ($this->configkey=='admin')$this->view->assign('admin',$this->isAdminOnline());
 		if ($this->configkey=='dashboard')$this->view->assign('dashboard',$this->isAdminOnline());
 		if ($this->configkey=='services')$this->view->assign('services',$this->isAdminOnline());
@@ -73,15 +74,21 @@ class Controller extends Application{
 			if ($this->configkey == 'default'){
 				if ($DATA[$this->configkey]['page']=='register'){
 
-					
 					if ($this->isUserOnline()){
 						// redirect($CONFIG[$this->configkey]['default_view']);
 						redirect($basedomain);
 						exit;
 					}
 
+				}
+
+				$ignoreController = $ROUTES_IGNORE;
+				if (!in_array($DATA[$this->configkey]['page'], $ignoreController)){
 					
-					
+					if (!$this->isUserOnline()){
+						redirect($basedomain);
+						exit;
+					}					
 				}
 			}
 			
@@ -339,8 +346,22 @@ class Controller extends Application{
 		
 	}
 
-	function UserOnline(){
+	function visitor(){
 
+		$this->loadModel('helper_model');
+
+		$getHelper = new helper_model;
+		
+		// $online = $getHelper->getOnlineUser();
+		$online = $getHelper->getVisitor();
+		// pr($online);
+		$onlineUser=$online[0]['total'];
+
+		return $onlineUser;
+	}
+	
+	function UserOnline()
+	{
 		$this->loadModel('helper_model');
 
 		$getHelper = new helper_model;
@@ -351,8 +372,6 @@ class Controller extends Application{
 
 		return $onlineUser;
 	}
-	
-	
 }
 
 ?>

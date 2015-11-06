@@ -13,9 +13,9 @@ class contentHelper extends Database {
 
 	}
 
-    function tracking($postTracking){
+    function tracking($postTracking,$iduser){
 
-        $query = "SELECT * FROM bsn_pengaduan WHERE idPengaduan LIKE '%{$postTracking}%'";
+        $query = "SELECT * FROM bsn_pengaduan WHERE idUser='$iduser' AND idPengaduan LIKE '%{$postTracking}%'";
 
         $result = $this->fetch($query,1);
         if(empty($result)){
