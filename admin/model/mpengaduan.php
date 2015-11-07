@@ -33,6 +33,27 @@ class mpengaduan extends Database {
         return $res;
     }
 
+    function getPengaduanSatker($satker=false)
+    {
+
+        if($satker) $cond = " WHERE disposisi = '{$satker}'"; else $cond = "";
+        $sql = "SELECT *, CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_pengaduan {$cond}";
+        
+        $res = $this->fetch($sql,1);
+
+        foreach($res as $key => $val)
+        {
+            $sql = "SELECT name,email,hp FROM bsn_users WHERE idUser = '{$val['idUser']}'";
+            $user = $this->fetch($sql,0);
+
+            $res[$key]['nameUser'] = $user['name'];
+            $res[$key]['emailUser'] = $user['email'];
+            $res[$key]['hpUser'] = $user['hp'];
+        }
+        
+        return $res;
+    }
+
     function getFile($id)
     {
         $sql = "SELECT * FROM bsn_file WHERE idPengaduan = '{$id}'";
@@ -191,6 +212,14 @@ class mpengaduan extends Database {
             $satker = $this->fetch($sql,0);
             $res[$key]['nameSatker'] = $satker['nama_satker'];
         }
+
+        return $res;
+    }
+
+    function updStat($data)
+    {
+        $sql = "UPDATE bsn_pengaduan SET status='{$data['status']}' WHERE idPengaduan = '{$data['idPengaduan']}'";
+        $res = $this->query($sql);
 
         return $res;
     }
