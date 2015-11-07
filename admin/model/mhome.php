@@ -18,7 +18,7 @@ class mhome extends Database {
 		$query = "SELECT p.idLaporan,p.tanggal,p.judul,p.nama,p.n_status,u.name 
 				FROM dbo.bsn_pengaduan as p
 				inner join bsn_users as u on u.idUser = p.idUser
-				where p.disposisi = '{$user}' ";
+				where p.disposisi = '{$user}' and p.satker = '{$user}'";
 		//pr($query);
 		$result = $this->fetch($query,1);
 		//pr($result);
