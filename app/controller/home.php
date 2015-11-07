@@ -111,10 +111,10 @@ class home extends Controller {
             $pass = _p('pass');
             $pass1 = _p('retypePass');
             if ($pass === $pass1){
-                $_POST['password'] = $salt . $pass . $salt;
+                $_POST['password'] = sha1($salt . $pass . $salt);
                 $_POST['salt'] = $salt;
                 $_POST['n_status'] = 0;
-                $_POST['register_date'] = date('Y-m-d H:i:s');
+                // $_POST['register_date'] = date('Y-m-d H:i:s');
                 $_POST['login_count'] = 0;
                 $_POST['type'] = 1;
                 $_POST['email_token'] = $this->token;
@@ -194,7 +194,7 @@ class home extends Controller {
         
         }else if ($link == 2){
             $html = "<h2>Terima kasih, <strong>Verifikasi email Berhasil</strong></h2>
-        <span>Silahkan login melanjutkan untuk melakukan pengaduan berupa pertanyaan, masukan maupun keluhan yang terkait dengan standardisasi</span>";
+        <span>Silahkan login untuk melakukan pengaduan berupa pertanyaan, masukan maupun keluhan yang terkait dengan standardisasi</span>";
         
         }else{
             $html = "<h2>Oppsss, <strong>Terjadi Kesalahan</strong></h2>";
