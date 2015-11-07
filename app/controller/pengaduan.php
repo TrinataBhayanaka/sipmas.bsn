@@ -82,7 +82,7 @@ class pengaduan extends Controller {
             {
 		    	$_POST['isi'] = htmlentities($_POST['isi']);
 		    	$_POST['idUser'] = $this->user['idUser'];
-		    	$_POST['n_status'] = 1;
+		    	$_POST['status'] = 1;
 		    	unset($_POST['g-recaptcha-response']);
 		    	unset($_POST['termagree']);
 		    	if($_POST['perorangan'] == 'on') $_POST['perorangan'] = 1; 

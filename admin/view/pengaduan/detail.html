@@ -64,22 +64,27 @@
 							<p>	Email Laporan : {$dataPengaduan.emailUser} </p>
 							<p>	No. HP : {$dataPengaduan.hpUser} </p>
 								{*}<p><a class="btn-link" href="#"><u> Data Selengkapnya </u></a></p>{/*}
+							<form action="{$basedomain}daftar_pengaduan/chg_status" method="post">	
 							<div class="row">
 								<div class="col-md-2">
 								<p>	Status Laporan: </p>
 								</div>
 								<div class="col-md-4">
-										<select class="selectpicker">
-											<option>Aktif</option>
-											<option>Tidak Ditindak Lanjuti</option>
-											<option>Selesai</option>
+										<select class="selectpicker" name="status">
+											<option value="1" {if $dataPengaduan.status eq '1'}selected{/if}>Aktif</option>
+											<option value="2" {if $dataPengaduan.status eq '2'}selected{/if}>Ditindak Lanjuti</option>
+											<option value="3" {if $dataPengaduan.status eq '3'}selected{/if}>Tidak Ditindak Lanjuti</option>
+											<option value="4" {if $dataPengaduan.status eq '4'}selected{/if}>Selesai</option>
 										</select>
 								</div>
+								<!-- HIDDEN -->
+								<input type="hidden" name="idPengaduan" value="{$dataPengaduan.idPengaduan}">
+
 								<div class="col-md-6">
 								<button type="submit" class="btn btn-primary btn-labeled fa fa-refresh">Update</button>  
 								</div>
 							</div>
-							
+							</form>
 							<hr>
 							
 							

@@ -28,7 +28,13 @@ class home extends Controller {
 	}
 	
 	public function index(){
-		$select_list_inbox_pengaduan = $this->mhome->select_data_inbox_pengaduan();
+		//pr($this->admin);
+		//pr($this->admin['satker']);
+		if($this->admin['satker'] == 3){
+			$select_list_inbox_pengaduan = $this->mhome->select_data_inbox_pengaduan();
+		}else{
+			$select_list_inbox_pengaduan = $this->mhome->select_data_inbox_pengaduan_condtn($this->admin['satker']);
+		}
 		//get data object in array
 		// pr($select_list_inbox_pengaduan);
 		foreach ($select_list_inbox_pengaduan as $k => $val) {
@@ -107,6 +113,36 @@ class home extends Controller {
 		$tidak_ditinjak_lanjuti= $this->mhome->select_data_tdl($years,$month);
 		// pr($belum_terbaca);
 		$non_aktif= $this->mhome->select_data_na($years,$month);
+		
+		$newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);
+		// $newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif);
+		print json_encode($newformat);
+		// print json_encode($register_user);
+		exit;
+	}
+
+	public function chart_bar_default(){
+		
+		// $month = $_POST['monthid'];
+		$month ='';
+		
+		// $years = $_POST['yearid'];
+		$years = '';
+		
+		$date  = date('d');
+		
+		$month_rev = $years.'-'.$month.'-'.$date;
+		setlocale (LC_ALL, 'IND');
+		// $newformatdate= strftime( "%B", strtotime($month_rev));
+		$newformatdate= '';
+		
+		$aktif= $this->mhome->select_data_a_default();
+		// pr($kotak_masuk);
+		$ditinjak_lanjuti= $this->mhome->select_data_dl_default();
+		// pr($sudah_terbaca);
+		$tidak_ditinjak_lanjuti= $this->mhome->select_data_tdl_default();
+		// pr($belum_terbaca);
+		$non_aktif= $this->mhome->select_data_na_default();
 		
 		$newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);
 		// $newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif);
