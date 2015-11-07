@@ -44,9 +44,9 @@
 									{foreach $data as $value}
 									<tr>
 										<td>{$value.idLaporan}</td>
-										<td>{$value.nama}</td>
-										<td>{$value.idLaporan}</td>
-										{setlocale (LC_TIME, 'id_ID')}
+										<td>{$value.name}</td>
+										<td>{$value.judul}</td>
+										<!--{setlocale (LC_TIME, 'id_ID')}-->
 										<td>{strftime($value.datetime|date_format:'%d/%m/%Y')}</td>
 									</tr>
 									{/foreach}

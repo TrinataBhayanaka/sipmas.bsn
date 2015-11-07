@@ -47,6 +47,26 @@ class statistik extends Controller {
 		exit;
 	}
 	
+	function chartDefault (){
+		// $years = date('Y');
+		$years = '';
+		$month = date('m');
+		$date  = date('d');
+		$month_rev = $years.'-'.$month.'-'.$date;
+		setlocale (LC_ALL, 'IND');
+		// $newformatdate= strftime( "%B", strtotime($month_rev));
+		$newformatdate= '';
+		
+		$proses= $this->mstatistik->select_data_proses_default();
+		$selesai= $this->mstatistik->select_data_selesai_default();
+		
+		$newformat = array('proses'=>$proses,'selesai'=>$selesai,'month'=>$newformatdate,'years'=>$years);
+		// pr($newformat);
+		print json_encode($newformat);
+		// print json_encode($register_user);
+		exit;
+	}
+
 	public function chart_condtn(){
 		
 		$month = $_POST['monthid'];
@@ -114,6 +134,36 @@ class statistik extends Controller {
 		// print json_encode($register_user);
 		exit;
 	}
+
+	public function chart_bar_default(){
+		
+		$month = $_POST['monthid_v2'];
+		//$years = $_POST['yearid_v2'];
+		$years = '';
+		$date  = date('d');
+		
+		$month_rev = $years.'-'.$month.'-'.$date;
+		setlocale (LC_ALL, 'IND');
+		//$newformatdate= strftime( "%B", strtotime($month_rev));
+		$newformatdate= '';
+		
+		$aktif= $this->mstatistik->select_data_a_default();
+		// pr($aktif);
+		$ditinjak_lanjuti= $this->mstatistik->select_data_dl_default();
+		// pr($ditinjak_lanjuti);
+		$tidak_ditinjak_lanjuti= $this->mstatistik->select_data_tdl_default();
+		// pr($tidak_ditinjak_lanjuti);
+		$non_aktif= $this->mstatistik->select_data_na_default();
+		// pr($non_aktif);
+		$newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);
+		// $newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif);
+		print json_encode($newformat);
+		// print json_encode($register_user);
+		exit;
+	}
+
+
+	
 }
 
 ?>

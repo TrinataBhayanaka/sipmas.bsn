@@ -115,6 +115,36 @@ class home extends Controller {
 		exit;
 	}
 
+	public function chart_bar_default(){
+		
+		// $month = $_POST['monthid'];
+		$month ='';
+		
+		// $years = $_POST['yearid'];
+		$years = '';
+		
+		$date  = date('d');
+		
+		$month_rev = $years.'-'.$month.'-'.$date;
+		setlocale (LC_ALL, 'IND');
+		// $newformatdate= strftime( "%B", strtotime($month_rev));
+		$newformatdate= '';
+		
+		$aktif= $this->mhome->select_data_a_default();
+		// pr($kotak_masuk);
+		$ditinjak_lanjuti= $this->mhome->select_data_dl_default();
+		// pr($sudah_terbaca);
+		$tidak_ditinjak_lanjuti= $this->mhome->select_data_tdl_default();
+		// pr($belum_terbaca);
+		$non_aktif= $this->mhome->select_data_na_default();
+		
+		$newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);
+		// $newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif);
+		print json_encode($newformat);
+		// print json_encode($register_user);
+		exit;
+	}
+
 	public function viewvisitor(){
 		
 		//register user

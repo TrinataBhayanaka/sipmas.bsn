@@ -34,6 +34,7 @@ $('.selectpicker').selectpicker();
 						<div class="col-sm-12">
 						         <select id="monthid" class="selectpicker" data-live-search="true" name="month" >
 				                    <option value=''>Choose one of the month</option>
+				                    <option value='15'>Semua</option>
 				                    <option value='1'>Januari</option>
 				                    <option value='2'>Februari</option>
 				                    <option value='3'>Maret</option>
@@ -49,6 +50,7 @@ $('.selectpicker').selectpicker();
 				                </select>
 				                <select id="yearid" class="selectpicker" data-live-search="true" name="year" >
 				                    <option value=''>Choose one of the year</option>
+				                    <option value='3'>Semua</option>
 				                    <option value='{date(Y) - 1}'>{date(Y) - 1}</option>
 				                    <option value='{date(Y)}'>{date(Y)}</option>
 				                </select>
@@ -111,6 +113,7 @@ $('.selectpicker').selectpicker();
 		var monthid = $('#monthid').val();
 		var yearid = $('#yearid').val();
 		if(monthid != '' && yearid != ''){
+				if(monthid != 15 && yearid != 3){
 				$.post(basedomain+"home/chart_condtn", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
 					var temp_a = statistik_pengaduan.a.total;
 					var temp_b = statistik_pengaduan.dl.total;
@@ -122,8 +125,24 @@ $('.selectpicker').selectpicker();
 					
 					bar.setData([{ "y": temp_years, "a": temp_a, "b": temp_b, "c": temp_c, "d": temp_d} ]);
 					
-			},"JSON");
-		}		
+				},"JSON");
+			}else{
+				if(monthid == 15 && yearid == 3){
+				$.post(basedomain+"home/chart_bar_default", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
+					var temp_a = statistik_pengaduan.a.total;
+					var temp_b = statistik_pengaduan.dl.total;
+					var temp_c = statistik_pengaduan.tdl.total;
+					var temp_d = statistik_pengaduan.na.total;
+					var temp_years = statistik_pengaduan.years;
+					$('#monthref').text(statistik_pengaduan.month);
+					$('#yearsref').text(statistik_pengaduan.years);
+					
+					bar.setData([{ "y": temp_years, "a": temp_a, "b": temp_b, "c": temp_c, "d": temp_d} ]);
+					
+				},"JSON");	
+		}
+	  }	
+	}
 	});	
 });	
 	

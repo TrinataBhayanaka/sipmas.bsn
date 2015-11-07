@@ -9,10 +9,25 @@ class mstatistik extends Database {
 		// pr($result);
 		return $result;
 	}
+	function select_data_proses_default()
+	{
+		$query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE status in(1,2,3)";
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
 	
 	function select_data_selesai($years,$month)
 	{
 		$query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE YEAR(tanggal) = '{$years}' AND MONTH(tanggal) = '{$month}' AND status = '4'";
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
+
+	function select_data_selesai_default()
+	{
+		$query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE  status = '4'";
 		$result = $this->fetch($query);
 		// pr($result);
 		return $result;
@@ -36,6 +51,17 @@ class mstatistik extends Database {
 		// pr($result);
 		return $result;
 	}
+	function select_data_a_default()
+	{
+		// $query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE YEAR(tanggal) = '{$years}' AND MONTH(tanggal) = '{$month}' AND status = '1'";
+		$query = "SELECT count(p.idPengaduan) as total FROM dbo.bsn_pengaduan as p
+				  inner join dbo.bsn_survey as u on u.survey = p.idPengaduan
+				  where u.n_status = '1'";
+		// pr($query);
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
 	
 	function select_data_dl($years,$month)
 	{
@@ -48,6 +74,19 @@ class mstatistik extends Database {
 		// pr($result);
 		return $result;
 	}
+
+	function select_data_dl_default()
+	{
+		// $query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE YEAR(tanggal) = '{$years}' AND MONTH(tanggal) = '{$month}' AND status = '2'";
+		$query = "SELECT count(p.idPengaduan) as total FROM dbo.bsn_pengaduan as p
+				  inner join dbo.bsn_survey as u on u.survey = p.idPengaduan
+				  where u.n_status = '2' ";
+		// pr($query);
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
+	
 	
 	function select_data_tdl($years,$month)
 	{
@@ -61,6 +100,18 @@ class mstatistik extends Database {
 		return $result;
 	}
 	
+	function select_data_tdl_default()
+	{
+		// $query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE YEAR(tanggal) = '{$years}' AND MONTH(tanggal) = '{$month}' AND status = '3'";
+		$query = "SELECT count(p.idPengaduan) as total FROM dbo.bsn_pengaduan as p
+				  inner join dbo.bsn_survey as u on u.survey = p.idPengaduan
+				  where u.n_status = '3'";
+		// pr($query);
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
+
 	function select_data_na($years,$month)
 	{
 		// $query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE YEAR(tanggal) = '{$years}' AND MONTH(tanggal) = '{$month}' AND status = '4'";
@@ -72,5 +123,17 @@ class mstatistik extends Database {
 		// pr($result);
 		return $result;
 	}	
+
+	function select_data_na_default()
+	{
+		// $query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE YEAR(tanggal) = '{$years}' AND MONTH(tanggal) = '{$month}' AND status = '4'";
+		$query = "SELECT count(p.idPengaduan) as total FROM dbo.bsn_pengaduan as p
+				  inner join dbo.bsn_survey as u on u.survey = p.idPengaduan
+				  where u.n_status = '4' ";
+		// pr($query);
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
 }
 ?>

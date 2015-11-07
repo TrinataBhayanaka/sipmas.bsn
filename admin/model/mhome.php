@@ -4,10 +4,12 @@ class mhome extends Database {
 		
 	function select_data_inbox_pengaduan()
 	{
-		$query = "SELECT idLaporan,tanggal,judul,nama,n_status FROM dbo.bsn_pengaduan";
-		// pr($query);
+		$query = "SELECT p.idLaporan,p.tanggal,p.judul,p.nama,p.n_status,u.name 
+				FROM dbo.bsn_pengaduan as p
+				inner join bsn_users as u on u.idUser = p.idUser";
+		//pr($query);
 		$result = $this->fetch($query,1);
-		
+		//pr($result);
 		return $result;
 	}
 	
@@ -42,10 +44,24 @@ class mhome extends Database {
 		// pr($result);
 		return $result;
 	}
+	function select_data_a_default()
+	{
+		$query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE status = '1'";
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
 	
 	function select_data_dl($years,$month)
 	{
 		$query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE YEAR(tanggal) = '{$years}' AND MONTH(tanggal) = '{$month}' AND status = '2'";
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
+	function select_data_dl_default()
+	{
+		$query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE status = '2'";
 		$result = $this->fetch($query);
 		// pr($result);
 		return $result;
@@ -58,10 +74,24 @@ class mhome extends Database {
 		// pr($result);
 		return $result;
 	}
+	function select_data_tdl_default()
+	{
+		$query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE status = '3'";
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
 	
 	function select_data_na($years,$month)
 	{
 		$query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE YEAR(tanggal) = '{$years}' AND MONTH(tanggal) = '{$month}' AND status = '4'";
+		$result = $this->fetch($query);
+		// pr($result);
+		return $result;
+	}
+	function select_data_na_default()
+	{
+		$query = "SELECT COUNT(1) AS total FROM bsn_pengaduan WHERE status = '4'";
 		$result = $this->fetch($query);
 		// pr($result);
 		return $result;
