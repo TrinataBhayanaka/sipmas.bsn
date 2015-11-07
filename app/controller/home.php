@@ -49,7 +49,7 @@ class home extends Controller {
 
     function forgot_password()
     {
-        global $basedomain;
+        global $basedomain, $CONFIG;
 
         if ($_POST['token']){
             $email = _p('email');
@@ -73,7 +73,7 @@ class home extends Controller {
                     $this->view->assign('text',"Your request for reset password have been successfull. You can use this reset password below for temporary use only."); 
 
                     $html = $this->loadView('emailTemplate');
-                    $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
+                    $send = sendGlobalMail(trim($checkData[0]['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html);
                     logFile($send);
                     if ($send){
                         $token = "?req=0";
@@ -93,10 +93,20 @@ class home extends Controller {
     function register()
     {   
         
-        global $basedomain;
+        global $basedomain, $CONFIG, $LOCALE;
         $salt = md5('register');
 
         if ($_POST['submit']){
+
+            $checkBefore['table'] = "bsn_users";
+            $checkBefore['condition'] = array('email'=>$_POST['email']);
+            $checkDataBefore = $this->contentHelper->fetchData($checkBefore);
+            if ($checkDataBefore){
+                if ($checkDataBefore){
+                    echo "<script>alert('Email sudah digunakan');window.location.href='{$basedomain}home/register'</script>";
+                }
+                exit;
+            }
 
             $pass = _p('pass');
             $pass1 = _p('retypePass');
@@ -104,11 +114,12 @@ class home extends Controller {
                 $_POST['password'] = $salt . $pass . $salt;
                 $_POST['salt'] = $salt;
                 $_POST['n_status'] = 0;
-                // $_POST['register_date'] = date('Y-m-d H:i:s');
+                $_POST['register_date'] = date('Y-m-d H:i:s');
                 $_POST['login_count'] = 0;
                 $_POST['type'] = 1;
                 $_POST['email_token'] = $this->token;
-
+                if ($_POST['receiveNotif'])$_POST['data'] = serialize(array('getNotif'=>1));
+                
                 $signup = $this->contentHelper->saveData($_POST,"_users");
                 if ($signup){
 
@@ -128,11 +139,11 @@ class home extends Controller {
                         $this->view->assign('name',$checkData[0]['name']);  
                         $this->view->assign('text',"Your request for new account."); 
                         
-                        $link = "<a href='{$basedomain}home/verified/?token={$serial}'>Silahkan klik link ini untuk verifikasi email anda</a>";
+                        $link = "<a href='{$basedomain}home/verified/?token={$serial}'>{$LOCALE['default']['email_verification']}</a>";
                         $this->view->assign('link',$link); 
 
                         $html = $this->loadView('emailTemplate');
-                        $send = sendGlobalMail(trim($checkData[0]['email']),'trinata.webmail@gmail.com',$html);
+                        $send = sendGlobalMail(trim($checkData[0]['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html);
                         logFile($send);
                         if ($send) redirect($basedomain . 'home/register_confirmation/?status=1');
                     }
@@ -207,6 +218,18 @@ class home extends Controller {
         }else{
             redirect($basedomain.'home');
         }
+    }
+
+    function ajax()
+    {
+
+        $email = _p('email');
+        $data['table'] = "bsn_users";
+        $data['condition'] = array('email'=>$email);
+        $checkData = $this->contentHelper->fetchData($data);
+        if ($checkData) print json_encode(array('status'=>1)); 
+        else print json_encode(array('status'=>0));
+        exit;
     }
 
 }
