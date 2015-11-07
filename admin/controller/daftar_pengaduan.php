@@ -25,7 +25,11 @@ class daftar_pengaduan extends Controller {
 	
 	public function index(){
 		
-		$data = $this->model->getPengaduan();
+		if($this->admin['satker'] == 3){
+			$data = $this->model->getPengaduan();
+		} else {
+			$data = $this->model->getPengaduanSatker($this->admin['satker']);
+		}
 
 		$this->view->assign('dataPengaduan',$data);
 		
@@ -221,6 +225,12 @@ class daftar_pengaduan extends Controller {
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/disposisi/?id={$_POST['idPengaduan']}'</script>";
 		exit;
+	}
+
+	public function chg_status()
+	{
+		db($_POST);
+		$this->model->updStat($_POST);
 	}
 	
 }
