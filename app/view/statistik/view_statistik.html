@@ -27,6 +27,7 @@ $('.selectpicker').selectpicker();
 						<div class="col-sm-12">
 						         <select id="monthid" class="selectpicker" data-live-search="true" name="month" >
 				                    <option value=''>Choose one of the month</option>
+				                    <option value='15'>Semua</option>
 				                    <option value='1'>Januari</option>
 				                    <option value='2'>Februari</option>
 				                    <option value='3'>Maret</option>
@@ -42,6 +43,7 @@ $('.selectpicker').selectpicker();
 				                </select>
 				                <select id="yearid" class="selectpicker" data-live-search="true" name="year" >
 				                    <option value=''>Choose one of the year</option>
+				                    <option value='3'>semua</option>
 				                    <option value='{date(Y) - 1}'>{date(Y) - 1}</option>
 				                    <option value='{date(Y)}'>{date(Y)}</option>
 				                </select>
@@ -59,6 +61,7 @@ $('.selectpicker').selectpicker();
 						<div class="col-sm-12">
 						         <select id="monthid_v2" class="selectpicker" data-live-search="true" name="month" >
 				                    <option value=''>Choose one of the month</option>
+				                    <option value='15'>Semua</option>
 				                    <option value='1'>Januari</option>
 				                    <option value='2'>Februari</option>
 				                    <option value='3'>Maret</option>
@@ -74,6 +77,7 @@ $('.selectpicker').selectpicker();
 				                </select>
 				                <select id="yearid_v2" class="selectpicker" data-live-search="true" name="year" >
 				                    <option value=''>Choose one of the year</option>
+				                    <option value='3'>semua</option>
 				                    <option value='{date(Y) - 1}'>{date(Y) - 1}</option>
 				                    <option value='{date(Y)}'>{date(Y)}</option>
 				                </select>
@@ -237,7 +241,8 @@ $('.selectpicker').selectpicker();
 		$('#monthid,#yearid').on('change', function(){
 		var monthid = $('#monthid').val();
 		var yearid = $('#yearid').val();
-		if(monthid != '' && yearid != ''){
+		if(monthid != '' && yearid != '' ){
+				if(monthid != 15 && yearid != 3){
 				$.post(basedomain+"statistik/chart_condtn", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
 					//$('#monthref').text(statistik_pengaduan.month);
 					//$('#yearsref').text(statistik_pengaduan.years);
@@ -250,8 +255,24 @@ $('.selectpicker').selectpicker();
 					{label: "Dalam Proses", value: statistik_pengaduan.proses.total},
 					{label: "Selesai", value: statistik_pengaduan.selesai.total}
 				  ]);	
+				},"JSON");
+	      	}else{
+	      		if(monthid == 15 && yearid == 3){
+	      		$.post(basedomain+"statistik/chartDefault", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
+					//$('#monthref').text(statistik_pengaduan.month);
+					//$('#yearsref').text(statistik_pengaduan.years);
+					var month =statistik_pengaduan.month;
+					var space = "  ";
+					var years =statistik_pengaduan.years;
+					var mix = month.concat(space,years); 
+					$('#monthref').text(mix);	
+						donut.setData([
+					{label: "Dalam Proses", value: statistik_pengaduan.proses.total},
+					{label: "Selesai", value: statistik_pengaduan.selesai.total}
+				  ]);	
 			},"JSON");
-
+	      	}
+	      }		
 		}		
 	});	
     
@@ -315,6 +336,7 @@ $('.selectpicker').selectpicker();
 		var monthid_v2 = $('#monthid_v2').val();
 		var yearid_v2 = $('#yearid_v2').val();
 		if(monthid_v2 != '' && yearid_v2 != ''){
+				if(monthid_v2 != 15  && yearid_v2 != 3){
 				$.post(basedomain+"statistik/chart_bar_condtn", {monthid_v2:monthid_v2, yearid_v2:yearid_v2},function(statistik_pengaduan_v2){
 					var temp_a_v2 = statistik_pengaduan_v2.a.total;
 					var temp_b_v2 = statistik_pengaduan_v2.dl.total;
@@ -330,9 +352,29 @@ $('.selectpicker').selectpicker();
 					$('#monthref_v2').text(mix_v2);
 					
 					bar.setData([{ "y": temp_years, "a": temp_a_v2, "b": temp_b_v2, "c": temp_c_v2, "d": temp_d_v2} ]);
-					
 			},"JSON");
-		}		
+		  }else{
+		  		if(monthid_v2 == 15  && yearid_v2 == 3){
+		  		$.post(basedomain+"statistik/chart_bar_default", {monthid_v2:monthid_v2, yearid_v2:yearid_v2},function(statistik_pengaduan_v2){
+					var temp_a_v2 = statistik_pengaduan_v2.a.total;
+					var temp_b_v2 = statistik_pengaduan_v2.dl.total;
+					var temp_c_v2 = statistik_pengaduan_v2.tdl.total;
+					var temp_d_v2 = statistik_pengaduan_v2.na.total;
+					var temp_years = statistik_pengaduan_v2.years;
+					//$('#monthref').text(statistik_pengaduan_v2.month);
+					//$('#yearsref').text(statistik_pengaduan_v2.years);
+					var month_v2 =statistik_pengaduan_v2.month;
+					var space_v2 = "  ";
+					var years_v2 =statistik_pengaduan_v2.years;
+					var mix_v2 = month_v2.concat(space_v2,years_v2); 
+					$('#monthref_v2').text(mix_v2);
+					
+					bar.setData([{ "y": temp_years, "a": temp_a_v2, "b": temp_b_v2, "c": temp_c_v2, "d": temp_d_v2} ]);
+					
+			},"JSON");	
+		   }
+		  }
+		}	
 	});	
 
         // Dual List Plugin Init
