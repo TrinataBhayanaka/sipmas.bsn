@@ -28,7 +28,13 @@ class home extends Controller {
 	}
 	
 	public function index(){
-		$select_list_inbox_pengaduan = $this->mhome->select_data_inbox_pengaduan();
+		//pr($this->admin);
+		//pr($this->admin['satker']);
+		if($this->admin['satker'] == 3){
+			$select_list_inbox_pengaduan = $this->mhome->select_data_inbox_pengaduan();
+		}else{
+			$select_list_inbox_pengaduan = $this->mhome->select_data_inbox_pengaduan_condtn($this->admin['satker']);
+		}
 		//get data object in array
 		// pr($select_list_inbox_pengaduan);
 		foreach ($select_list_inbox_pengaduan as $k => $val) {

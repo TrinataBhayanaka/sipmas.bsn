@@ -22,6 +22,7 @@ class pengaturan_admin extends Controller {
 	{
 		$this->userHelper = $this->loadModel('userHelper');
         $this->contentHelper = $this->loadModel('contentHelper');
+		$this->mkategori = $this->loadModel('mkategori');
 	}
 	
 	public function index(){
@@ -157,13 +158,16 @@ class pengaturan_admin extends Controller {
 	public function ruanglingkup(){
 	
 		$select = $this->mkategori->select_data();
-		/*foreach ($select as $k => $val) {
+		// exit;
+		if($select){
+		foreach ($select as $k => $val) {
 			$select_list[$k] = $val;
 			$i = 0;
 			$val_idKategori =$val['idKategori'];	
 				$select_sub = $this->mkategori->select_data_sub($val_idKategori);
 					$select_list[$k]['sub'] = $select_sub;
-			}*/
+			}
+		}	
 			// pr($select_list);
 		$this->view->assign('data',$select);
 		

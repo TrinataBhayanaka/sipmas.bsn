@@ -51,6 +51,7 @@
 								</tr>
 							</thead>
 							<tbody>
+							{if $data}
 							{foreach $data as $value}
 								<tr>
 									<td >{$value.ruang_lingkup}</td>
@@ -62,7 +63,8 @@
 										<button class="delete-kategori btn btn-danger btn-labeled fa fa-times" value="{$value.idKategori}" href="#">Hapus</button>
 									</td>
 								</tr>
-							{/foreach}	
+							{/foreach}
+							{/if}							
 							</tbody>
 						</table>
 					</div>
