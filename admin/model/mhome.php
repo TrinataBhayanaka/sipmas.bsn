@@ -12,6 +12,18 @@ class mhome extends Database {
 		//pr($result);
 		return $result;
 	}
+
+	function select_data_inbox_pengaduan_condtn($user)
+	{
+		$query = "SELECT p.idLaporan,p.tanggal,p.judul,p.nama,p.n_status,u.name 
+				FROM dbo.bsn_pengaduan as p
+				inner join bsn_users as u on u.idUser = p.idUser
+				where p.disposisi = '{$user}' and p.satker = '{$user}'";
+		//pr($query);
+		$result = $this->fetch($query,1);
+		//pr($result);
+		return $result;
+	}
 	
 	function select_data_km()
 	{
