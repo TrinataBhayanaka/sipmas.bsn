@@ -69,7 +69,7 @@ class mhome extends Database {
 	
 	function select_data_register_user()
 	{
-		$query = "SELECT COUNT(1) AS total FROM users WHERE  n_status IN (1)";
+		$query = "SELECT COUNT(1) AS total FROM bsn_users WHERE  n_status IN (1)";
 		$result = $this->fetch($query,1);
 		
 		return $result;
@@ -77,7 +77,7 @@ class mhome extends Database {
 	
 	function select_data_register_user_condt($monthid,$yearid)
 	{
-		$query = "SELECT COUNT(1) AS total FROM users WHERE  YEAR(register_date) = '{$yearid}' AND MONTH(register_date) = '{$monthid}' AND n_status IN (1)";
+		$query = "SELECT COUNT(1) AS total FROM bsn_users WHERE  YEAR(register_date) = '{$yearid}' AND MONTH(register_date) = '{$monthid}' AND n_status IN (1)";
 		// pr($query);
 		$result = $this->fetch($query);
 		
