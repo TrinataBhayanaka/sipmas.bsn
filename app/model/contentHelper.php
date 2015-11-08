@@ -15,11 +15,12 @@ class contentHelper extends Database {
 
     function tracking($postTracking,$iduser){
 
-        $query = "SELECT * FROM bsn_pengaduan WHERE idUser='$iduser' AND idPengaduan LIKE '%{$postTracking}%'";
+        $query = "SELECT * FROM bsn_pengaduan WHERE idUser='$iduser' AND (idPengaduan LIKE '%{$postTracking}%' OR idLaporan LIKE '%{$postTracking}%')";
 
         $result = $this->fetch($query,1);
+        // pr($query);
         if(empty($result)){
-           $query = "SELECT P.* FROM bsn_pengaduan as P join users as Usr on P.idUser=Usr.idUser WHERE Usr.email='{$postTracking}'";
+           $query = "SELECT P.* FROM bsn_pengaduan as P join {$this->prefix}_users as Usr on P.idUser=Usr.idUser WHERE Usr.email='{$postTracking}'";
 
            $result = $this->fetch($query,1); 
 

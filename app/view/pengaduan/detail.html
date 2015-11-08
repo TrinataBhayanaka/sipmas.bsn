@@ -59,12 +59,16 @@
 							{foreach $comment as $val}
 								<!-- COMMENT -->
 								<ul class="comment list-unstyled">
+									
+									{foreach $dataPengaduan.0.comment as $key =>$val}
+									
 									<li class="comment">
 
 										<!-- avatar -->
 										<img class="avatar" src="{$basedomain}assets/images/avatar2.jpg" width="50" height="50" alt="avatar" />
 
 										<!-- comment body -->
+										
 										<div class="comment-body"> 
 											<a href="#" class="comment-author">
 												<small class="text-muted pull-right"> {$val.tanggalstd} </small>
@@ -97,7 +101,8 @@
 										</ul><!-- option -->{/*}
 
 									</li><!-- /options -->
-
+									{/foreach}
+									
 								</ul><!-- /COMMENT -->
 								{/foreach}
 
@@ -290,7 +295,7 @@
 								<a href="{$basedomain}pengaduan/detail/?id={$val.idPengaduan}" class="tab-post-link"><strong>{$val.judul}</strong></a>
 								<small>{$val.tanggalformat}</small>
 								<small>ID Laporan : {$val.idLaporan}</small>
-								<small>Status Laporan : {if $val.n_status eq '1'}Aktif{else}Selesai{/if}</small>
+								<small>Status Laporan : {if $val.n_status}{if $val.n_status eq '1'}Aktif{else}Selesai{/if}{else}Dalam Proses{/if}</small>
 							</div>
 						</div>
 						{/foreach}

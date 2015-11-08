@@ -61,10 +61,10 @@ class home extends Controller {
                 if ($checkData[0]['email']){
                     $passTmp = substr($this->token, 0, 8);
                     $newData['id'] = $checkData[0]['idUser'];
-                    $newPass = $checkData[0]['salt'] . $passTmp . $checkData[0]['salt'];
+                    $newPass = sha1($checkData[0]['salt'] . $passTmp . $checkData[0]['salt']);
                     $newData['password'] = $newPass;
                     
-                    // $reset = $this->contentHelper->saveData($newData,"_users",1);
+                    $reset = $this->contentHelper->saveData($newData,"_users");
                     
                     $this->view->assign('encode',$msg); 
                     $this->view->assign('email',$checkData[0]['email']);  
@@ -76,7 +76,7 @@ class home extends Controller {
                     $send = sendGlobalMail(trim($checkData[0]['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html);
                     logFile($send);
                     if ($send){
-                        $token = "?req=0";
+                        $token = "?req=2";
                     }else{
                         $token = "?req=1";
                     }
@@ -116,7 +116,7 @@ class home extends Controller {
                 $_POST['n_status'] = 0;
                 // $_POST['register_date'] = date('Y-m-d H:i:s');
                 $_POST['login_count'] = 0;
-                $_POST['type'] = 1;
+                $_POST['type'] = 2;
                 $_POST['email_token'] = $this->token;
                 if ($_POST['receiveNotif'])$_POST['data'] = serialize(array('getNotif'=>1));
                 

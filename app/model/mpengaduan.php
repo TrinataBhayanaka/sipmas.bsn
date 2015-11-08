@@ -48,7 +48,16 @@ class mpengaduan extends Database {
         $sql = "SELECT *, CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_pengaduan WHERE idUser = '{$id}' {$cond}";
         
         $res = $this->fetch($sql,1);
-        
+        if ($res){
+
+            foreach ($res as $key => $value) {
+                $sqlSomment = "SELECT * FROM {$this->prefix}_comment WHERE idPengaduan = '{$value['idPengaduan']}'";
+                // pr($sqlSomment);
+                $resComment = $this->fetch($sqlSomment,0);
+                if ($resComment)$res[$key]['comment'][] = $resComment;
+            }
+            
+        }
         return $res;
     }
 
