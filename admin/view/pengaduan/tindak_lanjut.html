@@ -1,7 +1,7 @@
 <!--Page Title-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div id="page-title">
-	<h1 class="page-header text-overflow">Detail Laporan Pengaduan</h1>
+	<h1 class="page-header text-overflow">Tindak Lanjut Laporan</h1>
 </div>
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--End page title-->
@@ -58,10 +58,10 @@
 								<div class="row">
 										<div class="col-md-7">
 											<a class="btn-link text-semibold media-heading box-inline">{$val.nameUser}</a>
-											<p>Status laporan: Ditindaklanjuti Berkadar Pengawasan</p>
+											{*}<p>Status laporan: {$dataPengaduan.status} Berkadar Pengawasan</p>{/*}
+											<p>{$val.tanggalstd}</p>
 										</div>
 										<div class="col-md-4">
-											<p>{$val.tanggalformat}</p>
 											{*}<select class="selectpicker">
 												<option>Publish</option>
 												<option>Non-Publish</option>
@@ -75,10 +75,12 @@
 										<h4><i class="fa fa-paperclip fa-fw"></i> Attachments </h4>
 			
 										<ul class="mail-attach-list list-ov">
+											
+											{foreach $val.files as $file}
 											<li class=" clearfix">
 			
 												<!--Download button-->
-												<div class="mail-attach-btn"><a href="#" class="btn btn-purple btn-sm">Download</a></div>
+												<div class="mail-attach-btn"><a href="{$basedomain}public_assets/{$file.nama}" class="btn btn-purple btn-sm">Download</a></div>
 			
 												<!--File information-->
 												<div class="mail-attach-file">
@@ -86,11 +88,12 @@
 														<span class="label label-info text-uppercase">File</span>
 													</span>
 													<div class="media-body">
-														<div class="text-bold"><a href="#"></a></div>
-														<small class="text-muted">(15 KB)</small>
+														<div class="text-bold"><a href="{$basedomain}public_assets/{$file.nama}">{$file.nama}</a></div>
+														{*}<small class="text-muted">(15 KB)</small>{/*}
 													</div>
 												</div>
 											</li>
+											{/foreach}
 											{*}<li class="clearfix">
 											<p><a class="btn-link" href="#"><h4><u> Download All Attachment</u> </h4> </a></p>
 											</li>{/*}

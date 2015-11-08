@@ -54,9 +54,9 @@ class mpengaduan extends Database {
         return $res;
     }
 
-    function getFile($id)
+    function getFile($id,$field=false)
     {
-        $sql = "SELECT * FROM bsn_file WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT * FROM bsn_file WHERE {$field} = '{$id}'";
         $res = $this->fetch($sql,1);
 
         return $res;
@@ -111,8 +111,14 @@ class mpengaduan extends Database {
 
     function upd_fase($id,$fase=false)
     {
-        $sql = "UPDATE bsn_pengaduan SET fase = '{$fase}' WHERE idPengaduan = '{$id}'";
-        $res = $this->query($sql);
+        $sql = "SELECT fase FROM bsn_pengaduan WHERE idPengaduan = '{$id}'";
+        $data = $this->fetch($sql,0);
+
+        if($data['fase'] < $fase)
+        {
+            $sql = "UPDATE bsn_pengaduan SET fase = '{$fase}' WHERE idPengaduan = '{$id}'";
+            $res = $this->query($sql);
+        }
 
         return true;
     }
@@ -141,7 +147,7 @@ class mpengaduan extends Database {
 
     function getBalas($id)
     {
-        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}' ORDER BY tanggal DESC";
         $res = $this->fetch($sql,1);
 
         foreach($res as $key => $val)
@@ -149,7 +155,7 @@ class mpengaduan extends Database {
             $sql = "SELECT name,email,hp FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
-            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['isi'] = html_entity_decode(htmlspecialchars_decode($val['isi'],ENT_NOQUOTES));
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['hpUser'] = $user['hp'];
@@ -168,7 +174,7 @@ class mpengaduan extends Database {
 
     function getComment($id)
     {
-        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}' ORDER BY tanggal DESC";
         $res = $this->fetch($sql,1);
 
         foreach($res as $key => $val)
@@ -176,10 +182,13 @@ class mpengaduan extends Database {
             $sql = "SELECT name,email,type FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
-            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['isi'] = html_entity_decode(htmlspecialchars_decode($val['isi'],ENT_NOQUOTES));
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['typeUser'] = $user['type'];
+
+            $file = $this->getFile($val['idComment'],'idComment');
+            $res[$key]['files'] = $file;
         }
 
         return $res;
@@ -197,7 +206,7 @@ class mpengaduan extends Database {
 
     function getDisposisi($id)
     {
-        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_disposisi WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_disposisi WHERE idPengaduan = '{$id}' ORDER BY tanggal DESC";
         $res = $this->fetch($sql,1);
 
         foreach($res as $key => $val)
@@ -205,7 +214,7 @@ class mpengaduan extends Database {
             $sql = "SELECT name FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
-            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['isi'] = html_entity_decode(htmlspecialchars_decode($val['isi'],ENT_NOQUOTES));
             $res[$key]['nameUser'] = $user['name'];
             
             $sql = "SELECT nama_satker FROM bsn_satker WHERE idSatker = '{$val['tujuan']}'";

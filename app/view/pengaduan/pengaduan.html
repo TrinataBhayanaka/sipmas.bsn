@@ -145,7 +145,10 @@
 								<a href="{$basedomain}pengaduan/detail/?id={$val.idPengaduan}" class="tab-post-link"><strong>{$val.judul}</strong></a>
 								<small>{$val.tanggalformat}</small>
 								<small>ID Laporan : {$val.idLaporan}</small>
-								<small>Status Laporan : {if $val.n_status}{if $val.n_status eq '1'}Aktif{else}Selesai{/if}{else}Dalam Proses{/if}</small>
+								<small>Status Laporan : {if $val.status eq '1'}Aktif
+														{elseif $val.status eq '2'}Ditindak Lanjuti
+														{elseif $val.status eq '3'}Tidak Ditindak Lanjuti
+														{else}Selesai{/if}</small>
 							</div>
 						</div>
 						{/foreach}
