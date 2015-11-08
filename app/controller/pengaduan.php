@@ -42,7 +42,7 @@ class pengaduan extends Controller {
     	$penelaahan = $this->model->getPenelaahan($idPengaduan);
     	$tglBalas = $this->model->getTglBalas($idPengaduan);
         // pr($data);
-        pr($dataPengaduan);
+        // pr($dataPengaduan);
         // pr($file);
         // pr($penelaahan);
         // pr($tglBalas);

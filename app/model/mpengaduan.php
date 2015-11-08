@@ -54,7 +54,7 @@ class mpengaduan extends Database {
                 $sqlSomment = "SELECT * FROM {$this->prefix}_comment WHERE idPengaduan = '{$value['idPengaduan']}'";
                 // pr($sqlSomment);
                 $resComment = $this->fetch($sqlSomment,0);
-                $res[$key]['comment'][] = $resComment;
+                if ($resComment)$res[$key]['comment'][] = $resComment;
             }
             
         }
