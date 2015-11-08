@@ -28,8 +28,8 @@ class home extends Controller {
 	}
 	
 	public function index(){
-		//pr($this->admin);
-		//pr($this->admin['satker']);
+		// pr($this->admin);
+		// pr($this->admin['satker']);
 		if($this->admin['satker'] == 3){
 			$select_list_inbox_pengaduan = $this->mhome->select_data_inbox_pengaduan();
 		}else{
