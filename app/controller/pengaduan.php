@@ -38,11 +38,12 @@ class pengaduan extends Controller {
 
     	$data = $this->model->getPengaduan($this->user['idUser'],$idPengaduan);
     	$dataPengaduan = $this->model->getPengaduan($this->user['idUser']);
-    	$file = $this->model->getFile($idPengaduan);
+    	$file = $this->model->getFile($idPengaduan,'idPengaduan');
     	$penelaahan = $this->model->getPenelaahan($idPengaduan);
     	$tglBalas = $this->model->getTglBalas($idPengaduan);
+    	$comment = $this->model->getComment($idPengaduan);
 
-    	$data[0]['isi'] = html_entity_decode($data[0]['isi']);
+    	$data[0]['isi'] = html_entity_decode(htmlspecialchars_decode($data[0]['isi'],ENT_NOQUOTES));
 
     	if($data[0]['n_status'] == 1)
     	{
@@ -56,11 +57,13 @@ class pengaduan extends Controller {
     	}
 
     	$this->view->assign('tglBalas',$tglBalas);
+    	$this->view->assign('comment',$comment);
     	$this->view->assign('penelaahan',$penelaahan);
     	$this->view->assign('file',$file);
     	$this->view->assign('dataPengaduan',$dataPengaduan);
     	$this->view->assign('data',$data[0]);
     	$this->view->assign('user',$this->user);
+    	$this->view->assign('id',$idPengaduan);
 
     	return $this->loadView('pengaduan/detail');
     }
@@ -80,7 +83,8 @@ class pengaduan extends Controller {
             }
             else
             {
-		    	$_POST['isi'] = htmlentities($_POST['isi']);
+		    	$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
+		    	// $_POST['judul'] = htmlspecialchars($_POST['judul'])
 		    	$_POST['idUser'] = $this->user['idUser'];
 		    	$_POST['status'] = 1;
 		    	unset($_POST['g-recaptcha-response']);
@@ -113,6 +117,35 @@ class pengaduan extends Controller {
             echo "<script>alert('Silahkan Cek Captcha terlebih dahulu')</script>";
             redirect($basedomain."register");
         }
+    }
+
+    function ins_balas()
+    {
+    	global $basedomain;
+
+		$_POST['idUser'] = $this->user['idUser'];
+		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
+		$_POST['tanggal'] = date("Y-m-d");
+		// db($_POST);
+		$this->model->insert_balas($_POST);
+		    		
+		if(isset($_FILES['myfile'])){
+    		$upload = uploadFile('myfile');
+    		//insert ke file
+    		$idComment = $this->model->getLatestId('bsn_comment');
+
+    		$files['nama'] = $upload['full_name'];
+    		$files['path'] = $upload['full_path'];
+    		$files['type'] = 1;
+    		$files['idComment'] = $idComment['id'];
+    		$files['n_status'] = 1;
+
+    		$this->model->insert_file($files);
+
+    	}
+
+		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
+		exit;
     }
 }
 

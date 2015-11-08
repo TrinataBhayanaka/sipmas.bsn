@@ -25,11 +25,12 @@
 
 					<fieldset class="nomargin">	
 						{$data.isi}
-						<div class="row tab-post">
+						<div class="row tab-post margin-top-30">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
-								<a href="#" class="tab-post-link"><strong>Lampiran Data Pendukung :</strong></a><br>
+								<i class="fa fa-paperclip"></i><strong> Lampiran Data Pendukung :</strong><br>
 								{foreach $file as $val}
-								<a href="{$basedomain}public_assets/{$val.nama}" class="tab-post-link">{$val.nama}</a>
+								<a href="{$basedomain}public_assets/{$val.nama}" class="tab-post-link">{$val.nama}
+								<button type="button" class="btn btn-default noradius btn-xs pull-right"><i class="fa fa-download"></i> Unduh</button></a>
 								{/foreach}
 							</div>
 						</div>
@@ -54,6 +55,8 @@
 
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="tindaklanjut">
+								
+							{foreach $comment as $val}
 								<!-- COMMENT -->
 								<ul class="comment list-unstyled">
 									<li class="comment">
@@ -64,18 +67,23 @@
 										<!-- comment body -->
 										<div class="comment-body"> 
 											<a href="#" class="comment-author">
-												<small class="text-muted pull-right"> Kamis, 09 juli 2015 14:25 WIB </small>
-												<span>Inspektorat</span>
+												<small class="text-muted pull-right"> {$val.tanggalstd} </small>
+												<span>{$val.nameUser}</span>
 											</a>
-											<p>
-												Kepada.<br>
-												Yth. Pelanggan Setia Garuda Indonesia<br>
-												<br>
-												Terkait laporan yang Bapak / Ibu sampaikan mengenai pemungutan airport tax pada penerbangan Bapak / Ibu dengan GA500 Jakarta - Pontianak dan GA511 Pontianak-Jakarta, perkenankan kami untuk melakukan pengecekan dengan unit terkait.  
-											</p>
+											{$val.isi}
+
+											<div class="row tab-post margin-top-30">
+							                    <div class="col-md-12 col-sm-9 col-xs-9">
+													<i class="fa fa-paperclip"></i><strong> Lampiran Data Pendukung :</strong><br>
+													{foreach $val.files as $file}
+													<a href="{$basedomain}public_assets/{$val.nama}" class="tab-post-link">{$file.nama}
+													<button type="button" class="btn btn-default noradius btn-xs pull-right"><i class="fa fa-download"></i> Unduh</button></a>
+													{/foreach}
+												</div>
+											</div>
 										</div><!-- /comment body -->
 
-										<!-- options -->
+										{*}<!-- options -->
 										<ul class="list-inline size-11 margin-top-10">
 											<li>
 												&nbsp;
@@ -86,63 +94,26 @@
 											<li class="pull-right">
 												<a href="#" class="text-primary">Ubah</a>
 											</li>
-										</ul><!-- option -->
+										</ul><!-- option -->{/*}
 
 									</li><!-- /options -->
 
 								</ul><!-- /COMMENT -->
+								{/foreach}
 
-								<!-- COMMENT -->
-								<ul class="comment list-unstyled">
-									<li class="comment">
-
-										<!-- avatar -->
-										<img class="avatar" src="{$basedomain}assets/images/avatar2.jpg" width="50" height="50" alt="avatar" />
-
-										<!-- comment body -->
-										<div class="comment-body"> 
-											<a href="#" class="comment-author">
-												<small class="text-muted pull-right"> Kamis, 09 juli 2015 14:25 WIB </small>
-												<span>Inspektorat</span>
-											</a>
-											<p>
-												Kepada.<br>
-												Yth. Pelanggan Setia Garuda Indonesia<br>
-												<br>
-												Terkait laporan yang Bapak / Ibu sampaikan mengenai pemungutan airport tax pada penerbangan Bapak / Ibu dengan GA500 Jakarta - Pontianak dan GA511 Pontianak-Jakarta, perkenankan kami untuk melakukan pengecekan dengan unit terkait.  
-											</p>
-										</div><!-- /comment body -->
-
-										<!-- options -->
-										<ul class="list-inline size-11 margin-top-10">
-											<li>
-												&nbsp;
-											</li>
-											<li class="pull-right">
-												<a href="#" class="text-danger">Hapus</a>
-											</li>
-											<li class="pull-right">
-												<a href="#" class="text-primary">Ubah</a>
-											</li>
-										</ul>
-									</li><!-- /options -->
-
-								</ul>
-								<!-- /COMMENT -->
-
-
-								<form method="post" action="#" class="box-light margin-top-20"><!-- .box-light OR .box-dark -->
+								<form method="post" action="{$basedomain}pengaduan/ins_balas" class="box-light margin-top-20" enctype="multipart/form-data"><!-- .box-light OR .box-dark -->
 									<div class="box-inner">
 										<h4 class="uppercase">Kirim Balasan</h4>
 											
-										<input class="custom-file-upload" type="file" id="file" name="contact[attachment]" id="contact:attachment" data-btn-text="Attachment" />
-										<small class="text-muted block">Max file size: 10Mb (zip/pdf/jpg/png)</small>
+										<input class="custom-file-upload" type="file" id="file" name="myfile" id="contact:attachment" data-btn-text="Attachment" />
+										<small class="text-muted block">Max file size: 5Mb (pdf/jpg/png)</small>
 
 
-										<textarea required class="form-control word-count" data-maxlength="200" rows="5" placeholder="Tulis pesan anda di sini..."></textarea>
-										<div class="text-muted text-right margin-top-3 size-12 margin-bottom-10">
-											<span>0/200</span> Words
-										</div>
+										<textarea class="summernote form-control" name="isi" data-height="200" data-lang="en-US"></textarea>
+
+										<!-- HIDDEN -->
+										<input type="hidden" name="idPengaduan" value="{$id}">
+										<input type="hidden" name="n_status" value="1">
 
 										<button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> KIRIM PESAN</button>
 
@@ -256,7 +227,10 @@
 								<small>username : {$user.username}</small>
 								<small>Nama Lengkap : {$user.name}</small>
 								<small>Ruang Lingkup Laporan : {$user.ruangLingkup}</small>
-								<small>Status Laporan : {$data.n_status}</small>
+								<small>Status Laporan : {if $data.status eq '1'}Aktif
+														{elseif $data.status eq '2'}Ditindak Lanjuti
+														{elseif $data.status eq '3'}Tidak Ditindak Lanjuti
+														{else}Selesai{/if}</small>
 							</div>
 						</div>
 

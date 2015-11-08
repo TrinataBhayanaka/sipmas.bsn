@@ -41,7 +41,7 @@ class daftar_pengaduan extends Controller {
 		$idPengaduan = $_GET['id'];
 
 		$data = $this->model->getPengaduan($idPengaduan);
-		$file = $this->model->getFile($idPengaduan);
+		$file = $this->model->getFile($idPengaduan,'idPengaduan');
 
 		$data[0]['isi'] = html_entity_decode($data[0]['isi']);
 
@@ -56,12 +56,12 @@ class daftar_pengaduan extends Controller {
 	public function tindak_lanjut(){
 		$idPengaduan = $_GET['id'];
 
-		// $data = $this->model->getComment($idPengaduan);
-		// $file = $this->model->getFile($idPengaduan);
+		$dataPengaduan = $this->model->getPengaduan($idPengaduan);
+		$data = $this->model->getComment($idPengaduan);
 
-		// $this->view->assign('file',$file);
+		$this->view->assign('dataPengaduan',$dataPengaduan[0]);
 		$this->view->assign('id',$idPengaduan);
-		// $this->view->assign('dataComment',$data);
+		$this->view->assign('dataComment',$data);
 
 		return $this->loadView('pengaduan/tindak_lanjut');
 	
@@ -79,7 +79,7 @@ class daftar_pengaduan extends Controller {
 		$data = $this->model->getPengaduan($idPengaduan);
 		$rLingkup = $this->model->getRuangLingkup();
 		$satker = $this->model->getSatker();
-		$file = $this->model->getFile($idPengaduan);
+		$file = $this->model->getFile($idPengaduan,'idPengaduan');
 
 		$this->view->assign('penelaahan',$penelaahan);
 		$this->view->assign('file',$file);
@@ -169,9 +169,9 @@ class daftar_pengaduan extends Controller {
 		global $basedomain;
 
 		$_POST['idUser'] = $this->admin['idUser'];
-		$_POST['isi'] = htmlentities($_POST['isi']);
+		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
-		// db($_FILES);
+		// db($_POST);
 		$this->model->insert_balas($_POST);
 
 		$this->model->upd_fase($_POST['idPengaduan'],3);
@@ -200,7 +200,7 @@ class daftar_pengaduan extends Controller {
 		global $basedomain;
 
 		$_POST['idUser'] = $this->admin['idUser'];
-		$_POST['isi'] = htmlentities($_POST['isi']);
+		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
 		$_POST['n_status'] = 1;
 		// db($_POST);
