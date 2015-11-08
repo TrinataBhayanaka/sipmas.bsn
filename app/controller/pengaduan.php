@@ -41,7 +41,11 @@ class pengaduan extends Controller {
     	$file = $this->model->getFile($idPengaduan);
     	$penelaahan = $this->model->getPenelaahan($idPengaduan);
     	$tglBalas = $this->model->getTglBalas($idPengaduan);
-
+        // pr($data);
+        pr($dataPengaduan);
+        // pr($file);
+        // pr($penelaahan);
+        // pr($tglBalas);
     	$data[0]['isi'] = html_entity_decode($data[0]['isi']);
 
     	if($data[0]['n_status'] == 1)

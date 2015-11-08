@@ -54,44 +54,33 @@
 
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="tindaklanjut">
+								{if $dataPengaduan.0.comment}
 								<!-- COMMENT -->
 								<ul class="comment list-unstyled">
+									
+									{foreach $dataPengaduan.0.comment as $key =>$val}
+									
 									<li class="comment">
 
 										<!-- avatar -->
 										<img class="avatar" src="{$basedomain}assets/images/avatar2.jpg" width="50" height="50" alt="avatar" />
 
 										<!-- comment body -->
+										
 										<div class="comment-body"> 
 											<a href="#" class="comment-author">
-												<small class="text-muted pull-right"> Kamis, 09 juli 2015 14:25 WIB </small>
+												<small class="text-muted pull-right"> {$val.tanggal}</small>
 												<span>Inspektorat</span>
 											</a>
-											<p>
-												Kepada.<br>
-												Yth. Pelanggan Setia Garuda Indonesia<br>
-												<br>
-												Terkait laporan yang Bapak / Ibu sampaikan mengenai pemungutan airport tax pada penerbangan Bapak / Ibu dengan GA500 Jakarta - Pontianak dan GA511 Pontianak-Jakarta, perkenankan kami untuk melakukan pengecekan dengan unit terkait.  
-											</p>
+											<p>{$val.isi|html_entity_decode}</p>
 										</div><!-- /comment body -->
 
-										<!-- options -->
-										<ul class="list-inline size-11 margin-top-10">
-											<li>
-												&nbsp;
-											</li>
-											<li class="pull-right">
-												<a href="#" class="text-danger">Hapus</a>
-											</li>
-											<li class="pull-right">
-												<a href="#" class="text-primary">Ubah</a>
-											</li>
-										</ul><!-- option -->
-
 									</li><!-- /options -->
-
+									{/foreach}
+									
 								</ul><!-- /COMMENT -->
-
+								{/if}
+								{*}
 								<!-- COMMENT -->
 								<ul class="comment list-unstyled">
 									<li class="comment">
@@ -130,7 +119,7 @@
 								</ul>
 								<!-- /COMMENT -->
 
-
+								{/*}
 								<form method="post" action="#" class="box-light margin-top-20"><!-- .box-light OR .box-dark -->
 									<div class="box-inner">
 										<h4 class="uppercase">Kirim Balasan</h4>
@@ -256,7 +245,7 @@
 								<small>username : {$user.username}</small>
 								<small>Nama Lengkap : {$user.name}</small>
 								<small>Ruang Lingkup Laporan : {$user.ruangLingkup}</small>
-								<small>Status Laporan : {$data.n_status}</small>
+								<small>Status Laporan : {if $data.n_status}{$data.n_status}{else}Dalam Proses{/if}</small>
 							</div>
 						</div>
 
@@ -316,7 +305,7 @@
 								<a href="{$basedomain}pengaduan/detail/?id={$val.idPengaduan}" class="tab-post-link"><strong>{$val.judul}</strong></a>
 								<small>{$val.tanggalformat}</small>
 								<small>ID Laporan : {$val.idLaporan}</small>
-								<small>Status Laporan : {if $val.n_status eq '1'}Aktif{else}Selesai{/if}</small>
+								<small>Status Laporan : {if $val.n_status}{if $val.n_status eq '1'}Aktif{else}Selesai{/if}{else}Dalam Proses{/if}</small>
 							</div>
 						</div>
 						{/foreach}
