@@ -6,18 +6,18 @@ class contentHelper extends Database {
 	function tracking($postTracking,$type){
 // pr($_POST);
         if($type=='1'){
-        	$query = "SELECT P.*,Usr.name FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.judul LIKE '%{$postTracking}%'";
+        	$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.judul LIKE '%{$postTracking}%'";
     	}elseif($type=='2'){
 
     	}elseif($type=='3'){
-    		$query = "SELECT P.*,Usr.name FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.satker LIKE '%{$postTracking}%'";
+    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.satker LIKE '%{$postTracking}%'";
     	}elseif($type=='4'){
     		
     	}elseif($type=='5'){
-    		$query = "SELECT P.*,Usr.name FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.status='{$postTracking}'";
+    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.status='{$postTracking}'";
     	}elseif($type=='6'){
 
-    		 $query = "SELECT P.*,Usr.name FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE Usr.email='{$postTracking}' OR Usr.name LIKE '%{$postTracking}%'";	
+    		 $query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE Usr.email='{$postTracking}' OR Usr.name LIKE '%{$postTracking}%'";	
     	}
 
         $result = $this->fetch($query,1); 
