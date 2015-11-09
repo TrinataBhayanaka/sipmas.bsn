@@ -24,7 +24,7 @@
 									{foreach $data as $val}
 									<li class="list-group-item mar-ver">
 										<div class="media-heading">
-											<a class="h4 btn-link" href="#">{$val.judul}</a>
+											<a class="h4 btn-link" href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.judul}</a>
 										</div>
 											<p> {$val.tanggal} <br>
 											    ID Laporan : {$val.idLaporan} <br>
