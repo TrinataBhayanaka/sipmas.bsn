@@ -8,9 +8,9 @@ class contentHelper extends Database {
         if($type=='1'){
         	$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.judul LIKE '%{$postTracking}%' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
     	}elseif($type=='2'){
-
+    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.ruangLingkup LIKE '%{$postTracking}%' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
     	}elseif($type=='3'){
-    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.satker LIKE '%{$postTracking}%' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
+    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.disposisi LIKE '%{$postTracking}%' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
     	}elseif($type=='4'){
     		
     	}elseif($type=='5'){
