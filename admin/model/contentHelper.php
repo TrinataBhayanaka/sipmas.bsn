@@ -99,7 +99,7 @@ class contentHelper extends Database {
 		
 		return $result;
 	}
-
+	
 	function getRegistrant($n_status=1, $debug=0)
 	{
 		$filter = "";
@@ -185,6 +185,23 @@ class contentHelper extends Database {
 
         }else{
             $data['createDate'] = date('Y-m-d H:i;s');
+            $run = $this->save("insert", "{$this->prefix}{$table}", $data, false, $debug);
+    
+        }
+
+        if ($run) return true;
+        return false;
+    }
+    function simpanData($query,$data=array(), $table="_content", $debug=false)
+    {
+    	// pr($query);
+    	// pr($data);exit;
+    	$id="id =".$data['id'];
+        if ($query==2){
+            $run = $this->save("update", "{$this->prefix}{$table}", $data, $id, $debug);
+
+        }else{
+          	
             $run = $this->save("insert", "{$this->prefix}{$table}", $data, false, $debug);
     
         }

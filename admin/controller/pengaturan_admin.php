@@ -62,18 +62,31 @@ class pengaturan_admin extends Controller {
 		}
 
 		$arraySW['table'] = "bsn_standar_waktu";
-		$arraySW['condition'] = array('n_status'=>1);
+		$arraySW['condition'] = array('id'=>1);
 
 		$arrayWP1['table'] = "bsn_waktu_pengaduan";
-		$arrayWP1['condition'] = array('type'=>1, 'n_status'=>1);
+		$arrayWP1['condition'] = array('type'=>1,);
 
 		$arrayWP2['table'] = "bsn_waktu_pengaduan";
-		$arrayWP2['condition'] = array('type'=>2, 'n_status'=>1);
+		$arrayWP2['condition'] = array('type'=>2);
 
 		$dataSW = $this->contentHelper->fetchData($arraySW);
 		$dataWP1 = $this->contentHelper->fetchData($arrayWP1);
 		$dataWP2 = $this->contentHelper->fetchData($arrayWP2);
-		
+// pr($dataWP1);
+		$queryws="";
+		$querywp1="";
+		$querywp2="";
+
+		if($dataSW){
+			$this->view->assign('queryws',"update");
+		}
+		if($dataWP1){
+			$this->view->assign('querywp1',"update");
+		}
+		if($dataWP2){
+			$this->view->assign('querywp2',"update");
+		}
 		// pr($dataSW);
 		// pr($dataWP1);
 		// pr($dataWP2);
@@ -87,7 +100,7 @@ class pengaturan_admin extends Controller {
 
 		return $this->loadView('pengaturan/waktu_kriteria');
 	}
-	public function updWaKri(){
+	public function simpanWaKri(){
 		global $basedomain;
 		// pr($_POST);
 		if($_GET['open']){
@@ -104,21 +117,52 @@ class pengaturan_admin extends Controller {
 		}else{
 			$open="ws";
 		}
+
 		if($_POST['id']){
+
+
+			if($_POST['query']=="update"){
+				$type=2;
+			}else{
+				$type=1;
+			}
+		
 			if($_GET['data']){
 				if($_GET['data']=="sw"){
 
 					$table="_standar_waktu";
-
+					$data= array(
+						'id' => $_POST['id'], 
+						'baik' => $_POST['baik'], 
+						'normal' => $_POST['normal'], 
+						'buruk' => $_POST['buruk']
+						);
+					// pr($data);
 				}elseif($_GET['data']=="wp"){
 
 					$table="_waktu_pengaduan";
-
+					$data= array(
+						'id' => $_POST['id'], 
+						'pencatatan' => $_POST['pencatatan'], 
+						'penelaahan' => $_POST['penelaahan'], 
+						'tindakLanjut' => $_POST['tindakLanjut'], 
+						'pengarsipan' => $_POST['pengarsipan'], 
+						'type' => $_POST['type']
+						);
+					// pr($data);
 				}else{
 					redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
 				}
 
-				$data = $this->contentHelper->saveData($_POST,$table);
+		// pr($data);exit;
+				
+
+					$data = $this->contentHelper->simpanData($type,$data,$table);
+				
+
+				// 	$data = $this->contentHelper->simpanData($type,$data,$table);
+				// }
+
 				// exit;
 			}
 			redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
@@ -128,24 +172,52 @@ class pengaturan_admin extends Controller {
 	}
 	public function ubahkonten(){
 	
-			// pr($_POST);
+		
+		
+		return $this->loadView('pengaturan/ubah_konten');
+
+	}
+	public function simpanContent(){
+		global $basedomain;
+		
 		if($_POST['id']){
 
-			$data = $this->contentHelper->saveData($_POST,"_content");
-		}
+					// $_POST['create_date'] = ;
+					// $_POST['n_status']=1;
+				if($_POST['query']=="update"){
+					$data=array(
+						'id' => $_POST['id'], 
+						'title' => $_POST['title'], 
+						'description' => $_POST['description'], 
+						'create_date' => date('Y-m-d'), 
+						);
+					$result = $this->contentHelper->simpanData(2,$data,"_content");
+				}elseif($_POST['query']=="insert"){
+					$data=array(
+						'id' => $_POST['id'], 
+						'title' => $_POST['title'], 
+						'description' => $_POST['description'], 
+						'type' => $_POST['type'], 
+						'category' => $_POST['category'], 
+						'create_date' => date('Y-m-d'), 
+						'n_status' => 1, 
+						);
+					$result = $this->contentHelper->simpanData(1,$data,"_content");
+				}
+			}
 
-		return $this->loadView('pengaturan/ubah_konten');
+				redirect($basedomain . 'pengaturan_admin/ubahkonten');
 
 	}
 
 	public function selectubahkonten(){
 	
-		
+		// pr($_POST);
 		$dataContent['table'] = "bsn_content";
 		$dataContent['condition'] = array('type'=>$_POST['type'], 'category'=>1,'n_status'=>1);
 
 		$data = $this->contentHelper->fetchData($dataContent);
-
+// pr($data);
         if ($data){
             print json_encode(array('status'=>true,'idhidden'=>$data[0]['id'], 'data'=>$data[0]['description'],'judul'=>$data[0]['title']));
         }else{

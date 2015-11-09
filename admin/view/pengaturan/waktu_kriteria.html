@@ -45,8 +45,10 @@
 				<!-- Accordion content -->
 				<div id="demo-acc-panel-1" class="panel-collapse collapse {$ws}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
 					<div class="panel-body">
-					<form id="demo-bvd-notempty" action="{$basedomain}pengaturan_admin/updWaKri/?data=sw&open=ws" method="post"class="form-horizontal">
-						<input type="hidden" name="id" value="{if $dataSW}{$dataSW.id}{/if}">
+					<form id="demo-bvd-notempty" action="{$basedomain}pengaturan_admin/simpanWaKri/?data=sw&open=ws" method="post"class="form-horizontal">
+						<input type="hidden" name="id" value="{if $dataSW}{$dataSW.id}{else}1{/if}">
+						<input type="hidden" name="query" id="query" value="{$queryws}"/>	
+						<input type="hidden" name="n_status" id="idType" value="1"/>		
 						<fieldset>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Baik</label>
@@ -92,8 +94,11 @@
 				<!-- Accordion content -->
 				<div id="demo-acc-panel-2" class="panel-collapse collapse {$wp1}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
 					<div class="panel-body">
-					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/updWaKri/?data=wp&open=wp1" method="post"class="form-horizontal">
-						<input type="hidden" name="id" value="{if $dataWP1}{$dataWP1.id}{/if}">
+					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/simpanWaKri/?data=wp&open=wp1" method="post"class="form-horizontal">
+						<input type="hidden" name="id" value="{if $dataWP1}{$dataWP1.id}{else}1{/if}">
+						<input type="hidden" name="query" id="query" value="{$querywp1}"/>	
+						<input type="hidden" name="type" id="idType" value="1"/>			
+						<input type="hidden" name="n_status" id="idType" value="1"/>		
 						<fieldset>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Pencatatan</label>
@@ -144,8 +149,11 @@
 				<!-- Accordion content -->
 				<div id="demo-acc-panel-3" class="panel-collapse  collapse {$wp2}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
 					<div class="panel-body">
-					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/updWaKri/?data=wp&open=wp2" method="post" class="form-horizontal">
-						<input type="hidden" name="id" value="{if $dataWP2}{$dataWP2.id}{/if}">
+					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/simpanWaKri/?data=wp&open=wp2" method="post" class="form-horizontal">
+						<input type="hidden" name="id" value="{if $dataWP2}{$dataWP2.id}{else}2{/if}">
+						<input type="hidden" name="query" id="query" value="{$querywp2}"/>	
+						<input type="hidden" name="type" id="idType" value="2"/>		
+						<input type="hidden" name="n_status" id="idType" value="1"/>		
 						<fieldset>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Pencatatan</label>

@@ -35,9 +35,13 @@
 				<!--Tabs Content-->
 				<div class="tab-content">
 					<div id="demo-lft-tab-1" class="tab-pane fade active in">
-						<form class="form-horizontal" method="post" action="{$basedomain}pengaturan_admin/ubahkonten" id="dataAjax">
+						<form class="form-horizontal" method="post" action="{$basedomain}pengaturan_admin/simpanContent" id="dataAjax">
 
-<input type="hidden" name="id" id="idhidden"/>							<div class="form-group" >
+<input type="hidden" name="id" id="idhidden" value=""/>				
+<input type="hidden" name="query" id="query" value=""/>				
+			<div class="form-group" >
+<input type="hidden" name="type" id="idType"/>							<div class="form-group" >
+<input type="hidden" name="category" value="1"/>							<div class="form-group" >
 											<label class="col-sm-3 control-label col-md-offset-6">Pilih Konten:</label>
 											<div class="col-sm-3">
 												<select class="selectpicker" >
@@ -113,17 +117,25 @@
 <script>
 	$(document).on('ready', function() {
 		$('.ajax-spinner-bars').css("display","block"); 
-                        $.post(basedomain+"pengaturan_admin/selectubahkonten", {actionfunction: 'showData',type:'1'}, function(data){
+		$('#idType').val(1); 
+		$('#idhidden').val(1); 
+        $('#query').val("insert"); 
+                        $.post(basedomain+"pengaturan_admin/selectubahkonten",{actionfunction: 'showData',type:'1'}, function(data){
                             // console.log(data);
                             if (data.status==true) {
                                // console.log(data.data);
                                     $('.note-editable').html(data.data); 
                                     $('#judul').val(data.judul); 
                                     $('#idhidden').val(data.idhidden); 
+                                    $('#query').val("update"); 
 
                                    
                                     $('.ajax-spinner-bars').css("display","none");
                             }else{
+
+                                    $('#query').val("insert"); 
+                                    $('#judul').val(""); 
+                                    $('.note-editable').html(""); 
                                  $('.ajax-spinner-bars').css("display","none"); 
                             }
                         }, "JSON")
@@ -154,6 +166,10 @@
                    // alert(parameter);
                    // var valueparameter =$('#valueparameter').val();
 
+                     
+					$('#idType').val(parameter); 
+					$('#idhidden').val(parameter); 
+
                      $.post(basedomain+"pengaturan_admin/selectubahkonten", {actionfunction: 'showData',type:parameter}, function(data){
                             // console.log(data);
                             if (data.status==true) {
@@ -162,9 +178,15 @@
 
                                     $('#judul').val(data.judul); 
                                     $('#idhidden').val(data.idhidden); 
-                                   
+                                   	
+                                    $('#query').val("update"); 
+
                                     $('.ajax-spinner-bars').css("display","none");
                             }else{
+
+                                    $('#query').val("insert"); 
+                                    $('#judul').val(""); 
+                                    $('.note-editable').html(""); 
                                  $('.ajax-spinner-bars').css("display","none"); 
                             }
                         }, "JSON")
