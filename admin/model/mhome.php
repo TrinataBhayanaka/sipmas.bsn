@@ -4,7 +4,7 @@ class mhome extends Database {
 		
 	function select_data_inbox_pengaduan()
 	{
-		$query = "SELECT p.idLaporan,p.tanggal,p.judul,p.nama,p.n_status,u.name 
+		$query = "SELECT p.idPengaduan,p.idLaporan,p.tanggal,p.judul,p.nama,p.n_status,u.name 
 				FROM dbo.bsn_pengaduan as p
 				inner join bsn_users as u on u.idUser = p.idUser";
 		//pr($query);
@@ -15,10 +15,10 @@ class mhome extends Database {
 
 	function select_data_inbox_pengaduan_condtn($user)
 	{
-		$query = "SELECT p.idLaporan,p.tanggal,p.judul,p.nama,p.n_status,u.name 
+		$query = "SELECT p.idPengaduan,p.idLaporan,p.tanggal,p.judul,p.nama,p.n_status,u.name 
 				FROM dbo.bsn_pengaduan as p
 				inner join bsn_users as u on u.idUser = p.idUser
-				where p.disposisi = '{$user}' and p.satker = '{$user}'";
+				where p.disposisi = '{$user}'";
 		//pr($query);
 		$result = $this->fetch($query,1);
 		//pr($result);
@@ -27,7 +27,7 @@ class mhome extends Database {
 	
 	function select_data_km()
 	{
-		$query = "SELECT COUNT(1) AS total FROM dbo.bsn_pengaduan WHERE n_status = 0";
+		$query = "SELECT COUNT(*) AS total FROM dbo.bsn_pengaduan";
 		$result = $this->fetch($query);
 		// pr($result);
 		return $result;

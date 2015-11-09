@@ -92,7 +92,13 @@
               <a href="{$basedomain}home/logout">
                 LOG OUT
               </a>
-            </li> 
+            </li>
+            {else}
+             <li class=""><!-- Log in -->
+              <a href="#loginform" id="loginbutton">
+                LOG IN
+              </a>
+            </li>
             {/if}
           </ul>
 
@@ -104,3 +110,15 @@
   <!-- /Top Nav -->
 
 </div>
+
+{literal}
+<script type="text/javascript">
+  $('#loginbutton').click(function(){
+    $('html, body').animate({
+        scrollTop: $( $.attr(this, 'href') ).offset().top
+    }, 500);
+    return false;
+});
+</script>
+{/literal}
+
