@@ -115,13 +115,10 @@ $(document).on('blur', '.email', function(){
     }, "JSON")
 });
 
-function ValidateEmail(inputText){  
 
-  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
-  if(inputText.value.match(mailformat)){  
-    return true;  
-  }else{  
-    alert("Email invalid!");  
-    return false;  
-  }  
-}  
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}    
