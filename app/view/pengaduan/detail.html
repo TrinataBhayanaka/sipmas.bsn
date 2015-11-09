@@ -25,6 +25,7 @@
 
 					<fieldset class="nomargin">	
 						{$data.isi}
+						{if !empty($file)}
 						<div class="row tab-post margin-top-30">
 	                        <div class="col-md-12 col-sm-9 col-xs-9">
 								<i class="fa fa-paperclip"></i><strong> Lampiran Data Pendukung :</strong><br>
@@ -34,6 +35,7 @@
 								{/foreach}
 							</div>
 						</div>
+						{/if}
 					</fieldset>
 
 					{*}<div class="row margin-bottom-20">
@@ -47,20 +49,18 @@
 				<section>
 					
 						<ul class="nav nav-tabs nav-top-border">
-							<li class="active"><a href="#tindaklanjut" data-toggle="tab">Tindak Lanjut Laporan</a></li>
+							<li {if $data.fase neq '6'}class="active"{/if}><a href="#tindaklanjut" data-toggle="tab">Tindak Lanjut Laporan</a></li>
 							<li><a href="#penelusuran" data-toggle="tab">Penelusuran Laporan</a></li>
-							{if $data.fase eq '5'}<li><a href="#survey" data-toggle="tab">Survey Kepuasan Masyarakat</a></li>{/if}
+							{if $data.fase eq '6'}<li {if $data.fase eq '6'}class="active"{/if}><a href="#survey" data-toggle="tab">Survey Kepuasan Masyarakat</a></li>{/if}
 							
 						</ul>
 
 						<div class="tab-content">
-							<div class="tab-pane fade in active" id="tindaklanjut">
+							<div class="tab-pane fade {if $data.fase neq '6'}in active{/if}" id="tindaklanjut">
 								
 							{foreach $comment as $val}
 								<!-- COMMENT -->
 								<ul class="comment list-unstyled">
-									
-									{foreach $dataPengaduan.0.comment as $key =>$val}
 									
 									<li class="comment">
 
@@ -75,7 +75,7 @@
 												<span>{$val.nameUser}</span>
 											</a>
 											{$val.isi}
-
+											{if !empty($val.files)}
 											<div class="row tab-post margin-top-30">
 							                    <div class="col-md-12 col-sm-9 col-xs-9">
 													<i class="fa fa-paperclip"></i><strong> Lampiran Data Pendukung :</strong><br>
@@ -85,6 +85,7 @@
 													{/foreach}
 												</div>
 											</div>
+											{/if}
 										</div><!-- /comment body -->
 
 										{*}<!-- options -->
@@ -101,11 +102,10 @@
 										</ul><!-- option -->{/*}
 
 									</li><!-- /options -->
-									{/foreach}
 									
 								</ul><!-- /COMMENT -->
 								{/foreach}
-
+								{if $data.fase neq '6'}
 								<form method="post" action="{$basedomain}pengaduan/ins_balas" class="box-light margin-top-20" enctype="multipart/form-data"><!-- .box-light OR .box-dark -->
 									<div class="box-inner">
 										<h4 class="uppercase">Kirim Balasan</h4>
@@ -124,11 +124,30 @@
 
 									</div>
 								</form>
+								{/if}
 							</div>
 							<div class="tab-pane fade" id="penelusuran">
 								<div class="timeline"><!-- .timeline-inverse = right position [left on RTL] -->
 
-										{if 3 lte $data.fase}
+										{if 6 lte $data.fase}
+										<!-- ITEM -->
+										<div class="timeline-item timeline-item-bordered" style="min-height:80px">
+											<!-- timeline entry -->
+											<div class="timeline-entry rounded" style="line-height:normal"><!-- .rounded = entry -->
+												<i class="fa fa-check fa-lg"></i>
+												<div class="timeline-vline"><!-- vertical line --></div>
+											</div>
+											<!-- /timeline entry -->
+
+											{*}<small>{$tglBalas.tanggalformat}</small>{/*}
+											<h4 style="margin:0 0 0 0">Laporan Anda sudah selesai</h4>
+										
+
+										</div>
+										<!-- /ITEM -->
+										{/if}
+
+										{if 5 lte $data.fase}
 										<!-- ITEM -->
 										<div class="timeline-item timeline-item-bordered" style="min-height:80px">
 											<!-- timeline entry -->
@@ -140,6 +159,24 @@
 
 											<small>{$tglBalas.tanggalformat}</small>
 											<h4 style="margin:0 0 0 0">Laporan Anda sedang memasuki proses penyelesaian</h4>
+										
+
+										</div>
+										<!-- /ITEM -->
+										{/if}
+
+										{if 4 lte $data.fase && !empty($data.disposisi)}
+										<!-- ITEM -->
+										<div class="timeline-item timeline-item-bordered" style="min-height:80px">
+											<!-- timeline entry -->
+											<div class="timeline-entry rounded" style="line-height:normal"><!-- .rounded = entry -->
+												<i class="fa fa-check fa-lg"></i>
+												<div class="timeline-vline"><!-- vertical line --></div>
+											</div>
+											<!-- /timeline entry -->
+
+											<small>{$disposisi.tanggalformat}</small>
+											<h4 style="margin:0 0 0 0">Laporan Anda sedang disalurkan ke pihak terkait</h4>
 										
 
 										</div>
@@ -183,34 +220,38 @@
 										{/if}
 								</div>
 							</div>
-							{if $data.fase eq '5'}
-							<div class="tab-pane fade" id="survey">
-								<h4 class="upercase">Survey Kepuasan Masyarakat</h4>
-								<p>Apakah Anda sudah puas dengan jawaban yang diberikan pihak BSN terhadap pengaduan yang anda laporkan? Mohon berikan tanggapan anda melaluifitur di bawah ini.</p>
-								
-									<label class="radio">
-										<input type="radio" name="radio-btn" value="1" checked="checked">
-										<i></i> Sangat Puas
-									</label>
-									<label class="radio">
-										<input type="radio" name="radio-btn" value="1" checked="checked">
-										<i></i> Puas
-									</label>
-									<label class="radio">
-										<input type="radio" name="radio-btn" value="1" checked="checked">
-										<i></i> Tidak Puas
-									</label>
-									<label class="radio">
-										<input type="radio" name="radio-btn" value="1" checked="checked">
-										<i></i> Sangat Tidak Puas
-									</label>
+							{if $data.fase eq '6'}
+							<div class="tab-pane fade {if $data.fase eq '6'}in active{/if}" id="survey">
+								<form method="post" action="{$basedomain}pengaduan/ins_survey">
+									<h4 class="upercase">Survey Kepuasan Masyarakat</h4>
+									<p>Apakah Anda sudah puas dengan jawaban yang diberikan pihak BSN terhadap pengaduan yang anda laporkan? Mohon berikan tanggapan anda melaluifitur di bawah ini.</p>
+									
+										<label class="radio">
+											<input type="radio" name="survey" value="1" {if $survey.survey eq 1}checked{/if}>
+											<i></i> Sangat Puas
+										</label>
+										<label class="radio">
+											<input type="radio" name="survey" value="2" {if $survey.survey eq 2}checked{/if}>
+											<i></i> Puas
+										</label>
+										<label class="radio">
+											<input type="radio" name="survey" value="3" {if $survey.survey eq 3}checked{/if}>
+											<i></i> Tidak Puas
+										</label>
+										<label class="radio">
+											<input type="radio" name="survey" value="4" {if $survey.survey eq 4}checked{/if}>
+											<i></i> Sangat Tidak Puas
+										</label>
 
-								
-								<div class="row margin-top-20">
-									<div class="col-md-12">
-										<button type="submit" class="btn btn-primary" id="buttonsubmit"><i class="fa fa-check"></i> Kirim Survey</button>
+									<!-- HIDDEN -->
+									<input type="hidden" name="idPengaduan" value="{$id}">
+									
+									<div class="row margin-top-20">
+										<div class="col-md-12">
+											<button type="submit" class="btn btn-primary" id="buttonsubmit"><i class="fa fa-check"></i> Kirim Survey</button>
+										</div>
 									</div>
-								</div>
+								</form>
 							</div>
 							{/if}
 							
@@ -231,7 +272,7 @@
 								<small>ID Laporan : {$data.idLaporan}</small>
 								<small>username : {$user.username}</small>
 								<small>Nama Lengkap : {$user.name}</small>
-								<small>Ruang Lingkup Laporan : {$user.ruangLingkup}</small>
+								<small>Ruang Lingkup Laporan : {$data.ruangLingkup}</small>
 								<small>Status Laporan : {if $data.status eq '1'}Aktif
 														{elseif $data.status eq '2'}Ditindak Lanjuti
 														{elseif $data.status eq '3'}Tidak Ditindak Lanjuti

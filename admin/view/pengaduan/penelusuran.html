@@ -57,6 +57,20 @@
 					<div class="panel-body">
 						<div class="timeline">
 
+						{if 6 lte $dataPengaduan.fase}					
+						
+							<div class="timeline-entry">
+								<div class="timeline-stat">
+									<div class="timeline-icon bg-info"><i class="fa fa-check fa-lg"></i>
+									</div>
+								</div>
+								<div class="timeline-label">
+									{*}<p class="mar-no pad-btm">{$tglBalas.tanggalformat}</p>{/*}
+									<p><strong>Laporan pengaduan telah selesai</strong></p>
+								</div>
+							</div>
+						{/if}
+
 						{if 5 lte $dataPengaduan.fase}					
 						
 							<div class="timeline-entry">
@@ -66,12 +80,12 @@
 								</div>
 								<div class="timeline-label">
 									<p class="mar-no pad-btm">{$tglBalas.tanggalformat}</p>
-									<p><strong>Inspektorat sedang melakukan proses tindak lanjut</strong></p>
+									<p><strong>Sedang dilakukan proses tindak lanjut laporan</strong></p>
 								</div>
 							</div>
 						{/if}
 
-						{if 4 eq $dataPengaduan.fase}					
+						{if 4 lte $dataPengaduan.fase && !empty($dataPengaduan.disposisi)}					
 						
 							<div class="timeline-entry">
 								<div class="timeline-stat">
@@ -102,7 +116,7 @@
 						{if 1 lte $dataPengaduan.fase}					
 							<div class="timeline-entry">
 								<div class="timeline-stat">
-									<div class="timeline-icon bg-success"><i class="fa fa-check fa-lg"></i>
+									<div class="timeline-icon bg-primary"><i class="fa fa-check fa-lg"></i>
 									</div>
 								</div>
 								<div class="timeline-label">

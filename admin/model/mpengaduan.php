@@ -106,6 +106,9 @@ class mpengaduan extends Database {
         $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_penelaahan WHERE idPengaduan = '{$id}'";
         $res = $this->fetch($sql,0);
 
+        $res['kesimpulan'] = html_entity_decode(htmlspecialchars_decode($res['kesimpulan'],ENT_NOQUOTES));
+        $res['rekomendasi'] = html_entity_decode(htmlspecialchars_decode($res['rekomendasi'],ENT_NOQUOTES));
+
         return $res;
     }
 
@@ -220,6 +223,10 @@ class mpengaduan extends Database {
             $sql = "SELECT nama_satker FROM bsn_satker WHERE idSatker = '{$val['tujuan']}'";
             $satker = $this->fetch($sql,0);
             $res[$key]['nameSatker'] = $satker['nama_satker'];
+
+            $sql = "SELECT * FROM bsn_file WHERE idDisposisi = '{$val['idDisposisi']}'";
+            $file = $this->fetch($sql,1);
+            $res[$key]['files'] = $file;
         }
 
         return $res;
@@ -228,6 +235,22 @@ class mpengaduan extends Database {
     function updStat($data)
     {
         $sql = "UPDATE bsn_pengaduan SET status='{$data['status']}' WHERE idPengaduan = '{$data['idPengaduan']}'";
+        $res = $this->query($sql);
+
+        return $res;
+    }
+
+    function upd_nstatus($id,$value)
+    {
+        $sql = "UPDATE bsn_pengaduan SET n_status = {$value} WHERE idPengaduan = '{$id}'";
+        $res = $this->query($sql);
+
+        return $res;
+    }
+
+    function upd_rLingkup($id,$kategori)
+    {
+        $sql = "UPDATE bsn_pengaduan SET ruangLingkup = '{$kategori}' WHERE idPengaduan = '{$id}'";
         $res = $this->query($sql);
 
         return $res;

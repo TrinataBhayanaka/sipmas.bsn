@@ -42,8 +42,15 @@ class daftar_pengaduan extends Controller {
 
 		$data = $this->model->getPengaduan($idPengaduan);
 		$file = $this->model->getFile($idPengaduan,'idPengaduan');
-
-		$data[0]['isi'] = html_entity_decode($data[0]['isi']);
+		if($data[0]['disposisi']){
+			if($this->admin['satker'] == $data[0]['disposisi']){
+				$this->model->upd_nstatus($idPengaduan,1);
+			}
+		} else {
+			$this->model->upd_nstatus($idPengaduan,1);
+		}
+		$data[0]['isi'] = html_entity_decode(htmlspecialchars_decode($data[0]['isi'], ENT_NOQUOTES));
+		$data[0]['judul'] = html_entity_decode(htmlspecialchars_decode($data[0]['judul'], ENT_NOQUOTES));
 
 		$this->view->assign('id',$idPengaduan);
 		$this->view->assign('file',$file);
@@ -156,8 +163,11 @@ class daftar_pengaduan extends Controller {
 	{
 		global $basedomain;
 
-		$this->model->insert_penelaahan($_POST);
+		$_POST['kesimpulan'] = htmlentities(htmlspecialchars($_POST['kesimpulan'], ENT_QUOTES));
+		$_POST['rekomendasi'] = htmlentities(htmlspecialchars($_POST['rekomendasi'], ENT_QUOTES));
 
+		$this->model->insert_penelaahan($_POST);
+		$this->model->upd_rLingkup($_POST['idPengaduan'],$_POST['kategori']);
 		$this->model->upd_fase($_POST['idPengaduan'],2);
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/penelaahan/?id={$_POST['idPengaduan']}'</script>";
@@ -174,9 +184,11 @@ class daftar_pengaduan extends Controller {
 		// db($_POST);
 		$this->model->insert_balas($_POST);
 
-		$this->model->upd_fase($_POST['idPengaduan'],3);
+		$this->model->upd_fase($_POST['idPengaduan'],5);
+		$_POST['status'] = 2;
+		$this->model->updStat($_POST);
 		    		
-		if(isset($_FILES['myfile'])){
+		if(!empty($_FILES['myfile']['name'])){
     		$upload = uploadFile('myfile');
     		//insert ke file
     		$idComment = $this->model->getLatestId('bsn_comment');
@@ -203,12 +215,12 @@ class daftar_pengaduan extends Controller {
 		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
 		$_POST['n_status'] = 1;
-		// db($_POST);
+		// db($_FILES);
 		$this->model->insert_disposisi($_POST);
-
+		$this->model->upd_nstatus($_POST['idPengaduan'],2);
 		$this->model->upd_fase($_POST['idPengaduan'],4);
 
-		if(isset($_FILES['myfile'])){
+		if(!empty($_FILES['myfile']['name'])){
     		$upload = uploadFile('myfile');
     		//insert ke file
     		$idDisposisi = $this->model->getLatestId('bsn_disposisi');
@@ -229,8 +241,13 @@ class daftar_pengaduan extends Controller {
 
 	public function chg_status()
 	{
-		db($_POST);
+		global $basedomain;
+
 		$this->model->updStat($_POST);
+		$this->model->upd_fase($_POST['idPengaduan'],6);
+
+		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
+		exit;
 	}
 	
 }

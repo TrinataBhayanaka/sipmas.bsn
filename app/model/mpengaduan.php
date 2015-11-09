@@ -55,6 +55,10 @@ class mpengaduan extends Database {
                 // pr($sqlSomment);
                 $resComment = $this->fetch($sqlSomment,0);
                 if ($resComment)$res[$key]['comment'][] = $resComment;
+
+                $sqlrLingkup = "SELECT ruang_lingkup FROM {$this->prefix}_kategori WHERE idKategori = '{$value['ruangLingkup']}'";
+                $resrLingkup = $this->fetch($sqlrLingkup,0);
+                if($resrLingkup)$res[$key]['ruangLingkup'] = $resrLingkup['ruang_lingkup'];
             }
             
         }
@@ -112,6 +116,38 @@ class mpengaduan extends Database {
         $res = $this->insert($data,'bsn_comment');
         if ($res) return $res;
         return false;
+    }
+
+    function getDisposisi($id)
+    {
+        $sql = "SELECT TOP (1) CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_disposisi WHERE idPengaduan = '{$id}' ORDER BY tanggal ASC";
+        $res = $this->fetch($sql,0);
+
+        return $res;
+    }
+
+    function insert_survey($data)
+    {
+        $check = $this->getSurvey($data['idPengaduan']);
+
+        if(!$check){
+            $res = $this->insert($data,'bsn_survey');
+            if ($res) return $res;
+            return false;    
+        } else {
+            $upd = "UPDATE bsn_survey SET survey = '{$data['survey']}' WHERE idPengaduan = '{$data['idPengaduan']}'";
+            $res = $this->query($upd);
+            return $res;
+        }
+        
+    }
+
+    function getSurvey($id)
+    {
+        $sql = "SELECT * FROM bsn_survey WHERE idPengaduan = '{$id}'";
+        $res = $this->fetch($sql,0);
+
+        return $res;
     }
 }
 ?>

@@ -40,10 +40,13 @@ class pengaduan extends Controller {
     	$dataPengaduan = $this->model->getPengaduan($this->user['idUser']);
     	$file = $this->model->getFile($idPengaduan,'idPengaduan');
     	$penelaahan = $this->model->getPenelaahan($idPengaduan);
+    	$disposisi = $this->model->getDisposisi($idPengaduan);
     	$tglBalas = $this->model->getTglBalas($idPengaduan);
     	$comment = $this->model->getComment($idPengaduan);
+    	$survey = $this->model->getSurvey($idPengaduan);
 
     	$data[0]['isi'] = html_entity_decode(htmlspecialchars_decode($data[0]['isi'],ENT_NOQUOTES));
+    	// $data[0]['judul'] = html_entity_decode(htmlspecialchars_decode($data[0]['judul'],ENT_NOQUOTES));
 
     	if($data[0]['n_status'] == 1)
     	{
@@ -56,7 +59,9 @@ class pengaduan extends Controller {
     		$data[0]['n_status'] = 'Selesai';
     	}
 
+    	$this->view->assign('survey',$survey);
     	$this->view->assign('tglBalas',$tglBalas);
+    	$this->view->assign('disposisi',$disposisi);
     	$this->view->assign('comment',$comment);
     	$this->view->assign('penelaahan',$penelaahan);
     	$this->view->assign('file',$file);
@@ -84,9 +89,10 @@ class pengaduan extends Controller {
             else
             {
 		    	$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
-		    	// $_POST['judul'] = htmlspecialchars($_POST['judul'])
+		    	$_POST['judul'] = htmlentities(htmlspecialchars($_POST['judul'], ENT_QUOTES));
 		    	$_POST['idUser'] = $this->user['idUser'];
 		    	$_POST['status'] = 1;
+		    	$_POST['n_status'] = 2;
 		    	unset($_POST['g-recaptcha-response']);
 		    	unset($_POST['termagree']);
 		    	if($_POST['perorangan'] == 'on') $_POST['perorangan'] = 1; 
@@ -94,7 +100,7 @@ class pengaduan extends Controller {
 
 		    	$latestId = $this->model->insert_laporan($_POST);
 
-		    	if(isset($_FILES['myfile'])){
+		    	if(!empty($_FILES['myfile']['name'])){
 		    		$upload = uploadFile('myfile');
 		    		//insert ke file
 		    		// $idPengaduan = $this->model->getLatestId();
@@ -129,7 +135,7 @@ class pengaduan extends Controller {
 		// db($_POST);
 		$this->model->insert_balas($_POST);
 		    		
-		if(isset($_FILES['myfile'])){
+		if(!empty($_FILES['myfile']['name'])){
     		$upload = uploadFile('myfile');
     		//insert ke file
     		$idComment = $this->model->getLatestId('bsn_comment');
@@ -145,6 +151,19 @@ class pengaduan extends Controller {
     	}
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
+		exit;
+    }
+
+    function ins_survey()
+    {	
+    	global $basedomain;
+    	
+    	$_POST['idUser'] = $this->user['idUser'];
+    	$_POST['n_status'] = 1;
+
+    	$this->model->insert_survey($_POST);
+
+    	echo "<script>alert('Terima kasih atas survey anda');window.location.href='".$basedomain."pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
 		exit;
     }
 }
