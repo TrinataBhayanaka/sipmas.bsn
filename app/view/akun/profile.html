@@ -131,6 +131,17 @@
                     <header><i class="fa fa-tags"></i> Daftar Pengaduan Anda</header>
                     
                     <fieldset class="nomargin"> 
+                        {foreach $dataPengaduan as $val}
+                    	<div class="row tab-post">
+	                        <div class="col-md-12 col-sm-9 col-xs-9">
+								<a href="{$basedomain}pengaduan/detail/?id={$val.idPengaduan}" class="tab-post-link"><strong>{$val.judul}</strong></a>
+								<small>{$val.tanggalformat}</small>
+								<small>ID Laporan : {$val.idLaporan}</small>
+								<small>Status Laporan : {if $val.n_status}{if $val.n_status eq '1'}Aktif{else}Selesai{/if}{else}Dalam Proses{/if}</small>
+							</div>
+						</div>
+						{/foreach}
+						{*}
                         <div class="row tab-post">
                             <div class="col-md-12 col-sm-9 col-xs-9">
                                 <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
@@ -157,16 +168,7 @@
                                 <small>Status Laporan : Aktif</small>
                             </div>
                         </div>
-
-                        <div class="row tab-post">
-                            <div class="col-md-12 col-sm-9 col-xs-9">
-                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
-                                <small>ID Laporan : 5623333</small>
-                                <small>Status Laporan : Aktif</small>
-                            </div>
-                        </div>
-
+                        {/*}
                     </fieldset>
 
                 </form>
