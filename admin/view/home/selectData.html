@@ -1,0 +1,42 @@
+{if $type==1}
+<input type="text" placeholder="Masukkan kata kunci" id="demo-inline-inputmail" name="tracking" class="form-control">
+{/if}
+
+{if $type==2}
+
+<select name="tracking" class="form-control" required>
+    {foreach $data as $val}
+    <option value="{$val.idKategori}">{$val.ruang_lingkup}</option>
+    {/foreach}
+</select>
+{/if}
+
+{if $type==3}
+
+<select name="tracking" class="form-control" required>
+    {foreach $data as $val}
+    <option value="{$val.idSatker}">{$val.nama_satker}</option>
+    {/foreach}
+</select>
+{/if}
+
+{if $type==4}
+
+<input type="text" placeholder="Masukkan kata kunci" id="demo-inline-inputmail" name="tracking" class="form-control">
+{/if}
+{if $type==5}
+
+<select name="tracking" class="form-control" required>
+    
+    <option value="1">Aktif</option>
+    <option value="2">Ditindak Lanjuti</option>
+    <option value="3">Tidak Ditindak Lanjuti</option>
+    <option value="4">Selesai</option>
+    
+</select>
+{/if}
+
+{if $type==6}
+
+<input type="text" placeholder="Masukkan kata kunci" id="demo-inline-inputmail" name="tracking" class="form-control">
+{/if}
