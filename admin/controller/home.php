@@ -20,7 +20,7 @@ class home extends Controller {
 	public function loadmodule()
 	{
 		
-		// $this->contentHelper = $this->loadModel('contentHelper');
+		$this->contentHelper = $this->loadModel('contentHelper');
 		// $this->marticle = $this->loadModel('marticle');
 		// $this->mquiz = $this->loadModel('mquiz');
 		// $this->mcourse = $this->loadModel('mcourse');
@@ -265,15 +265,49 @@ class home extends Controller {
 	}
 	
 	public function search(){
-		
+		// pr($_POST);
+		if($_POST){
 
-        $data['pencarian']=$this->contentHelper->tracking($_POST['tracking']);
-        pr($_POST);
-
+        $data['pencarian']=$this->contentHelper->tracking($_POST['tracking'],$_POST['type'],$_POST['start'],$_POST['end']);
+        
+        // pr($data);
+    	}
         $this->view->assign('data',$data['pencarian']);
-        pr($data);
-        exit;
+        // pr($data);
+        // exit;
 		return $this->loadView('home/search');
+
+	}
+
+	public function selectData(){
+	
+		$type=$_POST['type'];
+		if($type=="2"){
+			$dataContent['table'] = "bsn_kategori";
+			$dataContent['condition'] = array('n_status'=>1);
+
+			$data = $this->contentHelper->fetchData($dataContent);
+		
+			$this->view->assign('data',$data);
+		}elseif($type=="3"){
+			$dataContent['table'] = "bsn_satker";
+			$dataContent['condition'] = array('n_status'=>1);
+
+			$data = $this->contentHelper->fetchData($dataContent);
+		
+			$this->view->assign('data',$data);
+		}
+
+		$this->view->assign('type',$type);
+        $dataView= $this->loadView('home/selectData');
+// pr($dataView);
+        if ($dataView){
+            print json_encode(array('status'=>true,'data'=>$dataView));
+        }else{
+            print json_encode(array('status'=>false));
+        }
+        
+        exit;
 
 	}
 

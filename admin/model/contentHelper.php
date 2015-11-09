@@ -3,19 +3,27 @@ class contentHelper extends Database {
 	
 	var $prefix = "lelang";
 
-	function tracking($postTracking){
+	function tracking($postTracking,$type,$start,$end){
+// pr($_POST);
+        if($type=='1'){
+        	$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.judul LIKE '%{$postTracking}%' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
+    	}elseif($type=='2'){
 
-        if($type==''){
-        	$query = "SELECT * FROM bsn_pengaduan WHERE idPengaduan LIKE '%{$postTracking}%'";
+    	}elseif($type=='3'){
+    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.satker LIKE '%{$postTracking}%' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
+    	}elseif($type=='4'){
+    		
+    	}elseif($type=='5'){
+    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.status='{$postTracking}' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
+    	}elseif($type=='6'){
+
+    		 $query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE (Usr.email='{$postTracking}' OR Usr.name LIKE '%{$postTracking}%') AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";	
     	}
-        $result = $this->fetch($query,1);
-        if(empty($result)){
-           $query = "SELECT P.* FROM bsn_pengaduan as P join users as Usr on P.idUser=Usr.idUser WHERE Usr.email='{$postTracking}'";
 
-           $result = $this->fetch($query,1); 
+        $result = $this->fetch($query,1); 
 
-           return $result;
-        }
+        
+        // pr($query);
         // pr($result);
         // exit;
         return $result;

@@ -9,7 +9,7 @@
 				<div id="page-content">
 						<div class="pad-btm mar-btm text-center">
 							<h3 class="text-thin mar-no">
-								Ditemukan 10 pencarian dengan kata kunci <i class="text-primary">"SNI Online" , "Kategori User"</i>
+								pencarian DATA{*} kata kunci <i class="text-primary">"SNI Online" , "Kategori User"</i>{/*}
 							</h3>
 						</div>
 					
@@ -21,17 +21,19 @@
 							<!--===================================================-->
 							<div class="tab-pane fade active in" id="demo-search-tab-1">
 								<ul class="list-group bord-no">
+									{foreach $data as $val}
 									<li class="list-group-item mar-ver">
 										<div class="media-heading">
-											<a class="h4 btn-link" href="#">Bagaimana penjelasan untuk SNI Pembalut Wanita?</a>
+											<a class="h4 btn-link" href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.judul}</a>
 										</div>
-											<p> Rabu, 08 Juli 2015 14:25 WIB <br>
-											    ID Laporan : 56322233 <br>
-												Nama User  : Ariana Grande <br>
-												Kategori Laporan : Dokumen SNI <br>
+											<p> {$val.tanggalformat} <br>
+											    ID Laporan : {$val.idLaporan} <br>
+												Nama User  : {$val.name} <br>
+												Status Laporan : {if $val.status=='1'}Aktif{elseif $val.status=='2'}Ditindak Lanjuti{elseif $val.status=='3'}Tidak Ditindak Lanjuti{elseif $val.status=='4'} Selesai{/if} <br>
 											</p>
 									</li>
-									<li class="list-group-item mar-ver">
+									{/foreach}
+									{*}<li class="list-group-item mar-ver">
 										<div class="media-heading">
 										<a class="h4 btn-link" href="#">Pengiriman Dokumen SNI yang terlalu lama</a>
 										</div>
@@ -50,13 +52,13 @@
 												Nama User  : Ariana Grande <br>
 												Kategori Laporan : Dokumen SNI <br>
 											</p>
-									</li>
+									</li>{/*}
 									
 								</ul>
 								<hr class="hr-wide">
 	
 								<!--Pagination-->
-								<div class="text-right">
+								{*} <div class="text-right">
 									<ul class="pagination mar-no">
 										<li class="disabled"><a class="fa fa-angle-double-left" href="#"></a></li>
 										<li class="active"><a href="#">1</a></li>
@@ -67,7 +69,7 @@
 										<li><a href="#">20</a></li>
 										<li><a class="fa fa-angle-double-right" href="#"></a></li>
 									</ul>
-								</div>
+								</div> {/*}
 							</div>
 							<!--===================================================-->
 	
