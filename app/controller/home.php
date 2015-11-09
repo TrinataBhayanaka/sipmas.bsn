@@ -114,7 +114,7 @@ class home extends Controller {
                 $_POST['password'] = sha1($salt . $pass . $salt);
                 $_POST['salt'] = $salt;
                 $_POST['n_status'] = 0;
-                // $_POST['register_date'] = date('Y-m-d H:i:s');
+                $_POST['register_date'] = date('Y-m-d H:i:s');
                 $_POST['login_count'] = 0;
                 $_POST['type'] = 2;
                 $_POST['email_token'] = $this->token;
@@ -200,6 +200,7 @@ class home extends Controller {
             $html = "<h2>Oppsss, <strong>Terjadi Kesalahan</strong></h2>";
         }
         $this->view->assign('status',$html);
+        $this->view->assign('link',$link);
 
     	return $this->loadView('info');
     }
