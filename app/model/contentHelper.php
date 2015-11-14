@@ -20,7 +20,7 @@ class contentHelper extends Database {
         $result = $this->fetch($query,1);
         // pr($query);
         if(empty($result)){
-           $query = "SELECT P.* FROM bsn_pengaduan as P join {$this->prefix}_users as Usr on P.idUser=Usr.idUser WHERE Usr.email='{$postTracking}'";
+           $query = "SELECT P.*, CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join {$this->prefix}_users as Usr on P.idUser=Usr.idUser WHERE Usr.email='{$postTracking}'";
 
            $result = $this->fetch($query,1); 
 

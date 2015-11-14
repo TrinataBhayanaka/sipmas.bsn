@@ -265,11 +265,11 @@ class home extends Controller {
 	}
 	
 	public function search(){
-		
+		// pr($_POST);
 		if($_POST){
 
-        $data['pencarian']=$this->contentHelper->tracking($_POST['tracking'],$_POST['type']);
-        // pr($_POST);
+        $data['pencarian']=$this->contentHelper->tracking($_POST['tracking'],$_POST['type'],$_POST['start'],$_POST['end']);
+        
         // pr($data);
     	}
         $this->view->assign('data',$data['pencarian']);

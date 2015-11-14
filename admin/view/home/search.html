@@ -24,12 +24,12 @@
 									{foreach $data as $val}
 									<li class="list-group-item mar-ver">
 										<div class="media-heading">
-											<a class="h4 btn-link" href="#">{$val.judul}</a>
+											<a class="h4 btn-link" href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.judul}</a>
 										</div>
-											<p> {$val.tanggal} <br>
+											<p> {$val.tanggalformat} <br>
 											    ID Laporan : {$val.idLaporan} <br>
 												Nama User  : {$val.name} <br>
-												{*}Ruang Lingkup Laporan : {if $val.ruangLingkup}{$val.ruangLingkup}{else}-{/if}{/*} <br>
+												Status Laporan : {if $val.status=='1'}Aktif{elseif $val.status=='2'}Ditindak Lanjuti{elseif $val.status=='3'}Tidak Ditindak Lanjuti{elseif $val.status=='4'} Selesai{/if} <br>
 											</p>
 									</li>
 									{/foreach}
