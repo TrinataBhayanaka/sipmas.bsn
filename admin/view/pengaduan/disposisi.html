@@ -94,7 +94,7 @@
 										<div class="col-md-12 col-sm-9 col-xs-9">
 											<i class="fa fa-paperclip"></i><strong> Attachment:</strong><br>
 											{foreach $val.files as $file}
-											<a href="{$basedomain}public_assets/{$file.nama}" class="tab-post-link">{$file.nama}<br>
+											<a href="{$app_domain}public_assets/{$file.nama}" class="tab-post-link">{$file.nama}<br>
 											<small style="color:green">download</small>
 											</a>
 											{/foreach}
@@ -162,8 +162,8 @@
 										</span>
 									</div>
 									<div id="demo-attach-file" class="media-body"></div>
+									<small class="help-block">Maximum file size:5Mb (pdf/png/jpg)</small>
 								</div>
-			
 							</div>
 						</div>
 						

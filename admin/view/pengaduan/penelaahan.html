@@ -143,10 +143,10 @@
 								<label class="col-md-3 control-label" for="demo-text-input">Pejabat Terkait</label>
 								<div class="col-md-9">
 									<select class="selectpicker" name="pejabat" data-width="100%">
-										<option value="1">Pejabat Eselon I</option>
-										<option value="2">Pejabat Eselon II</option>
-										<option value="3">Pejabat Eselon III</option>
-										<option value="4">Pejabat Eselon IV</option>
+										<option value="1" {if $penelaahan.pejabat eq '1'}selected{/if}>Pejabat Eselon I</option>
+										<option value="2" {if $penelaahan.pejabat eq '2'}selected{/if}>Pejabat Eselon II</option>
+										<option value="3" {if $penelaahan.pejabat eq '3'}selected{/if}>Pejabat Eselon III</option>
+										<option value="4" {if $penelaahan.pejabat eq '4'}selected{/if}>Pejabat Eselon IV</option>
 									</select>
 								</div>
 							</div>
