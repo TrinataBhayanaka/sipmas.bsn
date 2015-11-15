@@ -15,7 +15,7 @@ class contentHelper extends Database {
 
     function tracking($postTracking,$iduser){
 
-        $query = "SELECT * FROM bsn_pengaduan WHERE idUser='$iduser' AND (idPengaduan LIKE '%{$postTracking}%' OR idLaporan LIKE '%{$postTracking}%')";
+        $query = "SELECT *,CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_pengaduan WHERE idUser='$iduser' AND (idPengaduan LIKE '%{$postTracking}%' OR idLaporan LIKE '%{$postTracking}%')";
 
         $result = $this->fetch($query,1);
         // pr($query);
