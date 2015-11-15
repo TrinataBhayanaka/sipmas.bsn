@@ -28,6 +28,16 @@ class mpengaduan extends Database {
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['hpUser'] = $user['hp'];
+
+            $sisaWaktu = $this->getStdWaktu();
+            
+            if($val['status']==4){
+                $res[$key]['sisaWaktu'] = "-";
+            } else {
+                $endDate = date('Y-m-d', strtotime($val['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+                $nowDate = date("Y-m-d");
+                $res[$key]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+            }
         }
         
         return $res;
@@ -49,6 +59,16 @@ class mpengaduan extends Database {
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['hpUser'] = $user['hp'];
+
+            $sisaWaktu = $this->getStdWaktu();
+            
+            if($val['status']==4){
+                $res[$key]['sisaWaktu'] = "-";
+            } else {
+                $endDate = date('Y-m-d', strtotime($val['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+                $nowDate = date("Y-m-d");
+                $res[$key]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+            }
         }
         
         return $res;

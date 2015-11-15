@@ -27,6 +27,7 @@ class statistik extends Controller {
 		
 		$dataPengaduan = $this->mpengaduan->getPengaduan($this->user['idUser']);
 		$this->view->assign('user',$this->user);
+		$this->view->assign('dataPengaduan',$dataPengaduan);
 		return $this->loadView('statistik/view_statistik');
 		
     }

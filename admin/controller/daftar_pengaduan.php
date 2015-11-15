@@ -31,16 +31,6 @@ class daftar_pengaduan extends Controller {
 			$data = $this->model->getPengaduanSatker($this->admin['satker']);
 		}
 		
-		$sisaWaktu = $this->model->getStdWaktu();
-		
-		if($data[0]['status']==4){
-			$data[0]['sisaWaktu'] = "-";
-		} else {
-			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
-			$nowDate = date("Y-m-d");
-			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
-		}
-
 		$this->view->assign('dataPengaduan',$data);
 		
 		return $this->loadView('pengaduan/daftar_pengaduan');
@@ -71,7 +61,7 @@ class daftar_pengaduan extends Controller {
 			$nowDate = date("Y-m-d");
 			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
 		}
-		// db($data);
+		
 		$this->view->assign('id',$idPengaduan);
 		$this->view->assign('file',$file);
 		$this->view->assign('dataPengaduan',$data[0]);
@@ -137,7 +127,15 @@ class daftar_pengaduan extends Controller {
 	}
 	
 	public function balas(){
+		global $basedomain;
+
 		$idPengaduan = $_GET['id'];
+
+		$penelaahan = $this->model->getPenelaahan($idPengaduan);
+		if(!isset($penelaahan['idPenelaahan'])){
+			echo "<script>alert('Silahkan lakukan penelaahan terlebih dahulu');window.location.href='".$basedomain."daftar_pengaduan/penelaahan/?id={$idPengaduan}'</script>";
+			exit;
+		}
 
 		$data = $this->model->getPengaduan($idPengaduan);
 		$dataBalas = $this->model->getComment($idPengaduan);
@@ -151,7 +149,7 @@ class daftar_pengaduan extends Controller {
 			$nowDate = date("Y-m-d");
 			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
 		}
-		
+
 		$this->view->assign('dataBalas',$dataBalas);
 		$this->view->assign('dataPengaduan',$data[0]);
 		$this->view->assign('id',$idPengaduan);
@@ -161,7 +159,15 @@ class daftar_pengaduan extends Controller {
 	}
 	
 	public function disposisi(){
+		global $basedomain;
+
 		$idPengaduan = $_GET['id'];
+
+		$penelaahan = $this->model->getPenelaahan($idPengaduan);
+		if(!isset($penelaahan['idPenelaahan'])){
+			echo "<script>alert('Silahkan lakukan penelaahan terlebih dahulu');window.location.href='".$basedomain."daftar_pengaduan/penelaahan/?id={$idPengaduan}'</script>";
+			exit;
+		}
 
 		$data = $this->model->getPengaduan($idPengaduan);
 		$dataDisposisi = $this->model->getDisposisi($idPengaduan);
