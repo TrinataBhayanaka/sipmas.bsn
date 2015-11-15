@@ -904,4 +904,15 @@ function openFile($filePath)
 	}
 	return false;
 }
+
+function dateDiff($date1,$date2)
+{
+	$start = date_create($date1);
+	$end = date_create($date2);
+
+	$interval = date_diff($start, $end);
+
+	$res = $interval->format('%a Hari');
+	return $res;
+}
 ?>

@@ -30,6 +30,16 @@ class daftar_pengaduan extends Controller {
 		} else {
 			$data = $this->model->getPengaduanSatker($this->admin['satker']);
 		}
+		
+		$sisaWaktu = $this->model->getStdWaktu();
+		
+		if($data[0]['status']==4){
+			$data[0]['sisaWaktu'] = "-";
+		} else {
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$nowDate = date("Y-m-d");
+			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+		}
 
 		$this->view->assign('dataPengaduan',$data);
 		
@@ -52,6 +62,16 @@ class daftar_pengaduan extends Controller {
 		$data[0]['isi'] = html_entity_decode(htmlspecialchars_decode($data[0]['isi'], ENT_NOQUOTES));
 		$data[0]['judul'] = html_entity_decode(htmlspecialchars_decode($data[0]['judul'], ENT_NOQUOTES));
 
+		$sisaWaktu = $this->model->getStdWaktu();
+		
+		if($data[0]['status']==4){
+			$data[0]['sisaWaktu'] = "-";
+		} else {
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$nowDate = date("Y-m-d");
+			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+		}
+		// db($data);
 		$this->view->assign('id',$idPengaduan);
 		$this->view->assign('file',$file);
 		$this->view->assign('dataPengaduan',$data[0]);
@@ -120,8 +140,18 @@ class daftar_pengaduan extends Controller {
 		$idPengaduan = $_GET['id'];
 
 		$data = $this->model->getPengaduan($idPengaduan);
-		$dataBalas = $this->model->getBalas($idPengaduan);
+		$dataBalas = $this->model->getComment($idPengaduan);
 
+		$sisaWaktu = $this->model->getStdWaktu();
+		
+		if($data[0]['status']==4){
+			$data[0]['sisaWaktu'] = "-";
+		} else {
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$nowDate = date("Y-m-d");
+			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+		}
+		
 		$this->view->assign('dataBalas',$dataBalas);
 		$this->view->assign('dataPengaduan',$data[0]);
 		$this->view->assign('id',$idPengaduan);
@@ -136,7 +166,16 @@ class daftar_pengaduan extends Controller {
 		$data = $this->model->getPengaduan($idPengaduan);
 		$dataDisposisi = $this->model->getDisposisi($idPengaduan);
 		$satker = $this->model->getSatker();
-		// $adminUsers = $this->model->getAdmUsr();
+		
+		$sisaWaktu = $this->model->getStdWaktu();
+		
+		if($data[0]['status']==4){
+			$data[0]['sisaWaktu'] = "-";
+		} else {
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$nowDate = date("Y-m-d");
+			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+		}
 
 		$this->view->assign('satker',$satker);
 		$this->view->assign('dataPengaduan',$data[0]);

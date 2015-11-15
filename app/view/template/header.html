@@ -95,8 +95,7 @@
             </li>
             {else}
              <li class=""><!-- Log in -->
-              
-              <a href="{$basedomain}#loginform" id="loginbutton">
+              <a href="{if $page.page eq 'home' && $page.function eq 'index'}#loginform{else}{$basedomain}#loginform{/if}" id="loginbutton">
                 LOG IN
               </a>
               

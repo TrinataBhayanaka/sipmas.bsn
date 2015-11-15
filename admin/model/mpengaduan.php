@@ -256,5 +256,13 @@ class mpengaduan extends Database {
         return $res;
     }
 
+    function getStdWaktu()
+    {
+        $sql = "SELECT TOP(1) * FROM bsn_standar_waktu";
+        $res = $this->fetch($sql,0);
+
+        return $res;
+    }
+
 }
 ?>
