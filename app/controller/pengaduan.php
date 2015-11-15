@@ -75,7 +75,7 @@ class pengaduan extends Controller {
 
     function ins_laporan()
     {
-    	global $basedomain;
+    	global $basedomain,$CONFIG;
     	// db($_FILES['myfile']);
     	if($_POST['g-recaptcha-response']){
 
@@ -114,6 +114,15 @@ class pengaduan extends Controller {
 		    		$this->model->insert_file($files);
 
 		    	}
+
+                //kirim email
+                $this->view->assign('name',$this->user['name']); 
+                $this->view->assign('judul',$_POST['judul']);
+                $this->view->assign('tanggal',$_POST['tanggal']);
+                $this->view->assign('idLaporan',$latestId['id'].date('Y'));
+
+                $html = $this->loadView('pengaduan/emailTemplate');
+                $send = sendGlobalMail(trim($this->user['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html); 
 
 		    	echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."pengaduan'</script>";
 		    	exit;
