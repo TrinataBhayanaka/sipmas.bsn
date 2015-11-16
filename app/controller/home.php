@@ -76,7 +76,10 @@ class home extends Controller {
                     $send = sendGlobalMail(trim($checkData[0]['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html);
                     logFile($send);
                     if ($send){
-                        $token = "?req=2";
+                        // $token = "?req=2";
+                        echo "<script>alert('Password anda sudah dikirim ke email anda');window.location.href='{$basedomain}'</script>";
+                        // redirect($basedomain);
+                        exit;
                     }else{
                         $token = "?req=1";
                     }
