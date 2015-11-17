@@ -156,7 +156,7 @@ class home extends Controller {
 		//register user
 		$register_user= $this->mhome->select_data_register_user();
 		$this->view->assign('register_user',$register_user);
-		
+		// pr($register_user);
 		//visitor
 		$visitor_user= $this->mhome->select_data_visitor_user();
 		$this->view->assign('visitor_user',$visitor_user);

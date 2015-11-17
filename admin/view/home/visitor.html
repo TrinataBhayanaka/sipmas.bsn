@@ -191,7 +191,29 @@ $('#monthid,#yearid').on('change', function(){
 				  ]);	
 			},"JSON");
 
-		}else if(monthid == '' && yearid == ''){
+		}else if(monthid == '' && yearid != ''){
+			$.post(basedomain+"home/chart_donut_visitor_condtn", {monthid:monthid, yearid:yearid},function(register_user){
+				// console.log(register_user);
+						$('#register').text(register_user.register.total);
+						$('#visit').text(register_user.visitor.total);
+						donut.setData([
+					{label: "Registered", value: register_user.register.total},
+					{label: "Anonymous", value: register_user.visitor.total}
+				  ]);	
+			},"JSON");
+		
+		}else if(monthid != '' && yearid == ''){
+			$.post(basedomain+"home/chart_donut_visitor_condtn", {monthid:monthid, yearid:yearid},function(register_user){
+				// console.log(register_user);
+						$('#register').text(register_user.register.total);
+						$('#visit').text(register_user.visitor.total);
+						donut.setData([
+					{label: "Registered", value: register_user.register.total},
+					{label: "Anonymous", value: register_user.visitor.total}
+				  ]);	
+			},"JSON");
+		
+		}else{
 			$.post(basedomain+"home/chart_donut_visitor", {monthid:monthid, yearid:yearid},function(register_user){
 						$('#register').text(register_user.register[0].total);
 						$('#visit').text(register_user.visitor[0].total);
@@ -200,7 +222,6 @@ $('#monthid,#yearid').on('change', function(){
 					{label: "Anonymous", value: register_user.visitor[0].total}
 				  ]);	
 			},"JSON");
-		
 		}		
 	});	
 })
