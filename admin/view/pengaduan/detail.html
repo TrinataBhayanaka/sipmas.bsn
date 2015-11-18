@@ -56,24 +56,36 @@
 						<h3 class="panel-title"><strong>{$dataPengaduan.judul}</strong></h3>
 					</div>
 					<div id="demo-email-list" class="panel-body">
-							
-							<p class="text-danger">Sisa waktu penyelesaian {$dataPengaduan.sisaWaktu}</p>
-							<p> ID Laporan : {$dataPengaduan.idLaporan} </p>
-							<p>	Tanggal Laporan : {$dataPengaduan.tanggalformat} </p>
-							<p>	Nama Pelapor  : {$dataPengaduan.nameUser} </p>
-							<p>	Email Laporan : {$dataPengaduan.emailUser} </p>
-							<p>	No. HP : {$dataPengaduan.hpUser} </p>
-								{*}<p><a class="btn-link" href="#"><u> Data Selengkapnya </u></a></p>{/*}
+						<div class="row">
+							<div class="col-md-6">	
+								<p class="text-danger">Sisa waktu penyelesaian {$dataPengaduan.sisaWaktu}</p>
+								<p> ID Laporan : {$dataPengaduan.idLaporan} </p>
+								<p>	Tanggal Laporan : {$dataPengaduan.tanggalformat} </p>
+								<p>	Nama Pelapor  : {$dataPengaduan.nameUser} </p>
+								<p>	Email Laporan : {$dataPengaduan.emailUser} </p>
+								<p>	No. HP : {$dataPengaduan.hpUser} </p>
+									{*}<p><a class="btn-link" href="#"><u> Data Selengkapnya </u></a></p>{/*}
+							</div>
+							{if $dataPengaduan.perorangan eq '1'}	
+							<div class="col-md-6 well">
+								<p>Nama Terlapor : {$dataPengaduan.nama}</p>
+								<p>Alamat : {$dataPengaduan.alamat}</p>
+								<p>Jabatan : {$dataPengaduan.jabatan}</p>
+								<p>Unit Kerja : {$dataPengaduan.satker}</p>
+								<p>Lokasi Kasus : {$dataPengaduan.lokasi}</p>
+							</div>
+							{/if}
+						</div>
 							<form action="{$basedomain}daftar_pengaduan/chg_status" method="post">	
 							<div class="row">
-								<div class="col-md-2">
+								<div class="col-md-12">
 								<p>	Status Laporan: </p>
 								</div>
 								<div class="col-md-4">
 										<select class="selectpicker" name="status">
-											<option value="1" {if $dataPengaduan.status eq '1'}selected{/if}>Aktif</option>
-											<option value="2" {if $dataPengaduan.status eq '2'}selected{/if}>Ditindak Lanjuti</option>
-											<option value="3" {if $dataPengaduan.status eq '3'}selected{/if}>Tidak Ditindak Lanjuti</option>
+											<option value="1" {if $dataPengaduan.status eq '1' || $dataPengaduan.status eq '2' || $dataPengaduan.status eq '3'}selected{/if}>Dalam Proses</option>
+											{*}<option value="2" {if $dataPengaduan.status eq '2'}selected{/if}>Ditindak Lanjuti</option>
+											<option value="3" {if $dataPengaduan.status eq '3'}selected{/if}>Tidak Ditindak Lanjuti</option>{/*}
 											{if $dataPengaduan.fase eq '6'}<option value="4" {if $dataPengaduan.status eq '4'}selected{/if}>Selesai</option>{/if}
 										</select>
 								</div>

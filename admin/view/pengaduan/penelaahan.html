@@ -171,7 +171,7 @@
 									<textarea id="demo-textarea-input" name="rekomendasi" rows="5" class="form-control" placeholder=" ">{$penelaahan.rekomendasi}</textarea>
 								</div>
 							</div>
-							
+							{if !empty($file)}
 							<!-- Attach Files-->
 							<!--===================================================-->
 							<div class="pad-ver">
@@ -200,21 +200,23 @@
 									</li>
 									{/foreach}
 									
-									<!-- HIDDEN -->
-									<input type="hidden" name="idPengaduan" value="{$id}" >
-									<input type="hidden" name="n_status" value="1" >
-
-									<button id="mail-send-btn" type="submit" class="btn btn-primary btn-labeled">
-										<span class="btn-label"><i class="fa fa-check"></i></span> Submit
-									</button>
-									
-									<!--Save draft button-->
-									{*}<button id="mail-save-btn" type="button" class="btn btn-danger btn-labeled">
-										<span class="btn-label"><i class="fa fa-times"></i></span> Cancel
-									</button>{/*}
 								</ul>
 							</div>
 							</div>
+							{/if}
+
+							<!-- HIDDEN -->
+							<input type="hidden" name="idPengaduan" value="{$id}" >
+							<input type="hidden" name="n_status" value="1" >
+							
+							<button id="mail-send-btn" type="submit" class="btn btn-primary btn-labeled">
+								<span class="btn-label"><i class="fa fa-check"></i></span> Submit
+							</button>
+							
+							<!--Save draft button-->
+							{*}<button id="mail-save-btn" type="button" class="btn btn-danger btn-labeled">
+								<span class="btn-label"><i class="fa fa-times"></i></span> Cancel
+							</button>{/*}
 
 							<!--===================================================-->
 							<!-- End Attach Files-->
