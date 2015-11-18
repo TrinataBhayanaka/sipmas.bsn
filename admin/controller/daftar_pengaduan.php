@@ -226,7 +226,7 @@ class daftar_pengaduan extends Controller {
 		$_POST['idUser'] = $this->admin['idUser'];
 		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
-		// db($_POST);
+		db($_POST);
 		$this->model->insert_balas($_POST);
 
 		$this->model->upd_fase($_POST['idPengaduan'],5);
@@ -254,13 +254,13 @@ class daftar_pengaduan extends Controller {
 
 	public function ins_disposisi()
 	{
-		global $basedomain;
+		global $basedomain, $CONFIG;
 
 		$_POST['idUser'] = $this->admin['idUser'];
 		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
 		$_POST['n_status'] = 1;
-		// db($_FILES);
+		
 		$this->model->insert_disposisi($_POST);
 		$this->model->upd_nstatus($_POST['idPengaduan'],2);
 		$this->model->upd_fase($_POST['idPengaduan'],4);
@@ -278,6 +278,21 @@ class daftar_pengaduan extends Controller {
 
     		$this->model->insert_file($files);
 
+    	}
+
+    	$userToEmail = $this->model->getAllUserSatker($_POST['tujuan']);
+    	$dataPengaduan = $this->model->getPengaduan($_POST['idPengaduan']);
+    	
+    	//kirim email
+    	foreach ($userToEmail as $key => $val) {
+    		$this->view->assign('name',$val['name']); 
+	        $this->view->assign('judul',$dataPengaduan[0]['judul']);
+	        $this->view->assign('tanggal',$dataPengaduan[0]['tanggal']);
+	        $this->view->assign('idLaporan',$dataPengaduan[0]['idLaporan']);
+	        $this->view->assign('id',$_POST['idPengaduan']);
+
+	        $html = $this->loadView('pengaduan/emailTemplate');
+	        $send = sendGlobalMail(trim($val['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html);	
     	}
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/disposisi/?id={$_POST['idPengaduan']}'</script>";

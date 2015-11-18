@@ -284,5 +284,21 @@ class mpengaduan extends Database {
         return $res;
     }
 
+    function datatruncate()
+    {
+        $sql = "TRUNCATE table bsn_comment;TRUNCATE table bsn_content;TRUNCATE table bsn_disposisi;TRUNCATE table bsn_file;TRUNCATE table bsn_penelaahan;TRUNCATE table bsn_pengaduan;TRUNCATE table bsn_survey";
+        $res = $this->query($sql);
+
+        return $res;
+    }
+
+    function getAllUserSatker($idSatker)
+    {
+        $sql = "SELECT * from bsn_users WHERE satker = {$idSatker}";
+        $res = $this->fetch($sql,1);
+
+        return $res;
+    }
+
 }
 ?>
