@@ -226,7 +226,7 @@ class daftar_pengaduan extends Controller {
 		$_POST['idUser'] = $this->admin['idUser'];
 		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
-		db($_POST);
+		
 		$this->model->insert_balas($_POST);
 
 		$this->model->upd_fase($_POST['idPengaduan'],5);
@@ -282,7 +282,7 @@ class daftar_pengaduan extends Controller {
 
     	$userToEmail = $this->model->getAllUserSatker($_POST['tujuan']);
     	$dataPengaduan = $this->model->getPengaduan($_POST['idPengaduan']);
-    	
+
     	//kirim email
     	foreach ($userToEmail as $key => $val) {
     		$this->view->assign('name',$val['name']); 

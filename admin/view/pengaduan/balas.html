@@ -52,7 +52,7 @@
 				<div class="panel panel-success panel-left">
 				
 					<div class="panel-heading">
-							<h3 class="panel-title"><strong>{$dataPengaduan.judul}</strong></h3>
+							<h3 class="panel-title"><strong>[#{$dataPengaduan.idLaporan}] - {$dataPengaduan.judul}</strong></h3>
 						</div>
 					
 					<div class="panel-body">
@@ -60,12 +60,12 @@
 							<thead>
 								<tr>
 									<th data-toggle="true" width="10%">No</th>
-									<th>ID laporan</th>
-									<th>Nama user</th>
-									<th>Judul Laporan</th>
-									<th>Tanggal Laporan</th>
-									<th>Tanggal Balas Laporan</th>
-									<th>Sisa Waktu Penyelesaian</th>
+									<th>Nama</th>
+									<th>Tanggal Pengaduan</th>
+									<th>Tanggal Balas</th>
+									<th>Sisa Waktu</th>
+									<th>Status</th>
+									<th>Aksi</th>
 									<th data-hide="all">Detail</th>
 								</tr>
 							</thead>
@@ -73,12 +73,21 @@
 								{foreach $dataBalas as $key => $val}
 								<tr>
 									<td>{$key+1}</td>
-									<td>{$dataPengaduan.idPengaduan}</td>
 									<td>{$val.nameUser}</td>
-									<td>{$dataPengaduan.judul}</td>
 									<td>{$dataPengaduan.tanggalformat}</td>
 									<td>{$val.tanggalstd}</td>
 									<td>{$dataPengaduan.sisaWaktu}</td>
+									<td>
+										{if $val.n_status eq '1'}
+										<span class="label label-success">Publish</span>
+										{else}
+										<span class="label label-danger">Non Publish</span>
+										{/if}
+									</td>
+									<td>
+										<button class="btn btn-xs btn-warning btn-icon fa fa-pencil"></button>
+										<button class="btn btn-xs btn-danger btn-icon fa fa-times"></button>
+									</td>
 									<td>
 										{$val.isi}
 										{if !empty($val.files)}
