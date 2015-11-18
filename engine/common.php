@@ -631,7 +631,13 @@ function sendGlobalMail($to,$from,$msg,$config=true){
 
 	}
 
-	require_once APP.LIBS."PHPMailer/class.phpmailer.php";
+	if ($CONFIG['admin']['base_url']){
+		$APP = APP;
+	}else{
+		$APP = "";
+	}
+
+	require_once $APP.LIBS."PHPMailer/class.phpmailer.php";
 	
 	if ($from !='') $from = $from;
 	else $from = $CONFIG['EMAIL_FROM_DEFAULT'];
