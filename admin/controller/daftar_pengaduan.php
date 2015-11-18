@@ -287,7 +287,7 @@ class daftar_pengaduan extends Controller {
     	foreach ($userToEmail as $key => $val) {
     		$this->view->assign('name',$val['name']); 
 	        $this->view->assign('judul',$dataPengaduan[0]['judul']);
-	        $this->view->assign('tanggal',$dataPengaduan[0]['tanggal']);
+	        $this->view->assign('tanggal',$dataPengaduan[0]['tanggalformat']);
 	        $this->view->assign('idLaporan',$dataPengaduan[0]['idLaporan']);
 	        $this->view->assign('id',$_POST['idPengaduan']);
 
