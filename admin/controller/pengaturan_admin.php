@@ -33,7 +33,14 @@ class pengaturan_admin extends Controller {
 		$getUser = $this->userHelper->fetchData($dataUser);
 		
 		if ($getUser){
+			foreach ($getUser as $key => $value) {
+				$dataSatker['table'] = "bsn_satker";
+				$dataSatker['condition'] = array('n_status'=>1, 'idSatker'=>$value['satker']);
+				$getSatker = $this->userHelper->fetchData($dataSatker);
+				$getUser[$key]['nama_satker'] = $getSatker[0];
+			}
 
+			// pr($getUser);
 			$this->view->assign('user', $getUser);
 		}
 
@@ -254,14 +261,18 @@ class pengaturan_admin extends Controller {
 		if ($_POST['token']){
 
 			// check if exist
-			$check['table'] = "bsn_users";
-			$check['condition'] = array('type'=>'1,3', 'username'=>$_POST['username'], 'email'=>$_POST['email']);
-			$check['in'] = array('type');
-			$checkUser = $this->userHelper->fetchData($check);
-			if ($checkUser){
-				echo "<script>alert('User sudah ada'); window.location.href='{$basedomain}pengaturan_admin';</script>";
-				exit;
+			if (!$_POST['id']){
+				$check['table'] = "bsn_users";
+				$check['condition'] = array('type'=>'1,3', 'username'=>$_POST['username'], 'email'=>$_POST['email'], 'n_status'=>1);
+				$check['in'] = array('type');
+				$checkUser = $this->userHelper->fetchData($check);
+				if ($checkUser){
+					echo "<script>alert('User sudah ada'); window.location.href='{$basedomain}pengaturan_admin';</script>";
+					exit;
+				}
 			}
+			
+
 			if ($_POST['id']){
 				$dataUser['table'] = "bsn_users";
 				$dataUser['condition'] = array('type'=>'1,3', 'id'=>$id);
@@ -301,6 +312,12 @@ class pengaturan_admin extends Controller {
 			}
 			
 		}
+
+		$dataSatker['table'] = "bsn_satker";
+		$dataSatker['condition'] = array('n_status'=>'1');
+		$getSatker = $this->userHelper->fetchData($dataSatker);
+		// pr($getSatker);
+		$this->view->assign('satker', $getSatker);
 		return $this->loadView('pengaturan/edit_admin');
 	}
 	

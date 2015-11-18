@@ -47,7 +47,20 @@
 							<input type="text" class="form-control" placeholder=" " name="email" value="{$user.email}" {if $user} disabled{/if}>
 						</div>
 					</div>
-	
+					
+					<div class="form-group">
+						<label class="col-md-3 control-label" for="demo-readonly-input">Satker</label>
+						<div class="col-md-9">
+							<select class="selectpicker" data-width="100%" name="satker">
+								<option>Pilih Satker</option>
+								{foreach $satker as $val}
+								<option value="{$val.idSatker}" {if $user.satker == $val.idSatker}selected{/if}>{$val.nama_satker} {if $val.idSatker==3}(Super Admin){/if}</option>
+								{/foreach}
+								
+							</select>
+						</div>
+					</div>
+
 					<div class="form-group">
 						<label class="col-md-3 control-label" for="demo-readonly-input">Username</label>
 						<div class="col-md-9">

@@ -119,7 +119,12 @@ class mhome extends Database {
 	
 	function select_data_register_user_condt($monthid,$yearid)
 	{
-		$query = "SELECT COUNT(1) AS total FROM bsn_users WHERE  YEAR(register_date) = '{$yearid}' AND MONTH(register_date) = '{$monthid}' AND n_status IN (1)";
+
+		$filter = "";
+		if ($yearid) $filter .= " AND YEAR(register_date) = '{$yearid}'";
+		if ($monthid) $filter .= " AND MONTH(register_date) = '{$monthid}'";
+
+		$query = "SELECT COUNT(1) AS total FROM bsn_users WHERE  n_status IN (1) {$filter}";
 		// pr($query);
 		$result = $this->fetch($query);
 		
@@ -136,7 +141,12 @@ class mhome extends Database {
 	
 	function select_data_visitor_user_condt($monthid,$yearid)
 	{
-		$query = "SELECT COUNT(1) AS total FROM ck_activity_log WHERE idUser = 0 and YEAR(tanggal) = '{$yearid}' AND MONTH(tanggal) = '{$monthid}' AND n_status IN (1) ";
+
+		$filter = "";
+		if ($yearid) $filter .= " AND YEAR(tanggal) = '{$yearid}'";
+		if ($monthid) $filter .= " AND MONTH(tanggal) = '{$monthid}'";
+
+		$query = "SELECT COUNT(1) AS total FROM ck_activity_log WHERE n_status IN (1) {$filter}";
 		// pr($query);
 		$result = $this->fetch($query);
 		
