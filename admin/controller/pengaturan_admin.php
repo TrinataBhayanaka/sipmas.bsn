@@ -40,7 +40,7 @@ class pengaturan_admin extends Controller {
 				$getUser[$key]['nama_satker'] = $getSatker[0];
 			}
 
-			// pr($getUser);
+			// //pr($getUser);
 			$this->view->assign('user', $getUser);
 		}
 
@@ -68,48 +68,89 @@ class pengaturan_admin extends Controller {
 			$ws="in";
 		}
 
-		$arraySW['table'] = "bsn_standar_waktu";
-		$arraySW['condition'] = array('id'=>1);
+		$arraySW['table'] = "bsn_waktu_kriteria";
+		$arraySW['condition'] = array('type'=>1);
 
-		$arrayWP1['table'] = "bsn_waktu_pengaduan";
-		$arrayWP1['condition'] = array('type'=>1,);
+		$arrayWP1['table'] = "bsn_waktu_kriteria";
+		$arrayWP1['condition'] = array('type'=>2,);
 
-		$arrayWP2['table'] = "bsn_waktu_pengaduan";
-		$arrayWP2['condition'] = array('type'=>2);
+		$arrayWP2['table'] = "bsn_waktu_kriteria";
+		$arrayWP2['condition'] = array('type'=>3);
 
 		$dataSW = $this->contentHelper->fetchData($arraySW);
 		$dataWP1 = $this->contentHelper->fetchData($arrayWP1);
 		$dataWP2 = $this->contentHelper->fetchData($arrayWP2);
-// pr($dataWP1);
+// //pr($dataSW);
 		$queryws="";
 		$querywp1="";
 		$querywp2="";
 
-		if($dataSW){
-			$this->view->assign('queryws',"update");
+		$table="_waktu_kriteria";
+
+		if(!$dataSW){
+			// $this->view->assign('queryws',"update");
+			$insertSW[]=array('name' => "Baik",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'));
+			$insertSW[]=array('name' => "Normal",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'));
+			$insertSW[]=array('name' => "Buruk",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'));
+
+			foreach ($insertSW as $keySW => $valueSW) {
+
+				$dataSW = $this->contentHelper->simpanData(1,$valueSW,$table);
+
+			}
+
+			$dataSW = $this->contentHelper->fetchData($arraySW);
 		}
-		if($dataWP1){
-			$this->view->assign('querywp1',"update");
+		if(!$dataWP1){
+			// $this->view->assign('querywp1',"update");
+			$insertWP1[]=array('name' => "Pencatatan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'));
+			$insertWP1[]=array('name' => "Penelaahan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'));
+			$insertWP1[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'));
+			$insertWP1[]=array('name' => "Pengarsipan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'));
+
+			foreach ($insertWP1 as $keyWP1 => $valueWP1) {
+
+				$dataWP1 = $this->contentHelper->simpanData(1,$valueWP1,$table);
+
+			}
+
+			$dataWP1 = $this->contentHelper->fetchData($arrayWP1);
 		}
-		if($dataWP2){
-			$this->view->assign('querywp2',"update");
+		if(!$dataWP2){
+			// $this->view->assign('querywp2',"update");
+			$insertWP2[]=array('name' => "Pencatatan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'));
+			$insertWP2[]=array('name' => "Penelaahan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'));
+			$insertWP2[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'));
+			$insertWP2[]=array('name' => "Pengarsipan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'));
+
+			foreach ($insertWP2 as $keyWP2 => $valueWP2) {
+
+				$dataWP2 = $this->contentHelper->simpanData(1,$valueWP2,$table);
+
+			}
+
+		$dataWP2 = $this->contentHelper->fetchData($arrayWP2);
 		}
-		// pr($dataSW);
-		// pr($dataWP1);
-		// pr($dataWP2);
+		// //pr($dataSW[0]);
+		// //pr($dataWP1);
+		// //pr($dataWP2);
+		// exit;
 		$this->view->assign('ws', $ws);
 		$this->view->assign('wp1', $wp1);
 		$this->view->assign('wp2', $wp2);
 
-		$this->view->assign('dataSW', $dataSW[0]);
-		$this->view->assign('dataWP1', $dataWP1[0]);
-		$this->view->assign('dataWP2', $dataWP2[0]);
+		$this->view->assign('dataSW', $dataSW);
+		$this->view->assign('dataWP1', $dataWP1);
+		$this->view->assign('dataWP2', $dataWP2);
 
 		return $this->loadView('pengaturan/waktu_kriteria');
 	}
+
+
 	public function simpanWaKri(){
 		global $basedomain;
-		// pr($_POST);
+		// //pr($_POST);
+		// exit;
 		if($_GET['open']){
 			if($_GET['open']=="ws"){
 				$open="ws";
@@ -127,55 +168,82 @@ class pengaturan_admin extends Controller {
 
 		if($_POST['id']){
 
-
-			if($_POST['query']=="update"){
-				$type=2;
-			}else{
-				$type=1;
+			foreach ($_POST['id'] as $keyid => $valueid) {
+				$dataupd[]=array('id'=>$valueid,'value'=>$_POST['value'][$keyid],'create_date'=>date('Y-m-d H:i:s'));
 			}
-		
-			if($_GET['data']){
-				if($_GET['data']=="sw"){
+			// //pr($dataupd);
+			$table="_waktu_kriteria";
 
-					$table="_standar_waktu";
-					$data= array(
-						'id' => $_POST['id'], 
-						'baik' => $_POST['baik'], 
-						'normal' => $_POST['normal'], 
-						'buruk' => $_POST['buruk']
-						);
-					// pr($data);
-				}elseif($_GET['data']=="wp"){
-
-					$table="_waktu_pengaduan";
-					$data= array(
-						'id' => $_POST['id'], 
-						'pencatatan' => $_POST['pencatatan'], 
-						'penelaahan' => $_POST['penelaahan'], 
-						'tindakLanjut' => $_POST['tindakLanjut'], 
-						'pengarsipan' => $_POST['pengarsipan'], 
-						'type' => $_POST['type']
-						);
-					// pr($data);
-				}else{
-					redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
-				}
-
-		// pr($data);exit;
+			$data = $this->contentHelper->simpanData(3,$dataupd,$table);
 				
-
-					$data = $this->contentHelper->simpanData($type,$data,$table);
-				
-
-				// 	$data = $this->contentHelper->simpanData($type,$data,$table);
-				// }
-
-				// exit;
-			}
+			
 			redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
 		}else{
 			redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
 		}
+	}
+	public function deleteWaker(){
+		global $basedomain;
+		// //pr($_GET);
+		$id = $_GET['id'];
+		$type = $_GET['type'];
+		if($_GET['open']){
+			if($_GET['open']=="ws"){
+				$open="ws";
+			}elseif($_GET['open']=="wp1"){
+				$open="wp1";
+			}elseif($_GET['open']=="wp2"){
+				$open="wp2";
+			}else{
+				$open="ws";
+			}
+			
+		}else{
+			$open="ws";
+		}
+		if ($id != ''){
+			$table="bsn_waktu_kriteria";
+			$condition=" id='".$id."' AND type='".$type."'";
+			$delete = $this->contentHelper->delete($table,$condition);
+		}else{
+
+			redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
+		}
+
+		redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
+	}
+	public function tambahWaktu(){
+		global $basedomain;
+		// //pr($_POST);
+
+		if($_GET['open']){
+			if($_GET['open']=="ws"){
+				$open="ws";
+			}elseif($_GET['open']=="wp1"){
+				$open="wp1";
+			}elseif($_GET['open']=="wp2"){
+				$open="wp2";
+			}else{
+				$open="ws";
+			}
+			
+		}else{
+			$open="ws";
+		}
+		if($_POST){
+			$table="_waktu_kriteria";
+			$data= array(
+				'name' => $_POST['name'], 
+				'value' => $_POST['value'],
+				'type' => $_POST['type'],
+				);
+
+			$data = $this->contentHelper->simpanData(1,$data,$table);
+		}else{
+			redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
+		}	
+		redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
+
 	}
 	public function ubahkonten(){
 	
@@ -219,12 +287,12 @@ class pengaturan_admin extends Controller {
 
 	public function selectubahkonten(){
 	
-		// pr($_POST);
+		// //pr($_POST);
 		$dataContent['table'] = "bsn_content";
 		$dataContent['condition'] = array('type'=>$_POST['type'], 'category'=>1,'n_status'=>1);
 
 		$data = $this->contentHelper->fetchData($dataContent);
-// pr($data);
+// //pr($data);
         if ($data){
             print json_encode(array('status'=>true,'idhidden'=>$data[0]['id'], 'data'=>$data[0]['description'],'judul'=>$data[0]['title']));
         }else{
@@ -247,7 +315,7 @@ class pengaturan_admin extends Controller {
 					$select_list[$k]['sub'] = $select_sub;
 			}
 		}	
-			// pr($select_list);
+			// //pr($select_list);
 		$this->view->assign('data',$select);
 		
 	return $this->loadView('pengaturan/kategori_ruang_lingkup');
@@ -305,7 +373,7 @@ class pengaturan_admin extends Controller {
 			$dataUser['condition'] = array('type'=>'1,3', 'n_status'=>'1', 'idUser'=>$id);
 			$dataUser['in'] = array('type');
 			$getUser = $this->userHelper->fetchData($dataUser);
-			// pr($getUser);
+			// //pr($getUser);
 			if ($getUser){
 
 				$this->view->assign('user', $getUser[0]);
@@ -316,7 +384,7 @@ class pengaturan_admin extends Controller {
 		$dataSatker['table'] = "bsn_satker";
 		$dataSatker['condition'] = array('n_status'=>'1');
 		$getSatker = $this->userHelper->fetchData($dataSatker);
-		// pr($getSatker);
+		// //pr($getSatker);
 		$this->view->assign('satker', $getSatker);
 		return $this->loadView('pengaturan/edit_admin');
 	}
@@ -350,7 +418,7 @@ class pengaturan_admin extends Controller {
 	
 	public function ajax_edit_kategori(){
 		
-		// pr($_POST);
+		// //pr($_POST);
 		// echo masuk;
 		// exit;
 		global $basedomain;
@@ -365,7 +433,7 @@ class pengaturan_admin extends Controller {
 	
 	public function ajax_update_kategori(){
 		
-		// pr($_POST);
+		// //pr($_POST);
 		// echo masuk;
 		// exit;
 		$id = $_POST['id'];
@@ -379,11 +447,11 @@ class pengaturan_admin extends Controller {
 	
 	public function ajax_select_list(){
 		
-		// pr($_POST);
+		// //pr($_POST);
 		global $basedomain;
 		$kategori =$_POST['idKategori'];
 			$select = $this->mkategori->select_data_list_option($kategori);
-			// pr($select);
+			// //pr($select);
 			echo json_encode($select);
 		exit;
 	}
@@ -416,7 +484,7 @@ class pengaturan_admin extends Controller {
 	
 	public function ajax_edit_kategori_sub(){
 		
-		// pr($_POST);
+		// //pr($_POST);
 		// echo masuk;
 		// exit;
 		global $basedomain;
@@ -424,10 +492,10 @@ class pengaturan_admin extends Controller {
 		
 		if ($idKategori != ''){
 			$editSub = $this->mkategori->edit_data_sub($idKategori);
-			// pr($editSub);
+			// //pr($editSub);
 			$idParent = $editSub['idParent'];
 			$getKat = $this->mkategori->get_data_kat($idParent);
-			// pr($getKat);
+			// //pr($getKat);
 			// echo json_encode($edit);
 			$newformat = array('kategori'=>$getKat,'subkategori'=>$editSub);
 			print json_encode($newformat);
@@ -437,7 +505,7 @@ class pengaturan_admin extends Controller {
 	
 	public function ajax_update_kategori_sub(){
 		
-		// pr($_POST);
+		// //pr($_POST);
 		// echo masuk;
 		// exit;
 		$idsubkategori = $_POST['idsubkategori'];
@@ -451,7 +519,7 @@ class pengaturan_admin extends Controller {
 	
 	public function ajax_delete_sub(){
 		
-		// pr($_POST);
+		// //pr($_POST);
 		// echo masuk;
 		// exit;
 		$idSubKategori = $_POST['idSubKategori'];
@@ -465,7 +533,7 @@ class pengaturan_admin extends Controller {
 	
 	public function count_sub(){
 		
-		// pr($_POST);
+		// //pr($_POST);
 		// echo masuk;
 		// exit;
 		global $basedomain;
@@ -480,7 +548,7 @@ class pengaturan_admin extends Controller {
 	
 	public function ajax_update_status(){
 		
-		// pr($_POST);
+		// //pr($_POST);
 		// echo masuk;
 		// exit;
 		$id = $_POST['Newkategori'];

@@ -202,10 +202,20 @@ class contentHelper extends Database {
     }
     function simpanData($query,$data=array(), $table="_content", $debug=false)
     {
-    	// pr($query);
-    	// pr($data);exit;
     	$id="id =".$data['id'];
-        if ($query==2){
+        if ($query==3){
+            
+        	foreach ($data as $key => $value) {
+                $id="id =".$value['id'];
+                $data= array('value' =>$value['value']);
+
+                 $run = $this->save("update", "{$this->prefix}{$table}",$data, $id, $debug);
+
+            }
+           
+
+        }elseif ($query==2){
+            
             $run = $this->save("update", "{$this->prefix}{$table}", $data, $id, $debug);
 
         }else{
@@ -230,7 +240,13 @@ class contentHelper extends Database {
         return false;
     }
 
-	
+	function delete($table,$condition)
+    {
+        $sql = "DELETE FROM  {$table} WHERE {$condition}";
+        $res = $this->query($sql);
+
+        return $res;
+    }
 
 }
 ?>
