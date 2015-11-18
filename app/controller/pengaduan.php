@@ -120,6 +120,7 @@ class pengaduan extends Controller {
                 $this->view->assign('judul',$_POST['judul']);
                 $this->view->assign('tanggal',$_POST['tanggal']);
                 $this->view->assign('idLaporan',$latestId['id'].date('Y'));
+                $this->view->assign('id',$latestId['id']);
 
                 $html = $this->loadView('pengaduan/emailTemplate');
                 $send = sendGlobalMail(trim($this->user['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html); 
