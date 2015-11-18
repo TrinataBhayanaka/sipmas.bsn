@@ -1,4 +1,4 @@
-<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
 <div id="page-title">
 	<h1 class="page-header text-overflow">Ubah Waktu dan Kriteria</h1>
 </div>
@@ -45,18 +45,37 @@
 				<!-- Accordion content -->
 				<div id="demo-acc-panel-1" class="panel-collapse collapse {$ws}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
 					<div class="panel-body">
-					<form id="demo-bvd-notempty" action="{$basedomain}pengaturan_admin/simpanWaKri/?data=sw&open=ws" method="post"class="form-horizontal">
-						<input type="hidden" name="id" value="{if $dataSW}{$dataSW.id}{else}1{/if}">
-						<input type="hidden" name="query" id="query" value="{$queryws}"/>	
-						<input type="hidden" name="n_status" id="idType" value="1"/>		
+					<form id="demo-bvd-notempty" action="{$basedomain}pengaturan_admin/simpanWaKri/?open=ws" method="post"class="form-horizontal">
+						<!-- <input type="hidden" name="type" value="1"> -->
+						<!-- <input type="hidden" name="query" id="query" value="{$queryws}"/>	
+						<input type="hidden" name="n_status" id="idType" value="1"/> -->		
 						<fieldset>
+							{if $dataSW}
+							{foreach $dataSW as $keySW => $valSW}
+
+							{if $keySW<'3'}
 							<div class="form-group">
-								<label class="col-lg-3 control-label">Baik</label>
-									<div class="col-lg-7">
-										<input type="number" class="form-control" name="baik" value="{if $dataSW}{$dataSW.baik}{/if}" placeholder="Hari">
+								<label class="col-lg-3 control-label">{$valSW.name}</label>
+									<div class="col-lg-6">
+										<input type="number" class="form-control" name="value[]" value="{$valSW.value}" placeholder="Hari">
+										<input type="hidden" name="id[]" value="{$valSW.id}">
 									</div>
 							</div>
+							{else}
 							<div class="form-group">
+								<label class="col-lg-3 control-label">{$valSW.name}</label>
+									<div class="col-lg-6 input-group">
+										<input type="number" class="form-control" name="value[]" value="{$valSW.value}" placeholder="Hari">
+										<input type="hidden" name="id[]" value="{$valSW.id}">
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/deleteWaker/?open=ws&type={$valSW.type}&id={$valSW.id}" class="btn btn-danger"><i class="fa fa-times"></i></a>
+											</span>
+									</div>
+							</div>
+							{/if}
+							{/foreach}
+							{/if}
+						<!-- 	<div class="form-group">
 								<label class="col-lg-3 control-label">Normal</label>
 									<div class="col-lg-7">
 										<input type="number" class="form-control" name="normal" value="{if $dataSW}{$dataSW.normal}{/if}" placeholder="Hari">
@@ -67,16 +86,16 @@
 									<div class="col-lg-7">
 										<input type="number" class="form-control" name="buruk" value="{if $dataSW}{$dataSW.buruk}{/if}" placeholder="Hari">
 									</div>
-							</div>
+							</div> -->
 						</fieldset>
 						
 					
 					</div>
 						<div class="tab-footer clearfix">
 							<div class="col-lg-7 col-lg-offset-3">
-								<!-- <button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Kriteria Waktu</button> -->
+								<button type="button"  data-target="#demo-default-modal" data-toggle="modal" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Kriteria Waktu</button>
 								<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save Kriteria Waktu</button>
-								<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
+								<button type="reset" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
 							</div>
 						</div>	
 						</form>									
@@ -94,13 +113,37 @@
 				<!-- Accordion content -->
 				<div id="demo-acc-panel-2" class="panel-collapse collapse {$wp1}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
 					<div class="panel-body">
-					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/simpanWaKri/?data=wp&open=wp1" method="post"class="form-horizontal">
-						<input type="hidden" name="id" value="{if $dataWP1}{$dataWP1.id}{else}1{/if}">
+					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/simpanWaKri/?open=wp1" method="post"class="form-horizontal">
+						<!-- <input type="hidden" name="id" value="{if $dataWP1}{$dataWP1.id}{else}1{/if}">
 						<input type="hidden" name="query" id="query" value="{$querywp1}"/>	
 						<input type="hidden" name="type" id="idType" value="1"/>			
-						<input type="hidden" name="n_status" id="idType" value="1"/>		
+						<input type="hidden" name="n_status" id="idType" value="1"/>		 -->
 						<fieldset>
+							{if $dataWP1}
+							{foreach $dataWP1 as $keyWP1 => $valWP1}
+							{if $keyWP1<'4'}
 							<div class="form-group">
+								<label class="col-lg-3 control-label">{$valWP1.name}</label>
+									<div class="col-lg-6">
+										<input type="number" class="form-control" name="value[]" value="{$valWP1.value}" placeholder="Hari">
+										<input type="hidden" name="id[]" value="{$valWP1.id}">
+									</div>
+							</div>
+							{else}
+							<div class="form-group">
+								<label class="col-lg-3 control-label">{$valWP1.name}</label>
+									<div class="col-lg-6 input-group">
+										<input type="number" class="form-control" name="value[]" value="{$valWP1.value}" placeholder="Hari">
+										<input type="hidden" name="id[]" value="{$valWP1.id}">
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/deleteWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}" class="btn btn-danger"><i class="fa fa-times"></i></a>
+											</span>
+									</div>
+							</div>
+							{/if}
+							{/foreach}
+							{/if}
+							<!-- <div class="form-group">
 								<label class="col-lg-3 control-label">Pencatatan</label>
 									<div class="col-lg-7">
 										<input type="number" class="form-control" name="pencatatan" value="{if $dataWP1}{$dataWP1.pencatatan}{/if}" placeholder="Hari">
@@ -123,14 +166,14 @@
 									<div class="col-lg-7">
 										<input type="number" class="form-control" name="pengarsipan" value="{if $dataWP1}{$dataWP1.pengarsipan}{/if}" placeholder="Hari">
 									</div>
-							</div>
+							</div> -->
 						</fieldset>
 						
 					
 					</div>
 						<div class="tab-footer clearfix">
 							<div class="col-lg-7 col-lg-offset-3">
-								<!-- <button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button> -->
+								<button type="button"  data-target="#demo-default-modal2" data-toggle="modal" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button>
 								<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save Proses & Waktu Penyelesaian Pengaduan</button>
 								<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
 							</div>
@@ -149,13 +192,37 @@
 				<!-- Accordion content -->
 				<div id="demo-acc-panel-3" class="panel-collapse  collapse {$wp2}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
 					<div class="panel-body">
-					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/simpanWaKri/?data=wp&open=wp2" method="post" class="form-horizontal">
-						<input type="hidden" name="id" value="{if $dataWP2}{$dataWP2.id}{else}2{/if}">
+					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/simpanWaKri/?open=wp2" method="post" class="form-horizontal">
+						<!-- <input type="hidden" name="id" value="{if $dataWP2}{$dataWP2.id}{else}2{/if}">
 						<input type="hidden" name="query" id="query" value="{$querywp2}"/>	
 						<input type="hidden" name="type" id="idType" value="2"/>		
-						<input type="hidden" name="n_status" id="idType" value="1"/>		
+						<input type="hidden" name="n_status" id="idType" value="1"/>		 -->
 						<fieldset>
+							{if $dataWP2}
+							{foreach $dataWP2 as $keyWP2 => $valWP2}
+							{if $keyWP2<'4'}
 							<div class="form-group">
+								<label class="col-lg-3 control-label">{$valWP2.name}</label>
+									<div class="col-lg-6">
+										<input type="number" class="form-control" name="value[]" value="{$valWP2.value}" placeholder="Hari">
+										<input type="hidden" name="id[]" value="{$valWP2.id}">
+									</div>
+							</div>
+							{else}
+							<div class="form-group">
+								<label class="col-lg-3 control-label">{$valWP2.name}</label>
+									<div class="col-lg-6 input-group">
+										<input type="number" class="form-control" name="value[]" value="{$valWP2.value}" placeholder="Hari">
+										<input type="hidden" name="id[]" value="{$valWP2.id}">
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/deleteWaker/?open=wp2&type={$valWP2.type}&id={$valWP2.id}" class="btn btn-danger"><i class="fa fa-times"></i></a>
+											</span>
+									</div>
+							</div>
+							{/if}
+							{/foreach}
+							{/if}
+							<!-- <div class="form-group">
 								<label class="col-lg-3 control-label">Pencatatan</label>
 									<div class="col-lg-7">
 										<input type="number" class="form-control" name="pencatatan" value="{if $dataWP2}{$dataWP2.pencatatan}{/if}" placeholder="Hari">
@@ -178,14 +245,14 @@
 									<div class="col-lg-7">
 										<input type="number" class="form-control" name="pengarsipan" value="{if $dataWP2}{$dataWP2.pengarsipan}{/if}" placeholder="Hari">
 									</div>
-							</div>
+							</div> -->
 						</fieldset>
 						
 					
 					</div>
 						<div class="tab-footer clearfix">
 							<div class="col-lg-7 col-lg-offset-3" style="margin-bottom:20px">
-								<!-- <button type="submit" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button> -->
+								<button type="button"  data-target="#demo-default-modal3" data-toggle="modal" class="btn btn-warning btn-labeled fa fa-pencil">Tambah Proses & Waktu Penyelesaian Pengaduan</button>
 								<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save Proses & Waktu Penyelesaian Pengaduan</button>
 								<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
 							</div>
@@ -205,4 +272,143 @@
 
 </div>
 
-<!-- End: Content 
+<!-- End: Content -->
+
+<div class="modal fade" id="demo-default-modal" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="{$basedomain}pengaturan_admin/tambahWaktu/?open=ws" method="POST">
+				<!--Modal header-->
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">
+					<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Form Tambah Standar Kriteria Waktu</h4>
+				</div>
+
+				<!--Modal body-->
+				<div class="modal-body">
+					<div class="bootbox-body">
+						<div class="row"> 
+							<div class="col-md-12 form-horizontal"> 
+								<input type="hidden" value="1" name="type"> 
+									<div class="form-group"> 
+										<label for="name" class="col-md-4 control-label">Nama</label> 
+										<div class="col-md-4"> 
+											<input type="text" class="form-control input-md" placeholder="Your name" name="name" id="name" required> 
+										</div> 
+									</div> 
+									<div class="form-group"> 
+										<label for="value" class="col-md-4 control-label">Waktu</label> 
+										<div class="col-md-4"> 
+											<input type="number" class="form-control input-md" placeholder="Your value" name="value" id="value" required> 
+										</div> 
+									</div> 
+							</div> 
+						</div>
+					</div>
+					
+				</div>
+
+				<!--Modal footer-->
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default" type="button">Batal</button>
+					<button type="Submit "class="btn btn-primary">Simpan Data</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="demo-default-modal2" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="{$basedomain}pengaturan_admin/tambahWaktu/?open=wp1" method="POST">
+				<!--Modal header-->
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">
+					<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Form Tambah Pengaturan Waktu Penyelesaian Pengaduan User</h4>
+				</div>
+
+				<!--Modal body-->
+				<div class="modal-body">
+					<div class="bootbox-body">
+						<div class="row"> 
+							<div class="col-md-12 form-horizontal"> 
+								<input type="hidden" value="2" name="type"> 
+									<div class="form-group"> 
+										<label for="name" class="col-md-4 control-label">Nama</label> 
+										<div class="col-md-4"> 
+											<input type="text" class="form-control input-md" placeholder="Your name" name="name" id="name" required> 
+										</div> 
+									</div> 
+									<div class="form-group"> 
+										<label for="value" class="col-md-4 control-label">Waktu</label> 
+										<div class="col-md-4"> 
+											<input type="number" class="form-control input-md" placeholder="Your value" name="value" id="value" required> 
+										</div> 
+									</div> 
+							</div> 
+						</div>
+					</div>
+					
+				</div>
+
+				<!--Modal footer-->
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default" type="button">Batal</button>
+					<button type="Submit "class="btn btn-primary">Simpan Data</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="demo-default-modal3" role="dialog" tabindex="-1" aria-labelledby="demo-default-modal" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="{$basedomain}pengaturan_admin/tambahWaktu/?open=wp2" method="POST">
+				<!--Modal header-->
+				<div class="modal-header">
+					<button data-dismiss="modal" class="close" type="button">
+					<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Form Tambah Pengaturan Waktu Penyelesaian Pengaduan Administrator
+</h4>
+				</div>
+
+				<!--Modal body-->
+				<div class="modal-body">
+					<div class="bootbox-body">
+						<div class="row"> 
+							<div class="col-md-12 form-horizontal"> 
+								<input type="hidden" value="3" name="type"> 
+									<div class="form-group"> 
+										<label for="name" class="col-md-4 control-label">Nama</label> 
+										<div class="col-md-4"> 
+											<input type="text" class="form-control input-md" placeholder="Your name" name="name" id="name" required> 
+										</div> 
+									</div> 
+									<div class="form-group"> 
+										<label for="value" class="col-md-4 control-label">Waktu</label> 
+										<div class="col-md-4"> 
+											<input type="number" class="form-control input-md" placeholder="Your value" name="value" id="value" required> 
+										</div> 
+									</div> 
+							</div> 
+						</div>
+					</div>
+					
+				</div>
+
+				<!--Modal footer-->
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default" type="button">Batal</button>
+					<button type="Submit "class="btn btn-primary">Simpan Data</button>
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--===================================================-->
+	<!--End Default Bootstrap Modal
