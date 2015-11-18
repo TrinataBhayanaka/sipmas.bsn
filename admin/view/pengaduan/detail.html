@@ -56,17 +56,29 @@
 						<h3 class="panel-title"><strong>{$dataPengaduan.judul}</strong></h3>
 					</div>
 					<div id="demo-email-list" class="panel-body">
-							
-							<p class="text-danger">Sisa waktu penyelesaian {$dataPengaduan.sisaWaktu}</p>
-							<p> ID Laporan : {$dataPengaduan.idLaporan} </p>
-							<p>	Tanggal Laporan : {$dataPengaduan.tanggalformat} </p>
-							<p>	Nama Pelapor  : {$dataPengaduan.nameUser} </p>
-							<p>	Email Laporan : {$dataPengaduan.emailUser} </p>
-							<p>	No. HP : {$dataPengaduan.hpUser} </p>
-								{*}<p><a class="btn-link" href="#"><u> Data Selengkapnya </u></a></p>{/*}
+						<div class="row">
+							<div class="col-md-6">	
+								<p class="text-danger">Sisa waktu penyelesaian {$dataPengaduan.sisaWaktu}</p>
+								<p> ID Laporan : {$dataPengaduan.idLaporan} </p>
+								<p>	Tanggal Laporan : {$dataPengaduan.tanggalformat} </p>
+								<p>	Nama Pelapor  : {$dataPengaduan.nameUser} </p>
+								<p>	Email Laporan : {$dataPengaduan.emailUser} </p>
+								<p>	No. HP : {$dataPengaduan.hpUser} </p>
+									{*}<p><a class="btn-link" href="#"><u> Data Selengkapnya </u></a></p>{/*}
+							</div>
+							{if $dataPengaduan.perorangan eq '1'}	
+							<div class="col-md-6 well">
+								<p>Nama Terlapor : {$dataPengaduan.nama}</p>
+								<p>Alamat : {$dataPengaduan.alamat}</p>
+								<p>Jabatan : {$dataPengaduan.jabatan}</p>
+								<p>Unit Kerja : {$dataPengaduan.satker}</p>
+								<p>Lokasi Kasus : {$dataPengaduan.lokasi}</p>
+							</div>
+							{/if}
+						</div>
 							<form action="{$basedomain}daftar_pengaduan/chg_status" method="post">	
 							<div class="row">
-								<div class="col-md-2">
+								<div class="col-md-12">
 								<p>	Status Laporan: </p>
 								</div>
 								<div class="col-md-4">
