@@ -262,24 +262,27 @@ class pengaturan_admin extends Controller {
 				if($_POST['query']=="update"){
 					$data=array(
 						'id' => $_POST['id'], 
-						'title' => $_POST['title'], 
-						'description' => $_POST['description'], 
+						'title' => htmlspecialchars($_POST['title'],ENT_QUOTES), 
+						'description' => htmlspecialchars($_POST['description'],ENT_QUOTES), 
 						'create_date' => date('Y-m-d'), 
 						);
 					$result = $this->contentHelper->simpanData(2,$data,"_content");
 				}elseif($_POST['query']=="insert"){
 					$data=array(
 						'id' => $_POST['id'], 
-						'title' => $_POST['title'], 
-						'description' => $_POST['description'], 
+						'title' => htmlspecialchars($_POST['title'],ENT_QUOTES), 
+						'description' =>  htmlspecialchars($_POST['description'],ENT_QUOTES), 
 						'type' => $_POST['type'], 
 						'category' => $_POST['category'], 
 						'create_date' => date('Y-m-d'), 
 						'n_status' => 1, 
 						);
+
 					$result = $this->contentHelper->simpanData(1,$data,"_content");
 				}
 			}
+			// pr($data);
+			// exit;
 
 				redirect($basedomain . 'pengaturan_admin/ubahkonten');
 
@@ -287,14 +290,14 @@ class pengaturan_admin extends Controller {
 
 	public function selectubahkonten(){
 	
-		// //pr($_POST);
+		// pr($_POST);
 		$dataContent['table'] = "bsn_content";
 		$dataContent['condition'] = array('type'=>$_POST['type'], 'category'=>1,'n_status'=>1);
 
 		$data = $this->contentHelper->fetchData($dataContent);
 // //pr($data);
         if ($data){
-            print json_encode(array('status'=>true,'idhidden'=>$data[0]['id'], 'data'=>$data[0]['description'],'judul'=>$data[0]['title']));
+            print json_encode(array('status'=>true,'idhidden'=>$data[0]['id'], 'data'=>htmlspecialchars_decode($data[0]['description'],ENT_QUOTES),'judul'=>htmlspecialchars_decode($data[0]['title'],ENT_QUOTES)));
         }else{
             print json_encode(array('status'=>false));
         }
