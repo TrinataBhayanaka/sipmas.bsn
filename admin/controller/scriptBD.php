@@ -38,6 +38,12 @@ class scriptBD extends Controller {
 
 		redirect($basedomain);
 	}
+
+	public function getAllUsersSipmas()
+	{
+		$data = $this->model->getAllUsers();
+		db($data);
+	}
 	
 }
 

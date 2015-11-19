@@ -300,6 +300,15 @@ class mpengaduan extends Database {
         return $res;
     }
 
+    function getAllUsers()
+    {
+        $sql = "SELECT * FROM bsn_users";
+        $res = $this->fetch($sql,1);
+
+        return $res;
+
+    }
+
     function stsComment($id)
     {
         $sql = "UPDATE bsn_comment SET n_status = CASE WHEN n_status = '1' THEN '0' ELSE '1' END WHERE idComment = '{$id}'";
