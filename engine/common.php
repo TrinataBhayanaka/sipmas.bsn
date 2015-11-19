@@ -238,7 +238,7 @@ function uploadFile($data,$path=null,$ext='image'){
                     'folder_name' => $pathFolder
     			);
             }
-
+            logFile(serialize($result));
 			// pr($result);exit;
 			return $result;
 		// }
