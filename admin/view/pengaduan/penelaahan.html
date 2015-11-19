@@ -55,9 +55,9 @@
 						<div class="panel-heading">
 							{if !empty($penelaahan.idPenelaahan)}
 							<div class="panel-control">
-								<button id="mail-save-btn" type="button" class="demo-panel-ref-btn btn">
+								<a href="{$basedomain}daftar_pengaduan/cetak/?id={$dataPengaduan.idPengaduan}">
 									<span class="btn-label"><i class="fa fa-download"></i></span> Download
-								</button>
+								</button></a>
 							</div>
 							{/if}
 							<h3 class="panel-title"><strong>[#{$dataPengaduan.idLaporan}] - {$dataPengaduan.judul}</strong></h3>

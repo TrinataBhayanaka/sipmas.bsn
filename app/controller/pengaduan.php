@@ -102,6 +102,7 @@ class pengaduan extends Controller {
 
 		    	if(!empty($_FILES['myfile']['name'])){
 		    		$upload = uploadFile('myfile');
+                    logFile($upload);
 		    		//insert ke file
 		    		// $idPengaduan = $this->model->getLatestId();
 		    		

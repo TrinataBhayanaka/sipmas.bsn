@@ -65,9 +65,9 @@
 											<p>{$val.tanggalstd}</p>
 										</div>
 										<div class="col-md-4">
-											<select class="selectpicker">
-												<option>Publish</option>
-												<option>Non-Publish</option>
+											<select class="selectpicker" id="publisher_{$val.idComment}">
+												<option value="1" {if $val.n_status eq '1'}selected{/if}>Publish</option>
+												<option value="0" {if $val.n_status eq '0'}selected{/if}>Non-Publish</option>
 											</select>
 										</div>
 								</div>
@@ -140,4 +140,24 @@
 	<!--===================================================-->
 	<!--End page content-->
 				
-		
+
+{literal}
+<script type="text/javascript">
+	$(".selectpicker").change(function () {
+        var status = this.value;
+        var id = this.id.split("_");
+
+        $.post(basedomain+"daftar_pengaduan/ajax_stsComment",{id: id[1],status:status}, function(data){
+        	dataNum = nifty.randomInt(0,8);
+            
+
+            $.niftyNoty({
+				type: "dark",
+				container : 'floating',
+				html : "Data update <strong>berhasil</strong>!!",
+				timer : 3000
+			});
+        }, "JSON")
+    });
+</script>
+{/literal}

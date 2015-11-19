@@ -91,7 +91,7 @@ class mpengaduan extends Database {
 
     function getComment($id)
     {
-        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}' ORDER BY tanggal DESC";
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}' AND n_status = '1' ORDER BY tanggal DESC";
         $res = $this->fetch($sql,1);
 
         foreach($res as $key => $val)
