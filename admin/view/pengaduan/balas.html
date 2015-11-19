@@ -85,8 +85,13 @@
 										{/if}
 									</td>
 									<td>
-										<button class="btn btn-xs btn-warning btn-icon fa fa-pencil"></button>
-										<button class="btn btn-xs btn-danger btn-icon fa fa-times"></button>
+										{if $val.typeUser neq '2'}
+										<a href="{$basedomain}daftar_pengaduan/balas/?id={$id}&req={$val.idComment}">
+										<button class="btn btn-xs btn-warning btn-icon fa fa-pencil btn-hover-info add-tooltip" data-placement="top" data-toggle="tooltip" data-original-title="Edit"></button>
+										</a>
+										{/if}
+										<a href="{$basedomain}daftar_pengaduan/stsComment/?req={$val.idComment}&chg={$id}">
+										<button class="btn btn-xs btn-{if $val.n_status eq '1'}danger{else}success{/if} btn-icon fa fa-eye btn-hover-info add-tooltip publish" data-placement="top" data-toggle="tooltip" data-original-title="{if $val.n_status eq '1'}Non Publish{else}Publish{/if}"></button>
 									</td>
 									<td>
 										{$val.isi}
@@ -142,7 +147,7 @@
 										<div class="panel-body">
 										
 										<!--Attact file button-->
-										<div class="media pad-btm">
+										<div class="media pad-btm" {if !empty($dataComment.idComment)}style="display:none"{/if}>
 											<div class="media-left">
 												<span class="btn btn-default btn-file">
 													Attachment <input type="file" name="myfile">
@@ -151,14 +156,40 @@
 											<div id="demo-attach-file" class="media-body"></div>
 											<small class="help-block">Maximum file size:5Mb (pdf/png/jpg/doc/docx/xls/xlsx/odt/odf/txt)</small>
 										</div>
+
+										{if !empty($dataComment.idComment)}
+										<div class="media pad-btm">
+										<h4><i class="fa fa-paperclip fa-fw"></i> Lampiran </h4>
+										{foreach $dataComment.files as $val}
+											<!--Download button-->
+											<div class="mail-attach-btn"><a href="{$app_domain}public_assets/{$val.nama}" class="btn btn-purple btn-sm">Download</a></div>
+		
+											<!--File information-->
+											<div class="mail-attach-file">
+												<span class="mail-attach-label">
+													<span class="label label-info text-uppercase">File</span>
+												</span>
+												<div class="media-body">
+													<div class="text-bold">{$val.nama}</div>
+													{*}<small class="text-muted">(15 KB)</small>{/*}
+												</div>
+											</div>
+										{/foreach}
+										</div>
+										{/if}
 						
 						
 											<!--Wysiwyg editor : Summernote placeholder-->
-											<textarea id="demo-mail-compose" name="isi"></textarea>
+											<textarea id="demo-mail-compose" name="isi">
+												
+											</textarea>
 											
 											<!-- HIDDDEN -->
 											<input type="hidden" name="idPengaduan" value="{$dataPengaduan.idPengaduan}">
 											<input type="hidden" name="n_status" value="1">
+											{if !empty($dataComment.idComment)}
+												<input type="hidden" name="idComment" value="{$dataComment.idComment}">
+											{/if}
 
 											<div class="pad-ver">
 
@@ -185,7 +216,7 @@
 	<!--===================================================-->
 	<!--End page content-->
 				
-{literal}
+
 <script>
 	
 	$(window).on('load', function() {
@@ -194,7 +225,6 @@
 		$('#demo-foo-row-toggler').footable();
 	});
 
-	
 	$(document).on('ready', function() {
 		if ($('#demo-mail-compose').length) {
 			// SUMMERNOTE
@@ -203,9 +233,9 @@
 			// http://hackerwins.github.io/summernote/
 			// =================================================================
 			$('#demo-mail-compose').summernote({
-				height:200
+				height:200,
 			});
-		
+			$("#demo-mail-compose").code("{$dataComment.isi}");
 			// Attachment button.
 			// =================================================================
 			var size = new Array();
@@ -220,6 +250,7 @@
 		
 		
 	});
+
 </script>
-{/literal}
+
 		

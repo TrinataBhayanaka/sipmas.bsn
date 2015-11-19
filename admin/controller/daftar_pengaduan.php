@@ -137,6 +137,12 @@ class daftar_pengaduan extends Controller {
 			exit;
 		}
 
+		if(isset($_GET['req'])){
+			$dataComment = $this->model->getCommentId($_GET['req']);
+			$dataComment['isi'] = html_entity_decode(htmlspecialchars_decode($dataComment['isi'],ENT_NOQUOTES));
+			$this->view->assign('dataComment',$dataComment);
+		}
+
 		$data = $this->model->getPengaduan($idPengaduan);
 		$dataBalas = $this->model->getComment($idPengaduan);
 
@@ -227,26 +233,31 @@ class daftar_pengaduan extends Controller {
 		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
 		
-		$this->model->insert_balas($_POST);
+		if($_POST['idComment'])
+		{	
+			$this->model->upd_balas($_POST);
+		} else{
+			$this->model->insert_balas($_POST);
 
-		$this->model->upd_fase($_POST['idPengaduan'],5);
-		$_POST['status'] = 2;
-		$this->model->updStat($_POST);
-		    		
-		if(!empty($_FILES['myfile']['name'])){
-    		$upload = uploadFile('myfile');
-    		//insert ke file
-    		$idComment = $this->model->getLatestId('bsn_comment');
+			$this->model->upd_fase($_POST['idPengaduan'],5);
+			$_POST['status'] = 2;
+			$this->model->updStat($_POST);
+			    		
+			if(!empty($_FILES['myfile']['name'])){
+	    		$upload = uploadFile('myfile');
+	    		//insert ke file
+	    		$idComment = $this->model->getLatestId('bsn_comment');
 
-    		$files['nama'] = $upload['full_name'];
-    		$files['path'] = $upload['full_path'];
-    		$files['type'] = 1;
-    		$files['idComment'] = $idComment['id'];
-    		$files['n_status'] = 1;
+	    		$files['nama'] = $upload['full_name'];
+	    		$files['path'] = $upload['full_path'];
+	    		$files['type'] = 1;
+	    		$files['idComment'] = $idComment['id'];
+	    		$files['n_status'] = 1;
 
-    		$this->model->insert_file($files);
+	    		$this->model->insert_file($files);
 
-    	}
+	    	}
+		}
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/balas/?id={$_POST['idPengaduan']}'</script>";
 		exit;
@@ -307,6 +318,27 @@ class daftar_pengaduan extends Controller {
 		$this->model->upd_fase($_POST['idPengaduan'],6);
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
+		exit;
+	}
+
+	public function stsComment()
+	{
+		global $basedomain;
+
+		$sts = $this->model->stsComment($_GET['req']);
+
+		echo "<script>alert('Update Data Berhasil');window.location.href='".$basedomain."daftar_pengaduan/balas/?id={$_GET['chg']}'</script>";
+		exit;
+	}
+
+	public function ajax_stsComment()
+	{
+		$id = $_POST['id'];
+		$status = $_POST['status'];
+
+		$this->model->stsComment($id);
+
+		echo 1;
 		exit;
 	}
 	
