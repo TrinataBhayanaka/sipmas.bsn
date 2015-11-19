@@ -82,15 +82,20 @@ class home extends Controller {
 		
 		// $newformatdate= $month;
 		
-		$aktif= $this->mhome->select_data_a($years,$month);
+		/*$aktif= $this->mhome->select_data_a($years,$month);
 		// pr($kotak_masuk);
 		$ditinjak_lanjuti= $this->mhome->select_data_dl($years,$month);
 		// pr($sudah_terbaca);
 		$tidak_ditinjak_lanjuti= $this->mhome->select_data_tdl($years,$month);
 		// pr($belum_terbaca);
 		$non_aktif= $this->mhome->select_data_na($years,$month);
+		$newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);*/
 		
-		$newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);
+		$proses 	= $this->mhome->select_data_proses($years,$month);
+		$selesai 	= $this->mhome->select_data_selesai($years,$month);
+		$newformat = array('proses'=>$proses,'selesai'=>$selesai,'month'=>$newformatdate,'years'=>$years);
+		
+		
 		print json_encode($newformat);
 		// print json_encode($register_user);
 		exit;
@@ -106,16 +111,20 @@ class home extends Controller {
 		setlocale (LC_ALL, 'IND');
 		$newformatdate= strftime( "%B", strtotime($month_rev));
 		
-		$aktif= $this->mhome->select_data_a($years,$month);
+		/*$aktif= $this->mhome->select_data_a($years,$month);
 		// pr($kotak_masuk);
 		$ditinjak_lanjuti= $this->mhome->select_data_dl($years,$month);
 		// pr($sudah_terbaca);
 		$tidak_ditinjak_lanjuti= $this->mhome->select_data_tdl($years,$month);
 		// pr($belum_terbaca);
-		$non_aktif= $this->mhome->select_data_na($years,$month);
+		$non_aktif= $this->mhome->select_data_na($years,$month);*/
 		
-		$newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);
+		// $newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif,'month'=>$newformatdate,'years'=>$years);
 		// $newformat = array('a'=>$aktif,'dl'=>$ditinjak_lanjuti,'tdl'=>$tidak_ditinjak_lanjuti,'na'=>$non_aktif);
+		
+		$proses 	= $this->mhome->select_data_proses($years,$month);
+		$selesai 	= $this->mhome->select_data_selesai($years,$month);
+		$newformat = array('proses'=>$proses,'selesai'=>$selesai,'month'=>$newformatdate,'years'=>$years);
 		print json_encode($newformat);
 		// print json_encode($register_user);
 		exit;

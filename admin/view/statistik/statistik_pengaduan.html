@@ -18,40 +18,39 @@
 						<div class="col-md-12 mar-btm">
 							<div class="demo-dp-range">
 								<div class="input-daterange input-group" id="datepicker">
-									<input type="text" class="form-control" name="start" />
+									<input type="text" class="form-control" name="start" id="start" />
 									<span class="input-group-addon">sampai</span>
-									<input type="text" class="form-control" name="end" />
+									<input type="text" class="form-control" name="end" id="end"/>
 								</div>
 							</div>
 						</div>
 
 					</div>
 					<div class="col-md-6">
-							<select class="selectpicker" title="Pilih komponen laporan">
+							<select class="selectpicker" title="Pilih komponen laporan" id="rLingkup">
 								<option data-hidden="true"></option>
-								<option>Kelompok Pengaduan</option>
-								<option>Judul laporan</option>
-								<option>Ruang Lingkup laporan</option>
-								<option>Sub Ruang Lingkup laporan</option>
-								<option>Satuan Unit Kerja Terkait</option>
-								<option>Pejabat Terkait</option>
-								<option>Status Laporan</option>
-								<option>Tingkat Kepuasan Masyarakat</option>
+								<option value="1">Kelompok Pengaduan</option>
+								<!--<option value="2">Judul laporan</option>-->
+								<option value="3">Ruang Lingkup laporan</option>
+								<option value="4">Sub Ruang Lingkup laporan</option>
+								<option value="5">Satuan Unit Kerja Terkait</option>
+								<option value="6">Pejabat Terkait</option>
+								<option value="7">Status Laporan</option>
+								<option value="8">Tingkat Kepuasan Masyarakat</option>
 							</select>
 						</div>
+					
 					<div class="row pull-right">
 						<div class="col-md-6">
-							<select class="selectpicker" title="Pilih data">
-								<option data-hidden="true"></option>
-								<option>Laporan</option>
-								<option>User</option>
+							<select class="selectpicker" id="user" title="Pilih data" value='1'>
+								<option value='1'>Laporan</option>
 							</select>
 						</div>
 					</div>
 
 					<div class="row text-center">
-						<div class="col-md-12">
-							<div id="demo-morris-bar" style="height:227px"></div>
+						<div class="col-md-12" id="show">
+							<div id="demo-morris-bar" style="height:227px;"></div>
 						</div>
 					</div>
 					
@@ -73,15 +72,16 @@
 				</div>
 				<div class="panel-body">
 					<div class="demo-dp-range mar-btm">
-						<div class="input-daterange input-group" id="datepicker">
+						<div class="input-daterange input-group" id="datepicker2">
 							<input type="text" class="form-control" name="start" />
 							<span class="input-group-addon">sampai</span>
 							<input type="text" class="form-control" name="end" />
 						</div>
 					</div>
-					<select class="demo1" multiple="multiple" size="10" name="demo1">
-	                    <option>Kelompok Pengaduan</option>
-	                    <option>Judul Laporan</option>
+					<form id="demoform" action="#" method="post">
+					<select class="demo1" multiple="multiple"  size="10" name="duallistbox_demo1[]">
+	                    <option >Kelompok Pengaduan</option>
+	                    <option >Judul Laporan</option>
 	                    <option>Ruang Lingkup Laporan</option>
 	                    <option>Sub Ruang Lingkup Laporan</option>
 	                    <option>Satuan Unit Kerja Terkait</option>
@@ -93,12 +93,13 @@
 	                    <option>Tanggal Penelaahan Laporan</option>
 	                    <option>Tanggal Jatuh Tempo Laporan</option>
 	                </select>
-
 				</div>
 				<div class="panel-footer">
+					<button type="submit" class="btn btn-default btn-block">Submit data</button>
 					<button class="btn btn-default">View Report</button>
 					<button class="btn btn-purple">Export Report</button>
 				</div>
+				</form>
 			</div>
 			<!--===================================================-->
 			<!--End Primary Panel-->
@@ -110,7 +111,7 @@
 		
 	</div>
 </div>
-
+{literal}
 <script type="text/javascript">
 	$(document).ready(function() {
 		// MORRIS BAR CHART
@@ -119,24 +120,107 @@
 		// -----------------------------------------------------------------
 		// http://morrisjs.github.io/morris.js/
 		// =================================================================
-		Morris.Bar({
-			element: 'demo-morris-bar',
-			data: [
-				{ y: '1', a: 20, b: 35, c:45, d:40 }
-			],
-			xkey: 'y',
-			ykeys: ['a', 'b', 'c', 'd'],
-			labels: ['Aktif', 'Ditindaklanjuti', 'Tidak Ditindaklanjuti', 'Non Aktif'],
-			gridEnabled: true,
-			gridLineColor: '#177bbb',
-			barColors: ['#177bbb', '#afd2f0'],
-			resize:true,
-			hideHover: 'auto'
+		
+		//default chart Kelompok Pengaduan
+		var bar;
+		$.post(basedomain+"statistik_laporan/chart_default",function(statistik_pengaduan){
+		var temp_a = statistik_pengaduan.klmpk_1.jml;
+		var temp_b = statistik_pengaduan.klmpk_2.jml;
+		var temp_c = statistik_pengaduan.klmpk_3.jml;
+		var temp_d = statistik_pengaduan.klmpk_4.jml;
+		
+		var data = [{ y: 'Kelompok Pengaduan', a: temp_a, b: temp_b, c:temp_c, d:temp_d },],
+		config = {
+		  //element: 'demo-morris-bar',
+		  data: data,
+		  xkey: 'y',
+		  ykeys: ['a', 'b', 'c', 'd'],
+		  labels: ['Berkadar Pengawasan', 'Tidak Berkadar Pengawasan', 'Tidak Logis', 'Bukan Kewenangan BSN'],
+		  gridEnabled: true,
+		  gridLineColor: '#177bbb',
+		  barColors: ['#177bbb', '#afd2f0'],
+		  resize:true,
+		  hideHover: 'auto'
+		};
+			config.element = 'demo-morris-bar';
+			bar = Morris.Bar(config);
+		},"JSON");
+		
+		$('#start,#end,#rLingkup').on('change', function(){
+		var komponen = $('#rLingkup').val();
+		//console.log(rLingkup);
+		var start = $('#start').val();
+		console.log(start);
+		var end = $('#end').val();
+		if(komponen == 1){
+			if(start != '' && end !='' && komponen !=''){
+			  $.post(basedomain+"statistik_laporan/chart", {start:start, end:end,komponen:komponen},function(statistik_pengaduan){
+				$('#demo-morris-bar').empty();
+				var temp_a = statistik_pengaduan.klmpk_1.jml;
+				var temp_b = statistik_pengaduan.klmpk_2.jml;
+				var temp_c = statistik_pengaduan.klmpk_3.jml;
+				var temp_d = statistik_pengaduan.klmpk_4.jml;
+				
+				var ket = "Kelompok Pengaduan";
+				var Newdata = [{ y: ket, a: temp_a, b: temp_b, c:temp_c, d:temp_d },],
+				config = {
+				  //element: 'demo-morris-bar',
+				  data: Newdata,
+				  xkey: 'y',
+				  ykeys: ['a', 'b', 'c', 'd'],
+				  labels: ['Berkadar Pengawasan', 'Tidak Berkadar Pengawasan', 'Tidak Logis', 'Bukan Kewenangan BSN'],
+				  gridEnabled: true,
+				  gridLineColor: '#177bbb',
+				  barColors: ['#177bbb', '#afd2f0'],
+				  resize:true,
+				  hideHover: 'auto'
+				  
+			  };
+				config.element = 'demo-morris-bar';
+				bar = Morris.Bar(config);
+				},"JSON");
+			}
+		}else if(komponen == 3 || komponen == 4 || komponen == 5 || komponen == 6 || komponen == 7 || komponen == 8){
+			if(start != '' && end !='' && komponen !=''){
+			  $.post(basedomain+"statistik_laporan/chart", {start:start, end:end,komponen:komponen},function(statistik_pengaduan_3){
+				$('#demo-morris-bar').empty();
+				
+				/*var myobj = JSON.parse('{ "hello":"world" }');
+				alert(myobj.hello);
+				//alert(typeof value);*/
+				var value = eval(statistik_pengaduan_3.key);
+				var yk 	  = eval(statistik_pengaduan_3.flag);
+				var lb 	  = eval(statistik_pengaduan_3.label);
+				
+				var Newdata = value,
+				config = {
+				  //element: 'demo-morris-bar',
+				  data: Newdata,
+				  xkey: 'y',
+				  ykeys: yk,
+				  labels: lb,
+				  gridEnabled: true,
+				  gridLineColor: '#177bbb',
+				  barColors: ['#177bbb', '#afd2f0'],
+				  resize:true,
+				  hideHover: 'auto'
+				  
+			  };
+				config.element = 'demo-morris-bar';
+				bar = Morris.Bar(config);
+				},"JSON");
+			}
+	   }
+	});
+		
+		
+		
+		 var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox();
+		$("#demoform").submit(function() {
+		  alert($('[name="duallistbox_demo1[]"]').val());
+		  return false;
 		});
-
-		// Dual List Plugin Init
-	    var demo1 = $('.demo1').bootstrapDualListbox({
-	    });
-
+	
 	});
 </script>
+{/literal}

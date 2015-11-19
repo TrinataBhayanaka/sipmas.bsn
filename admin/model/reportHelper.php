@@ -34,7 +34,8 @@ class reportHelper extends Database {
         if (is_file($mpdfEngine)){
             
             require_once ($mpdfEngine);
-            $mpdf=new mPDF('c','A4','','',32,25,27,25,16,13); 
+            // $mpdf=new mPDF('c','A4','','',32,25,27,25,16,13); 
+            $mpdf=new mPDF('c','A4','','',15,15,16,16,9,9,'L'); 
 			$mpdf->SetDisplayMode('fullpage');
             
 			/*$mpdf=new mPDF('','','','',15,15,16,16,9,9,'P');

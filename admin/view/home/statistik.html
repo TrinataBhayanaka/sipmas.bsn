@@ -84,21 +84,27 @@ $('.selectpicker').selectpicker();
 		var bar ="";
 		
 		$.post(basedomain+"home/chart",function(statistik_pengaduan){
-			var temp_a = statistik_pengaduan.a.total;
+			/*var temp_a = statistik_pengaduan.a.total;
 			var temp_b = statistik_pengaduan.dl.total;
 			var temp_c = statistik_pengaduan.tdl.total;
-			var temp_d = statistik_pengaduan.na.total;
+			var temp_d = statistik_pengaduan.na.total;*/
+			var temp_proses = statistik_pengaduan.proses.total;
+			var temp_selesai = statistik_pengaduan.selesai.total;
 			var temp_years = statistik_pengaduan.years;
+			
 			$('#monthref').text(statistik_pengaduan.month);
 			$('#yearsref').text(statistik_pengaduan.years);
 			bar = Morris.Bar({
 				element: 'demo-morris-bar',
 				data: [
-					{ y: temp_years, a: temp_a, b: temp_b, c:temp_c, d:temp_d }
+					//{ y: temp_years, a: temp_a, b: temp_b, c:temp_c, d:temp_d }
+					{ y: temp_years, a: temp_proses, b: temp_selesai}
 				],
 				xkey: 'y',
-				ykeys: ['a', 'b', 'c', 'd'],
-				labels: ['Aktif', 'Ditindaklanjuti', 'Tidak Ditindaklanjuti', 'Selesai'],
+				//ykeys: ['a', 'b', 'c', 'd'],
+				ykeys: ['a', 'b'],
+				//labels: ['Aktif', 'Ditindaklanjuti', 'Tidak Ditindaklanjuti', 'Selesai'],
+				labels: ['Proses','Selesai'],
 				gridEnabled: true,
 				gridLineColor: '#177bbb',
 				barColors: ['#177bbb', '#afd2f0'],
@@ -115,29 +121,35 @@ $('.selectpicker').selectpicker();
 		if(monthid != '' && yearid != ''){
 				if(monthid != 15 && yearid != 3){
 				$.post(basedomain+"home/chart_condtn", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
-					var temp_a = statistik_pengaduan.a.total;
+					/*var temp_a = statistik_pengaduan.a.total;
 					var temp_b = statistik_pengaduan.dl.total;
 					var temp_c = statistik_pengaduan.tdl.total;
-					var temp_d = statistik_pengaduan.na.total;
+					var temp_d = statistik_pengaduan.na.total;*/
+					var temp_proses = statistik_pengaduan.proses.total;
+					var temp_selesai = statistik_pengaduan.selesai.total;
 					var temp_years = statistik_pengaduan.years;
 					$('#monthref').text(statistik_pengaduan.month);
 					$('#yearsref').text(statistik_pengaduan.years);
 					
-					bar.setData([{ "y": temp_years, "a": temp_a, "b": temp_b, "c": temp_c, "d": temp_d} ]);
+					//bar.setData([{ "y": temp_years, "a": temp_a, "b": temp_b, "c": temp_c, "d": temp_d} ]);
+					bar.setData([{ "y": temp_years, "a": temp_proses, "b": temp_selesai}]);
 					
 				},"JSON");
 			}else{
 				if(monthid == 15 && yearid == 3){
-				$.post(basedomain+"home/chart_bar_default", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
-					var temp_a = statistik_pengaduan.a.total;
+				$.post(basedomain+"home/chart", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
+					/*var temp_a = statistik_pengaduan.a.total;
 					var temp_b = statistik_pengaduan.dl.total;
 					var temp_c = statistik_pengaduan.tdl.total;
-					var temp_d = statistik_pengaduan.na.total;
+					var temp_d = statistik_pengaduan.na.total;*/
+					var temp_proses = statistik_pengaduan.proses.total;
+					var temp_selesai = statistik_pengaduan.selesai.total;
 					var temp_years = statistik_pengaduan.years;
 					$('#monthref').text(statistik_pengaduan.month);
 					$('#yearsref').text(statistik_pengaduan.years);
 					
-					bar.setData([{ "y": temp_years, "a": temp_a, "b": temp_b, "c": temp_c, "d": temp_d} ]);
+					//bar.setData([{ "y": temp_years, "a": temp_a, "b": temp_b, "c": temp_c, "d": temp_d} ]);
+					bar.setData([{ "y": temp_years, "a": temp_proses, "b": temp_selesai}]);
 					
 				},"JSON");	
 		}

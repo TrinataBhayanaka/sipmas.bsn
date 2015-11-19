@@ -85,6 +85,13 @@ class mpengaduan extends Database {
 
         return $res;   
     }
+	 function getSatker_condtn($satker)
+    {
+        $sql = "SELECT * FROM bsn_satker where idSatker = '{$satker}'";
+        $res = $this->fetch($sql,1);
+
+        return $res;   
+    }
 
     function getAdmUsr()
     {
