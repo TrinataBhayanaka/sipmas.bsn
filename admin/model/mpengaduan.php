@@ -300,5 +300,32 @@ class mpengaduan extends Database {
         return $res;
     }
 
+    function stsComment($id)
+    {
+        $sql = "UPDATE bsn_comment SET n_status = CASE WHEN n_status = '1' THEN '0' ELSE '1' END WHERE idComment = '{$id}'";
+        $res = $this->query($sql);
+
+        return $sts;
+    }
+
+    function getCommentId($id)
+    {
+        $sql = "SELECT * FROM bsn_comment WHERE idComment = '{$id}'";
+        $res = $this->fetch($sql,0);
+
+        $file = $this->getFile($id,'idComment');
+        $res['files'] = $file;
+
+        return $res;
+    }
+
+    function upd_balas($data)
+    {
+        $sql = "UPDATE bsn_comment SET isi = '{$data['isi']}' WHERE idComment = '{$data['idComment']}'";
+
+        $res = $this->query($sql);
+
+        return $res;
+    }
 }
 ?>
