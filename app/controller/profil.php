@@ -21,6 +21,7 @@ class profil extends Controller {
         $this->contentHelper = $this->loadModel('contentHelper');
         $this->loginHelper = $this->loadModel('loginHelper');
         $this->userHelper = $this->loadModel('userHelper');
+        $this->mpengaduan = $this->loadModel('mpengaduan');
 	}
 	
 	function index(){
@@ -31,6 +32,8 @@ class profil extends Controller {
 		$dataUser['condition'] = array('type'=>2, 'n_status'=>1, 'idUser'=>$this->user['idUser']);
 		$getUser = $this->userHelper->fetchData($dataUser);
 		
+		$dataPengaduan = $this->mpengaduan->getPengaduan($this->user['idUser']);
+
 		if ($getUser){
 			
 			$this->view->assign('user', $getUser[0]);
@@ -41,15 +44,20 @@ class profil extends Controller {
 
 			if ($_POST['pass']){
 				$pass = _p('pass');
-	            $pass1 = _p('pass1');
-	        	if ($pass === $pass1){
-            		$_POST['password'] = sha1($getUser[0]['salt'] . $pass . $getUser[0]['salt']);
-            	}    	
+
+				$oldPass = sha1($getUser[0]['salt'] . $pass . $getUser[0]['salt']);
+				if ($getUser[0]['password'] == $oldPass){
+					$pass1 = _p('pass1');
+		        	if ($pass1)$_POST['password'] = sha1($getUser[0]['salt'] . $pass1 . $getUser[0]['salt']);
+				}
 			}
 			    
             $signup = $this->contentHelper->saveData($_POST,"_users");
-            redirect($basedomain . 'profil');
+            // redirect($basedomain . 'profil');
 		}
+
+		$this->view->assign('dataPengaduan',$dataPengaduan);
+
     	return $this->loadView('akun/profile');
     }
     

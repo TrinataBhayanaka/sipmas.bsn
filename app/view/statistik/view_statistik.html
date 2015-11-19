@@ -23,10 +23,12 @@ $('.selectpicker').selectpicker();
             <div class="col-md-8 col-sm-8">
                 <form class="sky-form boxed">
                     <header><i class="fa fa-pie-chart"></i> Statistik Laporan Pengaduan<label id="monthref"></label></header>
-					<div class="row" style="margin-bottom:40px">
-						<div class="col-sm-12">
-						         <select id="monthid" class="selectpicker" data-live-search="true" name="month" >
-				                    <option value=''>Choose one of the month</option>
+
+                    <fieldset class="nomargin">
+                    	<div class="col-md-6">
+                    		<div class="fancy-form fancy-form-select"><!-- select -->
+								<select id="monthid" name="month" class="form-control">
+									<option value=''>Choose one of the month</option>
 				                    <option value='15'>Semua</option>
 				                    <option value='1'>Januari</option>
 				                    <option value='2'>Februari</option>
@@ -40,16 +42,25 @@ $('.selectpicker').selectpicker();
 				                    <option value='10'>Oktober</option>
 				                    <option value='11'>November</option>
 				                    <option value='12'>December</option>
-				                </select>
-				                <select id="yearid" class="selectpicker" data-live-search="true" name="year" >
-				                    <option value=''>Choose one of the year</option>
+								</select>
+
+								<i class="fancy-arrow"></i>
+							</div><!-- /select -->
+                    	</div>
+
+                    	<div class="col-md-6">
+                    		<div class="fancy-form fancy-form-select"><!-- select -->
+								<select id="yearid" name="year" class="form-control">
+									<option value=''>Choose one of the year</option>
 				                    <option value='3'>semua</option>
 				                    <option value='{date(Y) - 1}'>{date(Y) - 1}</option>
 				                    <option value='{date(Y)}'>{date(Y)}</option>
-				                </select>
-						</div>
-					</div>
-                    <fieldset class="nomargin"> 
+								</select>
+
+								<i class="fancy-arrow"></i>
+							</div><!-- /select -->
+                    	</div>
+ 
                        <div id="demo-morris-donut" class="margin-top-20 margin-bottom-20" style="height:250px"></div>
                     </fieldset>
 
@@ -57,10 +68,12 @@ $('.selectpicker').selectpicker();
 
                 <form class="sky-form boxed">
                     <header><i class="fa fa-bar-chart"></i> Statistik Hasil Survey Kepuasan Masyarakat <label id="monthref_v2"></label></header>
-                    <div class="row" style="margin-bottom:40px">
-						<div class="col-sm-12">
-						         <select id="monthid_v2" class="selectpicker" data-live-search="true" name="month" >
-				                    <option value=''>Choose one of the month</option>
+                    
+                    <fieldset class="nomargin">
+                    	<div class="col-md-6">
+                    		<div class="fancy-form fancy-form-select"><!-- select -->
+								<select id="monthid_v2" name="month" class="form-control">
+									<option value=''>Pilih Bulan</option>
 				                    <option value='15'>Semua</option>
 				                    <option value='1'>Januari</option>
 				                    <option value='2'>Februari</option>
@@ -74,17 +87,26 @@ $('.selectpicker').selectpicker();
 				                    <option value='10'>Oktober</option>
 				                    <option value='11'>November</option>
 				                    <option value='12'>December</option>
-				                </select>
-				                <select id="yearid_v2" class="selectpicker" data-live-search="true" name="year" >
-				                    <option value=''>Choose one of the year</option>
+								</select>
+
+								<i class="fancy-arrow"></i>
+							</div><!-- /select -->
+                    	</div>
+
+                    	<div class="col-md-6">
+                    		<div class="fancy-form fancy-form-select"><!-- select -->
+								<select id="yearid_v2" name="year" class="form-control">
+									<option value=''>Pilih Tahun</option>
 				                    <option value='3'>semua</option>
 				                    <option value='{date(Y) - 1}'>{date(Y) - 1}</option>
 				                    <option value='{date(Y)}'>{date(Y)}</option>
-				                </select>
-						</div>
-					</div>
-                    <fieldset class="nomargin"> 
-                        <div id="demo-morris-bar" style="height:227px"></div>
+								</select>
+
+								<i class="fancy-arrow"></i>
+							</div><!-- /select -->
+                    	</div> 
+
+                        <div class="margin-top-50" id="demo-morris-bar" style="height:227px"></div>
                     </fieldset>
 
                 </form>
@@ -123,6 +145,17 @@ $('.selectpicker').selectpicker();
                     <header><i class="fa fa-tags"></i> Daftar Pengaduan Anda</header>
                     
                     <fieldset class="nomargin"> 
+                        {foreach $dataPengaduan as $val}
+                    	<div class="row tab-post">
+	                        <div class="col-md-12 col-sm-9 col-xs-9">
+								<a href="{$basedomain}pengaduan/detail/?id={$val.idPengaduan}" class="tab-post-link"><strong>{$val.judul}</strong></a>
+								<small>{$val.tanggalformat}</small>
+								<small>ID Laporan : {$val.idLaporan}</small>
+								<small>Status Laporan : {if $val.status eq '4'}Selesai{else}Dalam Proses{/if}</small>
+							</div>
+						</div>
+						{/foreach}
+						{*}
                         <div class="row tab-post">
                             <div class="col-md-12 col-sm-9 col-xs-9">
                                 <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
@@ -149,16 +182,7 @@ $('.selectpicker').selectpicker();
                                 <small>Status Laporan : Aktif</small>
                             </div>
                         </div>
-
-                        <div class="row tab-post">
-                            <div class="col-md-12 col-sm-9 col-xs-9">
-                                <a href="#" class="tab-post-link"><strong>Bagaimana penjelasan untuk SNI Pembalut Wanita ?</strong></a>
-                                <small>Rabu, 08 Juli 2015 14:25 WIB</small>
-                                <small>ID Laporan : 5623333</small>
-                                <small>Status Laporan : Aktif</small>
-                            </div>
-                        </div>
-
+                        {/*}
                     </fieldset>
 
                 </form>

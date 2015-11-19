@@ -34,9 +34,10 @@ class daftar_usersipmas extends Controller {
 
 			foreach ($getUser as $key => $value) {
 				$dataAdu['table'] = "bsn_pengaduan";
-				$dataAdu['condition'] = array('n_status'=>1, 'idUser'=>$value['idUser']);
+				$dataAdu['condition'] = array('idUser'=>$value['idUser']);
 				$getPengaduan = $this->userHelper->fetchData($dataAdu);
-				$getUser[$key]['jumlah_pengaduan'] = count($getPengaduan);
+				if ($getPengaduan)$getUser[$key]['jumlah_pengaduan'] = count($getPengaduan);
+				else $getUser[$key]['jumlah_pengaduan'] = 0;
 				// $getUser[$key]['pengaduan'] = $getPengaduan;
 			}
 			
@@ -58,10 +59,15 @@ class daftar_usersipmas extends Controller {
 
 			foreach ($getUser as $key => $value) {
 				$dataAdu['table'] = "bsn_pengaduan";
-				$dataAdu['condition'] = array('n_status'=>1, 'idUser'=>$value['idUser']);
+				$dataAdu['condition'] = array('idUser'=>$value['idUser']);
 				$getPengaduan = $this->userHelper->fetchData($dataAdu);
-				$getUser[$key]['jumlah_pengaduan'] = count($getPengaduan);
-				$getUser[$key]['pengaduan'] = $getPengaduan;
+				if ($getPengaduan){
+					$getUser[$key]['jumlah_pengaduan'] = count($getPengaduan);
+					$getUser[$key]['pengaduan'] = $getPengaduan;
+				}else{
+					$getUser[$key]['jumlah_pengaduan'] = 0;
+				}
+				
 			}
 			// pr($getUser);
 			$this->view->assign('user', $getUser[0]);

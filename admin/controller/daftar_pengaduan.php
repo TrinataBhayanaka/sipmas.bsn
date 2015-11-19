@@ -30,7 +30,7 @@ class daftar_pengaduan extends Controller {
 		} else {
 			$data = $this->model->getPengaduanSatker($this->admin['satker']);
 		}
-
+		
 		$this->view->assign('dataPengaduan',$data);
 		
 		return $this->loadView('pengaduan/daftar_pengaduan');
@@ -41,10 +41,27 @@ class daftar_pengaduan extends Controller {
 		$idPengaduan = $_GET['id'];
 
 		$data = $this->model->getPengaduan($idPengaduan);
-		$file = $this->model->getFile($idPengaduan);
+		$file = $this->model->getFile($idPengaduan,'idPengaduan');
+		if($data[0]['disposisi']){
+			if($this->admin['satker'] == $data[0]['disposisi']){
+				$this->model->upd_nstatus($idPengaduan,1);
+			}
+		} else {
+			$this->model->upd_nstatus($idPengaduan,1);
+		}
+		$data[0]['isi'] = html_entity_decode(htmlspecialchars_decode($data[0]['isi'], ENT_NOQUOTES));
+		$data[0]['judul'] = html_entity_decode(htmlspecialchars_decode($data[0]['judul'], ENT_NOQUOTES));
 
-		$data[0]['isi'] = html_entity_decode($data[0]['isi']);
-
+		$sisaWaktu = $this->model->getStdWaktu();
+		
+		if($data[0]['status']==4){
+			$data[0]['sisaWaktu'] = "-";
+		} else {
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$nowDate = date("Y-m-d");
+			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+		}
+		
 		$this->view->assign('id',$idPengaduan);
 		$this->view->assign('file',$file);
 		$this->view->assign('dataPengaduan',$data[0]);
@@ -56,12 +73,12 @@ class daftar_pengaduan extends Controller {
 	public function tindak_lanjut(){
 		$idPengaduan = $_GET['id'];
 
-		// $data = $this->model->getComment($idPengaduan);
-		// $file = $this->model->getFile($idPengaduan);
+		$dataPengaduan = $this->model->getPengaduan($idPengaduan);
+		$data = $this->model->getComment($idPengaduan);
 
-		// $this->view->assign('file',$file);
+		$this->view->assign('dataPengaduan',$dataPengaduan[0]);
 		$this->view->assign('id',$idPengaduan);
-		// $this->view->assign('dataComment',$data);
+		$this->view->assign('dataComment',$data);
 
 		return $this->loadView('pengaduan/tindak_lanjut');
 	
@@ -81,7 +98,7 @@ class daftar_pengaduan extends Controller {
 		// pr($data);
 		$rLingkup = $this->model->getRuangLingkup();
 		$satker = $this->model->getSatker();
-		$file = $this->model->getFile($idPengaduan);
+		$file = $this->model->getFile($idPengaduan,'idPengaduan');
 
 		$this->view->assign('penelaahan',$penelaahan);
 		$this->view->assign('file',$file);
@@ -112,10 +129,34 @@ class daftar_pengaduan extends Controller {
 	}
 	
 	public function balas(){
+		global $basedomain;
+
 		$idPengaduan = $_GET['id'];
 
+		$penelaahan = $this->model->getPenelaahan($idPengaduan);
+		if(!isset($penelaahan['idPenelaahan'])){
+			echo "<script>alert('Silahkan lakukan penelaahan terlebih dahulu');window.location.href='".$basedomain."daftar_pengaduan/penelaahan/?id={$idPengaduan}'</script>";
+			exit;
+		}
+
+		if(isset($_GET['req'])){
+			$dataComment = $this->model->getCommentId($_GET['req']);
+			$dataComment['isi'] = html_entity_decode(htmlspecialchars_decode($dataComment['isi'],ENT_NOQUOTES));
+			$this->view->assign('dataComment',$dataComment);
+		}
+
 		$data = $this->model->getPengaduan($idPengaduan);
-		$dataBalas = $this->model->getBalas($idPengaduan);
+		$dataBalas = $this->model->getComment($idPengaduan);
+
+		$sisaWaktu = $this->model->getStdWaktu();
+		
+		if($data[0]['status']==4){
+			$data[0]['sisaWaktu'] = "-";
+		} else {
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$nowDate = date("Y-m-d");
+			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+		}
 
 		$this->view->assign('dataBalas',$dataBalas);
 		$this->view->assign('dataPengaduan',$data[0]);
@@ -126,12 +167,29 @@ class daftar_pengaduan extends Controller {
 	}
 	
 	public function disposisi(){
+		global $basedomain;
+
 		$idPengaduan = $_GET['id'];
+
+		$penelaahan = $this->model->getPenelaahan($idPengaduan);
+		if(!isset($penelaahan['idPenelaahan'])){
+			echo "<script>alert('Silahkan lakukan penelaahan terlebih dahulu');window.location.href='".$basedomain."daftar_pengaduan/penelaahan/?id={$idPengaduan}'</script>";
+			exit;
+		}
 
 		$data = $this->model->getPengaduan($idPengaduan);
 		$dataDisposisi = $this->model->getDisposisi($idPengaduan);
 		$satker = $this->model->getSatker();
-		// $adminUsers = $this->model->getAdmUsr();
+		
+		$sisaWaktu = $this->model->getStdWaktu();
+		
+		if($data[0]['status']==4){
+			$data[0]['sisaWaktu'] = "-";
+		} else {
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$nowDate = date("Y-m-d");
+			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+		}
 
 		$this->view->assign('satker',$satker);
 		$this->view->assign('dataPengaduan',$data[0]);
@@ -158,8 +216,11 @@ class daftar_pengaduan extends Controller {
 	{
 		global $basedomain;
 
-		$this->model->insert_penelaahan($_POST);
+		$_POST['kesimpulan'] = htmlentities(htmlspecialchars($_POST['kesimpulan'], ENT_QUOTES));
+		$_POST['rekomendasi'] = htmlentities(htmlspecialchars($_POST['rekomendasi'], ENT_QUOTES));
 
+		$this->model->insert_penelaahan($_POST);
+		$this->model->upd_rLingkup($_POST['idPengaduan'],$_POST['kategori']);
 		$this->model->upd_fase($_POST['idPengaduan'],2);
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/penelaahan/?id={$_POST['idPengaduan']}'</script>";
@@ -171,27 +232,34 @@ class daftar_pengaduan extends Controller {
 		global $basedomain;
 
 		$_POST['idUser'] = $this->admin['idUser'];
-		$_POST['isi'] = htmlentities($_POST['isi']);
+		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
-		// db($_FILES);
-		$this->model->insert_balas($_POST);
+		
+		if($_POST['idComment'])
+		{	
+			$this->model->upd_balas($_POST);
+		} else{
+			$this->model->insert_balas($_POST);
 
-		$this->model->upd_fase($_POST['idPengaduan'],3);
-		    		
-		if(isset($_FILES['myfile'])){
-    		$upload = uploadFile('myfile');
-    		//insert ke file
-    		$idComment = $this->model->getLatestId('bsn_comment');
+			$this->model->upd_fase($_POST['idPengaduan'],5);
+			$_POST['status'] = 2;
+			$this->model->updStat($_POST);
+			    		
+			if(!empty($_FILES['myfile']['name'])){
+	    		$upload = uploadFile('myfile');
+	    		//insert ke file
+	    		$idComment = $this->model->getLatestId('bsn_comment');
 
-    		$files['nama'] = $upload['full_name'];
-    		$files['path'] = $upload['full_path'];
-    		$files['type'] = 1;
-    		$files['idComment'] = $idComment['id'];
-    		$files['n_status'] = 1;
+	    		$files['nama'] = $upload['full_name'];
+	    		$files['path'] = $upload['full_path'];
+	    		$files['type'] = 1;
+	    		$files['idComment'] = $idComment['id'];
+	    		$files['n_status'] = 1;
 
-    		$this->model->insert_file($files);
+	    		$this->model->insert_file($files);
 
-    	}
+	    	}
+		}
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/balas/?id={$_POST['idPengaduan']}'</script>";
 		exit;
@@ -199,18 +267,18 @@ class daftar_pengaduan extends Controller {
 
 	public function ins_disposisi()
 	{
-		global $basedomain;
+		global $basedomain, $CONFIG;
 
 		$_POST['idUser'] = $this->admin['idUser'];
-		$_POST['isi'] = htmlentities($_POST['isi']);
+		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
 		$_POST['n_status'] = 1;
-		// db($_POST);
+		
 		$this->model->insert_disposisi($_POST);
-
+		$this->model->upd_nstatus($_POST['idPengaduan'],2);
 		$this->model->upd_fase($_POST['idPengaduan'],4);
 
-		if(isset($_FILES['myfile'])){
+		if(!empty($_FILES['myfile']['name'])){
     		$upload = uploadFile('myfile');
     		//insert ke file
     		$idDisposisi = $this->model->getLatestId('bsn_disposisi');
@@ -225,14 +293,55 @@ class daftar_pengaduan extends Controller {
 
     	}
 
+    	$userToEmail = $this->model->getAllUserSatker($_POST['tujuan']);
+    	$dataPengaduan = $this->model->getPengaduan($_POST['idPengaduan']);
+
+    	//kirim email
+    	foreach ($userToEmail as $key => $val) {
+    		$this->view->assign('name',$val['name']); 
+	        $this->view->assign('judul',$dataPengaduan[0]['judul']);
+	        $this->view->assign('tanggal',$dataPengaduan[0]['tanggalformat']);
+	        $this->view->assign('idLaporan',$dataPengaduan[0]['idLaporan']);
+	        $this->view->assign('id',$_POST['idPengaduan']);
+
+	        $html = $this->loadView('pengaduan/emailTemplate');
+	        $send = sendGlobalMail(trim($val['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html);	
+    	}
+
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/disposisi/?id={$_POST['idPengaduan']}'</script>";
 		exit;
 	}
 
 	public function chg_status()
 	{
-		db($_POST);
+		global $basedomain;
+
 		$this->model->updStat($_POST);
+		$this->model->upd_fase($_POST['idPengaduan'],6);
+
+		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
+		exit;
+	}
+
+	public function stsComment()
+	{
+		global $basedomain;
+
+		$sts = $this->model->stsComment($_GET['req']);
+
+		echo "<script>alert('Update Data Berhasil');window.location.href='".$basedomain."daftar_pengaduan/balas/?id={$_GET['chg']}'</script>";
+		exit;
+	}
+
+	public function ajax_stsComment()
+	{
+		$id = $_POST['id'];
+		$status = $_POST['status'];
+
+		$this->model->stsComment($id);
+
+		echo 1;
+		exit;
 	}
 	
 	public function cetak(){

@@ -20,12 +20,14 @@ class statistik extends Controller {
 	{
         $this->contentHelper = $this->loadModel('contentHelper');
 		$this->mstatistik = $this->loadModel('mstatistik');
+		$this->mpengaduan = $this->loadModel('mpengaduan');
 	}
 	
 	function index(){
 		
-		
+		$dataPengaduan = $this->mpengaduan->getPengaduan($this->user['idUser']);
 		$this->view->assign('user',$this->user);
+		$this->view->assign('dataPengaduan',$dataPengaduan);
 		return $this->loadView('statistik/view_statistik');
 		
     }

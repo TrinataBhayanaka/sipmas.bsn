@@ -18,7 +18,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px">Hello {$name},</p>
+                                            <p style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px">Hallo {$name},</p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -28,7 +28,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <p style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px">{$text}</p>
+                                            <p style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px">Laporan anda sudah tersimpan di dalam database Sistem Informasi Pengaduan Masyarakat BSN (SIPMAS BSN). Detil laporan Anda sebagai berikut :</p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -40,34 +40,43 @@
                                     <tr>
                                         <td>
                                             <div style="margin-left:30px;margin-bottom:10px">
-                                                <img width="15" style="width:15px!important;min-height:18px!important" src="https://ci6.googleusercontent.com/proxy/jLcG66Y70cQed_0Gf6YWJBhKGcHI5wXBC8Cfmp2nIJrTo1dya9-KjQ7pwjwQdkW1mzs6aujCW3SwXAvHkK97goLzBPKnASGYa3ZCUwffdCi0=s0-d-e1-ft#https://privacy.google.com/images/email/icon_privacy_hr.png" class="CToWUd">
-                                                <span style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px;margin-left:10px">Username : {$email}</span>
+                                                <span style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px;margin-left:10px">Judul : {$judul}</span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <div style="margin-left:30px;margin-bottom:10px">
-                                                <img width="15" style="width:15px!important;min-height:18px!important" src="https://ci6.googleusercontent.com/proxy/jLcG66Y70cQed_0Gf6YWJBhKGcHI5wXBC8Cfmp2nIJrTo1dya9-KjQ7pwjwQdkW1mzs6aujCW3SwXAvHkK97goLzBPKnASGYa3ZCUwffdCi0=s0-d-e1-ft#https://privacy.google.com/images/email/icon_privacy_hr.png" class="CToWUd">
-                                                <span style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px;margin-left:10px">Password : {$password}</span>
+                                                <span style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px;margin-left:10px">Tanggal Laporan : {$tanggal}</span>
                                             </div>
                                         </td>
                                     </tr>
-                                    {if $link}
                                     <tr>
                                         <td>
-                                            {$link}
-                                        </td>   
+                                            <div style="margin-left:30px;margin-bottom:10px">
+                                                <span style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px;margin-left:10px">ID Laporan : {$idLaporan}</span>
+                                            </div>
+                                        </td>
                                     </tr>
-                                    {/if}
-                                    {*}
+
+                                    <tr>
+                                        <td>
+                                            <p style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px">Laporan Anda akan segera diproses oleh pihak yang berwenang. Anda dapat melakukan penelusuran laporan anda dengan melakukan tracking laporan berdasarkan ID laporan Anda.</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td>
                                             <div style="margin-left:30px">
-                                                <a target="_blank" style="font-family:Arial;font-weight:normal;font-size:16px;color:#ffffff;text-decoration:none;white-space:nowrap;border-radius:3px;display:inline-block;text-align:center;padding-top:11px;padding-right:13px;padding-bottom:9px;padding-left:14px;background-color:#4285f4" href="{$basedomain}user/validate/?ref={$encode}">RESET MY ACCOUNT</a>
+                                                <a target="_blank" style="font-family:Arial;font-weight:normal;font-size:16px;color:#ffffff;text-decoration:none;white-space:nowrap;border-radius:3px;display:inline-block;text-align:center;padding-top:11px;padding-right:13px;padding-bottom:9px;padding-left:14px;background-color:#8AB933" href="{$basedomain}pengaduan/detail?id={$id}">Tracking Laporan</a>
                                             </div>
                                         </td>
-                                    </tr>{/*}
+                                    </tr>
+
                                     <tr>
                                         <td>
                                             &nbsp;
@@ -75,17 +84,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                             <p style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px">Please change this password immediately.</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            &nbsp;
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px">Sincerely,<br>Badan Standardisasi Nasional</p>
+                                            <p style="font-family:Arial;font-weight:normal;font-size:16px;color:#424242;line-height:19px">Hormat Kami,<br>Badan Standardisasi Nasional</p>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -94,12 +93,6 @@
                     </tr>
                 </tbody>
             </table>
-            {*}
-            <div style="font-family:Arial;font-weight:normal;font-size:12px;color:#424242;line-height:16px;padding:10px 50px 20px 50px">
-                You received this mandatory email service announcement to update you about important changes to IBC services or your IBC Account.
-                <br style="margin-bottom:30px">
-                Supported by Bhayanaka Digital, 2015
-            </div>{/*}
         </div>
     </body>
 </html>

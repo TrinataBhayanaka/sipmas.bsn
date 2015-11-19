@@ -28,6 +28,16 @@ class mpengaduan extends Database {
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['hpUser'] = $user['hp'];
+
+            $sisaWaktu = $this->getStdWaktu();
+            
+            if($val['status']==4){
+                $res[$key]['sisaWaktu'] = "-";
+            } else {
+                $endDate = date('Y-m-d', strtotime($val['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+                $nowDate = date("Y-m-d");
+                $res[$key]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+            }
         }
         
         return $res;
@@ -49,14 +59,24 @@ class mpengaduan extends Database {
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['hpUser'] = $user['hp'];
+
+            $sisaWaktu = $this->getStdWaktu();
+            
+            if($val['status']==4){
+                $res[$key]['sisaWaktu'] = "-";
+            } else {
+                $endDate = date('Y-m-d', strtotime($val['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+                $nowDate = date("Y-m-d");
+                $res[$key]['sisaWaktu'] = dateDiff($nowDate,$endDate);
+            }
         }
         
         return $res;
     }
 
-    function getFile($id)
+    function getFile($id,$field=false)
     {
-        $sql = "SELECT * FROM bsn_file WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT * FROM bsn_file WHERE {$field} = '{$id}'";
         $res = $this->fetch($sql,1);
 
         return $res;
@@ -113,13 +133,22 @@ class mpengaduan extends Database {
         $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_penelaahan WHERE idPengaduan = '{$id}'";
         $res = $this->fetch($sql,0);
 
+        $res['kesimpulan'] = html_entity_decode(htmlspecialchars_decode($res['kesimpulan'],ENT_NOQUOTES));
+        $res['rekomendasi'] = html_entity_decode(htmlspecialchars_decode($res['rekomendasi'],ENT_NOQUOTES));
+
         return $res;
     }
 
     function upd_fase($id,$fase=false)
     {
-        $sql = "UPDATE bsn_pengaduan SET fase = '{$fase}' WHERE idPengaduan = '{$id}'";
-        $res = $this->query($sql);
+        $sql = "SELECT fase FROM bsn_pengaduan WHERE idPengaduan = '{$id}'";
+        $data = $this->fetch($sql,0);
+
+        if($data['fase'] < $fase)
+        {
+            $sql = "UPDATE bsn_pengaduan SET fase = '{$fase}' WHERE idPengaduan = '{$id}'";
+            $res = $this->query($sql);
+        }
 
         return true;
     }
@@ -148,7 +177,7 @@ class mpengaduan extends Database {
 
     function getBalas($id)
     {
-        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}' ORDER BY tanggal DESC";
         $res = $this->fetch($sql,1);
 
         foreach($res as $key => $val)
@@ -156,7 +185,7 @@ class mpengaduan extends Database {
             $sql = "SELECT name,email,hp FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
-            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['isi'] = html_entity_decode(htmlspecialchars_decode($val['isi'],ENT_NOQUOTES));
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['hpUser'] = $user['hp'];
@@ -175,7 +204,7 @@ class mpengaduan extends Database {
 
     function getComment($id)
     {
-        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}' ORDER BY tanggal DESC";
         $res = $this->fetch($sql,1);
 
         foreach($res as $key => $val)
@@ -183,10 +212,13 @@ class mpengaduan extends Database {
             $sql = "SELECT name,email,type FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
-            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['isi'] = html_entity_decode(htmlspecialchars_decode($val['isi'],ENT_NOQUOTES));
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['typeUser'] = $user['type'];
+
+            $file = $this->getFile($val['idComment'],'idComment');
+            $res[$key]['files'] = $file;
         }
 
         return $res;
@@ -204,7 +236,7 @@ class mpengaduan extends Database {
 
     function getDisposisi($id)
     {
-        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_disposisi WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_disposisi WHERE idPengaduan = '{$id}' ORDER BY tanggal DESC";
         $res = $this->fetch($sql,1);
 
         foreach($res as $key => $val)
@@ -212,12 +244,16 @@ class mpengaduan extends Database {
             $sql = "SELECT name FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
-            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['isi'] = html_entity_decode(htmlspecialchars_decode($val['isi'],ENT_NOQUOTES));
             $res[$key]['nameUser'] = $user['name'];
             
             $sql = "SELECT nama_satker FROM bsn_satker WHERE idSatker = '{$val['tujuan']}'";
             $satker = $this->fetch($sql,0);
             $res[$key]['nameSatker'] = $satker['nama_satker'];
+
+            $sql = "SELECT * FROM bsn_file WHERE idDisposisi = '{$val['idDisposisi']}'";
+            $file = $this->fetch($sql,1);
+            $res[$key]['files'] = $file;
         }
 
         return $res;
@@ -231,5 +267,81 @@ class mpengaduan extends Database {
         return $res;
     }
 
+    function upd_nstatus($id,$value)
+    {
+        $sql = "UPDATE bsn_pengaduan SET n_status = {$value} WHERE idPengaduan = '{$id}'";
+        $res = $this->query($sql);
+
+        return $res;
+    }
+
+    function upd_rLingkup($id,$kategori)
+    {
+        $sql = "UPDATE bsn_pengaduan SET ruangLingkup = '{$kategori}' WHERE idPengaduan = '{$id}'";
+        $res = $this->query($sql);
+
+        return $res;
+    }
+
+    function getStdWaktu()
+    {
+        $sql = "SELECT TOP(1) * FROM bsn_standar_waktu";
+        $res = $this->fetch($sql,0);
+
+        return $res;
+    }
+
+    function datatruncate()
+    {
+        $sql = "TRUNCATE table bsn_comment;TRUNCATE table bsn_content;TRUNCATE table bsn_disposisi;TRUNCATE table bsn_file;TRUNCATE table bsn_penelaahan;TRUNCATE table bsn_pengaduan;TRUNCATE table bsn_survey";
+        $res = $this->query($sql);
+
+        return $res;
+    }
+
+    function getAllUserSatker($idSatker)
+    {
+        $sql = "SELECT * from bsn_users WHERE satker = {$idSatker}";
+        $res = $this->fetch($sql,1);
+
+        return $res;
+    }
+
+    function getAllUsers()
+    {
+        $sql = "SELECT * FROM bsn_users";
+        $res = $this->fetch($sql,1);
+
+        return $res;
+
+    }
+
+    function stsComment($id)
+    {
+        $sql = "UPDATE bsn_comment SET n_status = CASE WHEN n_status = '1' THEN '0' ELSE '1' END WHERE idComment = '{$id}'";
+        $res = $this->query($sql);
+
+        return $sts;
+    }
+
+    function getCommentId($id)
+    {
+        $sql = "SELECT * FROM bsn_comment WHERE idComment = '{$id}'";
+        $res = $this->fetch($sql,0);
+
+        $file = $this->getFile($id,'idComment');
+        $res['files'] = $file;
+
+        return $res;
+    }
+
+    function upd_balas($data)
+    {
+        $sql = "UPDATE bsn_comment SET isi = '{$data['isi']}' WHERE idComment = '{$data['idComment']}'";
+
+        $res = $this->query($sql);
+
+        return $res;
+    }
 }
 ?>

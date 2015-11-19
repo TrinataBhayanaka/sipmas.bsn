@@ -3,19 +3,27 @@ class contentHelper extends Database {
 	
 	var $prefix = "lelang";
 
-	function tracking($postTracking){
+	function tracking($postTracking,$type,$start,$end){
+// pr($_POST);
+        if($type=='1'){
+        	$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.judul LIKE '%{$postTracking}%' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
+    	}elseif($type=='2'){
+    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.ruangLingkup LIKE '%{$postTracking}%' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
+    	}elseif($type=='3'){
+    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.disposisi LIKE '%{$postTracking}%' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
+    	}elseif($type=='4'){
+    		
+    	}elseif($type=='5'){
+    		$query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE P.status='{$postTracking}' AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";
+    	}elseif($type=='6'){
 
-        if($type==''){
-        	$query = "SELECT * FROM bsn_pengaduan WHERE idPengaduan LIKE '%{$postTracking}%'";
+    		 $query = "SELECT P.*,Usr.name,CONVERT(VARCHAR(19),P.tanggal,106) AS tanggalformat FROM bsn_pengaduan as P join bsn_users as Usr on P.idUser=Usr.idUser WHERE (Usr.email='{$postTracking}' OR Usr.name LIKE '%{$postTracking}%') AND (P.tanggal BETWEEN '{$start}' AND '{$end}')";	
     	}
-        $result = $this->fetch($query,1);
-        if(empty($result)){
-           $query = "SELECT P.* FROM bsn_pengaduan as P join users as Usr on P.idUser=Usr.idUser WHERE Usr.email='{$postTracking}'";
 
-           $result = $this->fetch($query,1); 
+        $result = $this->fetch($query,1); 
 
-           return $result;
-        }
+        
+        // pr($query);
         // pr($result);
         // exit;
         return $result;
@@ -99,7 +107,7 @@ class contentHelper extends Database {
 		
 		return $result;
 	}
-
+	
 	function getRegistrant($n_status=1, $debug=0)
 	{
 		$filter = "";
@@ -192,6 +200,33 @@ class contentHelper extends Database {
         if ($run) return true;
         return false;
     }
+    function simpanData($query,$data=array(), $table="_content", $debug=false)
+    {
+    	$id="id =".$data['id'];
+        if ($query==3){
+            
+        	foreach ($data as $key => $value) {
+                $id="id =".$value['id'];
+                $data= array('value' =>$value['value']);
+
+                 $run = $this->save("update", "{$this->prefix}{$table}",$data, $id, $debug);
+
+            }
+           
+
+        }elseif ($query==2){
+            
+            $run = $this->save("update", "{$this->prefix}{$table}", $data, $id, $debug);
+
+        }else{
+          	
+            $run = $this->save("insert", "{$this->prefix}{$table}", $data, false, $debug);
+    
+        }
+
+        if ($run) return true;
+        return false;
+    }
       function fetchData($data=array(),$debug=false)
     {
 
@@ -205,7 +240,13 @@ class contentHelper extends Database {
         return false;
     }
 
-	
+	function delete($table,$condition)
+    {
+        $sql = "DELETE FROM  {$table} WHERE {$condition}";
+        $res = $this->query($sql);
+
+        return $res;
+    }
 
 }
 ?>

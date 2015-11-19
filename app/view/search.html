@@ -21,11 +21,11 @@
 			<div class="col-md-8">
                 {foreach $data as $value}
 				<div class="clearfix search-result"><!-- item -->
-                    <h4 class="margin-bottom-0"><a href="#">{$value.judul}</a></h4>
-                    <small class="text-success">{$value.tanggal}</small>
+                    <h4 class="margin-bottom-0"><a href="{$basedomain}pengaduan/detail/?id={$value.idPengaduan}" class="tab-post-link">{$value.judul}</a></h4>
+                    <small class="text-success">{$value.tanggalformat}</small>
                     <p>
                         ID Laporan : {$value.idLaporan}<br>
-                        Status Laporan : {if $value.n_status=='1'}Aktif{else}Non Aktif{/if}
+                        Status Laporan : {if $value.status=='1'}Dalam Proses{elseif $value.status=='2'}Ditindak Lanjuti{elseif $value.status=='3'}Tidak Ditindak Lanjuti{elseif $value.status=='4'} Selesai{/if}
                     </p>
                 </div><!-- /item -->
                 {/foreach}

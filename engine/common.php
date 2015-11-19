@@ -238,7 +238,7 @@ function uploadFile($data,$path=null,$ext='image'){
                     'folder_name' => $pathFolder
     			);
             }
-
+            logFile(serialize($result));
 			// pr($result);exit;
 			return $result;
 		// }
@@ -631,7 +631,13 @@ function sendGlobalMail($to,$from,$msg,$config=true){
 
 	}
 
-	require_once LIBS."PHPMailer/class.phpmailer.php";
+	if ($CONFIG['admin']['base_url']){
+		$APP = APP;
+	}else{
+		$APP = "";
+	}
+
+	require_once $APP.LIBS."PHPMailer/class.phpmailer.php";
 	
 	if ($from !='') $from = $from;
 	else $from = $CONFIG['EMAIL_FROM_DEFAULT'];
@@ -903,5 +909,16 @@ function openFile($filePath)
 		return $fileContents;
 	}
 	return false;
+}
+
+function dateDiff($date1,$date2)
+{
+	$start = date_create($date1);
+	$end = date_create($date2);
+
+	$interval = date_diff($start, $end);
+
+	$res = $interval->format('%a Hari');
+	return $res;
 }
 ?>

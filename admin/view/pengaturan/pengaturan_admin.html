@@ -45,6 +45,7 @@
 									<th>Nama Admin</th>
 									<th class="min-desktop">Username</th>
 									<th class="min-tablet">Email</th>
+									<th class="min-tablet">Satker</th>
 									<th class="min-tablet">Tanggal Registrasi</th>
 									<th class="min-desktop">Reset Password</th>
 								</tr>
@@ -57,6 +58,7 @@
 									<td>{$val.name}</td>
 									<td>{$val.name}</td>
 									<td>{$val.email}</td>
+									<td>{$val.nama_satker.nama_satker}</td>
 									<td>{$val.register_date}</td>
 									<td><a href="{$basedomain}pengaturan_admin/edit/?id={$val.idUser}"><button class="btn btn-warning btn-labeled fa fa-pencil">Edit</button></a>
 									<a href="{$basedomain}pengaturan_admin/updateData/?id={$val.idUser}" onclick="return submit_confirm('Hapus data?')"><button class="btn btn-danger btn-labeled fa fa-user-times">Remove</button></a>

@@ -17,7 +17,7 @@ class mpengaduan extends Database {
     {   
 
         $res = $this->insert($data,'bsn_pengaduan');
-        $latestId = $this->getLatestId();
+        $latestId = $this->getLatestId('bsn_pengaduan');
         // db($latestId);
         $year = date("Y");
         $sql = "UPDATE bsn_pengaduan SET idLaporan = '{$latestId['id']}{$year}' WHERE idPengaduan = '{$latestId['id']}'";
@@ -26,9 +26,9 @@ class mpengaduan extends Database {
         return false;
     }
 
-    function getLatestId()
+    function getLatestId($table)
     {
-        $sql = "SELECT IDENT_CURRENT('bsn_pengaduan') AS id";
+        $sql = "SELECT IDENT_CURRENT('{$table}') AS id";
         $res = $this->fetch($sql,0);
 
         return $res;
@@ -48,13 +48,26 @@ class mpengaduan extends Database {
         $sql = "SELECT *, CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_pengaduan WHERE idUser = '{$id}' {$cond}";
         
         $res = $this->fetch($sql,1);
-        
+        if ($res){
+
+            foreach ($res as $key => $value) {
+                $sqlSomment = "SELECT * FROM {$this->prefix}_comment WHERE idPengaduan = '{$value['idPengaduan']}'";
+                // pr($sqlSomment);
+                $resComment = $this->fetch($sqlSomment,0);
+                if ($resComment)$res[$key]['comment'][] = $resComment;
+
+                $sqlrLingkup = "SELECT ruang_lingkup FROM {$this->prefix}_kategori WHERE idKategori = '{$value['ruangLingkup']}'";
+                $resrLingkup = $this->fetch($sqlrLingkup,0);
+                if($resrLingkup)$res[$key]['ruangLingkup'] = $resrLingkup['ruang_lingkup'];
+            }
+            
+        }
         return $res;
     }
 
-    function getFile($id)
+    function getFile($id,$field=false)
     {
-        $sql = "SELECT * FROM bsn_file WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT * FROM bsn_file WHERE {$field} = '{$id}'";
         $res = $this->fetch($sql,1);
 
         return $res;
@@ -78,7 +91,7 @@ class mpengaduan extends Database {
 
     function getComment($id)
     {
-        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}'";
+        $sql = "SELECT *, CONVERT(VARCHAR(10),tanggal,20) AS tanggalformat, CONVERT(VARCHAR(19),tanggal,106) AS tanggalstd FROM bsn_comment WHERE idPengaduan = '{$id}' AND n_status = '1' ORDER BY tanggal DESC";
         $res = $this->fetch($sql,1);
 
         foreach($res as $key => $val)
@@ -86,11 +99,53 @@ class mpengaduan extends Database {
             $sql = "SELECT name,email,type FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
-            $res[$key]['isi'] = html_entity_decode($val['isi']);
+            $res[$key]['isi'] = html_entity_decode(htmlspecialchars_decode($val['isi'],ENT_NOQUOTES));
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['typeUser'] = $user['type'];
+
+            $file = $this->getFile($val['idComment'],'idComment');
+            $res[$key]['files'] = $file;
         }
+
+        return $res;
+    }
+
+    function insert_balas($data)
+    {
+        $res = $this->insert($data,'bsn_comment');
+        if ($res) return $res;
+        return false;
+    }
+
+    function getDisposisi($id)
+    {
+        $sql = "SELECT TOP (1) CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_disposisi WHERE idPengaduan = '{$id}' ORDER BY tanggal ASC";
+        $res = $this->fetch($sql,0);
+
+        return $res;
+    }
+
+    function insert_survey($data)
+    {
+        $check = $this->getSurvey($data['idPengaduan']);
+
+        if(!$check){
+            $res = $this->insert($data,'bsn_survey');
+            if ($res) return $res;
+            return false;    
+        } else {
+            $upd = "UPDATE bsn_survey SET survey = '{$data['survey']}' WHERE idPengaduan = '{$data['idPengaduan']}'";
+            $res = $this->query($upd);
+            return $res;
+        }
+        
+    }
+
+    function getSurvey($id)
+    {
+        $sql = "SELECT * FROM bsn_survey WHERE idPengaduan = '{$id}'";
+        $res = $this->fetch($sql,0);
 
         return $res;
     }

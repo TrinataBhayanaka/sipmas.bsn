@@ -32,7 +32,7 @@
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-credit-card"></i>
-							<input type="text" placeholder="No. KTP" required name="ktp">
+							<input type="number" placeholder="No. KTP" required name="ktp" onkeypress="return isNumberKey(event)">
 							<b class="tooltip tooltip-bottom-right">Nomor induk KTP</b>
 						</label>
 
@@ -44,7 +44,7 @@
 
 						<label class="input margin-bottom-10">
 							<i class="ico-append fa fa-phone"></i>
-							<input type="text" placeholder="No. HP" required name="hp">
+							<input type="text" placeholder="No. HP" required name="hp" onkeypress="return isNumberKey(event)">
 							<b class="tooltip tooltip-bottom-right">Nomor yang dapat dihubungi</b>
 						</label>
 

@@ -74,10 +74,12 @@ class loginHelper extends Database {
                 );
 
         $res = $this->lazyQuery($sql,$debug);
-        // pr($res);exit;
+        // pr($res);
         if ($res){
 
             $password = sha1($res[0]['salt'] . $data['password'] . $res[0]['salt']);
+            // pr($password);
+            // exit;
             if ($res[0]['password'] == $password){
 
                 $login_count = intval($res[0]['login_count']) + 1;

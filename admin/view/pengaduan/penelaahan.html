@@ -53,14 +53,14 @@
 				<div class="panel panel-success panel-left">
 					
 						<div class="panel-heading">
-							{if !empty($penelaahan)}
+							{if !empty($penelaahan.idPenelaahan)}
 							<div class="panel-control">
 								<a href="{$basedomain}daftar_pengaduan/cetak/?id={$dataPengaduan.idPengaduan}">
 									<span class="btn-label"><i class="fa fa-download"></i></span> Download
 								</button></a>
 							</div>
 							{/if}
-							<h3 class="panel-title"><strong>{$dataPengaduan.judul}</strong></h3>
+							<h3 class="panel-title"><strong>[#{$dataPengaduan.idLaporan}] - {$dataPengaduan.judul}</strong></h3>
 						</div>
 			
 			
@@ -143,10 +143,10 @@
 								<label class="col-md-3 control-label" for="demo-text-input">Pejabat Terkait</label>
 								<div class="col-md-9">
 									<select class="selectpicker" name="pejabat" data-width="100%">
-										<option value="1">Pejabat Eselon I</option>
-										<option value="2">Pejabat Eselon II</option>
-										<option value="3">Pejabat Eselon III</option>
-										<option value="4">Pejabat Eselon IV</option>
+										<option value="1" {if $penelaahan.pejabat eq '1'}selected{/if}>Pejabat Eselon I</option>
+										<option value="2" {if $penelaahan.pejabat eq '2'}selected{/if}>Pejabat Eselon II</option>
+										<option value="3" {if $penelaahan.pejabat eq '3'}selected{/if}>Pejabat Eselon III</option>
+										<option value="4" {if $penelaahan.pejabat eq '4'}selected{/if}>Pejabat Eselon IV</option>
 									</select>
 								</div>
 							</div>
@@ -171,7 +171,7 @@
 									<textarea id="demo-textarea-input" name="rekomendasi" rows="5" class="form-control" placeholder=" ">{$penelaahan.rekomendasi}</textarea>
 								</div>
 							</div>
-							
+							{if !empty($file)}
 							<!-- Attach Files-->
 							<!--===================================================-->
 							<div class="pad-ver">
@@ -200,21 +200,23 @@
 									</li>
 									{/foreach}
 									
-									<!-- HIDDEN -->
-									<input type="hidden" name="idPengaduan" value="{$id}" >
-									<input type="hidden" name="n_status" value="1" >
-
-									<button id="mail-send-btn" type="submit" class="btn btn-primary btn-labeled">
-										<span class="btn-label"><i class="fa fa-check"></i></span> Submit
-									</button>
-									
-									<!--Save draft button-->
-									{*}<button id="mail-save-btn" type="button" class="btn btn-danger btn-labeled">
-										<span class="btn-label"><i class="fa fa-times"></i></span> Cancel
-									</button>{/*}
 								</ul>
 							</div>
 							</div>
+							{/if}
+
+							<!-- HIDDEN -->
+							<input type="hidden" name="idPengaduan" value="{$id}" >
+							<input type="hidden" name="n_status" value="1" >
+							
+							<button id="mail-send-btn" type="submit" class="btn btn-primary btn-labeled">
+								<span class="btn-label"><i class="fa fa-check"></i></span> Submit
+							</button>
+							
+							<!--Save draft button-->
+							{*}<button id="mail-save-btn" type="button" class="btn btn-danger btn-labeled">
+								<span class="btn-label"><i class="fa fa-times"></i></span> Cancel
+							</button>{/*}
 
 							<!--===================================================-->
 							<!-- End Attach Files-->

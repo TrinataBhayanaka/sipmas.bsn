@@ -30,11 +30,9 @@
 						<td><a href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.nameUser}</a></td>
 						<td><a href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.judul}</a></td>
 						<td><a href="{$basedomain}daftar_pengaduan/detail/?id={$val.idPengaduan}">{$val.tanggalformat}</a></td>
-						<td>-</td>
-						<td>{if $val.status eq '1'}<span class="label label-primary">Aktif</span>
-						{elseif $val.status eq '2'}<span class="label label-warning">Ditindak Lanjuti</span>
-						{elseif $val.status eq '3'}<span class="label label-danger">Tidak Ditindak Lanjuti</span>
-						{else}<span class="label label-success">Selesai</span>{/if}
+						<td>{$val.sisaWaktu}</td>
+						<td>{if $val.status eq '4'}<span class="label label-success">Selesai</span>
+						{else}<span class="label label-info">Dalam Proses</span>{/if}
 						</td>
 					</tr>
 					{/foreach}

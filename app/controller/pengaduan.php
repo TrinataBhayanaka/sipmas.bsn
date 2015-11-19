@@ -26,8 +26,8 @@ class pengaduan extends Controller {
 	function index(){
 		
 		$data = $this->model->getPengaduan($this->user['idUser']);
-		
 		$this->view->assign('dataPengaduan',$data);
+
         $this->view->assign('user',$this->user);
 		return $this->loadView('pengaduan/pengaduan');
     }
@@ -38,11 +38,15 @@ class pengaduan extends Controller {
 
     	$data = $this->model->getPengaduan($this->user['idUser'],$idPengaduan);
     	$dataPengaduan = $this->model->getPengaduan($this->user['idUser']);
-    	$file = $this->model->getFile($idPengaduan);
+    	$file = $this->model->getFile($idPengaduan,'idPengaduan');
     	$penelaahan = $this->model->getPenelaahan($idPengaduan);
+    	$disposisi = $this->model->getDisposisi($idPengaduan);
     	$tglBalas = $this->model->getTglBalas($idPengaduan);
+    	$comment = $this->model->getComment($idPengaduan);
+    	$survey = $this->model->getSurvey($idPengaduan);
 
-    	$data[0]['isi'] = html_entity_decode($data[0]['isi']);
+    	$data[0]['isi'] = html_entity_decode(htmlspecialchars_decode($data[0]['isi'],ENT_NOQUOTES));
+    	// $data[0]['judul'] = html_entity_decode(htmlspecialchars_decode($data[0]['judul'],ENT_NOQUOTES));
 
     	if($data[0]['n_status'] == 1)
     	{
@@ -55,19 +59,23 @@ class pengaduan extends Controller {
     		$data[0]['n_status'] = 'Selesai';
     	}
 
+    	$this->view->assign('survey',$survey);
     	$this->view->assign('tglBalas',$tglBalas);
+    	$this->view->assign('disposisi',$disposisi);
+    	$this->view->assign('comment',$comment);
     	$this->view->assign('penelaahan',$penelaahan);
     	$this->view->assign('file',$file);
     	$this->view->assign('dataPengaduan',$dataPengaduan);
     	$this->view->assign('data',$data[0]);
     	$this->view->assign('user',$this->user);
+    	$this->view->assign('id',$idPengaduan);
 
     	return $this->loadView('pengaduan/detail');
     }
 
     function ins_laporan()
     {
-    	global $basedomain;
+    	global $basedomain,$CONFIG;
     	// db($_FILES['myfile']);
     	if($_POST['g-recaptcha-response']){
 
@@ -80,9 +88,11 @@ class pengaduan extends Controller {
             }
             else
             {
-		    	$_POST['isi'] = htmlentities($_POST['isi']);
+		    	$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
+		    	$_POST['judul'] = htmlentities(htmlspecialchars($_POST['judul'], ENT_QUOTES));
 		    	$_POST['idUser'] = $this->user['idUser'];
 		    	$_POST['status'] = 1;
+		    	$_POST['n_status'] = 2;
 		    	unset($_POST['g-recaptcha-response']);
 		    	unset($_POST['termagree']);
 		    	if($_POST['perorangan'] == 'on') $_POST['perorangan'] = 1; 
@@ -90,8 +100,9 @@ class pengaduan extends Controller {
 
 		    	$latestId = $this->model->insert_laporan($_POST);
 
-		    	if(isset($_FILES['myfile'])){
+		    	if(!empty($_FILES['myfile']['name'])){
 		    		$upload = uploadFile('myfile');
+                    logFile($upload);
 		    		//insert ke file
 		    		// $idPengaduan = $this->model->getLatestId();
 		    		
@@ -105,6 +116,16 @@ class pengaduan extends Controller {
 
 		    	}
 
+                //kirim email
+                $this->view->assign('name',$this->user['name']); 
+                $this->view->assign('judul',$_POST['judul']);
+                $this->view->assign('tanggal',$_POST['tanggal']);
+                $this->view->assign('idLaporan',$latestId['id'].date('Y'));
+                $this->view->assign('id',$latestId['id']);
+
+                $html = $this->loadView('pengaduan/emailTemplate');
+                $send = sendGlobalMail(trim($this->user['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html); 
+
 		    	echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."pengaduan'</script>";
 		    	exit;
 
@@ -113,6 +134,48 @@ class pengaduan extends Controller {
             echo "<script>alert('Silahkan Cek Captcha terlebih dahulu')</script>";
             redirect($basedomain."register");
         }
+    }
+
+    function ins_balas()
+    {
+    	global $basedomain;
+
+		$_POST['idUser'] = $this->user['idUser'];
+		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
+		$_POST['tanggal'] = date("Y-m-d");
+		// db($_POST);
+		$this->model->insert_balas($_POST);
+		    		
+		if(!empty($_FILES['myfile']['name'])){
+    		$upload = uploadFile('myfile');
+    		//insert ke file
+    		$idComment = $this->model->getLatestId('bsn_comment');
+
+    		$files['nama'] = $upload['full_name'];
+    		$files['path'] = $upload['full_path'];
+    		$files['type'] = 1;
+    		$files['idComment'] = $idComment['id'];
+    		$files['n_status'] = 1;
+
+    		$this->model->insert_file($files);
+
+    	}
+
+		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
+		exit;
+    }
+
+    function ins_survey()
+    {	
+    	global $basedomain;
+    	
+    	$_POST['idUser'] = $this->user['idUser'];
+    	$_POST['n_status'] = 1;
+
+    	$this->model->insert_survey($_POST);
+
+    	echo "<script>alert('Terima kasih atas survey anda');window.location.href='".$basedomain."pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
+		exit;
     }
 }
 
