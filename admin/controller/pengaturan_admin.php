@@ -89,9 +89,9 @@ class pengaturan_admin extends Controller {
 
 		if(!$dataSW){
 			// $this->view->assign('queryws',"update");
-			$insertSW[]=array('name' => "Baik",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'));
-			$insertSW[]=array('name' => "Normal",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'));
-			$insertSW[]=array('name' => "Buruk",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'));
+			$insertSW[]=array('name' => "Baik",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
+			$insertSW[]=array('name' => "Normal",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
+			$insertSW[]=array('name' => "Buruk",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
 
 			foreach ($insertSW as $keySW => $valueSW) {
 
@@ -103,10 +103,10 @@ class pengaturan_admin extends Controller {
 		}
 		if(!$dataWP1){
 			// $this->view->assign('querywp1',"update");
-			$insertWP1[]=array('name' => "Pencatatan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'));
-			$insertWP1[]=array('name' => "Penelaahan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'));
-			$insertWP1[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'));
-			$insertWP1[]=array('name' => "Pengarsipan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'));
+			$insertWP1[]=array('name' => "Pencatatan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
+			$insertWP1[]=array('name' => "Penelaahan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
+			$insertWP1[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
+			$insertWP1[]=array('name' => "Pengarsipan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
 
 			foreach ($insertWP1 as $keyWP1 => $valueWP1) {
 
@@ -118,10 +118,10 @@ class pengaturan_admin extends Controller {
 		}
 		if(!$dataWP2){
 			// $this->view->assign('querywp2',"update");
-			$insertWP2[]=array('name' => "Pencatatan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'));
-			$insertWP2[]=array('name' => "Penelaahan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'));
-			$insertWP2[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'));
-			$insertWP2[]=array('name' => "Pengarsipan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'));
+			$insertWP2[]=array('name' => "Pencatatan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
+			$insertWP2[]=array('name' => "Penelaahan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
+			$insertWP2[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
+			$insertWP2[]=array('name' => "Pengarsipan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
 
 			foreach ($insertWP2 as $keyWP2 => $valueWP2) {
 
@@ -212,6 +212,36 @@ class pengaturan_admin extends Controller {
 
 		redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
 	}
+	public function statusWaker(){
+		global $basedomain;
+		// pr($_GET);
+		$id = $_GET['id'];
+		$type = $_GET['type'];
+		if($_GET['open']){
+			if($_GET['open']=="ws"){
+				$open="ws";
+			}elseif($_GET['open']=="wp1"){
+				$open="wp1";
+			}elseif($_GET['open']=="wp2"){
+				$open="wp2";
+			}else{
+				$open="ws";
+			}
+			
+		}else{
+			$open="ws";
+		}
+		if ($id != ''){
+			$table="_waktu_kriteria";
+			// $condition=" id='".$id."' AND type='".$type."'";
+			$delete = $this->contentHelper->updStatus($table,$id,$type);
+		}else{
+
+			redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
+		}
+
+		redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
+	}
 	public function tambahWaktu(){
 		global $basedomain;
 		// //pr($_POST);
@@ -254,7 +284,8 @@ class pengaturan_admin extends Controller {
 	}
 	public function simpanContent(){
 		global $basedomain;
-		
+		// pr($_POST);
+		// pr($_REQUEST);
 		if($_POST['id']){
 
 					// $_POST['create_date'] = ;
@@ -283,8 +314,14 @@ class pengaturan_admin extends Controller {
 			}
 			// pr($data);
 			// exit;
-
-				redirect($basedomain . 'pengaturan_admin/ubahkonten');
+		if ($result){
+            print json_encode(array('status'=>true));
+        }else{
+            print json_encode(array('status'=>false));
+        }
+        
+        exit;
+				// redirect($basedomain . 'pengaturan_admin/ubahkonten');
 
 	}
 

@@ -52,11 +52,24 @@
 						<fieldset>
 							{if $dataSW}
 							{foreach $dataSW as $keySW => $valSW}
+								{if $valSW.status eq '1'}
+									{$icon='check'}
+									{$tooltip='Default'}
+									{$btn='success'}
+								{else}
 
+									{$icon='minus'}
+									{$tooltip='Jadikan Default'}
+									{$btn='default'}
+
+								{/if}
 							{if $keySW<'3'}
 							<div class="form-group">
 								<label class="col-lg-3 control-label">{$valSW.name}</label>
-									<div class="col-lg-6">
+									<div class="col-lg-6 input-group">
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=ws&type={$valSW.type}&id={$valSW.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valSW.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valSW.id}">
 									</div>
@@ -65,6 +78,9 @@
 							<div class="form-group">
 								<label class="col-lg-3 control-label">{$valSW.name}</label>
 									<div class="col-lg-6 input-group">
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=ws&type={$valSW.type}&id={$valSW.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valSW.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valSW.id}">
 										<span class="input-group-btn">
@@ -93,7 +109,7 @@
 					</div>
 						<div class="tab-footer clearfix">
 							<div class="col-lg-7 col-lg-offset-3">
-								<button type="button"  data-target="#demo-default-modal" data-toggle="modal" class="btn btn-warning btn-labeled fa fa-pencil">Tambah </button>
+								<button type="button"  data-target="#demo-default-modal" data-toggle="modal" class="btn btn-info btn-labeled fa fa-pencil">Tambah </button>
 								<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save </button>
 								<button type="reset" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
 							</div>
@@ -121,10 +137,24 @@
 						<fieldset>
 							{if $dataWP1}
 							{foreach $dataWP1 as $keyWP1 => $valWP1}
+							{if $valWP1.status eq '1'}
+									{$icon='check'}
+									{$tooltip='Default'}
+									{$btn='success'}
+								{else}
+
+									{$icon='minus'}
+									{$tooltip='Jadikan Default'}
+									{$btn='default'}
+
+								{/if}
 							{if $keyWP1<'4'}
 							<div class="form-group">
 								<label class="col-lg-3 control-label">{$valWP1.name}</label>
-									<div class="col-lg-6">
+									<div class="col-lg-6 input-group">
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valWP1.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valWP1.id}">
 									</div>
@@ -133,6 +163,9 @@
 							<div class="form-group">
 								<label class="col-lg-3 control-label">{$valWP1.name}</label>
 									<div class="col-lg-6 input-group">
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valWP1.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valWP1.id}">
 										<span class="input-group-btn">
@@ -173,7 +206,7 @@
 					</div>
 						<div class="tab-footer clearfix">
 							<div class="col-lg-7 col-lg-offset-3">
-								<button type="button"  data-target="#demo-default-modal2" data-toggle="modal" class="btn btn-warning btn-labeled fa fa-pencil">Tambah </button>
+								<button type="button"  data-target="#demo-default-modal2" data-toggle="modal" class="btn btn-info btn-labeled fa fa-pencil">Tambah </button>
 								<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save </button>
 								<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
 							</div>
@@ -200,10 +233,24 @@
 						<fieldset>
 							{if $dataWP2}
 							{foreach $dataWP2 as $keyWP2 => $valWP2}
+							{if $valWP2.status eq '1'}
+									{$icon='check'}
+									{$tooltip='Default'}
+									{$btn='success'}
+								{else}
+
+									{$icon='minus'}
+									{$tooltip='Jadikan Default'}
+									{$btn='default'}
+
+								{/if}
 							{if $keyWP2<'4'}
 							<div class="form-group">
 								<label class="col-lg-3 control-label">{$valWP2.name}</label>
-									<div class="col-lg-6">
+									<div class="col-lg-6 input-group">
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp2&type={$valWP2.type}&id={$valWP2.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valWP2.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valWP2.id}">
 									</div>
@@ -212,6 +259,9 @@
 							<div class="form-group">
 								<label class="col-lg-3 control-label">{$valWP2.name}</label>
 									<div class="col-lg-6 input-group">
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp2&type={$valWP2.type}&id={$valWP2.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valWP2.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valWP2.id}">
 										<span class="input-group-btn">
@@ -252,7 +302,7 @@
 					</div>
 						<div class="tab-footer clearfix">
 							<div class="col-lg-7 col-lg-offset-3" style="margin-bottom:20px">
-								<button type="button"  data-target="#demo-default-modal3" data-toggle="modal" class="btn btn-warning btn-labeled fa fa-pencil">Tambah</button>
+								<button type="button"  data-target="#demo-default-modal3" data-toggle="modal" class="btn btn-info btn-labeled fa fa-pencil">Tambah</button>
 								<button type="submit" class="btn btn-success btn-labeled fa fa-floppy-o">Save </button>
 								<button type="submit" class="btn btn-danger btn-labeled fa fa-times">Cancel</button>	
 							</div>

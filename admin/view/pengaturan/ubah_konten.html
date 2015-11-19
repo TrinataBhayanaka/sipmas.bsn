@@ -1,3 +1,4 @@
+
 <!--Page Title-->
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <div id="page-title">
@@ -66,7 +67,8 @@
 													<input type="text" class="form-control" name="title" id="judul" placeholder="Judul Content">
 												</div>
 										</div>
-										<textarea name="description"  id="demo-mail-compose">
+
+										<textarea name="description"  id="demo-mail-compose" class="description">
 											
 										</textarea>
 											<!--Attact file button-->
@@ -115,6 +117,50 @@
 
 {literal}
 <script>
+
+$('#dataAjax').submit(function(event) {
+
+        $('.ajax-spinner-bars').css("display","block"); 
+	    var postData = $(this).serializeArray();
+	    var formURL = $(this).attr("action");
+	    
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url         : formURL, // the url where we want to POST
+            data        : postData, // our data object
+            dataType    : 'json', // what type of data do we expect back from the server
+            encode          : true
+        })
+            // using the done promise callback
+            .done(function(data) {
+            	if (data.status==true) {
+            		$.niftyNoty({
+						type: 'success',
+						icon : 'fa fa-check',
+						message : 'Konten Berhasil Disimpan',
+						container : 'floating',
+						timer : 3000
+					});
+            	}else{
+            		$.niftyNoty({
+						type: 'danger',
+						icon : 'fa fa-times',
+						message : 'Konten Gagal Disimpan',
+						container : 'floating',
+						timer : 3000
+					});
+            	}
+                // log data to the console so we can see
+                // $('#dataAjax').html(data.data); 
+        		$('.ajax-spinner-bars').css("display","none"); 
+
+                // here we will handle errors and validation messages
+            });
+
+        // stop the form from submitting the normal way and refreshing the page
+        event.preventDefault();
+    });
+
 	$(document).on('ready', function() {
 		$('.ajax-spinner-bars').css("display","block"); 
 		$('#idType').val(1); 
@@ -160,6 +206,11 @@
 		}
 
 	});
+	   $('#dataAjax').on('keyup','.note-editable',function(){
+	   		var isi =$('.note-editable').html();
+
+            $('.description').val(isi);
+	   });
 	   $('#dataAjax').on('change','.selectpicker',function(){
 
                    var parameter =$('.selectpicker').val();
@@ -169,11 +220,29 @@
                      
 					$('#idType').val(parameter); 
 					$('#idhidden').val(parameter); 
+					if(parameter==1){
+						var message="Load Konten Home Berhasil";
+						var type="info";
+					}else if(parameter==2){
 
+						var message="Load Konten Tata Cara Berhasil";
+						var type="info";
+					}else{
+
+						var message="Load Konten Gagal";
+						var type="danger";
+					}
                      $.post(basedomain+"pengaturan_admin/selectubahkonten", {actionfunction: 'showData',type:parameter}, function(data){
                             // console.log(data);
                             if (data.status==true) {
                                // console.log(data.data);
+                               		$.niftyNoty({
+										type: type,
+										icon : 'fa fa-info',
+										message : message,
+										container : 'floating',
+										timer : 3000
+									});
                                     $('.note-editable').html(data.data); 
 
                                     $('#judul').val(data.judul); 
@@ -183,7 +252,13 @@
 
                                     $('.ajax-spinner-bars').css("display","none");
                             }else{
-
+                            		$.niftyNoty({
+										type: type,
+										icon : 'fa fa-info',
+										message : message,
+										container : 'floating',
+										timer : 3000
+									});
                                     $('#query').val("insert"); 
                                     $('#judul').val(""); 
                                     $('.note-editable').html(""); 
@@ -193,6 +268,7 @@
 
                 return false;
                 });
+
 </script>
 
 {/literal}

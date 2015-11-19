@@ -248,5 +248,32 @@ class contentHelper extends Database {
         return $res;
     }
 
+    function updStatus($table,$id,$type){
+
+
+        $id1="id =".$id." AND type =".$type;
+        $id0="id <>".$id." AND type =".$type;
+        
+        $query1 = "UPDATE {$this->prefix}{$table}
+                        SET 
+                            status = '1'
+                        WHERE
+                            {$id1}";
+                        
+        $result1 = $this->query($query1); 
+
+        $query2 = "UPDATE {$this->prefix}{$table}
+                        SET 
+                            status = '0'
+                        WHERE
+                            {$id0}";
+                        
+        $result2 = $this->query($query2); 
+
+        if ($result2) return true;
+        return false;
+    }
+
+    
 }
 ?>
