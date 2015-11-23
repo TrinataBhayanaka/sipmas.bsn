@@ -202,6 +202,7 @@ class contentHelper extends Database {
     }
     function simpanData($query,$data=array(), $table="_content", $debug=false)
     {
+        // pr($data);
     	$id="id =".$data['id'];
         if ($query==3){
             
@@ -219,7 +220,7 @@ class contentHelper extends Database {
             $run = $this->save("update", "{$this->prefix}{$table}", $data, $id, $debug);
 
         }else{
-          	
+          	// pr($data);
             $run = $this->save("insert", "{$this->prefix}{$table}", $data, false, $debug);
     
         }
@@ -248,26 +249,66 @@ class contentHelper extends Database {
         return $res;
     }
 
-    function updStatus($table,$id,$type){
+    function updStatus($table,$id,$type,$stat=false){
 
 
         $id1="id =".$id." AND type =".$type;
         $id0="id <>".$id." AND type =".$type;
-        
-        $query1 = "UPDATE {$this->prefix}{$table}
+        if($stat==1){
+            $query1 = "UPDATE {$this->prefix}{$table}
                         SET 
-                            status = '1'
+                            statusPenelaahan = '1'
                         WHERE
                             {$id1}";
                         
-        $result1 = $this->query($query1); 
 
-        $query2 = "UPDATE {$this->prefix}{$table}
+            $query2 = "UPDATE {$this->prefix}{$table}
                         SET 
-                            status = '0'
+                            statusPenelaahan = '0'
                         WHERE
                             {$id0}";
+        }elseif($stat==2){
+             $query1 = "UPDATE {$this->prefix}{$table}
+                        SET 
+                            statusDisposisi = '1'
+                        WHERE
+                            {$id1}";
                         
+
+            $query2 = "UPDATE {$this->prefix}{$table}
+                        SET 
+                            statusDisposisi = '0'
+                        WHERE
+                            {$id0}";
+        }elseif($stat==3){
+             $query1 = "UPDATE {$this->prefix}{$table}
+                        SET 
+                            statusTindakLanjut = '1'
+                        WHERE
+                            {$id1}";
+                        
+
+            $query2 = "UPDATE {$this->prefix}{$table}
+                        SET 
+                            statusTindakLanjut = '0'
+                        WHERE
+                            {$id0}";
+
+        }else{
+            $query1 = "UPDATE {$this->prefix}{$table}
+                            SET 
+                                n_status = '1'
+                            WHERE
+                                {$id1}";
+                            
+
+            $query2 = "UPDATE {$this->prefix}{$table}
+                            SET 
+                                n_status = '0'
+                            WHERE
+                                {$id0}";
+        }
+        $result1 = $this->query($query1); 
         $result2 = $this->query($query2); 
 
         if ($result2) return true;

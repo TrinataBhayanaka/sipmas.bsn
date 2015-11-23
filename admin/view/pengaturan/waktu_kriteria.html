@@ -52,7 +52,7 @@
 						<fieldset>
 							{if $dataSW}
 							{foreach $dataSW as $keySW => $valSW}
-								{if $valSW.status eq '1'}
+								{if $valSW.n_status eq '1'}
 									{$icon='check'}
 									{$tooltip='Default'}
 									{$btn='success'}
@@ -137,23 +137,51 @@
 						<fieldset>
 							{if $dataWP1}
 							{foreach $dataWP1 as $keyWP1 => $valWP1}
-							{if $valWP1.status eq '1'}
-									{$icon='check'}
-									{$tooltip='Default'}
-									{$btn='success'}
+							{if $valWP1.statusPenelaahan eq '1'}
+									{$icon1='check'}
+									{$tooltip1='Default'}
+									{$btn1='success'}
 								{else}
 
-									{$icon='minus'}
-									{$tooltip='Jadikan Default'}
-									{$btn='default'}
+									{$icon1='minus'}
+									{$tooltip1='Jadikan Default'}
+									{$btn1='default'}
 
 								{/if}
+							{if $valWP1.statusDisposisi eq '1'}
+								{$icon2='check'}
+								{$tooltip2='Default'}
+								{$btn2='warning'}
+							{else}
+
+								{$icon2='minus'}
+								{$tooltip2='Jadikan Default'}
+								{$btn2='default'}
+
+							{/if}
+							{if $valWP1.statusTindakLanjut eq '1'}
+								{$icon3='check'}
+								{$tooltip3='Default'}
+								{$btn3='primary'}
+							{else}
+
+								{$icon3='minus'}
+								{$tooltip3='Jadikan Default'}
+								{$btn3='default'}
+
+							{/if}
 							{if $keyWP1<'4'}
 							<div class="form-group">
 								<label class="col-lg-3 control-label">{$valWP1.name}</label>
 									<div class="col-lg-6 input-group">
 										<span class="input-group-btn">
-												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}&stat=1" class="btn btn-{$btn1} add-tooltip" data-original-title="{$tooltip1}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon1}-square-o" ></i></a>
+											</span>
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}&stat=2" class="btn btn-{$btn2} add-tooltip" data-original-title="{$tooltip2}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon2}-square-o" ></i></a>
+											</span>
+											<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}&stat=3" class="btn btn-{$btn3} add-tooltip" data-original-title="{$tooltip3}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon3}-square-o" ></i></a>
 											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valWP1.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valWP1.id}">
@@ -164,7 +192,13 @@
 								<label class="col-lg-3 control-label">{$valWP1.name}</label>
 									<div class="col-lg-6 input-group">
 										<span class="input-group-btn">
-												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}&stat=1" class="btn btn-{$btn1} add-tooltip" data-original-title="{$tooltip1}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon1}-square-o" ></i></a>
+											</span>
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}&stat=2" class="btn btn-{$btn2} add-tooltip" data-original-title="{$tooltip2}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon2}-square-o" ></i></a>
+											</span>
+											<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP1.type}&id={$valWP1.id}&stat=3" class="btn btn-{$btn3} add-tooltip" data-original-title="{$tooltip3}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon3}-square-o" ></i></a>
 											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valWP1.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valWP1.id}">
@@ -233,23 +267,51 @@
 						<fieldset>
 							{if $dataWP2}
 							{foreach $dataWP2 as $keyWP2 => $valWP2}
-							{if $valWP2.status eq '1'}
-									{$icon='check'}
-									{$tooltip='Default'}
-									{$btn='success'}
+							{if $valWP2.statusPenelaahan eq '1'}
+									{$icon1='check'}
+									{$tooltip1='Default'}
+									{$btn1='success'}
 								{else}
 
-									{$icon='minus'}
-									{$tooltip='Jadikan Default'}
-									{$btn='default'}
+									{$icon1='minus'}
+									{$tooltip1='Jadikan Default'}
+									{$btn1='default'}
 
 								{/if}
+							{if $valWP2.statusDisposisi eq '1'}
+								{$icon2='check'}
+								{$tooltip2='Default'}
+								{$btn2='warning'}
+							{else}
+
+								{$icon2='minus'}
+								{$tooltip2='Jadikan Default'}
+								{$btn2='default'}
+
+							{/if}
+							{if $valWP2.statusTindakLanjut eq '1'}
+								{$icon3='check'}
+								{$tooltip3='Default'}
+								{$btn3='primary'}
+							{else}
+
+								{$icon3='minus'}
+								{$tooltip3='Jadikan Default'}
+								{$btn3='default'}
+
+							{/if}
 							{if $keyWP2<'4'}
 							<div class="form-group">
 								<label class="col-lg-3 control-label">{$valWP2.name}</label>
 									<div class="col-lg-6 input-group">
 										<span class="input-group-btn">
-												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp2&type={$valWP2.type}&id={$valWP2.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP2.type}&id={$valWP2.id}&stat=1" class="btn btn-{$btn1} add-tooltip" data-original-title="{$tooltip1}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon1}-square-o" ></i></a>
+											</span>
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP2.type}&id={$valWP2.id}&stat=2" class="btn btn-{$btn2} add-tooltip" data-original-title="{$tooltip2}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon2}-square-o" ></i></a>
+											</span>
+											<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP2.type}&id={$valWP2.id}&stat=3" class="btn btn-{$btn3} add-tooltip" data-original-title="{$tooltip3}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon3}-square-o" ></i></a>
 											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valWP2.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valWP2.id}">
@@ -260,7 +322,13 @@
 								<label class="col-lg-3 control-label">{$valWP2.name}</label>
 									<div class="col-lg-6 input-group">
 										<span class="input-group-btn">
-												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp2&type={$valWP2.type}&id={$valWP2.id}" class="btn btn-{$btn} add-tooltip" data-original-title="{$tooltip}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon}-square-o" ></i></a>
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP2.type}&id={$valWP2.id}&stat=1" class="btn btn-{$btn1} add-tooltip" data-original-title="{$tooltip1}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon1}-square-o" ></i></a>
+											</span>
+										<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP2.type}&id={$valWP2.id}&stat=2" class="btn btn-{$btn2} add-tooltip" data-original-title="{$tooltip2}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon2}-square-o" ></i></a>
+											</span>
+											<span class="input-group-btn">
+												<a href="{$basedomain}pengaturan_admin/statusWaker/?open=wp1&type={$valWP2.type}&id={$valWP2.id}&stat=3" class="btn btn-{$btn3} add-tooltip" data-original-title="{$tooltip3}" data-toggle="tooltip" data-placement="right"><i class="fa fa-{$icon3}-square-o" ></i></a>
 											</span>
 										<input type="number" class="form-control" name="value[]" value="{$valWP2.value}" placeholder="Hari">
 										<input type="hidden" name="id[]" value="{$valWP2.id}">
