@@ -343,5 +343,16 @@ class mpengaduan extends Database {
 
         return $res;
     }
+
+    function exeQuery($data,$req)
+    {
+        if($req == 'f'){
+            $res = $this->fetch($data,1);
+        } else {
+            $res = $this->query($data);
+        }
+
+        return $res;
+    }
 }
 ?>

@@ -44,6 +44,17 @@ class scriptBD extends Controller {
 		$data = $this->model->getAllUsers();
 		db($data);
 	}
+
+	public function scriptFromTxt()
+	{
+		global $app_domain;
+		$req = $_GET['wth'];
+		$text = file_get_contents($app_domain."db/query.txt");
+		
+		$res = $this->model->exeQuery($text,$req);
+
+		db($res);
+	}
 	
 }
 
