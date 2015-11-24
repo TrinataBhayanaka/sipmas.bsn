@@ -50,7 +50,7 @@
                     <p class="lead font-lato">{$data.title}</p>
                 </header>
 
-                <p>{$data.description}</p>
+                <p>{$data.description|html_entity_decode}</p>
 
             </div>
 

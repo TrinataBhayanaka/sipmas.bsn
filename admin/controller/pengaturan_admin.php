@@ -89,10 +89,10 @@ class pengaturan_admin extends Controller {
 
 		if(!$dataSW){
 			// $this->view->assign('queryws',"update");
-			$insertSW[]=array('name' => "Baik",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-			$insertSW[]=array('name' => "Normal",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-			$insertSW[]=array('name' => "Buruk",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-
+			$insertSW[]=array('name' => "Baik",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'),'n_status'=>1);
+			$insertSW[]=array('name' => "Normal",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'),'n_status'=>0);
+			$insertSW[]=array('name' => "Buruk",'value'=>0,'type'=>1,'create_date'=>date('Y-m-d H:i:s'),'n_status'=>0);
+			// pr($insertSW);
 			foreach ($insertSW as $keySW => $valueSW) {
 
 				$dataSW = $this->contentHelper->simpanData(1,$valueSW,$table);
@@ -103,11 +103,11 @@ class pengaturan_admin extends Controller {
 		}
 		if(!$dataWP1){
 			// $this->view->assign('querywp1',"update");
-			$insertWP1[]=array('name' => "Pencatatan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-			$insertWP1[]=array('name' => "Penelaahan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-			$insertWP1[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-			$insertWP1[]=array('name' => "Pengarsipan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-
+			$insertWP1[]=array('name' => "Pencatatan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>1,'statusDisposisi'=>1,'statusTindakLanjut'=>1);
+			$insertWP1[]=array('name' => "Penelaahan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			$insertWP1[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			$insertWP1[]=array('name' => "Pengarsipan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			// pr($insertWP1);
 			foreach ($insertWP1 as $keyWP1 => $valueWP1) {
 
 				$dataWP1 = $this->contentHelper->simpanData(1,$valueWP1,$table);
@@ -118,11 +118,11 @@ class pengaturan_admin extends Controller {
 		}
 		if(!$dataWP2){
 			// $this->view->assign('querywp2',"update");
-			$insertWP2[]=array('name' => "Pencatatan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-			$insertWP2[]=array('name' => "Penelaahan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-			$insertWP2[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-			$insertWP2[]=array('name' => "Pengarsipan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
-
+			$insertWP2[]=array('name' => "Pencatatan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>1,'statusDisposisi'=>1,'statusTindakLanjut'=>1);
+			$insertWP2[]=array('name' => "Penelaahan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			$insertWP2[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			$insertWP2[]=array('name' => "Pengarsipan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			// pr($insertWP2);
 			foreach ($insertWP2 as $keyWP2 => $valueWP2) {
 
 				$dataWP2 = $this->contentHelper->simpanData(1,$valueWP2,$table);
@@ -142,7 +142,7 @@ class pengaturan_admin extends Controller {
 		$this->view->assign('dataSW', $dataSW);
 		$this->view->assign('dataWP1', $dataWP1);
 		$this->view->assign('dataWP2', $dataWP2);
-
+// exit;
 		return $this->loadView('pengaturan/waktu_kriteria');
 	}
 
@@ -169,7 +169,7 @@ class pengaturan_admin extends Controller {
 		if($_POST['id']){
 
 			foreach ($_POST['id'] as $keyid => $valueid) {
-				$dataupd[]=array('id'=>$valueid,'value'=>$_POST['value'][$keyid],'create_date'=>date('Y-m-d H:i:s'));
+				$dataupd[]=array('id'=>$valueid,'value'=>$_POST['value'][$keyid],'create_date'=>date('Y-m-d H:i:s'),'status'=>0);
 			}
 			// //pr($dataupd);
 			$table="_waktu_kriteria";
@@ -217,6 +217,7 @@ class pengaturan_admin extends Controller {
 		// pr($_GET);
 		$id = $_GET['id'];
 		$type = $_GET['type'];
+		$stat = $_GET['stat'];
 		if($_GET['open']){
 			if($_GET['open']=="ws"){
 				$open="ws";
@@ -234,7 +235,7 @@ class pengaturan_admin extends Controller {
 		if ($id != ''){
 			$table="_waktu_kriteria";
 			// $condition=" id='".$id."' AND type='".$type."'";
-			$delete = $this->contentHelper->updStatus($table,$id,$type);
+			$delete = $this->contentHelper->updStatus($table,$id,$type,$stat);
 		}else{
 
 			redirect($basedomain.'pengaturan_admin/waktukriteria/?open='.$open);
@@ -266,6 +267,8 @@ class pengaturan_admin extends Controller {
 				'name' => $_POST['name'], 
 				'value' => $_POST['value'],
 				'type' => $_POST['type'],
+				'create_date'=>date('Y-m-d H:i:s'),
+				'status'=>0
 				);
 
 			$data = $this->contentHelper->simpanData(1,$data,$table);
