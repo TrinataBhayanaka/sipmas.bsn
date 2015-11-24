@@ -1,6 +1,8 @@
+{literal}
 <script>
-$('.selectpicker').selectpicker();
+// $('.selectpicker').selectpicker();
 </script>
+{/literal}
 <section class="page-header">
     <div class="container">
 
@@ -266,7 +268,7 @@ $('.selectpicker').selectpicker();
 		var monthid = $('#monthid').val();
 		var yearid = $('#yearid').val();
 		if(monthid != '' && yearid != '' ){
-				if(monthid != 15 && yearid != 3){
+				// if(monthid != 15 && yearid != 3){
 				$.post(basedomain+"statistik/chart_condtn", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
 					//$('#monthref').text(statistik_pengaduan.month);
 					//$('#yearsref').text(statistik_pengaduan.years);
@@ -280,6 +282,7 @@ $('.selectpicker').selectpicker();
 					{label: "Selesai", value: statistik_pengaduan.selesai.total}
 				  ]);	
 				},"JSON");
+				/*
 	      	}else{
 	      		if(monthid == 15 && yearid == 3){
 	      		$.post(basedomain+"statistik/chartDefault", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
@@ -296,7 +299,25 @@ $('.selectpicker').selectpicker();
 				  ]);	
 			},"JSON");
 	      	}
-	      }		
+	      }*/
+
+		}else{
+
+			// if(monthid != 15 && yearid != 3){
+				$.post(basedomain+"statistik/chart_condtn", {monthid:monthid, yearid:yearid},function(statistik_pengaduan){
+					//$('#monthref').text(statistik_pengaduan.month);
+					//$('#yearsref').text(statistik_pengaduan.years);
+					var month =statistik_pengaduan.month;
+					var space = "  ";
+					var years =statistik_pengaduan.years;
+					var mix = month.concat(space,years); 
+					$('#monthref').text(mix);	
+						donut.setData([
+					{label: "Dalam Proses", value: statistik_pengaduan.proses.total},
+					{label: "Selesai", value: statistik_pengaduan.selesai.total}
+				  ]);	
+				},"JSON");
+			// }
 		}		
 	});	
     
@@ -360,7 +381,7 @@ $('.selectpicker').selectpicker();
 		var monthid_v2 = $('#monthid_v2').val();
 		var yearid_v2 = $('#yearid_v2').val();
 		if(monthid_v2 != '' && yearid_v2 != ''){
-				if(monthid_v2 != 15  && yearid_v2 != 3){
+				// if(monthid_v2 != 15  && yearid_v2 != 3){
 				$.post(basedomain+"statistik/chart_bar_condtn", {monthid_v2:monthid_v2, yearid_v2:yearid_v2},function(statistik_pengaduan_v2){
 					var temp_a_v2 = statistik_pengaduan_v2.a.total;
 					var temp_b_v2 = statistik_pengaduan_v2.dl.total;
@@ -377,6 +398,7 @@ $('.selectpicker').selectpicker();
 					
 					bar.setData([{ "y": temp_years, "a": temp_a_v2, "b": temp_b_v2, "c": temp_c_v2, "d": temp_d_v2} ]);
 			},"JSON");
+			/*		
 		  }else{
 		  		if(monthid_v2 == 15  && yearid_v2 == 3){
 		  		$.post(basedomain+"statistik/chart_bar_default", {monthid_v2:monthid_v2, yearid_v2:yearid_v2},function(statistik_pengaduan_v2){
@@ -397,7 +419,26 @@ $('.selectpicker').selectpicker();
 					
 			},"JSON");	
 		   }
-		  }
+		  }*/
+
+		}else{
+
+			$.post(basedomain+"statistik/chart_bar_condtn", {monthid_v2:monthid_v2, yearid_v2:yearid_v2},function(statistik_pengaduan_v2){
+					var temp_a_v2 = statistik_pengaduan_v2.a.total;
+					var temp_b_v2 = statistik_pengaduan_v2.dl.total;
+					var temp_c_v2 = statistik_pengaduan_v2.tdl.total;
+					var temp_d_v2 = statistik_pengaduan_v2.na.total;
+					var temp_years = statistik_pengaduan_v2.years;
+					//$('#monthref').text(statistik_pengaduan_v2.month);
+					//$('#yearsref').text(statistik_pengaduan_v2.years);
+					var month_v2 =statistik_pengaduan_v2.month;
+					var space_v2 = "  ";
+					var years_v2 =statistik_pengaduan_v2.years;
+					var mix_v2 = month_v2.concat(space_v2,years_v2); 
+					$('#monthref_v2').text(mix_v2);
+					
+					bar.setData([{ "y": temp_years, "a": temp_a_v2, "b": temp_b_v2, "c": temp_c_v2, "d": temp_d_v2} ]);
+			},"JSON");
 		}	
 	});	
 
