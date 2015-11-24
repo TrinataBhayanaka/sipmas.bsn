@@ -45,7 +45,7 @@
 				<!-- Accordion content -->
 				<div id="demo-acc-panel-1" class="panel-collapse collapse {$ws}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
 					<div class="panel-body">
-					<form id="demo-bvd-notempty" action="{$basedomain}pengaturan_admin/simpanWaKri/?open=ws" method="post"class="form-horizontal">
+					<form id="demo-bvd-notempty" action="{$basedomain}pengaturan_admin/simpanWaKri/?open=ws" method="post" class="form-horizontal">
 						<!-- <input type="hidden" name="type" value="1"> -->
 						<!-- <input type="hidden" name="query" id="query" value="{$queryws}"/>	
 						<input type="hidden" name="n_status" id="idType" value="1"/> -->		
@@ -106,7 +106,7 @@
 						</fieldset>
 						
 					
-					</div>
+					<!-- </div> -->
 						<div class="tab-footer clearfix">
 							<div class="col-lg-7 col-lg-offset-3">
 								<button type="button"  data-target="#demo-default-modal" data-toggle="modal" class="btn btn-info btn-labeled fa fa-pencil">Tambah </button>
@@ -115,6 +115,7 @@
 							</div>
 						</div>	
 						</form>									
+				</div>
 				</div>
 				
 			
@@ -129,7 +130,7 @@
 				<!-- Accordion content -->
 				<div id="demo-acc-panel-2" class="panel-collapse collapse {$wp1}" style="border-bottom:1px solid rgba(0, 0, 0, 0.1)">
 					<div class="panel-body">
-					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/simpanWaKri/?open=wp1" method="post"class="form-horizontal">
+					<form id="demo-bvd-notempty"  action="{$basedomain}pengaturan_admin/simpanWaKri/?open=wp1" method="post" class="form-horizontal">
 						<!-- <input type="hidden" name="id" value="{if $dataWP1}{$dataWP1.id}{else}1{/if}">
 						<input type="hidden" name="query" id="query" value="{$querywp1}"/>	
 						<input type="hidden" name="type" id="idType" value="1"/>			
@@ -139,7 +140,7 @@
 							{foreach $dataWP1 as $keyWP1 => $valWP1}
 							{if $valWP1.statusPenelaahan eq '1'}
 									{$icon1='check'}
-									{$tooltip1='Default'}
+									{$tooltip1='Penelaahan'}
 									{$btn1='success'}
 								{else}
 
@@ -150,7 +151,7 @@
 								{/if}
 							{if $valWP1.statusDisposisi eq '1'}
 								{$icon2='check'}
-								{$tooltip2='Default'}
+								{$tooltip2='Disposisi'}
 								{$btn2='warning'}
 							{else}
 
@@ -161,7 +162,7 @@
 							{/if}
 							{if $valWP1.statusTindakLanjut eq '1'}
 								{$icon3='check'}
-								{$tooltip3='Default'}
+								{$tooltip3='Tindak Lanjut'}
 								{$btn3='primary'}
 							{else}
 
@@ -237,7 +238,7 @@
 						</fieldset>
 						
 					
-					</div>
+					<!-- </div> -->
 						<div class="tab-footer clearfix">
 							<div class="col-lg-7 col-lg-offset-3">
 								<button type="button"  data-target="#demo-default-modal2" data-toggle="modal" class="btn btn-info btn-labeled fa fa-pencil">Tambah </button>
@@ -246,6 +247,7 @@
 							</div>
 						</div>	
 						</form>									
+				</div>
 				</div>
 		
 
@@ -269,7 +271,7 @@
 							{foreach $dataWP2 as $keyWP2 => $valWP2}
 							{if $valWP2.statusPenelaahan eq '1'}
 									{$icon1='check'}
-									{$tooltip1='Default'}
+									{$tooltip1='Penelaahan'}
 									{$btn1='success'}
 								{else}
 
@@ -280,7 +282,7 @@
 								{/if}
 							{if $valWP2.statusDisposisi eq '1'}
 								{$icon2='check'}
-								{$tooltip2='Default'}
+								{$tooltip2='Disposisi'}
 								{$btn2='warning'}
 							{else}
 
@@ -291,7 +293,7 @@
 							{/if}
 							{if $valWP2.statusTindakLanjut eq '1'}
 								{$icon3='check'}
-								{$tooltip3='Default'}
+								{$tooltip3='Tindak Lanjut'}
 								{$btn3='primary'}
 							{else}
 
@@ -367,7 +369,7 @@
 						</fieldset>
 						
 					
-					</div>
+					<!-- </div> -->
 						<div class="tab-footer clearfix">
 							<div class="col-lg-7 col-lg-offset-3" style="margin-bottom:20px">
 								<button type="button"  data-target="#demo-default-modal3" data-toggle="modal" class="btn btn-info btn-labeled fa fa-pencil">Tambah</button>
@@ -377,6 +379,8 @@
 						</div>	
 						</form>		
 					</div>
+					</div>
+
 				</div>
 			</div>
 				
@@ -431,7 +435,7 @@
 				<!--Modal footer-->
 				<div class="modal-footer">
 					<button data-dismiss="modal" class="btn btn-default" type="button">Batal</button>
-					<button type="Submit "class="btn btn-primary">Simpan Data</button>
+					<button type="Submit" class="btn btn-primary">Simpan Data</button>
 				</div>
 				</form>
 			</div>
@@ -476,7 +480,7 @@
 				<!--Modal footer-->
 				<div class="modal-footer">
 					<button data-dismiss="modal" class="btn btn-default" type="button">Batal</button>
-					<button type="Submit "class="btn btn-primary">Simpan Data</button>
+					<button type="Submit" class="btn btn-primary">Simpan Data</button>
 				</div>
 				</form>
 			</div>
@@ -522,11 +526,11 @@
 				<!--Modal footer-->
 				<div class="modal-footer">
 					<button data-dismiss="modal" class="btn btn-default" type="button">Batal</button>
-					<button type="Submit "class="btn btn-primary">Simpan Data</button>
+					<button type="Submit" class="btn btn-primary">Simpan Data</button>
 				</div>
 				</form>
 			</div>
 		</div>
 	</div>
 	<!--===================================================-->
-	<!--End Default Bootstrap Modal
+	<!--End Default Bootstrap Modal-->
