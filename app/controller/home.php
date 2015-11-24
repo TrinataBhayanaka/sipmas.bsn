@@ -27,8 +27,9 @@ class home extends Controller {
 		
         $this->log('surf','Landing page');
         $data=$this->contentHelper->getContent();
+        if ($data)$this->view->assign('data',$data[0]);
         $this->view->assign('user',$this->user);
-		$this->view->assign('data',$data[0]);
+		
 		return $this->loadView('home');
     }
 
