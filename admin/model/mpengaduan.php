@@ -301,7 +301,7 @@ class mpengaduan extends Database {
 
     function getAllUserSatker($idSatker)
     {
-        $sql = "SELECT * from bsn_users WHERE satker = {$idSatker}";
+        $sql = "SELECT * from bsn_users WHERE satker = {$idSatker} AND n_status = '1'";
         $res = $this->fetch($sql,1);
 
         return $res;

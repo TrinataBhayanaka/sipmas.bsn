@@ -97,7 +97,7 @@
 											<option value="1" {if $dataPengaduan.status eq '1' || $dataPengaduan.status eq '2' || $dataPengaduan.status eq '3'}selected{/if}>Dalam Proses</option>
 											{*}<option value="2" {if $dataPengaduan.status eq '2'}selected{/if}>Ditindak Lanjuti</option>
 											<option value="3" {if $dataPengaduan.status eq '3'}selected{/if}>Tidak Ditindak Lanjuti</option>{/*}
-											{if $dataPengaduan.fase eq '6'}<option value="4" {if $dataPengaduan.status eq '4'}selected{/if}>Selesai</option>{/if}
+											{if $dataPengaduan.fase gt '4'}<option value="4" {if $dataPengaduan.status eq '4'}selected{/if}>Selesai</option>{/if}
 										</select>
 								</div>
 								<!-- HIDDEN -->
