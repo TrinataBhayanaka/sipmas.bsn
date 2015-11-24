@@ -293,7 +293,7 @@ class mpengaduan extends Database {
 
     function datatruncate()
     {
-        $sql = "TRUNCATE table bsn_comment;TRUNCATE table bsn_content;TRUNCATE table bsn_disposisi;TRUNCATE table bsn_file;TRUNCATE table bsn_penelaahan;TRUNCATE table bsn_pengaduan;TRUNCATE table bsn_survey";
+        $sql = "TRUNCATE table bsn_comment;TRUNCATE table bsn_disposisi;TRUNCATE table bsn_file;TRUNCATE table bsn_penelaahan;TRUNCATE table bsn_pengaduan;TRUNCATE table bsn_survey";
         $res = $this->query($sql);
 
         return $res;
