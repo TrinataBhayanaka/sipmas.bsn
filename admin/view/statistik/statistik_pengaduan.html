@@ -13,6 +13,7 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">Statistik Laporan Pengaduan</h3>
 				</div>
+				<form class="form-horizontal" method="POST" action="{$basedomain}statistik_laporan/report"> 
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12 mar-btm">
@@ -40,13 +41,13 @@
 							</select>
 						</div>
 					
-					<div class="row pull-right">
+					<!--<div class="row pull-right">
 						<div class="col-md-6">
 							<select class="selectpicker" id="user" title="Pilih data" value='1'>
 								<option value='1'>Laporan</option>
 							</select>
 						</div>
-					</div>
+					</div>-->
 
 					<div class="row text-center">
 						<div class="col-md-12" id="show">
@@ -57,9 +58,15 @@
 
 				</div>
 				<div class="panel-footer">
-					<button class="btn btn-default">View Report</button>
-					<button class="btn btn-purple">Export Report</button>
+					<!--<button class="btn btn-default">View Report</button>-->
+					<select class="selectpicker" id="format" name="tipe" title="Pilih data">
+						<option value="1">Laporan Format 1</option>
+						<option value="2">Laporan Format 2</option>
+						<option value="3">Laporan Format 3</option>
+					</select>
+					<button class="btn btn-purple" type="submit" name="export" >Export Report</button>
 				</div>
+				</form>
 			</div>
 		</div>
 		<div class="col-lg-6">
@@ -150,7 +157,7 @@
 		var komponen = $('#rLingkup').val();
 		//console.log(rLingkup);
 		var start = $('#start').val();
-		console.log(start);
+		//console.log(start);
 		var end = $('#end').val();
 		if(komponen == 1){
 			if(start != '' && end !='' && komponen !=''){
@@ -213,6 +220,17 @@
 	   }
 	});
 		
+		
+		 
+		//$("#formreport").click(function() {
+		 // alert("Submitted");
+		  /*var start 	= $('#start').val();
+		  var end 		= $('#end').val();
+		  var format 	= $('#format').val();
+		    $.post(basedomain+"statistik_laporan/report", {start:start, end:end,format:format},function(report){
+			exit;
+			});*/
+		//});
 		
 		
 		 var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox();

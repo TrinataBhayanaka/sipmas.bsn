@@ -332,11 +332,19 @@ class mhome extends Database {
 		return $result;
 	}
 	
-	function select_pengaduan_status($start,$end,$val)
+	function select_pengaduan_status($start,$end,$val,$flag)
 	{
-		$query = "select count(1) as jml from bsn_pengaduan as p 
+		if($flag == 1){
+			$query = "select count(1) as jml from bsn_pengaduan as p 
+				  where p.tanggal >='{$start}' and p.tanggal <='{$end}' 
+				  and p.status in ({$val})";
+		}else{
+			$query = "select count(1) as jml from bsn_pengaduan as p 
 				  where p.tanggal >='{$start}' and p.tanggal <='{$end}' 
 				  and p.status = '{$val}'";
+			
+		}
+		
 		// pr($query);
 		$result = $this->fetch($query);
 		
@@ -354,5 +362,250 @@ class mhome extends Database {
 		
 		return $result;
 	}
+	
+	
+	function get_satker($start,$end){
+		$query = "SELECT p.disposisi FROM bsn_pengaduan as p 
+					where p.tanggal >= '{$start}' and p.tanggal <= '{$end}'	
+					group by p.disposisi";
+		// pr($query);			
+		$result = $this->fetch($query,1);
+		
+		return $result;
+	}
+
+	function nama_satker($val){
+			$query = "SELECT s.nama_satker FROM bsn_satker as s where s.idSatker = '{$val}' and n_status = 1";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+	
+	function jml_pengaduan($val,$start,$end){
+			$query = "SELECT count(p.idPengaduan) as jml FROM bsn_pengaduan as p
+					where p.tanggal >= '{$start}' and p.tanggal <= '{$end}' and p.disposisi = '{$val}'";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}
+			
+	function id_pengaduan($val,$start,$end){
+			$query = "SELECT p.idPengaduan FROM bsn_pengaduan as p 
+					 inner join bsn_penelaahan as pe on pe.idPengaduan = p.idPengaduan	
+					 where p.disposisi = '{$val}' and p.tanggal >= '{$start}' and p.tanggal <= '{$end}'";
+			// pr($query);
+			$result = $this->fetch($query,1);
+			
+			return $result;
+		}
+		
+	function get_klmp_1($val){
+			$query = "SELECT count(idPenelaahan) as jml FROM bsn_penelaahan where idPengaduan in ({$val}) and kelompok_pengaduan = 1";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+		
+	function get_klmp_2($val){
+			$query = "SELECT count(idPenelaahan) as jml FROM bsn_penelaahan where idPengaduan in ({$val}) and kelompok_pengaduan = 2";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+
+	function get_klmp_3($val){
+			$query = "SELECT count(idPenelaahan) as jml FROM bsn_penelaahan where idPengaduan in ({$val}) and kelompok_pengaduan = 3";
+			// pr($query); 
+			$result = $this->fetch($query);
+			
+			return $result;
+		}
+	function get_klmp_4($val){
+			$query = "SELECT count(idPenelaahan) as jml FROM bsn_penelaahan where idPengaduan in ({$val}) and kelompok_pengaduan = 4";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}
+	function status_proses($val){
+			$query = "select count(idPengaduan) as jml FROM bsn_pengaduan where status in (1,2,3) and disposisi = '{$val}'";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+	function status_selesai($val){
+			$query = "select count(idPengaduan) as jml FROM bsn_pengaduan where status = 4 and disposisi = '{$val}'";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+	function count_pengaduan_blm_selesai($val){
+			$query = "select count(idPengaduan) as jml from bsn_pengaduan where idPengaduan in ({$val}) and status in(1,2,3) and fase = 1 ";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+			
+	function count_tindaklanjut_blm_selesai($val){
+			$query = "select count(idPengaduan) as jml from bsn_pengaduan where idPengaduan in ({$val}) and status in(1,2,3) and fase in (2,4) ";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}
+		
+	function count_sgt_puas($val){
+			$query = "select count(idSurvey) as jml from bsn_survey where survey in ({$val}) and n_status = 1";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+	
+	function count_puas($val){
+			$query = "select count(idSurvey) as jml from bsn_survey where survey in ({$val}) and n_status = 2";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}
+		
+	function count_tidak_puas($val){
+			$query = "select count(idSurvey) as jml from bsn_survey where survey in ({$val}) and n_status = 3";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}
+		
+	function count_sgt_tidak_puas($val){
+			$query = "select count(idSurvey) as jml from bsn_survey where survey in ({$val}) and n_status = 4";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+			
+	function get_satker_single($start,$end){
+		$query = "SELECT p.disposisi,p.idPengaduan,CONVERT(VARCHAR(19),p.tanggal,105) AS tanggalmasuk,p.status FROM bsn_pengaduan as p 
+					where p.tanggal >= '{$start}' and p.tanggal <= '{$end}'";
+		$result = $this->fetch($query,1);
+		
+		return $result;
+	}	
+	
+	function select_tgl_penelahaan($id){
+			$query = "select CONVERT(VARCHAR(19),tanggal,105) AS tanggalpenelaahan from bsn_penelaahan  where idPengaduan = '{$id}' and n_status = 1";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+	function select_tgl_tindak_lanjut($id){
+			$query = "select CONVERT(VARCHAR(19),tanggal,105) AS tanggaltindaklanjut from bsn_comment  where idPengaduan = '{$id}' and n_status = 1";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}
+  function tngkt_kepuasan($id){
+			$query = "select n_status from bsn_survey  where survey = '{$id}' ";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}		
+  function masa($type,$statusDisposisi){
+		$query = "select value from bsn_waktu_kriteria  where statusTindakLanjut = '{$statusDisposisi}' and type = '{$type}'";
+		// pr($query);
+		$result = $this->fetch($query);
+		
+		return $result;
+	}
+	
+	function tglJatuhTempo($masa,$id){
+		$query = "SELECT CONVERT(VarChar(19), DATEADD(day, {$masa}, tanggal), 105) as tglJatuhTempo from bsn_pengaduan where  idPengaduan = '{$id}'";
+		// pr($query);
+		$result = $this->fetch($query);
+		
+		return $result;
+	
+	}
+	function getidPengaduan($start,$end){
+		/*$query = "SELECT pl.idPengaduan from bsn_pengaduan as p 
+				 inner join bsn_penelaahan as pl on pl.idPengaduan = p.idPengaduan
+				 where pl.tanggal >= '{$start}' and pl.tanggal <='{$end}'";*/
+				 
+		$query = "SELECT p.idPengaduan from bsn_pengaduan as p 
+				 where p.tanggal >= '{$start}' and p.tanggal <='{$end}'";		 
+		// pr($query);
+		$result = $this->fetch($query,1);
+		
+		return $result;
+	}
+	
+	function getTglPenelahaan($idfix,$val){
+		$query = "SELECT CONVERT(VARCHAR(19),tanggal,105) AS tanggalpenelaahan from bsn_penelaahan where 
+				kelompok_pengaduan ='{$val}' and idPengaduan in ({$idfix})";
+		// pr($query);
+		$result = $this->fetch($query,1);
+		
+		return $result;
+	}
+	
+	function getTglPengaduan($idfix,$val){
+		$query = "SELECT CONVERT(VARCHAR(19),p.tanggal,105) AS tanggalpengaduan from bsn_pengaduan as p 
+				inner join bsn_penelaahan as pl on pl.idPengaduan = p.idPengaduan
+				where pl.kelompok_pengaduan ='{$val}' and pl.idPengaduan in ({$idfix})";
+		// pr($query);
+		$result = $this->fetch($query,1);
+		
+		return $result;
+	}
+	
+	function getIdfromPenelahaan($idfix,$val){
+		$query = "SELECT  pl.idPengaduan from bsn_pengaduan as p 
+				inner join bsn_penelaahan as pl on pl.idPengaduan = p.idPengaduan
+				where pl.kelompok_pengaduan ='{$val}' and pl.idPengaduan in ({$idfix})";
+		// pr($query);
+		$result = $this->fetch($query,1);
+		
+		return $result;
+	}
+	
+	function getTglTindakLanjut($idfix){
+		$query = "SELECT CONVERT(VARCHAR(19),p.tanggal,105) AS tanggaltindaklanjut from bsn_comment as p 
+				inner join bsn_penelaahan as pl on pl.idPengaduan = p.idPengaduan
+				where p.idPengaduan in ({$idfix})";
+		// pr($query);
+		$result = $this->fetch($query,1);
+		
+		return $result;
+	}
+	
+	function minTgl(){
+		$query = "SELECT  CONVERT(VARCHAR(19),p.tanggal,105) as tanggal FROM bsn_pengaduan as p";
+		// pr($query);
+		$result = $this->fetch($query);
+		
+		return $result;
+	}
+	
+	function survey($val){
+			$query = "select n_status from bsn_survey where survey in ({$val})";
+			// pr($query);
+			$result = $this->fetch($query);
+			
+			return $result;
+		}	
+	
+	
 }
 ?>

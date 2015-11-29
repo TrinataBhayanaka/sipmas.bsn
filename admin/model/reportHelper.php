@@ -21,7 +21,7 @@ class reportHelper extends Database {
         
 	}  
 
-    function loadMpdf($html, $output=null)
+    function loadMpdf($html, $output=null,$param=1)
     {
 		// echo "masuk";
 		// echo $output;
@@ -34,13 +34,17 @@ class reportHelper extends Database {
         if (is_file($mpdfEngine)){
             
             require_once ($mpdfEngine);
-            // $mpdf=new mPDF('c','A4','','',32,25,27,25,16,13); 
-            $mpdf=new mPDF('c','A4','','',15,15,16,16,9,9,'L'); 
-			$mpdf->SetDisplayMode('fullpage');
+            if($param == 1){
+				$mpdf=new mPDF('c','A4','','',15,15,16,16,9,9,'L'); 
+				$mpdf->SetDisplayMode('fullpage');
             
-			/*$mpdf=new mPDF('','','','',15,15,16,16,9,9,'P');
-            $mpdf->AddPage('L','','','','',15,15,16,16,9,9);
-            $mpdf->setFooter('{PAGENO}') ;*/
+			}elseif($param == 2){
+				$mpdf=new mPDF('','','','',15,15,16,16,9,9,'P');
+				$mpdf->AddPage('L','','','','',15,15,16,16,9,9);
+			
+			}
+			// $mpdf=new mPDF('c','A4','','',32,25,27,25,16,13); 
+            // $mpdf->setFooter('{PAGENO}') ;
 			
 			$mpdf->WriteHTML($html);
 			$mpdf->Output($output . '-' . date(ymdhis) . $pdf_ext,'D');
