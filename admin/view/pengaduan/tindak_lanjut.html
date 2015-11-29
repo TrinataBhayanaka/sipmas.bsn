@@ -6,6 +6,16 @@
 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 <!--End page title-->
 
+<!--Breadcrumb-->
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<ol class="breadcrumb">
+	<li><a href="{$basedomain}">Home</a></li>
+	<li><a href="{$basedomain}daftar_pengaduan">Daftar Pengaduan</a></li>
+	<li class="active">Tindak Lanjut Laporan</li>
+</ol>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!--End breadcrumb-->
+
 	<!--Page content-->
 	<!--===================================================-->
 	<div id="page-content">
@@ -152,10 +162,11 @@
             
 
             $.niftyNoty({
-				type: "dark",
+				type: 'dark',
+				icon : 'fa fa-info',
+				message : 'Data update <strong>berhasil</strong>!!',
 				container : 'floating',
-				html : "Data update <strong>berhasil</strong>!!",
-				timer : 3000
+				timer : 5000
 			});
         }, "JSON")
     });
