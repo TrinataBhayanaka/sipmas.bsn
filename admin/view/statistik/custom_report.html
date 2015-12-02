@@ -1,0 +1,17 @@
+
+<table border="1">
+	<tr>
+		<td>No</td>
+		<td>Unit Kerja</td>
+		<td>Jumlah Pengaduan</td>
+	</tr>
+	{if $data}
+	{foreach $data as $key => $val}
+	<tr>
+		<td>{$key+1}</td>
+		<td>{$val.satker}</td>
+		<td>{$val.idPengaduan}</td>	
+	</tr>
+	{/foreach}
+	{/if}
+</table>
