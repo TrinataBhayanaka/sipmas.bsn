@@ -57,7 +57,7 @@ class daftar_pengaduan extends Controller {
 		if($data[0]['status']==4){
 			$data[0]['sisaWaktu'] = "-";
 		} else {
-			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['value'].' day'));
 			$nowDate = date("Y-m-d");
 			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
 		}
@@ -148,12 +148,12 @@ class daftar_pengaduan extends Controller {
 		$data = $this->model->getPengaduan($idPengaduan);
 		$dataBalas = $this->model->getComment($idPengaduan);
 
-		$sisaWaktu = $this->model->getStdWaktu();
+		$sisaWaktu = $this->model->getStdWaktu('statusTindakLanjut');
 		
 		if($data[0]['status']==4){
 			$data[0]['sisaWaktu'] = "-";
 		} else {
-			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['value'].' day'));
 			$nowDate = date("Y-m-d");
 			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
 		}
@@ -181,12 +181,12 @@ class daftar_pengaduan extends Controller {
 		$dataDisposisi = $this->model->getDisposisi($idPengaduan);
 		$satker = $this->model->getSatker();
 		
-		$sisaWaktu = $this->model->getStdWaktu();
+		$sisaWaktu = $this->model->getStdWaktu('statusDisposisi');
 		
 		if($data[0]['status']==4){
 			$data[0]['sisaWaktu'] = "-";
 		} else {
-			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+			$endDate = date('Y-m-d', strtotime($data[0]['tanggal'].' +'.$sisaWaktu['value'].' day'));
 			$nowDate = date("Y-m-d");
 			$data[0]['sisaWaktu'] = dateDiff($nowDate,$endDate);
 		}

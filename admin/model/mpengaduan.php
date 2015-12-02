@@ -34,7 +34,7 @@ class mpengaduan extends Database {
             if($val['status']==4){
                 $res[$key]['sisaWaktu'] = "-";
             } else {
-                $endDate = date('Y-m-d', strtotime($val['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+                $endDate = date('Y-m-d', strtotime($val['tanggal'].' +'.$sisaWaktu['value'].' day'));
                 $nowDate = date("Y-m-d");
                 $res[$key]['sisaWaktu'] = dateDiff($nowDate,$endDate);
             }
@@ -65,7 +65,7 @@ class mpengaduan extends Database {
             if($val['status']==4){
                 $res[$key]['sisaWaktu'] = "-";
             } else {
-                $endDate = date('Y-m-d', strtotime($val['tanggal'].' +'.$sisaWaktu['baik'].' day'));
+                $endDate = date('Y-m-d', strtotime($val['tanggal'].' +'.$sisaWaktu['value'].' day'));
                 $nowDate = date("Y-m-d");
                 $res[$key]['sisaWaktu'] = dateDiff($nowDate,$endDate);
             }
@@ -283,9 +283,14 @@ class mpengaduan extends Database {
         return $res;
     }
 
-    function getStdWaktu()
+    function getStdWaktu($diff)
     {
-        $sql = "SELECT TOP(1) * FROM bsn_standar_waktu";
+        if(!$diff){
+            $cond = 'n_status';
+        } else{
+            $cond = $diff;
+        }
+        $sql = "SELECT TOP(1) * FROM bsn_waktu_kriteria WHERE {$cond} = '1'";
         $res = $this->fetch($sql,0);
 
         return $res;
