@@ -90,14 +90,14 @@ class pengaduan extends Controller {
             {
                 //get FILES first
                 foreach($_POST as $index => $string) {
-                    if (strpos($string, 'fileUploadKey_') !== FALSE){
+                    if (strpos($string, 'fileUploadKey|') !== FALSE){
                         $matches[]=$string;
                         unset($_POST[$index]);
                     }
                 }
 
                 foreach ($matches as $key => $value) {
-                    $tmp[$key] = explode("_", $value);
+                    $tmp[$key] = explode("|", $value);
                     $files[$key]['nama'] = $tmp[$key][1];
                     $files[$key]['path'] = $tmp[$key][2];
                     $files[$key]['size'] = $tmp[$key][3];
@@ -157,7 +157,22 @@ class pengaduan extends Controller {
 
     function ins_balas()
     {
-    	global $basedomain;
+    	global $basedomain,$CONFIG;
+
+        //get FILES first
+        foreach($_POST as $index => $string) {
+            if (strpos($string, 'fileUploadKey|') !== FALSE){
+                $matches[]=$string;
+                unset($_POST[$index]);
+            }
+        }
+
+        foreach ($matches as $key => $value) {
+            $tmp[$key] = explode("|", $value);
+            $files[$key]['nama'] = $tmp[$key][1];
+            $files[$key]['path'] = $tmp[$key][2];
+            $files[$key]['size'] = $tmp[$key][3];
+        }
 
 		$_POST['idUser'] = $this->user['idUser'];
 		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
@@ -165,20 +180,47 @@ class pengaduan extends Controller {
 		// db($_POST);
 		$this->model->insert_balas($_POST);
 		    		
-		if(!empty($_FILES['myfile']['name'])){
-    		$upload = uploadFile('myfile');
-    		//insert ke file
-    		$idComment = $this->model->getLatestId('bsn_comment');
+        $idComment = $this->model->getLatestId('bsn_comment');
+        if(!empty($files)){
+            $pathFile = $CONFIG['default']['upload_path'];
+            foreach ($files as $key => $val) {
+                //copy & remove file
+                $moved = copy($pathFile."tmp/".$val['nama'],$pathFile.$val['nama']);
+                deleteFile($val['nama'],'tmp');
 
-    		$files['nama'] = $upload['full_name'];
-    		$files['path'] = $upload['full_path'];
-    		$files['type'] = 1;
-    		$files['idComment'] = $idComment['id'];
-    		$files['n_status'] = 1;
+                $data['nama'] = $val['nama'];
+                $data['path'] = $val['path'];
+                $data['size'] = $val['size'];
+                $data['type'] = 1;
+                $data['idComment'] = $idComment['id'];
+                $data['n_status'] = 1;
 
-    		$this->model->insert_file($files);
+                $this->model->insert_file($data);
+            }
+        }
 
-    	}
+
+        //kirim email
+        $dataPengaduan = $this->model->getPengaduanOnly($_POST['idPengaduan']);
+        if(!empty($dataPengaduan['disposisi']))
+        {
+            $destination = $dataPengaduan['disposisi'];
+        } else {
+            $destination = 3;
+            $admin = 1;
+        }
+        $userToEmail = $this->model->getAllUserSatker($destination,$admin);
+
+        foreach ($userToEmail as $key => $val) {
+            $this->view->assign('name',$val['name']); 
+            $this->view->assign('judul',$dataPengaduan['judul']);
+            $this->view->assign('tanggal',$dataPengaduan['tanggalformat']);
+            $this->view->assign('idLaporan',$dataPengaduan['idLaporan']);
+            $this->view->assign('id',$_POST['idPengaduan']);
+
+            $html = $this->loadView('pengaduan/emailBalasan');
+            $send = sendGlobalMail(trim($val['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html);   
+        }
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
 		exit;
