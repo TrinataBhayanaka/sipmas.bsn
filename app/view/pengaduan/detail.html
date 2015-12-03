@@ -84,8 +84,11 @@
 							                    <div class="col-md-12 col-sm-9 col-xs-9">
 													<i class="fa fa-paperclip"></i><strong> Lampiran Data Pendukung :</strong><br>
 													{foreach $val.files as $file}
-													<a href="{$basedomain}public_assets/{$file.nama}" class="tab-post-link">{$file.nama}
-													<button type="button" class="btn btn-default noradius btn-xs pull-right"><i class="fa fa-download"></i> Unduh</button></a>
+													<div class="col-md-12 col-sm-9 col-xs-9 margin-bottom-10">
+														<a href="{$basedomain}public_assets/{$file.nama}" class="tab-post-link">{$file.path}
+														<button type="button" class="btn btn-default noradius btn-xs pull-right"><i class="fa fa-download"></i> Unduh</button></a>
+														<small>({$file.size})</small>
+													</div>
 													{/foreach}
 												</div>
 											</div>
@@ -114,8 +117,11 @@
 									<div class="box-inner">
 										<h4 class="uppercase">Kirim Balasan</h4>
 											
-										<input class="custom-file-upload" type="file" id="file" name="myfile" id="contact:attachment" data-btn-text="Attachment" />
-										<small class="text-muted block">Max file size: 5Mb (pdf/jpg/png)</small>
+										{*}<input class="custom-file-upload" type="file" id="file" name="myfile" id="contact:attachment" data-btn-text="Attachment" />
+										<small class="text-muted block">Max file size: 5Mb (pdf/jpg/png)</small>{/*}
+
+										<div id="fileuploader">Upload</div>
+										<div id="eventsmessage"></div>
 
 
 										<textarea class="summernote form-control" name="isi" data-height="200" data-lang="en-US"></textarea>
@@ -382,5 +388,54 @@
 			
 		}
 	}
+
+	$(document).ready(function()
+	{
+		$("#fileuploader").uploadFile({url: basedomain+"pengaduan/uploadAjax",
+			dragDrop: true,
+			fileName: "myfile",
+			returnType: "json",
+			showDelete: true,
+			showDownload:true,
+			statusBarWidth:600,
+			dragdropWidth:600,
+			deleteCallback: function (data, pd) {
+			    
+			        $.post(basedomain+"pengaduan/deleteAjax", {op: "delete",name: data[0]},
+			            function (resp,textStatus, jqXHR) {
+			                //Show Message	
+			                alert("File di hapus");
+			            });
+			    var name = data[0].replace(/['"]+/g, '');
+			    var fin = name.split(".");
+				document.getElementById(fin[0]).remove();
+
+			    pd.statusbar.hide(); //You choice.
+
+			},
+			downloadCallback:function(filename,pd)
+			{
+				window.open(basedomain+"public_assets/tmp/"+filename[0]);
+			},
+			onSuccess:function(files,data,xhr,pd)
+			{
+				var name = data[0].replace(/['"]+/g, '');
+				var fin = name.split(".");
+				var real = data[1].replace(/['"]+/g, '');
+				
+				$("#eventsmessage").append(
+				    $('<input>', {
+				        type: 'hidden',
+				        id: fin[0],
+				        name: name,
+				        value: "fileUploadKey|"+name+"|"+real+"|"+data[2]
+				    })
+				);
+				
+				
+			}
+
+			}); 
+	});
 </script>
 {/literal}

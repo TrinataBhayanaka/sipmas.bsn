@@ -229,7 +229,22 @@ class daftar_pengaduan extends Controller {
 
 	public function ins_balas()
 	{
-		global $basedomain;
+		global $basedomain,$CONFIG;
+
+		//get FILES first
+        foreach($_POST as $index => $string) {
+            if (strpos($string, 'fileUploadKey|') !== FALSE){
+                $matches[]=$string;
+                unset($_POST[$index]);
+            }
+        }
+
+        foreach ($matches as $key => $value) {
+            $tmp[$key] = explode("|", $value);
+            $files[$key]['nama'] = $tmp[$key][1];
+            $files[$key]['path'] = $tmp[$key][2];
+            $files[$key]['size'] = $tmp[$key][3];
+        }
 
 		$_POST['idUser'] = $this->admin['idUser'];
 		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
@@ -237,6 +252,24 @@ class daftar_pengaduan extends Controller {
 		
 		if($_POST['idComment'])
 		{	
+			if(!empty($files)){
+		        $pathFile = $CONFIG['admin']['upload_path'];
+		        foreach ($files as $key => $val) {
+		            //copy & remove file
+		            $moved = copy($pathFile."tmp/".$val['nama'],$pathFile.$val['nama']);
+		            deleteFile($val['nama'],'tmp');
+
+		            $data['nama'] = $val['nama'];
+		            $data['path'] = $val['path'];
+		            $data['size'] = $val['size'];
+		            $data['type'] = 1;
+		            $data['idComment'] = $_POST['idComment'];
+		            $data['n_status'] = 1;
+
+		            $this->model->insert_file($data);
+		        }
+		    }
+		    
 			$this->model->upd_balas($_POST);
 		} else{
 			$this->model->insert_balas($_POST);
@@ -244,21 +277,26 @@ class daftar_pengaduan extends Controller {
 			$this->model->upd_fase($_POST['idPengaduan'],5);
 			$_POST['status'] = 2;
 			$this->model->updStat($_POST);
-			    		
-			if(!empty($_FILES['myfile']['name'])){
-	    		$upload = uploadFile('myfile');
-	    		//insert ke file
-	    		$idComment = $this->model->getLatestId('bsn_comment');
+			
+			$idComment = $this->model->getLatestId('bsn_comment');
 
-	    		$files['nama'] = $upload['full_name'];
-	    		$files['path'] = $upload['full_path'];
-	    		$files['type'] = 1;
-	    		$files['idComment'] = $idComment['id'];
-	    		$files['n_status'] = 1;
+			if(!empty($files)){
+		        $pathFile = $CONFIG['admin']['upload_path'];
+		        foreach ($files as $key => $val) {
+		            //copy & remove file
+		            $moved = copy($pathFile."tmp/".$val['nama'],$pathFile.$val['nama']);
+		            deleteFile($val['nama'],'tmp');
 
-	    		$this->model->insert_file($files);
+		            $data['nama'] = $val['nama'];
+		            $data['path'] = $val['path'];
+		            $data['size'] = $val['size'];
+		            $data['type'] = 1;
+		            $data['idComment'] = $idComment['id'];
+		            $data['n_status'] = 1;
 
-	    	}
+		            $this->model->insert_file($data);
+		        }
+		    }
 		}
 
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."daftar_pengaduan/balas/?id={$_POST['idPengaduan']}'</script>";
@@ -269,6 +307,22 @@ class daftar_pengaduan extends Controller {
 	{
 		global $basedomain, $CONFIG;
 
+		//get FILES first
+        foreach($_POST as $index => $string) {
+            if (strpos($string, 'fileUploadKey|') !== FALSE){
+                $matches[]=$string;
+                unset($_POST[$index]);
+            }
+        }
+
+        foreach ($matches as $key => $value) {
+            $tmp[$key] = explode("|", $value);
+            $files[$key]['nama'] = $tmp[$key][1];
+            $files[$key]['path'] = $tmp[$key][2];
+            $files[$key]['size'] = $tmp[$key][3];
+        }
+
+
 		$_POST['idUser'] = $this->admin['idUser'];
 		$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		$_POST['tanggal'] = date("Y-m-d");
@@ -278,20 +332,25 @@ class daftar_pengaduan extends Controller {
 		$this->model->upd_nstatus($_POST['idPengaduan'],2);
 		$this->model->upd_fase($_POST['idPengaduan'],4);
 
-		if(!empty($_FILES['myfile']['name'])){
-    		$upload = uploadFile('myfile');
-    		//insert ke file
-    		$idDisposisi = $this->model->getLatestId('bsn_disposisi');
+		$idDisposisi = $this->model->getLatestId('bsn_disposisi');
 
-    		$files['nama'] = $upload['full_name'];
-    		$files['path'] = $upload['full_path'];
-    		$files['type'] = 1;
-    		$files['idDisposisi'] = $idDisposisi['id'];
-    		$files['n_status'] = 1;
+		if(!empty($files)){
+	        $pathFile = $CONFIG['admin']['upload_path'];
+	        foreach ($files as $key => $val) {
+	            //copy & remove file
+	            $moved = copy($pathFile."tmp/".$val['nama'],$pathFile.$val['nama']);
+	            deleteFile($val['nama'],'tmp');
 
-    		$this->model->insert_file($files);
+	            $data['nama'] = $val['nama'];
+	            $data['path'] = $val['path'];
+	            $data['size'] = $val['size'];
+	            $data['type'] = 1;
+	            $data['idDisposisi'] = $idDisposisi['id'];
+	            $data['n_status'] = 1;
 
-    	}
+	            $this->model->insert_file($data);
+	        }
+	    }
 
     	$userToEmail = $this->model->getAllUserSatker($_POST['tujuan']);
     	$dataPengaduan = $this->model->getPengaduan($_POST['idPengaduan']);
@@ -522,6 +581,66 @@ class daftar_pengaduan extends Controller {
 		
 	}
 	
+	function uploadAjax()
+    {
+        global $app_domain;
+
+        $output_dir = $app_domain."public_assets/tmp/";
+        if(isset($_FILES["myfile"]))
+        {
+            $ret = array();
+            
+        //  This is for custom errors;  
+        /*  $custom_error= array();
+            $custom_error['jquery-upload-file-error']="File already exists";
+            echo json_encode($custom_error);
+            die();
+        */
+            $error =$_FILES["myfile"]["error"];
+            //You need to handle  both cases
+            //If Any browser does not support serializing of multiple files using FormData() 
+            if(!is_array($_FILES["myfile"]["name"])) //single file
+            {
+                $upload = uploadFile('myfile','tmp');
+                $ret[0] = $upload['full_name'];
+                $ret[1] = $upload['real_name'];
+                $ret[2] = formatSizeUnits($_FILES["myfile"]["size"]);
+                
+            }
+            else  //Multiple files, file[]
+            {
+              $fileCount = count($_FILES["myfile"]["name"]);
+              for($i=0; $i < $fileCount; $i++)
+              {
+                $upload = uploadFile('myfile','tmp');
+                $ret[0] = $upload['full_name'];
+                $ret[1] = $upload['real_name'];
+                $ret[2] = formatSizeUnits($_FILES["myfile"]["size"]);
+              }
+            
+            }
+            echo json_encode($ret);
+            exit;
+         }
+    }
+
+    function deleteAjax()
+    {
+        global $app_domain;
+
+        $output_dir = $app_domain."public_assets/tmp/";
+        if(isset($_POST["op"]) && $_POST["op"] == "delete" && isset($_POST['name']))
+        {
+            $fileName =$_POST['name'];
+            $fileName=str_replace("..",".",$fileName); //required. if somebody is trying parent folder files    
+            $filePath = $output_dir. $fileName;
+
+            deleteFile($fileName,'tmp');
+
+            echo "Deleted File ".$fileName."<br>";
+            exit;
+        }
+    }
 	
 }
 
