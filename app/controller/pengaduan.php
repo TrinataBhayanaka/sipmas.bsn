@@ -76,7 +76,7 @@ class pengaduan extends Controller {
     function ins_laporan()
     {
     	global $basedomain,$CONFIG;
-    	// db($_FILES['myfile']);
+        
     	if($_POST['g-recaptcha-response']){
 
     		$response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6Le_OA0TAAAAAEjdg4YdX12AIdesAu_vr3g8Xsco&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']), true);
@@ -88,11 +88,28 @@ class pengaduan extends Controller {
             }
             else
             {
+                //get FILES first
+                foreach($_POST as $index => $string) {
+                    if (strpos($string, 'fileUploadKey_') !== FALSE){
+                        $matches[]=$string;
+                        unset($_POST[$index]);
+                    }
+                }
+
+                foreach ($matches as $key => $value) {
+                    $tmp[$key] = explode("_", $value);
+                    $files[$key]['nama'] = $tmp[$key][1];
+                    $files[$key]['path'] = $tmp[$key][2];
+                    $files[$key]['size'] = $tmp[$key][3];
+                }
+
+
 		    	$_POST['isi'] = htmlentities(htmlspecialchars($_POST['isi'], ENT_QUOTES));
 		    	$_POST['judul'] = htmlentities(htmlspecialchars($_POST['judul'], ENT_QUOTES));
 		    	$_POST['idUser'] = $this->user['idUser'];
 		    	$_POST['status'] = 1;
 		    	$_POST['n_status'] = 2;
+
 		    	unset($_POST['g-recaptcha-response']);
 		    	unset($_POST['termagree']);
 		    	if($_POST['perorangan'] == 'on') $_POST['perorangan'] = 1; 
@@ -100,21 +117,23 @@ class pengaduan extends Controller {
 
 		    	$latestId = $this->model->insert_laporan($_POST);
 
-		    	if(!empty($_FILES['myfile']['name'])){
-		    		$upload = uploadFile('myfile');
-                    logFile($upload);
-		    		//insert ke file
-		    		// $idPengaduan = $this->model->getLatestId();
-		    		
-		    		$files['nama'] = $upload['full_name'];
-		    		$files['path'] = $upload['full_path'];
-		    		$files['type'] = 1;
-		    		$files['idPengaduan'] = $latestId['id'];
-		    		$files['n_status'] = 1;
+		    	if(!empty($files)){
+                    $pathFile = $CONFIG['default']['upload_path'];
+                    foreach ($files as $key => $val) {
+                        //copy & remove file
+                        $moved = copy($pathFile."tmp/".$val['nama'],$pathFile.$val['nama']);
+                        deleteFile($val['nama'],'tmp');
 
-		    		$this->model->insert_file($files);
+                        $data['nama'] = $val['nama'];
+                        $data['path'] = $val['path'];
+                        $data['size'] = $val['size'];
+                        $data['type'] = 1;
+                        $data['idPengaduan'] = $latestId['id'];
+                        $data['n_status'] = 1;
 
-		    	}
+                        $this->model->insert_file($data);
+                    }
+                }
 
                 //kirim email
                 $this->view->assign('name',$this->user['name']); 
@@ -176,6 +195,67 @@ class pengaduan extends Controller {
 
     	echo "<script>alert('Terima kasih atas survey anda');window.location.href='".$basedomain."pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
 		exit;
+    }
+
+    function uploadAjax()
+    {
+        global $basedomain;
+
+        $output_dir = $basedomain."public_assets/tmp/";
+        if(isset($_FILES["myfile"]))
+        {
+            $ret = array();
+            
+        //  This is for custom errors;  
+        /*  $custom_error= array();
+            $custom_error['jquery-upload-file-error']="File already exists";
+            echo json_encode($custom_error);
+            die();
+        */
+            $error =$_FILES["myfile"]["error"];
+            //You need to handle  both cases
+            //If Any browser does not support serializing of multiple files using FormData() 
+            if(!is_array($_FILES["myfile"]["name"])) //single file
+            {
+                $upload = uploadFile('myfile','tmp');
+                $ret[0] = $upload['full_name'];
+                $ret[1] = $upload['real_name'];
+                $ret[2] = formatSizeUnits($_FILES["myfile"]["size"]);
+                
+            }
+            else  //Multiple files, file[]
+            {
+              $fileCount = count($_FILES["myfile"]["name"]);
+              for($i=0; $i < $fileCount; $i++)
+              {
+                $upload = uploadFile('myfile','tmp');
+                $ret[0] = $upload['full_name'];
+                $ret[1] = $upload['real_name'];
+                $ret[2] = formatSizeUnits($_FILES["myfile"]["size"]);
+              }
+            
+            }
+            echo json_encode($ret);
+            exit;
+         }
+    }
+
+    function deleteAjax()
+    {
+        global $basedomain;
+
+        $output_dir = $basedomain."public_assets/tmp/";
+        if(isset($_POST["op"]) && $_POST["op"] == "delete" && isset($_POST['name']))
+        {
+            $fileName =$_POST['name'];
+            $fileName=str_replace("..",".",$fileName); //required. if somebody is trying parent folder files    
+            $filePath = $output_dir. $fileName;
+
+            deleteFile($fileName,'tmp');
+
+            echo "Deleted File ".$fileName."<br>";
+            exit;
+        }
     }
 }
 

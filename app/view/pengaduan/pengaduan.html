@@ -85,11 +85,14 @@
 							<b class="tooltip tooltip-bottom-right">Lokasi terjadinya kasus/kejadian</b>
 						</label>
 						<hr>
-						<label class="select margin-bottom-10">
+						{*}<label class="select margin-bottom-10">
 							<input class="custom-file-upload" name="myfile" type="file" id="file" name="contact[attachment]" id="contact:attachment" data-btn-text="Upload data pendukung" />
 							<small class="text-muted block">Max file size: 5Mb (pdf/png/jpg/doc/docx/xls/xlsx/odt/odf/txt)</small>
 
-						</label>
+						</label>{/*}
+
+						<div id="fileuploader">Upload</div>
+						<div id="eventsmessage"></div>
 					
 
 						<div class="margin-top-10">
@@ -191,5 +194,55 @@
 			
 		}
 	}
+
+	$(document).ready(function()
+	{
+		$("#fileuploader").uploadFile({url: basedomain+"pengaduan/uploadAjax",
+			dragDrop: true,
+			fileName: "myfile",
+			returnType: "json",
+			showDelete: true,
+			showDownload:true,
+			statusBarWidth:600,
+			dragdropWidth:600,
+			deleteCallback: function (data, pd) {
+			    
+			        $.post(basedomain+"pengaduan/deleteAjax", {op: "delete",name: data[0]},
+			            function (resp,textStatus, jqXHR) {
+			                //Show Message	
+			                alert("File di hapus");
+			            });
+			    var name = data[0].replace(/['"]+/g, '');
+			    var fin = name.split(".");
+				document.getElementById(fin[0]).remove();
+
+			    pd.statusbar.hide(); //You choice.
+
+			},
+			downloadCallback:function(filename,pd)
+			{
+				window.open(basedomain+"public_assets/tmp/"+filename[0]);
+			},
+			onSuccess:function(files,data,xhr,pd)
+			{
+				var name = data[0].replace(/['"]+/g, '');
+				var fin = name.split(".");
+				var real = data[1].replace(/['"]+/g, '');
+				
+				$("#eventsmessage").append(
+				    $('<input>', {
+				        type: 'hidden',
+				        id: fin[0],
+				        name: name,
+				        value: "fileUploadKey_"+name+"_"+real+"_"+data[2]
+				    })
+				);
+				
+				
+			}
+
+			}); 
+	});
+
 </script>
 {/literal}

@@ -25,15 +25,19 @@
 
 					<fieldset class="nomargin">	
 						{$data.isi}
+						<hr>
 						{if !empty($file)}
 						<div class="row tab-post margin-top-30">
-	                        <div class="col-md-12 col-sm-9 col-xs-9">
+	                        <div class="col-md-12 col-sm-9 col-xs-9 margin-bottom-10">
 								<i class="fa fa-paperclip"></i><strong> Lampiran Data Pendukung :</strong><br>
-								{foreach $file as $val}
-								<a href="{$basedomain}public_assets/{$val.nama}" class="tab-post-link">{$val.nama}
-								<button type="button" class="btn btn-default noradius btn-xs pull-right"><i class="fa fa-download"></i> Unduh</button></a>
-								{/foreach}
 							</div>
+								{foreach $file as $val}
+								<div class="col-md-12 col-sm-9 col-xs-9 margin-bottom-10">
+								<a href="{$basedomain}public_assets/{$val.nama}" class="tab-post-link">{$val.path}
+								<button type="button" class="btn btn-default noradius btn-xs pull-right"><i class="fa fa-download"></i> Unduh</button></a>
+								<small>({$val.size})</small>
+								</div>
+								{/foreach}
 						</div>
 						{/if}
 					</fieldset>
