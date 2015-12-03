@@ -199,6 +199,29 @@ class pengaduan extends Controller {
             }
         }
 
+
+        //kirim email
+        $dataPengaduan = $this->model->getPengaduanOnly($_POST['idPengaduan']);
+        if(!empty($dataPengaduan['disposisi']))
+        {
+            $destination = $dataPengaduan['disposisi'];
+        } else {
+            $destination = 3;
+            $admin = 1;
+        }
+        $userToEmail = $this->model->getAllUserSatker($destination,$admin);
+
+        foreach ($userToEmail as $key => $val) {
+            $this->view->assign('name',$val['name']); 
+            $this->view->assign('judul',$dataPengaduan['judul']);
+            $this->view->assign('tanggal',$dataPengaduan['tanggalformat']);
+            $this->view->assign('idLaporan',$dataPengaduan['idLaporan']);
+            $this->view->assign('id',$_POST['idPengaduan']);
+
+            $html = $this->loadView('pengaduan/emailBalasan');
+            $send = sendGlobalMail(trim($val['email']),$CONFIG['email']['EMAIL_FROM_DEFAULT'],$html);   
+        }
+
 		echo "<script>alert('Data Berhasil Masuk');window.location.href='".$basedomain."pengaduan/detail/?id={$_POST['idPengaduan']}'</script>";
 		exit;
     }

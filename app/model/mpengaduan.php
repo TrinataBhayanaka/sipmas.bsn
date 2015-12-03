@@ -65,6 +65,23 @@ class mpengaduan extends Database {
         return $res;
     }
 
+    function getPengaduanOnly($id)
+    {
+        $sql = "SELECT *, CONVERT(VARCHAR(19),tanggal,106) AS tanggalformat FROM bsn_pengaduan WHERE idPengaduan = '{$id}'";
+        $res = $this->fetch($sql,0);
+
+        return $res;
+    }
+
+    function getAllUserSatker($idSatker,$admin=false)
+    {
+        if($admin) $cond = "AND type = '3'"; else $cond = "";
+        $sql = "SELECT * from bsn_users WHERE satker = {$idSatker} {$cond} AND n_status = '1'";
+        $res = $this->fetch($sql,1);
+
+        return $res;
+    }
+
     function getFile($id,$field=false)
     {
         $sql = "SELECT * FROM bsn_file WHERE {$field} = '{$id}'";
