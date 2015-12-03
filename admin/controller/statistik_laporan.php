@@ -34,6 +34,40 @@ class statistik_laporan extends Controller {
 
 	}
 	
+	function custom()
+	{
+		// pr($_POST);
+
+		$getData = $this->mhome->customReport();
+		if ($getData){
+
+		}
+		// pr($getData);
+		
+		return $getData;
+	}
+
+	function generateReport()
+	{
+		
+		// $waktu=date("d-m-y_h:i:s");
+		// $filename ="customReport-$waktu.xls";
+		// header('Content-type: application/ms-excel');
+		// header('Content-Disposition: attachment; filename='.$filename);
+		// $count = count($html);
+		$getData = $this->custom();
+		pr($getData);
+		$this->view->assign('data',$getData);
+		$html = $this->loadView('statistik/custom_report');
+		
+		echo $html;
+		exit;
+		for ($i = 0; $i < $count; $i++) {
+	           echo "$html[$i]";
+	           
+     	}
+	}
+
 	public function chart_default(){
 		global $basedomain;
 		$end = date('Y-m-d');

@@ -20,25 +20,14 @@
 			<th>Penelaahan</th>
 			<th>Tindak Lanjut</th>
 		</tr>
-		<tr>
-			<td>(1)</td>
-			<td>(2)</td>
-			<td>(3)</td>
-			<td>(4)</td>
-			<td>(5)</td>
-			<td>(6)</td>
-			<td>(7)</td>
-			<td>(8)</td>
-			<td>(9)</td>
-			<td>(10)</td>
-			<td>(11)</td>
-			<td>(12)</td>
-		</tr>
+		
 	</thead>
 	<tbody>
+		{if $data}
+		{foreach $data as $key => $val}
 		<tr>
-			<td>(1)</td>
-			<td>(2)</td>
+			<td>{$key+1}</td>
+			<td>{$val.satker}</td>
 			<td>(3)</td>
 			<td>(4)</td>
 			<td>(5)</td>
@@ -49,6 +38,8 @@
 			<td>(10)</td>
 			<td>(11)</td>
 			<td>(12)</td>
+		{/foreach}
+		{/if}
 		</tr>
 	</tbody>
 	

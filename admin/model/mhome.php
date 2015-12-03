@@ -1,6 +1,7 @@
 <?php
 class mhome extends Database {
 	
+	var $prefix = 'bsn';
 		
 	function select_data_inbox_pengaduan()
 	{
@@ -606,6 +607,30 @@ class mhome extends Database {
 			return $result;
 		}	
 	
-	
+	function customReport($debug=false)
+	{
+
+		$filter = "";
+		/*$sql = array(
+                'table'=>"{$this->prefix}_pengaduan AS p, {$this->prefix}_penelaahan AS t, {$this->prefix}_survey AS s",
+                'field'=>"COUNT(p.satker) AS JumlahPengaduan, p.idPengaduan, p.idUser, p.judul, p.satker, p.n_status, p.fase, 
+                			p.ruangLingkup, t.kelompok_pengaduan, s.idSurvey",
+                'joinmethod'=>'LEFT JOIN',
+                'join'=>'p.idPengaduan = t.idPengaduan, p.idPengaduan = s.idPengaduan',
+                'condition' => "p.n_status = 1 GROUP BY p.satker {$filter}"
+                );*/
+		
+		$sql = "SELECT  p.idPengaduan, p.idUser, p.judul, p.satker, p.n_status, p.fase, 
+				        p.ruangLingkup, t.kelompok_pengaduan, s.idSurvey 
+				FROM bsn_pengaduan AS p 
+				LEFT JOIN bsn_penelaahan AS t 
+				ON p.idPengaduan = t.idPengaduan 
+				LEFT JOIN bsn_survey AS s 
+				ON  p.idPengaduan = s.idPengaduan ";
+
+        $res = $this->fetch($sql,1);
+        if ($res) return $res;
+        return false;
+	}
 }
 ?>
