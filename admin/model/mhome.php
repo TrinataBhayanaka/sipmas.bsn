@@ -621,14 +621,41 @@ class mhome extends Database {
                 );*/
 		
 		$sql = "SELECT  p.idPengaduan, p.idUser, p.judul, p.satker, p.n_status, p.fase, 
-				        p.ruangLingkup, t.kelompok_pengaduan, s.idSurvey 
+						p.ruangLingkup, p.status, CONVERT(VARCHAR(19),p.tanggal,20) AS tanggalAdu, 
+						p.idUser, t.kelompok_pengaduan, s.idSurvey,
+						t.idPenelaahan, t.satker, CONVERT(VARCHAR(19),t.tanggal,20) AS tanggalTelaah,
+						sa.nama_satker, d.idDisposisi, d.tujuan AS tujuanDisposisi,
+						CONVERT(VARCHAR(19),d.tanggal,20) AS tanggalDisposisi,
+						c.idComment, CONVERT(VARCHAR(19),c.tanggal,20) AS tanggalTindakLanjut, 
+						su.idSurvey, su.survey
 				FROM bsn_pengaduan AS p 
 				LEFT JOIN bsn_penelaahan AS t 
 				ON p.idPengaduan = t.idPengaduan 
 				LEFT JOIN bsn_survey AS s 
-				ON  p.idPengaduan = s.idPengaduan ";
+				ON  p.idPengaduan = s.idPengaduan 
+				LEFT JOIN bsn_satker AS sa
+				ON t.satker = sa.idSatker
+				LEFT JOIN bsn_disposisi AS d
+				ON p.idPengaduan = d.idPengaduan
+				LEFT JOIN bsn_comment AS c
+				ON p.idPengaduan = c.idPengaduan
+				LEFT JOIN bsn_survey AS su
+				ON p.idPengaduan = su.idPengaduan
+				WHERE p.fase <= 6";
 
         $res = $this->fetch($sql,1);
+        if ($res) return $res;
+        return false;
+	}
+
+	function getWaktu($debug=0)
+	{
+		$sql = array(
+                'table'=>"{$this->prefix}_waktu_kriteria",
+                'field'=>"*",
+                'condition' => "type=2 {$filter}"
+                );
+		$res = $this->lazyQuery($sql,$debug);
         if ($res) return $res;
         return false;
 	}

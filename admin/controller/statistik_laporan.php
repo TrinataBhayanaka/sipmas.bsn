@@ -39,12 +39,81 @@ class statistik_laporan extends Controller {
 		// pr($_POST);
 
 		$getData = $this->mhome->customReport();
-		if ($getData){
-
+		$getWaktu = $this->mhome->getWaktu();
+		$kelompok_pengaduan = array(1=>'Berkadar Pengawasan',
+									2=>'Tidak berkadar Pengawasan', 
+									3=>'Tidak Login', 
+									4=>'Bukan Kewenangan BSN');
+		if ($getWaktu){
+			$newKriteria = array();
+			foreach ($getWaktu as $k => $v) {
+				$newKriteria[trim($v['name'])] = $v['value'];	
+			}
+		} else {
+			echo "Waktu belum diatur";
 		}
-		// pr($getData);
+
+		if ($getData){
+			$newData = array();
+			foreach ($getData as $key => $value) {
+				
+				$currentDate = date('Y-m-d H:i:s');
+				$getData[$key]['currentDate'] = $currentDate;
+				if (array_key_exists('Penelaahan', $newKriteria)){
+					$getData[$key]['maxTelaah'] = $this->nextDate($value['tanggalAdu'], $newKriteria['Penelaahan']);
+				}else{
+					$getData[$key]['maxTelaah'] = $this->nextDate($value['tanggalAdu'], $newKriteria['Pencatatan']);
+				}
+
+				if (array_key_exists('Tindak Lanjut', $newKriteria)){
+					if ($value['tanggalTelaah']) $getData[$key]['maxTindak'] = $this->nextDate($value['tanggalTelaah'], $newKriteria['Tindak Lanjut']);
+				}else{
+					if ($value['tanggalTelaah']) $getData[$key]['maxTindak'] = $this->nextDate($value['tanggalTelaah'], $newKriteria['Pencatatan']);
+				}
+
+				if ($value['fase']== 4 OR $value['fase']== 5){
+					if ($value['fase']==5 and $value['idComment']){
+						$getData[$key]['fixTindak'] = 1;
+						$getData[$key]['fixTelaah'] = 1;
+						$getData[$key]['fixSelesai'] = 0;
+					}else{
+						$getData[$key]['fixTindak'] = 0;
+						$getData[$key]['fixTelaah'] = 1;
+						$getData[$key]['fixSelesai'] = 0;	
+					}
+					
+				}else if ($value['fase'] <= 2){
+					$getData[$key]['fixTindak'] = 0;
+					$getData[$key]['fixTelaah'] = 0;
+					$getData[$key]['fixSelesai'] = 0;
+				}else if ($value['fase'] == 6){
+					$getData[$key]['fixTindak'] = 1;
+					$getData[$key]['fixTelaah'] = 1;
+					$getData[$key]['fixSelesai'] = 1;					
+				}
+
+				
+			}
+
+			$survey = array(1=>100, 2=>75, 3=>50, 4=>25);
+			foreach ($getData as $key => $val) {
+				
+				$newData[$val['satker']]['kelompok'][$val['kelompok_pengaduan']][] = $val['idPengaduan'];
+				$getData[$key]['nama_kelompok_pengaduan'] = $kelompok_pengaduan[$val['kelompok_pengaduan']];
+				
+				$newData[$val['satker']]['nama_satker'] = $val['nama_satker'];
+				$newData[$val['satker']]['rawdata'][] = $val;
+				$newData[$val['satker']]['jumlan_pengaduan'] = count($newData[$val['satker']]['rawdata']);
+				if ($val['fixSelesai']==1)$newData[$val['satker']]['pengaduan_selesai'][] = $val['idPengaduan'];
+				if ($val['fixTelaah']==1 and $val['fixTindak']==0)$newData[$val['satker']]['telaah'][$val['fixTelaah']][] = $val['idPengaduan'];
+				if ($val['fixTindak']==1 and $val['fixSelesai']==0)$newData[$val['satker']]['tindak'][$val['fixTindak']][] = $val['idPengaduan'];
+				if ($val['survey']) $newData[$val['satker']]['survey'] += $survey[$val['survey']];
+				if ($val['survey']) $newData[$val['satker']]['total_survey'] = count($val['survey']);
+			}
+		}
+		// pr($newData);
 		
-		return $getData;
+		return $newData;
 	}
 
 	function generateReport()
@@ -56,7 +125,7 @@ class statistik_laporan extends Controller {
 		// header('Content-Disposition: attachment; filename='.$filename);
 		// $count = count($html);
 		$getData = $this->custom();
-		pr($getData);
+		// pr($getData);
 		$this->view->assign('data',$getData);
 		$html = $this->loadView('statistik/custom_report');
 		
@@ -66,6 +135,11 @@ class statistik_laporan extends Controller {
 	           echo "$html[$i]";
 	           
      	}
+	}
+
+	function nextDate($date, $jumlah)
+	{
+		return date('Y-m-d', strtotime($date . " +{$jumlah} Weekdays"));
 	}
 
 	public function chart_default(){

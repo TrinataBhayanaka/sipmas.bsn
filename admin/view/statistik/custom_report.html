@@ -24,26 +24,29 @@
 	</thead>
 	<tbody>
 		{if $data}
+		{$i =1}
 		{foreach $data as $key => $val}
 		<tr>
-			<td>{$key+1}</td>
-			<td>{$val.satker}</td>
-			<td>(3)</td>
-			<td>(4)</td>
-			<td>(5)</td>
-			<td>(6)</td>
-			<td>(7)</td>
-			<td>(8)</td>
-			<td>(9)</td>
-			<td>(10)</td>
-			<td>(11)</td>
-			<td>(12)</td>
+			<td>{$i++}</td>
+			<td>{$val.nama_satker}</td>
+			<td>{$val.jumlan_pengaduan}</td>
+			<td>{$val.kelompok.1|count}</td>
+			<td>{$val.kelompok.2|count}</td>
+			<td>{$val.kelompok.3|count}</td>
+			<td>{$val.kelompok.4|count}</td>
+			<td>{$val.pengaduan_selesai|count}</td>
+			<td>{$val.jumlan_pengaduan - $val.pengaduan_selesai|count}</td>
+			<td>{$val.telaah|count}</td>
+			<td>{$val.tindak|count}</td>
+			<td>{if $val.total_survey}{$val.survey|intval / $val.total_survey|intval}{else}0{/if}</td>
 		{/foreach}
 		{/if}
 		</tr>
 	</tbody>
 	
 </table>
+
+{*}
 <table border="1">
 	<thead>
 		<tr>
@@ -112,3 +115,4 @@
 		</tr>
 	</tbody>
 </table>
+{/*}
