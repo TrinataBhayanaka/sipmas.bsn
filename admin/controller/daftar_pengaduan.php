@@ -523,7 +523,6 @@ class daftar_pengaduan extends Controller {
 	}
 	
 	
-	
 }
 
 ?>
