@@ -607,42 +607,44 @@ class mhome extends Database {
 			return $result;
 		}	
 	
-	function customReport($debug=false)
+	function customReport($type=1, $param=array(), $debug=false)
 	{
 
 		$filter = "";
-		/*$sql = array(
-                'table'=>"{$this->prefix}_pengaduan AS p, {$this->prefix}_penelaahan AS t, {$this->prefix}_survey AS s",
-                'field'=>"COUNT(p.satker) AS JumlahPengaduan, p.idPengaduan, p.idUser, p.judul, p.satker, p.n_status, p.fase, 
-                			p.ruangLingkup, t.kelompok_pengaduan, s.idSurvey",
-                'joinmethod'=>'LEFT JOIN',
-                'join'=>'p.idPengaduan = t.idPengaduan, p.idPengaduan = s.idPengaduan',
-                'condition' => "p.n_status = 1 GROUP BY p.satker {$filter}"
-                );*/
-		
-		$sql = "SELECT  p.idPengaduan, p.idUser, p.judul, p.satker, p.n_status, p.fase, 
-						p.ruangLingkup, p.status, CONVERT(VARCHAR(19),p.tanggal,20) AS tanggalAdu, 
-						p.idUser, t.kelompok_pengaduan, s.idSurvey,
-						t.idPenelaahan, t.satker, CONVERT(VARCHAR(19),t.tanggal,20) AS tanggalTelaah,
-						sa.nama_satker, d.idDisposisi, d.tujuan AS tujuanDisposisi,
-						CONVERT(VARCHAR(19),d.tanggal,20) AS tanggalDisposisi,
-						c.idComment, CONVERT(VARCHAR(19),c.tanggal,20) AS tanggalTindakLanjut, 
-						su.idSurvey, su.survey
-				FROM bsn_pengaduan AS p 
-				LEFT JOIN bsn_penelaahan AS t 
-				ON p.idPengaduan = t.idPengaduan 
-				LEFT JOIN bsn_survey AS s 
-				ON  p.idPengaduan = s.idPengaduan 
-				LEFT JOIN bsn_satker AS sa
-				ON t.satker = sa.idSatker
-				LEFT JOIN bsn_disposisi AS d
-				ON p.idPengaduan = d.idPengaduan
-				LEFT JOIN bsn_comment AS c
-				ON p.idPengaduan = c.idPengaduan
-				LEFT JOIN bsn_survey AS su
-				ON p.idPengaduan = su.idPengaduan
-				WHERE p.fase <= 6";
+		if ($param['param']['start']) $filter .= " AND p.tanggal >= '{$param['param']['start']}'";
+		if ($param['param']['end']) $filter .= " AND p.tanggal <= '{$param['param']['end']}'";
 
+		if ($type ==1 or $type ==2){
+			$sql = "SELECT  p.idPengaduan, p.idUser, p.judul, p.satker, p.n_status, p.fase, 
+							p.ruangLingkup, p.status, CONVERT(VARCHAR(19),p.tanggal,20) AS tanggalAdu, 
+							p.idUser, t.kelompok_pengaduan, t.kategori, t.pejabat, s.idSurvey,
+							t.idPenelaahan, t.satker, CONVERT(VARCHAR(19),t.tanggal,20) AS tanggalTelaah,
+							sa.nama_satker, d.idDisposisi, d.tujuan AS tujuanDisposisi,
+							CONVERT(VARCHAR(19),d.tanggal,20) AS tanggalDisposisi,
+							c.idComment, CONVERT(VARCHAR(19),c.tanggal,20) AS tanggalTindakLanjut, 
+							su.idSurvey, su.survey, k.ruang_lingkup AS sub_ruang_lingkup
+					FROM bsn_pengaduan AS p 
+					LEFT JOIN bsn_penelaahan AS t 
+					ON p.idPengaduan = t.idPengaduan 
+					LEFT JOIN bsn_survey AS s 
+					ON  p.idPengaduan = s.idPengaduan 
+					LEFT JOIN bsn_satker AS sa
+					ON t.satker = sa.idSatker
+					LEFT JOIN bsn_disposisi AS d
+					ON p.idPengaduan = d.idPengaduan
+					LEFT JOIN bsn_comment AS c
+					ON p.idPengaduan = c.idPengaduan
+					LEFT JOIN bsn_survey AS su
+					ON p.idPengaduan = su.idPengaduan
+					LEFT JOIN bsn_kategori AS k
+					ON t.kategori = k.idKategori
+					WHERE p.fase <= 6 {$filter}";
+		}
+		
+		if ($type == 3){
+			$sql = "";
+		}
+		// pr($sql);
         $res = $this->fetch($sql,1);
         if ($res) return $res;
         return false;
@@ -654,6 +656,23 @@ class mhome extends Database {
                 'table'=>"{$this->prefix}_waktu_kriteria",
                 'field'=>"*",
                 'condition' => "type=2 {$filter}"
+                );
+		$res = $this->lazyQuery($sql,$debug);
+        if ($res) return $res;
+        return false;
+	}
+
+	function getLingkup($id=false, $type=1)
+	{
+		$filter = "";
+		if ($id==1) $filter .= " AND idKategori = {$id}";
+		if ($type==1) $filter .= " AND idParent IS NULL";
+		if ($type==2) $filter .= " AND idParent IS NOT NULL";
+
+		$sql = array(
+                'table'=>"{$this->prefix}_kategori",
+                'field'=>"*",
+                'condition' => "n_status =1 {$filter}"
                 );
 		$res = $this->lazyQuery($sql,$debug);
         if ($res) return $res;

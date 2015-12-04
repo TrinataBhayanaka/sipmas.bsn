@@ -34,11 +34,10 @@ class statistik_laporan extends Controller {
 
 	}
 	
-	function custom()
+	function customTemplate1($setParam)
 	{
-		// pr($_POST);
-
-		$getData = $this->mhome->customReport();
+		
+		$getData = $this->mhome->customReport(1, $setParam);
 		$getWaktu = $this->mhome->getWaktu();
 		$kelompok_pengaduan = array(1=>'Berkadar Pengawasan',
 									2=>'Tidak berkadar Pengawasan', 
@@ -59,6 +58,9 @@ class statistik_laporan extends Controller {
 				
 				$currentDate = date('Y-m-d H:i:s');
 				$getData[$key]['currentDate'] = $currentDate;
+				$getRuangLingkup = $this->mhome->getLingkup($value['ruangLingkup']);
+				$getData[$key]['nama_ruang_lingkup'] = $getRuangLingkup[0];
+
 				if (array_key_exists('Penelaahan', $newKriteria)){
 					$getData[$key]['maxTelaah'] = $this->nextDate($value['tanggalAdu'], $newKriteria['Penelaahan']);
 				}else{
@@ -109,32 +111,86 @@ class statistik_laporan extends Controller {
 				if ($val['fixTindak']==1 and $val['fixSelesai']==0)$newData[$val['satker']]['tindak'][$val['fixTindak']][] = $val['idPengaduan'];
 				if ($val['survey']) $newData[$val['satker']]['survey'] += $survey[$val['survey']];
 				if ($val['survey']) $newData[$val['satker']]['total_survey'] = count($val['survey']);
+				$newData[$val['satker']]['lingkup'][$val['ruangLingkup']][] = $val['idPengaduan'];
+				
+				$dataByKelompokAdu[$val['kelompok_pengaduan']]['nama_kelompok_pengaduan'] = $kelompok_pengaduan[$val['kelompok_pengaduan']];
+				$dataByKelompokAdu[$val['kelompok_pengaduan']]['rawdata'][] = $val; 
+				if ($val['survey']) $dataByKelompokAdu[$val['kelompok_pengaduan']]['survey'] += $survey[$val['survey']];
+				if ($val['survey']) $dataByKelompokAdu[$val['kelompok_pengaduan']]['total_survey'] = count($val['survey']);
+				if ($val['fixTelaah']==1 and $val['fixTindak']==0)$dataByKelompokAdu[$val['kelompok_pengaduan']]['telaah'][$val['fixTelaah']][] = $val['idPengaduan'];
+				if ($val['fixTindak']==1 and $val['fixSelesai']==0)$dataByKelompokAdu[$val['kelompok_pengaduan']]['tindak'][$val['fixTindak']][] = $val['idPengaduan'];
+				
 			}
 		}
-		// pr($newData);
-		
-		return $newData;
+		// pr($getData);
+		if ($setParam['param']['template']==1){
+			return $newData;	
+		}
+		if ($setParam['param']['template']==2){
+			return $getData;	
+		}
+		if ($setParam['param']['template']==3){
+			return $dataByKelompokAdu;	
+		}
 	}
+
+	
 
 	function generateReport()
 	{
-		
-		// $waktu=date("d-m-y_h:i:s");
-		// $filename ="customReport-$waktu.xls";
-		// header('Content-type: application/ms-excel');
-		// header('Content-Disposition: attachment; filename='.$filename);
+		// pr($_GET);
+
+		$getToken = explode(',', _g('token'));
+		$getTemplate = _g('template');
+
+		$templateList = array(
+								'1'=>array('Ruang Lingkup Laporan'),
+								'2'=>array('Kelompok Pengaduan','Judul Laporan','Ruang Lingkup Laporan','Sub Ruang Lingkup Laporan','Pejabat Terkait'),
+								'3'=>array('Ruang Lingkup Laporan')
+						);
+		if ($getToken){
+			foreach ($getToken as $key => $value) {
+				if (in_array($value, $templateList[$getTemplate])){
+					$templateAllow[] = $value;
+				}
+			}
+		}
+		$setParam['param'] = array(
+								'template' =>$getTemplate,
+								'addparam' =>$templateAllow,
+								'start'=>_g('start'), 
+								'end'=>_g('end'));
+
+		if ($getTemplate==1){
+
+			$this->view->assign('templateAllow',$templateAllow);
+			$this->view->assign('template',1);
+			
+
+		}else if ($getTemplate==2){
+			$this->view->assign('templateAllow',$templateAllow);
+			$this->view->assign('template',2);
+			// $getData = $this->customTemplate2($setParam);
+		}else{
+			$this->view->assign('template',3);
+			// $getData = $this->customTemplate3($setParam);
+		}
+
+		// pr($templateAllow);
+		$getData = $this->customTemplate1($setParam);
+		$waktu=date("d-m-y_h:i:s");
+		$filename ="customReport-$waktu.xls";
+		header('Content-type: application/ms-excel');
+		header('Content-Disposition: attachment; filename='.$filename);
 		// $count = count($html);
-		$getData = $this->custom();
+		// $getData = $this->custom($setParam);
 		// pr($getData);
 		$this->view->assign('data',$getData);
 		$html = $this->loadView('statistik/custom_report');
 		
 		echo $html;
 		exit;
-		for ($i = 0; $i < $count; $i++) {
-	           echo "$html[$i]";
-	           
-     	}
+		
 	}
 
 	function nextDate($date, $jumlah)

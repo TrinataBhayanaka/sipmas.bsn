@@ -90,9 +90,9 @@
 				<div class="panel-body">
 					<div class="demo-dp-range mar-btm">
 						<div class="input-daterange input-group" id="datepicker2">
-							<input type="text" class="form-control" name="start" />
+							<input type="text" class="form-control" name="start" id="startDate"/>
 							<span class="input-group-addon">sampai</span>
-							<input type="text" class="form-control" name="end" />
+							<input type="text" class="form-control" name="end" id="endDate"/>
 						</div>
 					</div>
 					<form id="demoform" action="#" method="post">
@@ -112,9 +112,16 @@
 	                </select>
 				</div>
 				<div class="panel-footer">
-					{*}<button type="submit" class="btn btn-default btn-block">Submit data</button>{/*}
+					{*}<button type="submit" class="btn btn-default btn-block">Submit data</button>
 					<button class="btn btn-default">View Report</button>
+					{/*}
+					<select class="selectpicker" id="formatTemplate" name="tipe" title="Pilih data">
+						<option value="1">Laporan Format 1</option>
+						<option value="2">Laporan Format 2</option>
+						<option value="3">Laporan Format 3</option>
+					</select>
 					<button class="btn btn-purple">Export Report</button>
+
 				</div>
 				</form>
 			</div>
@@ -245,9 +252,12 @@
 		
 		 var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox();
 		$("#demoform").submit(function() {
-		  	alert($('[name="duallistbox_demo1[]"]').val());
+		  	// alert($('[name="duallistbox_demo1[]"]').val());
 		  	var fieldTambahan = $('[name="duallistbox_demo1[]"]').val();
-		  	window.location.href=basedomain+"statistik_laporan/generateReport/?token="+fieldTambahan;
+		  	var template = $('#formatTemplate').val();
+			var startDate = $('#startDate').val();
+		  	var endDate = $('#endDate').val();
+		  	window.location.href=basedomain+"statistik_laporan/generateReport/?template="+template+"&start="+startDate+"&end="+endDate+"&token="+fieldTambahan;
 		  	// $.post(basedomain+"statistik_laporan/generateReport", {fieldTambahan:fieldTambahan},function(data){
 		  		
 		  	// },"JSON");

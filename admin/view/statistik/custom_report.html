@@ -1,4 +1,5 @@
 
+{if $template==1}
 <table border="1">
 	<thead>
 		<tr>
@@ -9,6 +10,7 @@
 			<th colspan="2">Status</th>
 			<th colspan="2">Presentase Pengaduan Jatuh Tempo</th>
 			<th rowspan="2">Tingkat Kepuasan Masyarakat</th>
+			{if $templateAllow}<th colspan="4">Ruang Lingkup</th>{/if}
 		</tr>
 		<tr>
 			<td>a</td>
@@ -19,6 +21,12 @@
 			<td>Dalam Proses</td>
 			<th>Penelaahan</th>
 			<th>Tindak Lanjut</th>
+			{if $templateAllow}
+			<td>a</td>
+			<td>b</td>
+			<td>c</td>
+			<td>d</td>
+			{/if}
 		</tr>
 		
 	</thead>
@@ -39,14 +47,23 @@
 			<td>{$val.telaah|count}</td>
 			<td>{$val.tindak|count}</td>
 			<td>{if $val.total_survey}{$val.survey|intval / $val.total_survey|intval}{else}0{/if}</td>
+			<!--ruang lingkup -->
+			{if $templateAllow}
+			<td>{$val.lingkup.1|count}</td>
+			<td>{$val.lingkup.2|count}</td>
+			<td>{$val.lingkup.3|count}</td>
+			<td>{$val.lingkup.4|count}</td>
+			{/if}
+			<!--end ruang lingkup -->
 		{/foreach}
 		{/if}
 		</tr>
 	</tbody>
 	
 </table>
+{/if}
 
-{*}
+{if $template==2}
 <table border="1">
 	<thead>
 		<tr>
@@ -58,33 +75,46 @@
 			<th>Tanggal Jatuh Tempo</th>
 			<th>Status</th>
 			<th>Tingkat Kepuasan Masyarakat</th>
+			{if in_array("Judul Laporan",$templateAllow)}<th>Judul Laporan</th>{/if}
+			{if in_array("Kelompok Pengaduan",$templateAllow)}<th>Kelompok Pengaduan</th>{/if}
+			{if in_array("Ruang Lingkup Laporan",$templateAllow)}<th>Ruang Lingkup</th>{/if}
+			{if in_array("Sub Ruang Lingkup Laporan",$templateAllow)}<th>Sub Ruang Lingkup</th>{/if}
+			{if in_array("Pejabat Terkait",$templateAllow)}<th>Pejabat Terkait</th>{/if}
 		</tr>
-		<tr>
-			<td>(1)</td>
-			<td>(2)</td>
-			<td>(3)</td>
-			<td>(4)</td>
-			<td>(5)</td>
-			<td>(6)</td>
-			<td>(7)</td>
-			<td>(8)</td>
-		</tr>
+		
 	</thead>
 	<tbody>
 		
+		{if $data}
+		{$i =1}
+		{foreach $data as $key => $val}
 		<tr>
-			<td>(1)</td>
-			<td>(2)</td>
-			<td>(3)</td>
-			<td>(4)</td>
-			<td>(5)</td>
-			<td>(6)</td>
-			<td>(7)</td>
-			<td>(8)</td>
+			<td>{$i++}</td>
+			<td>{$val.nama_satker}</td>
+			<td>{$val.tanggalAdu}</td>
+			<td>{$val.tanggalTelaah}</td>
+			<td>{$val.tanggalTindakLanjut}</td>
+			<td>{$val.maxTelaah}</td>
+			<td style="background-color:{if $val.fase <=5}yellow{else}green{/if}">{if $val.fase <=5}Dalam Proses{else}Selesai{/if}</td>
+			<td>
+				{if $val.survey==1}100{/if}
+				{if $val.survey==1}75{/if}
+				{if $val.survey==1}50{/if}
+				{if $val.survey==1}25{/if}
+			</td>
+			{if in_array("Judul Laporan",$templateAllow)}<td>{$val.judul}</td>{/if}
+			{if in_array("Kelompok Pengaduan",$templateAllow)}<td>{$val.nama_kelompok_pengaduan}</td>{/if}
+			{if in_array("Ruang Lingkup Laporan",$templateAllow)}<td>{$val.nama_ruang_lingkup.ruang_lingkup}</td>{/if}
+			{if in_array("Sub Ruang Lingkup Laporan",$templateAllow)}<td>{$val.sub_ruang_lingkup}</td>{/if}
+			{if in_array("Pejabat Terkait",$templateAllow)}<td>Eselon {$val.pejabat}</td>{/if}
 		</tr>
+		{/foreach}
+		{/if}
 	</tbody>
 </table>
+{/if}
 
+{if $template==3}
 <table border="1">
 	<thead>
 		<tr>
@@ -97,22 +127,22 @@
 			<th>Penelaahan</th>
 			<th>Tindak Lanjut</th>
 		</tr>
-		<tr>
-			<td>(1)</td>
-			<td>(2)</td>
-			<td>(3)</td>
-			<td>(4)</td>
-			<td>(5)</td>
-		</tr>
+		
 	</thead>
 	<tbody>
+		
+		{if $data}
+		{$i =1}
+		{foreach $data as $key => $val}
 		<tr>
-			<td>(1)</td>
-			<td>(2)</td>
-			<td>(3)</td>
-			<td>(4)</td>
-			<td>(5)</td>
+			<td>{$i++}</td>
+			<td>{$val.nama_kelompok_pengaduan}</td>
+			<td>{$val.telaah|count}</td>
+			<td>{$val.tindak|count}</td>
+			<td>{if $val.total_survey}{$val.survey|intval / $val.total_survey|intval}{else}0{/if}</td>
 		</tr>
+		{/foreach}
+		{/if}
 	</tbody>
 </table>
-{/*}
+{/if}
