@@ -1,0 +1,192 @@
+{literal}
+<style type="text/css">
+	table {
+		width: 90%;
+   		border-collapse: collapse;
+	}
+
+	table, th, td {
+	    border: 1px solid #7B7A7A;
+	}
+	table td{
+		padding-top: 2px;
+		padding-bottom:2px;
+	}
+	table th{
+		padding-top: 2px;
+		padding-bottom:2px;
+	}
+	.field{
+		padding-left:60px;
+	}
+	.bab{
+
+		padding-left: 20px;
+	}
+	.row{
+		padding-left: 40px;
+	}
+	.center{
+		text-align: center;
+	}
+	#title{
+		text-align: center;
+		margin-bottom: 50px;
+
+	}
+	.title{
+		font-weight: bold;
+		font-size: 17px;
+	}
+	.textarea{
+		padding-left: 40px;
+		height: 60px;
+	}
+	.text{
+		padding-left: 10px;
+	}
+	</style>
+
+	{/literal}
+		<div id="title">
+			<img src="{$basedomain}images/bsni.png" width="100px"><br/>
+			<span class="title">Badan Standarisasi Nasional</span>
+		</div>
+		<table align="center" >
+			<thead>
+				<tr>
+					<th colspan="3">LAPORAN HASIL PENELAAHAN</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="bab" width="40%">I. Data Umum</td>
+					<td>&nbsp;</td>
+					<td align="right" style="padding-right:20px">Dumas*)</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td align="right"  style="padding-right:25px">KODE :</td>
+				</tr>
+				<tr>
+					<td class="row">1. Tanggal Surat Pengaduan</td>
+					<td width="5%" class="center">:</td>
+					<td class="text">{$data.tanggalformat}</td>
+				</tr>
+				<tr>
+					<td class="row">2. Tanggal Terima</td>
+					<td class="center">:</td>
+					<td class="text">{$newFormatTgl}</td>
+				</tr>
+				<tr>
+					<td class="row">3. Pelapor</td>
+					<td class="center">:</td>
+					<td class="text">{$KelompokPengaduan}</td>
+				</tr>
+				<tr>
+					<td class="field">- Nama</td>
+					<td class="center">:</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="field">- Alamat</td>
+					<td class="center">:</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="field">- Pekerjaan</td>
+					<td class="center">:</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="field">- Kartu Identitas</td>
+					<td class="center">:</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="row">4. Terlapor</td>
+					<td class="center">:</td>
+					<td class="text">{$NamaSatker}</td>
+				</tr>
+				<tr>
+					<td class="field">- Nama/NIP</td>
+					<td class="center">:</td>
+					<td class="text">{$NamaPejabat}</td>
+				</tr>
+				<tr>
+					<td class="field">- Alamat</td>
+					<td class="center">:</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="field">- Jabatan</td>
+					<td class="center">:</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="field">- Unit Kerja</td>
+					<td class="center">:</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="row">5 Lokasi Kasus/Kejadian</td>
+					<td class="center">:</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="bab">II. SUBSTANSI PENGADUAN</td>
+					<td class="center">:</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="textarea">{$data.judul}</td>
+				</tr>
+				<tr>
+					<td class="bab">III. HASIL PENELAAHAN</td>
+					<td class="center">&nbsp;</td>
+					<td class="text">&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="row">A. Kesimpulan</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="textarea">{$penelaahan.kesimpulan}</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="row">B. Rekomendasi</td>
+				</tr>
+
+				<tr>
+					<td colspan="3" class="textarea">{$penelaahan.rekomendasi}</td>
+				</tr>
+				<tr>
+					<td colspan="3" class="row">C. LAMPIRAN</td>
+				</tr>
+				<tr>
+					<td colspan="3">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="row">&nbsp;</td>
+					<td class="center">&nbsp;</td>
+					<td align="right" style="padding-right:10px"> Jakarta, </td>
+				</tr>
+				<tr>
+					<td class="row">&nbsp;</td>
+					<td class="center">&nbsp;</td>
+					<td class="center" > 
+						KEPALA INSPEKTORAT<br/><br/><br/><br/>
+						Ir.Nasrudin Irawan, MEnvStud
+					 </td>
+				</tr>
+				<tr>
+					<td colspan="3" style="padding-left:20px">
+						*) Diisi kode : <br/>
+						A, apabila hasil penelaahan Berkadar Pengawasan<br/>
+						B, apabila hasil penelaahan Tidak Berkadar Pengawasan<br/>
+						C, apabila hasil penelaahan Tidak Logis<br/>
+						D, apabila hasil penelaahan Bukan Kewenangan BSN
+					</td>
+				</tr>
+			</tbody>
+		</table>

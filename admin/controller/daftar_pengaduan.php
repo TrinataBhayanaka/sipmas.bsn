@@ -418,7 +418,7 @@ class daftar_pengaduan extends Controller {
 	$rLingkup = $this->model->getRuangLingkup();
 	$subrLingkup = $this->model->getSubLingkup($penelaahan['kategori']);
 	$satker = $this->model->getSatker_condtn($penelaahan['satker']);
-	$file = $this->model->getFile($idPengaduan);
+	$file = $this->model->getFile($idPengaduan,'idFile');
 
 	$exTgl = explode('-',$penelaahan['tanggalformat']);
 	$newFormatTgl = $exTgl[2]."/".$exTgl[1]."/".$exTgl[0]; 
@@ -461,118 +461,17 @@ class daftar_pengaduan extends Controller {
 	
 	
 		$this->reportHelper =$this->loadModel('reportHelper');
-		$html ="
-			<style>
-			#header {
-				background-color:#84C726;
-				color:white;
-				text-align:left; padding:5px;	
-			}
-			#lamp {
-				width:100%;
-				border:1px solid #d4d4d4;
-			}
-			table.lamp {
-				width:100%;
-				border:1px solid #d4d4d4;
-				
-			}
-			table.lamp th, td { 
-				padding:10px;
-			}
-			table.lamp th {
-				width:40px;
-			}
-			table.master, td{
-				font-family: Times;
-				font-size: 14px;
-			}
-			</style>
-			<div id=\"header\"><h3>{$data[0]['judul']}</h3></div>
-				<table class=\"lamp\">
-					<tr><td>
-					<table style=\"text-align: ; margin-left: auto; margin-right: auto; width: 100%;\" border=\"0\"  cellpadding=\"0\" cellspacing=\"0\">
-						<tr>
-							<td width=\"30%\">Tanggal Pengaduan</td>
-							<td width=\"70%\" style=\"border: 1px solid black;\">&nbsp;{$data[0]['tanggalformat']}</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">&nbsp;</td>
-							<td width=\"70%\">&nbsp;</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">Tanggal Terima</td>
-							<td width=\"70%\" style=\"border: 1px solid black;\">&nbsp;{$newFormatTgl}</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">&nbsp;</td>
-							<td width=\"70%\">&nbsp;</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">Kelompok Pengaduan</td>
-							<td width=\"70%\" style=\"border: 1px solid black;\">&nbsp;{$KelompokPengaduan}</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">&nbsp;</td>
-							<td width=\"70%\">&nbsp;</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">Ruang Lingkup Laporan</td>
-							<td width=\"70%\" style=\"border: 1px solid black;\">&nbsp;{$kategori_ruang_lingkup}</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">&nbsp;</td>
-							<td width=\"70%\">&nbsp;</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">Sub Ruang Lingkup Laporan</td>
-							<td width=\"70%\" style=\"border: 1px solid black;\">&nbsp;{$kategori_sub_ruang_lingkup}</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">&nbsp;</td>
-							<td width=\"70%\">&nbsp;</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">Satuan Unit Kerja Terkait</td>
-							<td width=\"70%\" style=\"border: 1px solid black;\">&nbsp;{$NamaSatker}</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">&nbsp;</td>
-							<td width=\"70%\">&nbsp;</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">Pejabat Terkait</td>
-							<td width=\"70%\" style=\"border: 1px solid black;\">&nbsp;{$NamaPejabat}</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">&nbsp;</td>
-							<td width=\"70%\">&nbsp;</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">Substansi Pengaduan</td>
-							<td width=\"70%\" style=\"border: 1px solid black;\">&nbsp;{$data[0]['judul']}</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">&nbsp;</td>
-							<td width=\"70%\">&nbsp;</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">Kesimpulan</td>
-							<td width=\"70%\"  style=\"border: 1px solid black;\">{$penelaahan['kesimpulan']}
-							</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">&nbsp;</td>
-							<td width=\"70%\">&nbsp;</td>
-						</tr>
-						<tr>
-							<td width=\"30%\">Rekomendasi</td>
-							<td width=\"70%\"  style=\"border: 1px solid black;\">{$penelaahan['rekomendasi']}
-							</td>
-						</tr>
-						</table></td>
-						</tr>
-						</table>";
+
+    	$this->view->assign('data',$data[0]); 
+    	$this->view->assign('newFormatTgl',$newFormatTgl); 
+    	$this->view->assign('KelompokPengaduan',$KelompokPengaduan); 
+    	$this->view->assign('kategori_ruang_lingkup',$kategori_ruang_lingkup); 
+    	$this->view->assign('kategori_sub_ruang_lingkup',$kategori_sub_ruang_lingkup); 
+    	$this->view->assign('NamaSatker',$NamaSatker); 
+    	$this->view->assign('NamaPejabat',$NamaPejabat); 
+    	$this->view->assign('penelaahan',$penelaahan); 
+		
+		$html =$this->loadView('pengaduan/cetakpenelaahan');
 		
 		
 		// echo $html;
