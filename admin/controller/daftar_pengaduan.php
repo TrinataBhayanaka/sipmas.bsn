@@ -461,7 +461,7 @@ class daftar_pengaduan extends Controller {
 	
 	
 		$this->reportHelper =$this->loadModel('reportHelper');
-
+	
     	$this->view->assign('data',$data[0]); 
     	$this->view->assign('newFormatTgl',$newFormatTgl); 
     	$this->view->assign('KelompokPengaduan',$KelompokPengaduan); 

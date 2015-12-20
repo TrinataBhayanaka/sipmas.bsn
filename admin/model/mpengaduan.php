@@ -22,12 +22,15 @@ class mpengaduan extends Database {
 
         foreach($res as $key => $val)
         {
-            $sql = "SELECT name,email,hp FROM bsn_users WHERE idUser = '{$val['idUser']}'";
+            $sql = "SELECT name,email,hp,ktp,pekerjaan,alamat FROM bsn_users WHERE idUser = '{$val['idUser']}'";
             $user = $this->fetch($sql,0);
 
             $res[$key]['nameUser'] = $user['name'];
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['hpUser'] = $user['hp'];
+            $res[$key]['ktpUser'] = $user['ktp'];
+            $res[$key]['pekerjaanUser'] = $user['pekerjaan'];
+            $res[$key]['alamatUser'] = $user['alamat'];
 
             $sisaWaktu = $this->getStdWaktu();
             
