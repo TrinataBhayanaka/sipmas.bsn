@@ -425,12 +425,16 @@ class daftar_pengaduan extends Controller {
 	
 	if($penelaahan['kelompok_pengaduan'] == 1){
 		$KelompokPengaduan = 'Berkadar Pengawasan';
+		$kodePengaduan='A';
 	}elseif($penelaahan['kelompok_pengaduan'] == 2){
 		$KelompokPengaduan = 'Tidak Berkadar Pengawasan';
+		$kodePengaduan='B';
 	}elseif($penelaahan['kelompok_pengaduan'] == 3){
 		$KelompokPengaduan = 'Tidak Logis';
+		$kodePengaduan='C';
 	}elseif($penelaahan['kelompok_pengaduan'] == 4){
 		$KelompokPengaduan = 'Bukan Kewenangan BSN';
+		$kodePengaduan='D';
 	}
 	
 	if($penelaahan['pejabat'] == 1){
@@ -465,6 +469,7 @@ class daftar_pengaduan extends Controller {
     	$this->view->assign('data',$data[0]); 
     	$this->view->assign('newFormatTgl',$newFormatTgl); 
     	$this->view->assign('KelompokPengaduan',$KelompokPengaduan); 
+    	$this->view->assign('kodePengaduan',$kodePengaduan); 
     	$this->view->assign('kategori_ruang_lingkup',$kategori_ruang_lingkup); 
     	$this->view->assign('kategori_sub_ruang_lingkup',$kategori_sub_ruang_lingkup); 
     	$this->view->assign('NamaSatker',$NamaSatker); 
@@ -474,8 +479,8 @@ class daftar_pengaduan extends Controller {
 		$html =$this->loadView('pengaduan/cetakpenelaahan');
 		
 		
-		// echo $html;
-		// exit;	
+		echo $html;
+		exit;	
 		$generate = $this->reportHelper->loadMpdf($html, 'pengaduan');
 		
 	}

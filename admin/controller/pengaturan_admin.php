@@ -103,10 +103,9 @@ class pengaturan_admin extends Controller {
 		}
 		if(!$dataWP1){
 			// $this->view->assign('querywp1',"update");
-			$insertWP1[]=array('name' => "Pencatatan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>1,'statusDisposisi'=>1,'statusTindakLanjut'=>1);
-			$insertWP1[]=array('name' => "Penelaahan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
-			$insertWP1[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
-			$insertWP1[]=array('name' => "Pengarsipan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			$insertWP1[]=array('name' => "Penelaahan",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>1,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			$insertWP1[]=array('name' => "Disposisi",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>1,'statusTindakLanjut'=>0);
+			$insertWP1[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>2,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>1);
 			// pr($insertWP1);
 			foreach ($insertWP1 as $keyWP1 => $valueWP1) {
 
@@ -118,10 +117,9 @@ class pengaturan_admin extends Controller {
 		}
 		if(!$dataWP2){
 			// $this->view->assign('querywp2',"update");
-			$insertWP2[]=array('name' => "Pencatatan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>1,'statusDisposisi'=>1,'statusTindakLanjut'=>1);
-			$insertWP2[]=array('name' => "Penelaahan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
-			$insertWP2[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
-			$insertWP2[]=array('name' => "Pengarsipan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			$insertWP2[]=array('name' => "Penelaahan",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>1,'statusDisposisi'=>0,'statusTindakLanjut'=>0);
+			$insertWP2[]=array('name' => "Disposisi",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>1,'statusTindakLanjut'=>0);
+			$insertWP2[]=array('name' => "Tindak Lanjut",'value'=>0,'type'=>3,'create_date'=>date('Y-m-d H:i:s'),'statusPenelaahan'=>0,'statusDisposisi'=>0,'statusTindakLanjut'=>1);
 			// pr($insertWP2);
 			foreach ($insertWP2 as $keyWP2 => $valueWP2) {
 

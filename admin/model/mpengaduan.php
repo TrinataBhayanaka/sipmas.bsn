@@ -29,7 +29,16 @@ class mpengaduan extends Database {
             $res[$key]['emailUser'] = $user['email'];
             $res[$key]['hpUser'] = $user['hp'];
             $res[$key]['ktpUser'] = $user['ktp'];
-            $res[$key]['pekerjaanUser'] = $user['pekerjaan'];
+            if($user['pekerjaan']==1){
+                $pekerjaan="Pelajar";
+            }elseif($user['pekerjaan']==2){
+
+                $pekerjaan="Karyawan Swasta";
+            }elseif($user['pekerjaan']==3){
+                
+                $pekerjaan="Pegawai Negeri";
+            }
+            $res[$key]['pekerjaanUser'] = $pekerjaan;
             $res[$key]['alamatUser'] = $user['alamat'];
 
             $sisaWaktu = $this->getStdWaktu();
